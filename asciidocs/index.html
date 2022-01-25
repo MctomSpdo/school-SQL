@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.16">
+<meta name="author" content="Mctom Spdo">
+<title>Lecture Notes INSY</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+:root{
+--maincolor:#282c34;
+--primarycolor:#f39c12;
+--secondarycolor:#03a9f4;
+--tertiarycolor:#4db6ac;
+--sidebarbackground:#21252b;
+--linkcolor:#f44336;
+--linkcoloralternate:#ff9800;
+--white:#FFFFFF;
+}
+
+/* custom added styles */
+.listingblock > .content > pre{
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+/* Text styles */
+body{font-family: "Noto Sans",sans-serif;background-color: var(--maincolor);color:var(--white);}
+
+h1{color:var(--primarycolor) !important;font-family:"Noto Sans",sans-serif;}
+h2,h3,h4,h5,h6{color:var(--secondarycolor) !important;font-family:"Noto Sans",sans-serif;}
+.title{color:var(--white) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Noto Sans",sans-serif ! important}
+#toc.toc2 a:link{color:var(--linkcolor);}
+blockquote{color:var(--tertiarycolor) !important}
+.quoteblock{color:var(--white)}
+code{color:var(--linkcoloralternate);background-color: var(--sidebarbackground) !important}
+
+
+/* Table styles */
+th{background-color: var(--maincolor);color:var(--white) !important;}
+td{background-color: var(--maincolor);color: var(--linkcoloralternate) !important}
+
+
+#toc.toc2{background-color:var(--sidebarbackground);}
+#toctitle{color:var(--white);}
+
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  table {
+    width: 55vw!important;
+    font-size: 3vw;
+  }
+}
+
+.exampleblock > .content {
+  background-color: var(--maincolor);
+}
+
+a {
+  color: var(--secondarycolor);
+}
+
+.admonitionblock td.icon .icon-tip::before {
+  text-shadow: none;
+  color: var(--white);
+}
+.admonitionblock td.icon .icon-note::before {
+  color: var(--tertiarycolor);
+}
+.admonitionblock td.icon .icon-important::before {
+  color: var(--linkcolor);
+}
+/*.admonitionblock td.icon .icon-caution::before {
+  color: var(--linkcoloralternate);
+}*/
+.admonitionblock td.icon .icon-warning::before {
+  color: var(--primarycolor);
+}
+
+#preamble > .sectionbody > .paragraph:first-of-type p {
+  color: var(--white);
+}
+
+.quoteblock blockquote::before {
+  color: var(--primarycolor);
+}
+.quoteblock .attribution cite, .verseblock .attribution cite {
+  color: var(--white);
+}
+.verseblock pre {
+  color: var(--white);
+}
+.quoteblock blockquote, .quoteblock blockquote p {
+  color: var(--white);
+}
+
+.sidebarblock {
+  background: var(--sidebarbackground);
+}
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+#header .details {
+  color: var(--white);
+}
+#header .details span.email a {
+  color: var(--linkcoloralternate);
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Lecture Notes INSY</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2022-01-25</span>
+<br><span id="revremark">ITP</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_tables">1. Tables</a>
+<ul class="sectlevel2">
+<li><a href="#_creating_tables">1.1. Creating Tables</a></li>
+<li><a href="#_dropping_tables">1.2. Dropping Tables</a></li>
+<li><a href="#_alter_table">1.3. Alter Table</a></li>
+</ul>
+</li>
+<li><a href="#_select_statements">2. Select Statements</a>
+<ul class="sectlevel2">
+<li><a href="#_literals">2.1. Literals</a></li>
+<li><a href="#_system_variables">2.2. System variables</a></li>
+<li><a href="#_functions">2.3. Functions</a></li>
+<li><a href="#_alphanumerical_functions">2.4. Alphanumerical Functions</a></li>
+<li><a href="#_date_functions">2.5. Date Functions</a></li>
+<li><a href="#_statistical_functions">2.6. Statistical Functions</a></li>
+</ul>
+</li>
+<li><a href="#_clauses">3. Clauses</a>
+<ul class="sectlevel2">
+<li><a href="#_table_and_columnnames">3.1. Table and Columnnames</a></li>
+</ul>
+</li>
+<li><a href="#_null">4. NULL</a>
+<ul class="sectlevel2">
+<li><a href="#_examples">4.1. Examples:</a></li>
+</ul>
+</li>
+<li><a href="#_in_operator">5. IN Operator</a></li>
+<li><a href="#_order_by">6. Order by</a></li>
+<li><a href="#_group_by">7. Group By</a></li>
+<li><a href="#_join">8. JOIN</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_tables">1. Tables</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_creating_tables">1.1. Creating Tables</h3>
+<div class="paragraph">
+<p>Creates a new Table</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">create</span> <span style="color:#339;font-weight:bold">table</span> TABLE_NAME
+    [(column_name [colum integfrity rule], column_name ...., ])]
+    <span style="color:#080;font-weight:bold">as</span> <span style="color:#B06;font-weight:bold">select</span> COLUMN_NAME [, column_name ... , ...] <span style="color:#080;font-weight:bold">from</span> TABLE_NAME;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dropping_tables">1.2. Dropping Tables</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">drop</span> <span style="color:#339;font-weight:bold">table</span> TABLE_NAME;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_alter_table">1.3. Alter Table</h3>
+<div class="sect3">
+<h4 id="_add_column">1.3.1. Add column</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">alter</span> <span style="color:#339;font-weight:bold">table</span> TABLE_NAME <span style="color:#B06;font-weight:bold">add</span>
+    (COLUMN_NAME data_type [<span style="color:#088;font-weight:bold">default</span> expression]
+    [<span style="color:#339;font-weight:bold">column</span> integrity rule][, COLUMN_NAME; ....];</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_synonyms_for_table_names">1.3.2. Synonyms for table names</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">create</span> [public] synonym SYNONYM_NAME <span style="color:#080;font-weight:bold">for</span> TABLE_NAME</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_select_statements">2. Select Statements</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Select statements are used to get data from the database.</p>
+</div>
+<div class="sect2">
+<h3 id="_literals">2.1. Literals</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Literals</th>
+<th class="tableblock halign-left valign-top">example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">decimal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.22</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">floating point</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.999e2</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_system_variables">2.2. System variables</h3>
+<div class="paragraph">
+<p>Get the current User:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> user <span style="color:#080;font-weight:bold">from</span> dual;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Name and Number of the row:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> rownum, name <span style="color:#080;font-weight:bold">from</span> players;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_functions">2.3. Functions</h3>
+<div class="sect3">
+<h4 id="_numerical_functions">2.3.1. Numerical Functions:</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Expressions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">*</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mod()</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> amount<span style="color:#00D">+2</span> <span style="color:#080;font-weight:bold">from</span> dual;
+
+<span style="color:#B06;font-weight:bold">select</span> <span style="color:#00D">3</span><span style="color:#00D">+4</span>*<span style="color:#00D">2</span> <span style="color:#080;font-weight:bold">from</span> dual;
+
+<span style="color:#B06;font-weight:bold">select</span> mod(<span style="color:#00D">13</span>,<span style="color:#00D">5</span>) <span style="color:#080;font-weight:bold">from</span> dual;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_alphanumerical_functions">2.4. Alphanumerical Functions</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Expressions</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">length()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gives the length from a String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">decode()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">allows you to replace certain parts of a String with another String <a href="https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions040.htm">doc</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">substr()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gives part of a given String <a href="https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions162.htm">doc</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">instr()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">to find a certain part of a String in a given String <a href="https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions068.htm">doc</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">upper()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transforms a given String to uppercase</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">lower()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transforms a given String to lowercase</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_date_functions">2.5. Date Functions</h3>
+<div class="paragraph">
+<p>Difference between 2 Dates:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> sysdate - pen_date <span style="color:#080;font-weight:bold">from</span> penalties;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Parse Date:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> to_date(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">2022-01-25</span><span style="color:#710">'</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">YYYY-MM-DD</span><span style="color:#710">'</span></span>) <span style="color:#080;font-weight:bold">from</span> dual;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Date to String:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> to_char(sysdate, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">DD-MM-YY</span><span style="color:#710">'</span></span>) <span style="color:#080;font-weight:bold">from</span> dual;</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_formats_for_dates">2.5.1. Formats for Dates</h4>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> to_char(PEN_DATE, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">DD-MM.YY</span><span style="color:#710">'</span></span>) <span style="color:#080;font-weight:bold">from</span> PENALTIES;
+
+<span style="color:#B06;font-weight:bold">select</span> to_char(sysdate, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">DD-MM.YY</span><span style="color:#710">'</span></span>) <span style="color:#080;font-weight:bold">from</span> dual;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Formats:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">FormatString</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DD, Dy, Day</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Days</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MM, Mon, Month</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Months (3 letters), (English Months)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">YY, YYYY</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Years (2 or 4 digits)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HH, HH12, HH24</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hours (12 or 24h format)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Minutes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Seconds</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The case of the Formats will translate to the output
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_statistical_functions">2.6. Statistical Functions</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">count()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">counts the numer of rows</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gets the tiniest Value out of a column</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">max()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gets the biggest Value out of a column</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">avg()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">average out of all the values</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">stddev()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Standard definition out of all the values</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">variance()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Variance between all the values</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> <span style="color:#369;font-weight:bold">count</span>(*) <span style="color:#080;font-weight:bold">from</span> dual; <span style="color:#777">/* returns: 1*/</span>
+
+<span style="color:#B06;font-weight:bold">select</span> * <span style="color:#080;font-weight:bold">from</span> dual;
+
+<span style="color:#777">/* Amount of players that are from Stratford */</span>
+<span style="color:#B06;font-weight:bold">select</span> <span style="color:#369;font-weight:bold">count</span>(*) <span style="color:#080;font-weight:bold">from</span> players <span style="color:#080;font-weight:bold">where</span> TOWN = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Stratford</span><span style="color:#710">'</span></span>;
+
+<span style="color:#777">/* highest penalty */</span>
+<span style="color:#B06;font-weight:bold">select</span> <span style="color:#369;font-weight:bold">max</span>(AMOUNT) <span style="color:#080;font-weight:bold">from</span> PENALTIES;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_clauses">3. Clauses</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A SQL statement is made out of Clauses, and they could look like this;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> .. <span style="color:#080;font-weight:bold">from</span> ..
+[<span style="color:#080;font-weight:bold">WHERE</span> ..]
+[CONNECT <span style="color:#080;font-weight:bold">BY</span> ..]
+[<span style="color:#080;font-weight:bold">GROUP</span> <span style="color:#080;font-weight:bold">BY</span> ..]
+    [<span style="color:#080;font-weight:bold">HAVING</span> ..]
+[<span style="color:#080;font-weight:bold">ORDER</span> <span style="color:#080;font-weight:bold">BY</span> ..]</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_table_and_columnnames">3.1. Table and Columnnames</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> PEN_DATE <span style="color:#080;font-weight:bold">from</span> PENALTIES;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>is the same as:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> MCTOM.PENALTIES.PEN_DATE <span style="color:#080;font-weight:bold">from</span> MCTOM.PENALTIES;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>remove redundant lines:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> <span style="color:#080;font-weight:bold">distinct</span> PLAYERNO <span style="color:#080;font-weight:bold">from</span> PLAYERS</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_null">4. NULL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Null is special operator.<br>
+If a Value is NULL it is unknown or undefined.</p>
+</div>
+<div class="paragraph">
+<p>if you want to check if a Value is null, you can do this with "is null"</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+You can not check null with "= null"!
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Condition and given Datatype</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Given Value</th>
+<th class="tableblock halign-left valign-top">Condition</th>
+<th class="tableblock halign-left valign-top">Evaluates to:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">is null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">is not null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">is null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">is not null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">!= null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UNKNOWN</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">= null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UNKNOWN</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="_examples">4.1. Examples:</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#777">/*all players that are playing professionally*/</span>
+<span style="color:#B06;font-weight:bold">select</span> * <span style="color:#080;font-weight:bold">from</span> PLAYERS <span style="color:#080;font-weight:bold">where</span> LEAGUENO <span style="color:#080;font-weight:bold">is</span> <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_in_operator">5. IN Operator</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>with the In operator, you can check if a value is in a list of Values.<br>
+Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#777">/* Players with the numbers 6, 8, 27, 44 and 104 */</span>
+<span style="color:#B06;font-weight:bold">select</span> * <span style="color:#080;font-weight:bold">from</span> PLAYERS <span style="color:#080;font-weight:bold">where</span> PLAYERNO <span style="color:#080;font-weight:bold">in</span> (<span style="color:#00D">6</span>, <span style="color:#00D">8</span>, <span style="color:#00D">27</span>, <span style="color:#00D">44</span>, <span style="color:#00D">104</span>)
+
+<span style="color:#777">/* with the help of subqueries:
+   All Players that have one or more Penalty: */</span>
+<span style="color:#B06;font-weight:bold">select</span> * <span style="color:#080;font-weight:bold">from</span> PLAYERS
+<span style="color:#080;font-weight:bold">where</span> PLAYERNO <span style="color:#080;font-weight:bold">in</span> (<span style="color:#B06;font-weight:bold">select</span> <span style="color:#080;font-weight:bold">distinct</span> PLAYERNO <span style="color:#080;font-weight:bold">from</span> PENALTIES);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="paragraph">
+<p>Output PlayerNo, name and initials of all Players, that have won at least 1 Match.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> PLAYERNO, NAME, INITIALS <span style="color:#080;font-weight:bold">from</span> PLAYERS
+<span style="color:#080;font-weight:bold">where</span> PLAYERNO <span style="color:#080;font-weight:bold">in</span>
+(<span style="color:#B06;font-weight:bold">select</span> PLAYERNO <span style="color:#080;font-weight:bold">from</span> MATCHES <span style="color:#080;font-weight:bold">where</span> WON &gt;= <span style="color:#00D">1</span>);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_order_by">6. Order by</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Order by sorts the output by a given value.</p>
+</div>
+<div class="paragraph">
+<p>Example: All Towns and how many Players are in there sorted by Town</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> town, NAME <span style="color:#080;font-weight:bold">as</span> Players <span style="color:#080;font-weight:bold">from</span> PLAYERS <span style="color:#080;font-weight:bold">order</span> <span style="color:#080;font-weight:bold">by</span> TOWN;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_group_by">7. Group By</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Groups the rows by a certain argument. For example groups the players by town:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> TOWN, <span style="color:#369;font-weight:bold">count</span>(*) <span style="color:#080;font-weight:bold">as</span> Anzahl
+<span style="color:#080;font-weight:bold">from</span> PLAYERS
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> TOWN;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Amount of penalties for each year:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> to_char(PEN_DATE, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">yyyy</span><span style="color:#710">'</span></span>) <span style="color:#080;font-weight:bold">as</span> <span style="color:#0a8;font-weight:bold">YEAR</span>, <span style="color:#369;font-weight:bold">count</span>(*) <span style="color:#080;font-weight:bold">as</span> AMOUNT, <span style="color:#369;font-weight:bold">sum</span>(AMOUNT) || <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20"> €</span><span style="color:#710">'</span></span> <span style="color:#080;font-weight:bold">as</span> PENALTIES
+<span style="color:#080;font-weight:bold">from</span> PENALTIES
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> to_char(PEN_DATE, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">yyyy</span><span style="color:#710">'</span></span>)
+<span style="color:#080;font-weight:bold">order</span> <span style="color:#080;font-weight:bold">by</span> <span style="color:#00D">1</span>;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_join">8. JOIN</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A select statement is a join, when there are at least 2 Tables and a where statement that connects the Tables with each other.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> * <span style="color:#080;font-weight:bold">from</span> PLAYERS, PENALTIES;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this case we would get a cartesisches Product, that means that each row will be outputted with each row.<br>
+This is why we have to check that the Players and the penalties have the same Playerno.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> pl.PLAYERNO, pl.NAME, <span style="color:#369;font-weight:bold">sum</span>(pe.AMOUNT) <span style="color:#080;font-weight:bold">as</span> PENALTIES
+<span style="color:#080;font-weight:bold">from</span> PLAYERS pl, PENALTIES pe
+<span style="color:#080;font-weight:bold">where</span> pl.PLAYERNO = pe.PLAYERNO <span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> pl.NAME, pl.PLAYERNO;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2022-01-25 14:07:26 +0100
+</div>
+</div>
+</body>
+</html>

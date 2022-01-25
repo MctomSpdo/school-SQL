@@ -1,0 +1,365 @@
+= Lecture Notes INSY
+Mctom Spdo
+1.0.0, {docdate}: ITP
+ifndef::imagesdir[:imagesdir: images]
+//:toc-placement!:  // prevents the generation of the doc at this position, so it can be printed afterwards
+:sourcedir: ../src/main/java
+:icons: font
+:sectnums:    // Nummerierung der Überschriften / section numbering
+:toc: left
+:stylesheet: ./css/dark.css
+
+== Tables
+
+=== Creating Tables
+Creates a new Table
+[source, sql]
+----
+create table TABLE_NAME
+    [(column_name [colum integfrity rule], column_name ...., ])]
+    as select COLUMN_NAME [, column_name ... , ...] from TABLE_NAME;
+----
+
+=== Dropping Tables
+[source, sql]
+----
+drop table TABLE_NAME;
+----
+
+=== Alter Table
+
+==== Add column
+[source, sql]
+----
+alter table TABLE_NAME add
+    (COLUMN_NAME data_type [default expression]
+    [column integrity rule][, COLUMN_NAME; ....];
+----
+
+==== Synonyms for table names
+[source, sql]
+----
+create [public] synonym SYNONYM_NAME for TABLE_NAME
+----
+
+== Select Statements
+Select statements are used to get data from the database.
+
+=== Literals
+
+|===
+|Literals | example
+
+|Integer
+|3
+
+|decimal
+|1.22
+
+|floating point
+|0.999e2
+|===
+
+=== System variables
+Get the current User:
+[source, sql]
+----
+select user from dual;
+----
+
+Name and Number of the row:
+[source, sql]
+----
+select rownum, name from players;
+----
+
+=== Functions
+
+==== Numerical Functions:
+|===
+| Expressions
+
+|+
+|-
+|*
+|/
+|mod()
+|===
+
+Examples:
+
+[source, sql]
+----
+select amount+2 from dual;
+
+select 3+4*2 from dual;
+
+select mod(13,5) from dual;
+----
+
+=== Alphanumerical Functions
+|===
+|Expressions | Description
+
+|length()
+| gives the length from a String
+
+|decode()
+|allows you to replace certain parts of a String with another String https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions040.htm[doc]
+
+|substr()
+|gives part of a given String https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions162.htm[doc]
+
+|instr()
+|to find a certain part of a String in a given String https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions068.htm[doc]
+
+|upper()
+|Transforms a given String to uppercase
+
+|lower()
+|Transforms a given String to lowercase
+|===
+
+=== Date Functions
+Difference between 2 Dates:
+
+[source, sql]
+----
+select sysdate - pen_date from penalties;
+----
+
+Parse Date:
+
+[source, sql]
+----
+select to_date('2022-01-25', 'YYYY-MM-DD') from dual;
+----
+
+Date to String:
+
+[source, sql]
+----
+select to_char(sysdate, 'DD-MM-YY') from dual;
+----
+
+==== Formats for Dates
+Examples:
+
+[source, sql]
+----
+select to_char(PEN_DATE, 'DD-MM.YY') from PENALTIES;
+
+select to_char(sysdate, 'DD-MM.YY') from dual;
+----
+
+Formats:
+|===
+|FormatString | Description
+
+|DD, Dy, Day
+|Days
+
+|MM, Mon, Month
+|Months (3 letters), (English Months)
+
+|YY, YYYY
+| Years (2 or 4 digits)
+
+|HH, HH12, HH24
+| Hours (12 or 24h format)
+
+|MI
+|Minutes
+
+|SS
+|Seconds
+|===
+NOTE: The case of the Formats will translate to the output
+
+=== Statistical Functions
+|===
+|Function | Description
+
+| count()
+| counts the numer of rows
+
+|min()
+|gets the tiniest Value out of a column
+
+|max()
+| gets the biggest Value out of a column
+
+|avg()
+|average out of all the values
+
+|stddev()
+|Standard definition out of all the values
+
+|variance()
+|Variance between all the values
+|===
+
+Examples:
+
+[source, sql]
+----
+select count(*) from dual; /* returns: 1*/
+
+select * from dual;
+
+/* Amount of players that are from Stratford */
+select count(*) from players where TOWN = 'Stratford';
+
+/* highest penalty */
+select max(AMOUNT) from PENALTIES;
+----
+
+== Clauses
+A SQL statement is made out of Clauses, and they could look like this;
+
+[source, sql]
+----
+select .. from ..
+[WHERE ..]
+[CONNECT BY ..]
+[GROUP BY ..]
+    [HAVING ..]
+[ORDER BY ..]
+----
+
+=== Table and Columnnames
+
+[source,sql]
+----
+select PEN_DATE from PENALTIES;
+----
+
+is the same as:
+
+[source, sql]
+----
+select MCTOM.PENALTIES.PEN_DATE from MCTOM.PENALTIES;
+----
+
+remove redundant lines:
+[source, sql]
+----
+select distinct PLAYERNO from PLAYERS
+----
+
+== NULL
+Null is special operator. +
+If a Value is NULL it is unknown or undefined.
+
+if you want to check if a Value is null, you can do this with "is null"
+
+IMPORTANT: You can not check null with "= null"!
+
+.Condition and given Datatype
+|===
+|Given Value | Condition | Evaluates to:
+
+|10
+|is null
+|false
+
+|10
+|is not null
+| true
+
+|null
+|is null
+|true
+
+|null
+|is not null
+|false
+
+|10
+|!= null
+|UNKNOWN
+
+|10
+| = null
+| UNKNOWN
+|===
+
+=== Examples:
+[source, sql]
+----
+/*all players that are playing professionally*/
+select * from PLAYERS where LEAGUENO is not null;
+----
+
+== IN Operator
+with the In operator, you can check if a value is in a list of Values. +
+Examples:
+
+[source, sql]
+----
+/* Players with the numbers 6, 8, 27, 44 and 104 */
+select * from PLAYERS where PLAYERNO in (6, 8, 27, 44, 104)
+
+/* with the help of subqueries:
+   All Players that have one or more Penalty: */
+select * from PLAYERS
+where PLAYERNO in (select distinct PLAYERNO from PENALTIES);
+----
+
+Example:
+
+Output PlayerNo, name and initials of all Players, that have won at least 1 Match.
+
+[source, sql]
+----
+select PLAYERNO, NAME, INITIALS from PLAYERS
+where PLAYERNO in
+(select PLAYERNO from MATCHES where WON >= 1);
+----
+
+== Order by
+Order by sorts the output by a given value.
+
+Example: All Towns and how many Players are in there sorted by Town
+
+[source, sql]
+----
+select town, NAME as Players from PLAYERS order by TOWN;
+----
+
+== Group By
+Groups the rows by a certain argument. For example groups the players by town:
+
+[source, sql]
+----
+select TOWN, count(*) as Anzahl
+from PLAYERS
+group by TOWN;
+----
+
+Amount of penalties for each year:
+
+[source, sql]
+----
+select to_char(PEN_DATE, 'yyyy') as YEAR, count(*) as AMOUNT, sum(AMOUNT) || ' €' as PENALTIES
+from PENALTIES
+group by to_char(PEN_DATE, 'yyyy')
+order by 1;
+----
+
+== JOIN
+A select statement is a join, when there are at least 2 Tables and a where statement that connects the Tables with each other.
+
+[source, sql]
+----
+select * from PLAYERS, PENALTIES;
+----
+In this case we would get a cartesisches Product, that means that each row will be outputted with each row. +
+This is why we have to check that the Players and the penalties have the same Playerno.
+
+[source, sql]
+----
+select pl.PLAYERNO, pl.NAME, sum(pe.AMOUNT) as PENALTIES
+from PLAYERS pl, PENALTIES pe
+where pl.PLAYERNO = pe.PLAYERNO group by pl.NAME, pl.PLAYERNO;
+----
