@@ -361,5 +361,45 @@ This is why we have to check that the Players and the penalties have the same Pl
 ----
 select pl.PLAYERNO, pl.NAME, sum(pe.AMOUNT) as PENALTIES
 from PLAYERS pl, PENALTIES pe
-where pl.PLAYERNO = pe.PLAYERNO group by pl.NAME, pl.PLAYERNO;
+where pl.PLAYERNO = pe.PLAYERNO
+group by pl.NAME, pl.PLAYERNO;
+----
+
+The most used Jointype is the Equijoin (Natural Join). +
+// Der am häufigsten verwendete Jointyp ist der Equijoin (Vergleichsoperator = )
+
+Join Types:
+https://mctomspdo.github.io/school-SQL/docs/Join_NEU.pdf[Join_NEU.pdf]
+
+=== Natural Join
+
+[source, sql]
+----
+select emp.ENAME, dept.DNAME from EMP, DEPT
+where EMP.DEPTNO = DEPT.DEPTNO;
+----
+
+or
+
+[source, sql]
+----
+select d.DEPTNO, e.ENAME, d.DNAME from EMP e, DEPT d
+where e.DEPTNO = d.DEPTNO;
+----
+
+or
+
+[source, sql]
+----
+select EMP.ENAME, DEPT.DNAME from EMP NATURAL join DEPT;
+
+/* it can be also be written as: */
+select EMP.ENAME, DEPT.DNAME from EMP INNER join DEPT on EMP.DEPTNO = DEPT.DEPTNO;
+----
+
+inner Join combines the data from both Tables:
+
+[source, sql]
+----
+select * from EMP e inner join DEPT d on e.DEPTNO = d.DEPTNO;
 ----

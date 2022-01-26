@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.16">
+<meta name="author" content="Mctom Spdo">
+<title>Übung 5</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+:root{
+--maincolor:#282c34;
+--primarycolor:#f39c12;
+--secondarycolor:#03a9f4;
+--tertiarycolor:#4db6ac;
+--sidebarbackground:#21252b;
+--linkcolor:#f44336;
+--linkcoloralternate:#ff9800;
+--white:#FFFFFF;
+}
+
+/* custom added styles */
+.listingblock > .content > pre{
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+/* Text styles */
+body{font-family: "Noto Sans",sans-serif;background-color: var(--maincolor);color:var(--white);}
+
+h1{color:var(--primarycolor) !important;font-family:"Noto Sans",sans-serif;}
+h2,h3,h4,h5,h6{color:var(--secondarycolor) !important;font-family:"Noto Sans",sans-serif;}
+.title{color:var(--white) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Noto Sans",sans-serif ! important}
+#toc.toc2 a:link{color:var(--linkcolor);}
+blockquote{color:var(--tertiarycolor) !important}
+.quoteblock{color:var(--white)}
+code{color:var(--linkcoloralternate);background-color: var(--sidebarbackground) !important}
+
+
+/* Table styles */
+th{background-color: var(--maincolor);color:var(--white) !important;}
+td{background-color: var(--maincolor);color: var(--linkcoloralternate) !important}
+
+
+#toc.toc2{background-color:var(--sidebarbackground);}
+#toctitle{color:var(--white);}
+
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  table {
+    width: 55vw!important;
+    font-size: 3vw;
+  }
+}
+
+.exampleblock > .content {
+  background-color: var(--maincolor);
+}
+
+a {
+  color: var(--secondarycolor);
+}
+
+.admonitionblock td.icon .icon-tip::before {
+  text-shadow: none;
+  color: var(--white);
+}
+.admonitionblock td.icon .icon-note::before {
+  color: var(--tertiarycolor);
+}
+.admonitionblock td.icon .icon-important::before {
+  color: var(--linkcolor);
+}
+/*.admonitionblock td.icon .icon-caution::before {
+  color: var(--linkcoloralternate);
+}*/
+.admonitionblock td.icon .icon-warning::before {
+  color: var(--primarycolor);
+}
+
+#preamble > .sectionbody > .paragraph:first-of-type p {
+  color: var(--white);
+}
+
+.quoteblock blockquote::before {
+  color: var(--primarycolor);
+}
+.quoteblock .attribution cite, .verseblock .attribution cite {
+  color: var(--white);
+}
+.verseblock pre {
+  color: var(--white);
+}
+.quoteblock blockquote, .quoteblock blockquote p {
+  color: var(--white);
+}
+
+.sidebarblock {
+  background: var(--sidebarbackground);
+}
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+#header .details {
+  color: var(--white);
+}
+#header .details span.email a {
+  color: var(--linkcoloralternate);
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Übung 5</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2022-01-26</span>
+<br><span id="revremark">ITP</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_abfrage">1. Abfrage:</a></li>
+<li><a href="#_abfrage_2">2. Abfrage:</a></li>
+<li><a href="#_abfrage_3">3. Abfrage</a></li>
+<li><a href="#_abfrage_4">4. Abfrage</a></li>
+<li><a href="#_abfrage_5">5. Abfrage</a></li>
+<li><a href="#_abfrage_6">6. Abfrage</a></li>
+<li><a href="#_abfrage_7">7. Abfrage</a></li>
+<li><a href="#_abfrage_8">8. Abfrage</a></li>
+<li><a href="#_abfrage_9">9. Abfrage</a></li>
+<li><a href="#_abfrage_10">10. Abfrage</a></li>
+<li><a href="#_abfrage_11">11. Abfrage</a></li>
+<li><a href="#_abfrage_12">12. Abfrage</a></li>
+<li><a href="#_abfrage_13">13. Abfrage</a></li>
+<li><a href="#_abfrage_14">14. Abfrage</a></li>
+<li><a href="#_abfrage_15">15. Abfrage</a></li>
+<li><a href="#_abfrage_16">16. Abfrage</a></li>
+<li><a href="#_abfrage_17">17. Abfrage</a></li>
+<li><a href="#_abfrage_18">18. Abfrage</a></li>
+<li><a href="#_abfrage_19">19. Abfrage</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_abfrage">1. Abfrage:</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Anzahl der Neuzugänge pro Jahr</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> YEAR_JOINED, <span style="color:#369;font-weight:bold">count</span>(*) <span style="color:#080;font-weight:bold">as</span> Amount
+<span style="color:#080;font-weight:bold">from</span> PLAYERS
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> YEAR_JOINED
+<span style="color:#080;font-weight:bold">order</span> <span style="color:#080;font-weight:bold">by</span> <span style="color:#00D">1</span>;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_2">2. Abfrage:</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Anzahl und durchschnittliche Höhe der Strafen pro Spieler</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> (PLAYERNO), <span style="color:#369;font-weight:bold">count</span>(*) <span style="color:#080;font-weight:bold">as</span> Anzahl, round(<span style="color:#369;font-weight:bold">avg</span>(AMOUNT), <span style="color:#00D">2</span>) <span style="color:#080;font-weight:bold">as</span> Average
+<span style="color:#080;font-weight:bold">from</span> PENALTIES
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> PLAYERNO;
+
+<span style="color:#B06;font-weight:bold">select</span> NAME <span style="color:#080;font-weight:bold">from</span> PLAYERS
+<span style="color:#080;font-weight:bold">where</span> PLAYERNO <span style="color:#080;font-weight:bold">in</span> (
+<span style="color:#B06;font-weight:bold">select</span> PLAYERNO
+<span style="color:#080;font-weight:bold">from</span> PENALTIES
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> PLAYERNO);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_3">3. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Anzahl der Strafen für die Jahre vor 1983</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> TO_CHAR(PEN_DATE, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">yyyy</span><span style="color:#710">'</span></span>) <span style="color:#080;font-weight:bold">as</span> <span style="color:#0a8;font-weight:bold">Year</span>, <span style="color:#369;font-weight:bold">count</span>(*) <span style="color:#080;font-weight:bold">as</span> Amount
+<span style="color:#080;font-weight:bold">from</span> PENALTIES
+<span style="color:#080;font-weight:bold">where</span> TO_CHAR(PEN_DATE, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">yyyy</span><span style="color:#710">'</span></span>) &lt; <span style="color:#00D">1983</span>
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> TO_CHAR(PEN_DATE, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">yyyy</span><span style="color:#710">'</span></span>);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_4">4. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In welchen Städten leben mehr als 4 Spieler</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> TOWN, <span style="color:#369;font-weight:bold">count</span>(*)
+<span style="color:#080;font-weight:bold">from</span> PLAYERS
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> TOWN
+<span style="color:#080;font-weight:bold">having</span> <span style="color:#369;font-weight:bold">count</span>(*) &gt; <span style="color:#00D">4</span>;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_5">5. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>PLAYERNO derjenigen Spieler, deren Strafensumme über 150 liegt</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> PLAYERNO, <span style="color:#369;font-weight:bold">sum</span>(AMOUNT)
+<span style="color:#080;font-weight:bold">from</span> PENALTIES
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> PLAYERNO
+<span style="color:#080;font-weight:bold">having</span> <span style="color:#369;font-weight:bold">sum</span>(AMOUNT) &gt; <span style="color:#00D">150</span>;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_6">6. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>NAME und INITIALS derjenigen Spieler, die mehr als eine Strafe erhalten haben</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> NAME, INITIALS
+<span style="color:#080;font-weight:bold">from</span> PLAYERS
+<span style="color:#080;font-weight:bold">where</span> PLAYERNO <span style="color:#080;font-weight:bold">in</span> (
+<span style="color:#B06;font-weight:bold">select</span> PLAYERNO
+<span style="color:#080;font-weight:bold">from</span> PENALTIES
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> PLAYERNO
+<span style="color:#080;font-weight:bold">having</span> <span style="color:#369;font-weight:bold">count</span>(*) &gt; <span style="color:#00D">1</span>);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_7">7. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In welchen Jahren gab es genau 2 Strafen</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> TO_CHAR(PEN_DATE, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">yyyy</span><span style="color:#710">'</span></span>), <span style="color:#369;font-weight:bold">count</span>(*)
+<span style="color:#080;font-weight:bold">from</span> PENALTIES
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> TO_CHAR(PEN_DATE, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">yyyy</span><span style="color:#710">'</span></span>)
+<span style="color:#080;font-weight:bold">having</span> <span style="color:#369;font-weight:bold">count</span>(*) = <span style="color:#00D">2</span>;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_8">8. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>NAME und INITIALS der Spieler, die 2 oder mehr Strafen über $40 erhalten haben</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> NAME, INITIALS
+<span style="color:#080;font-weight:bold">from</span> PLAYERS
+<span style="color:#080;font-weight:bold">where</span> PLAYERNO <span style="color:#080;font-weight:bold">in</span>(
+<span style="color:#B06;font-weight:bold">select</span> PLAYERNO
+<span style="color:#080;font-weight:bold">from</span> PENALTIES
+<span style="color:#080;font-weight:bold">where</span> AMOUNT &gt; <span style="color:#00D">40</span>
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> PLAYERNO
+<span style="color:#080;font-weight:bold">having</span> <span style="color:#369;font-weight:bold">count</span>(*) &gt;= <span style="color:#00D">2</span>);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_9">9. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>NAME und INITIALS des Spielers mit der höchsten Strafensumme</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> NAME, INITIALS
+<span style="color:#080;font-weight:bold">from</span> PLAYERS
+<span style="color:#080;font-weight:bold">where</span> PLAYERNO <span style="color:#080;font-weight:bold">in</span> (
+<span style="color:#B06;font-weight:bold">select</span> PLAYERNO
+<span style="color:#080;font-weight:bold">from</span> PENALTIES
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> PLAYERNO
+<span style="color:#080;font-weight:bold">having</span> <span style="color:#369;font-weight:bold">sum</span>(AMOUNT) = (
+<span style="color:#B06;font-weight:bold">select</span> <span style="color:#369;font-weight:bold">max</span>(<span style="color:#369;font-weight:bold">sum</span>(AMOUNT))
+<span style="color:#080;font-weight:bold">from</span> PENALTIES <span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> PLAYERNO));</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_10">10. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In welchem Jahr gab es die meisten Strafen und wie viele waren es</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> TO_CHAR(PEN_DATE, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">yyyy</span><span style="color:#710">'</span></span>), <span style="color:#369;font-weight:bold">count</span>(*)
+<span style="color:#080;font-weight:bold">from</span> PENALTIES
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> TO_CHAR(PEN_DATE, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">yyyy</span><span style="color:#710">'</span></span>)
+<span style="color:#080;font-weight:bold">having</span> <span style="color:#369;font-weight:bold">count</span>(*) = (
+<span style="color:#B06;font-weight:bold">select</span> <span style="color:#369;font-weight:bold">max</span>(<span style="color:#369;font-weight:bold">count</span>(*))
+<span style="color:#080;font-weight:bold">from</span> PENALTIES
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> TO_CHAR(PEN_DATE, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">yyyy</span><span style="color:#710">'</span></span>));</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_11">11. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>PLAYERNO, TEAMNO, WON - LOST sortiert nach letzterem</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> PLAYERNO, <span style="color:#369;font-weight:bold">sum</span>(WON) - <span style="color:#369;font-weight:bold">sum</span>(LOST)
+<span style="color:#080;font-weight:bold">from</span> MATCHES
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> PLAYERNO;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_12">12. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ausgabe aller Mitarbeiter aus Abteilung 30 geordnet nach ihrem Gehalt beginnend mit
+dem höchsten Gehalt</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> *
+<span style="color:#080;font-weight:bold">from</span> EMP
+<span style="color:#080;font-weight:bold">where</span> DEPTNO = <span style="color:#00D">30</span>
+<span style="color:#080;font-weight:bold">order</span> <span style="color:#080;font-weight:bold">by</span> SAL <span style="color:#088;font-weight:bold">desc</span>;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_13">13. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ausgabe aller Mitarbeiter geordnet nach Job und innerhalb des Jobs nach ihrem Gehalt</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> *
+<span style="color:#080;font-weight:bold">from</span> EMP
+<span style="color:#080;font-weight:bold">order</span> <span style="color:#080;font-weight:bold">by</span> JOB, SAL;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_14">14. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ausgabe aller Mitarbeiter geordnet nach ihrem Anstellungsjahr absteigend und innerhalb
+des Jahres nach ihrem Namen</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> *
+<span style="color:#080;font-weight:bold">from</span> EMP
+<span style="color:#080;font-weight:bold">order</span> <span style="color:#080;font-weight:bold">by</span> HIREDATE <span style="color:#088;font-weight:bold">desc</span>, ENAME;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_15">15. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ausgabe aller Verkäufer in absteigender Reihenfolge bezüglich dem Verhältnis Provision
+zu Gehalt</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> *
+<span style="color:#080;font-weight:bold">from</span> EMP
+<span style="color:#080;font-weight:bold">order</span> <span style="color:#080;font-weight:bold">by</span> SAL - nvl(COMM, <span style="color:#00D">0</span>);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_16">16. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ausgabe des Durchschnittsgehalts zu jeder Abteilungsnummer</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> DEPTNO, round(<span style="color:#369;font-weight:bold">avg</span>(SAL), <span style="color:#00D">2</span>) <span style="color:#080;font-weight:bold">as</span> Durchschnittsgehalt
+<span style="color:#080;font-weight:bold">from</span> EMP
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> DEPTNO;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_17">17. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Berechne die durchschnittlichen Jahresgehälter derjenigen Jobs, die von mehr als 2 Mitarbeitern
+ausgeführt werden</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> JOB, round(<span style="color:#369;font-weight:bold">avg</span>(SAL), <span style="color:#00D">2</span>) <span style="color:#080;font-weight:bold">as</span> AVGSAL
+<span style="color:#080;font-weight:bold">from</span> EMP
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> JOB
+<span style="color:#080;font-weight:bold">having</span> <span style="color:#369;font-weight:bold">count</span>(*) &gt; <span style="color:#00D">2</span>;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_18">18. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ausgabe aller Abteilungsnummern mit mindestens 2 Büroangestellten</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> DEPTNO
+<span style="color:#080;font-weight:bold">from</span> EMP
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> DEPTNO
+<span style="color:#080;font-weight:bold">having</span> <span style="color:#369;font-weight:bold">count</span>(*) &gt; <span style="color:#00D">2</span>;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_19">19. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Gesucht ist der durchschnittliche Wert für Gehalt und Provision aller Mitarbeiter aus Abteilung
+30</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> round(<span style="color:#369;font-weight:bold">avg</span>(SAL), <span style="color:#00D">2</span>) <span style="color:#080;font-weight:bold">as</span> AVGSAL, round(<span style="color:#369;font-weight:bold">avg</span>(nvl(COMM, <span style="color:#00D">0</span>)), <span style="color:#00D">2</span>) <span style="color:#080;font-weight:bold">as</span> AVGCOMM
+<span style="color:#080;font-weight:bold">from</span> EMP
+<span style="color:#080;font-weight:bold">where</span> DEPTNO = <span style="color:#00D">30</span>;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2022-01-26 14:52:38 +0100
+</div>
+</div>
+</body>
+</html>

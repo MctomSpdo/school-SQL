@@ -1,0 +1,233 @@
+= Übung 5
+Mctom Spdo
+1.0.0, {docdate}: ITP
+ifndef::imagesdir[:imagesdir: images]
+//:toc-placement!:  // prevents the generation of the doc at this position, so it can be printed afterwards
+:sourcedir: ../src/main/java
+:icons: font
+:sectnums:    // Nummerierung der Überschriften / section numbering
+:toc: left
+:stylesheet: ../../asciidocs/css/dark.css
+
+== Abfrage:
+Anzahl der Neuzugänge pro Jahr
+
+[source, sql]
+----
+select YEAR_JOINED, count(*) as Amount
+from PLAYERS
+group by YEAR_JOINED
+order by 1;
+----
+
+== Abfrage:
+Anzahl und durchschnittliche Höhe der Strafen pro Spieler
+
+[source, sql]
+----
+select (PLAYERNO), count(*) as Anzahl, round(avg(AMOUNT), 2) as Average
+from PENALTIES
+group by PLAYERNO;
+
+select NAME from PLAYERS
+where PLAYERNO in (
+select PLAYERNO
+from PENALTIES
+group by PLAYERNO);
+----
+
+== Abfrage
+Anzahl der Strafen für die Jahre vor 1983
+
+[source, sql]
+----
+select TO_CHAR(PEN_DATE, 'yyyy') as Year, count(*) as Amount
+from PENALTIES
+where TO_CHAR(PEN_DATE, 'yyyy') < 1983
+group by TO_CHAR(PEN_DATE, 'yyyy');
+----
+
+== Abfrage
+In welchen Städten leben mehr als 4 Spieler
+
+[source, sql]
+----
+select TOWN, count(*)
+from PLAYERS
+group by TOWN
+having count(*) > 4;
+----
+
+== Abfrage
+PLAYERNO derjenigen Spieler, deren Strafensumme über 150 liegt
+
+[source, sql]
+----
+select PLAYERNO, sum(AMOUNT)
+from PENALTIES
+group by PLAYERNO
+having sum(AMOUNT) > 150;
+----
+
+== Abfrage
+NAME und INITIALS derjenigen Spieler, die mehr als eine Strafe erhalten haben
+
+[source, sql]
+----
+select NAME, INITIALS
+from PLAYERS
+where PLAYERNO in (
+select PLAYERNO
+from PENALTIES
+group by PLAYERNO
+having count(*) > 1);
+----
+
+== Abfrage
+In welchen Jahren gab es genau 2 Strafen
+
+[source, sql]
+----
+select TO_CHAR(PEN_DATE, 'yyyy'), count(*)
+from PENALTIES
+group by TO_CHAR(PEN_DATE, 'yyyy')
+having count(*) = 2;
+----
+
+== Abfrage
+NAME und INITIALS der Spieler, die 2 oder mehr Strafen über $40 erhalten haben
+
+[source, sql]
+----
+select NAME, INITIALS
+from PLAYERS
+where PLAYERNO in(
+select PLAYERNO
+from PENALTIES
+where AMOUNT > 40
+group by PLAYERNO
+having count(*) >= 2);
+----
+
+== Abfrage
+NAME und INITIALS des Spielers mit der höchsten Strafensumme
+
+[source, sql]
+----
+select NAME, INITIALS
+from PLAYERS
+where PLAYERNO in (
+select PLAYERNO
+from PENALTIES
+group by PLAYERNO
+having sum(AMOUNT) = (
+select max(sum(AMOUNT))
+from PENALTIES group by PLAYERNO));
+----
+
+== Abfrage
+In welchem Jahr gab es die meisten Strafen und wie viele waren es
+
+[source, sql]
+----
+select TO_CHAR(PEN_DATE, 'yyyy'), count(*)
+from PENALTIES
+group by TO_CHAR(PEN_DATE, 'yyyy')
+having count(*) = (
+select max(count(*))
+from PENALTIES
+group by TO_CHAR(PEN_DATE, 'yyyy'));
+----
+
+== Abfrage
+PLAYERNO, TEAMNO, WON - LOST sortiert nach letzterem
+
+[source, sql]
+----
+select PLAYERNO, sum(WON) - sum(LOST)
+from MATCHES
+group by PLAYERNO;
+----
+
+== Abfrage
+Ausgabe aller Mitarbeiter aus Abteilung 30 geordnet nach ihrem Gehalt beginnend mit
+dem höchsten Gehalt
+
+[source, sql]
+----
+select *
+from EMP
+where DEPTNO = 30
+order by SAL desc;
+----
+
+== Abfrage
+Ausgabe aller Mitarbeiter geordnet nach Job und innerhalb des Jobs nach ihrem Gehalt
+
+[source, sql]
+----
+select *
+from EMP
+order by JOB, SAL;
+----
+
+== Abfrage
+Ausgabe aller Mitarbeiter geordnet nach ihrem Anstellungsjahr absteigend und innerhalb
+des Jahres nach ihrem Namen
+
+[source, sql]
+----
+select *
+from EMP
+order by HIREDATE desc, ENAME;
+----
+
+== Abfrage
+Ausgabe aller Verkäufer in absteigender Reihenfolge bezüglich dem Verhältnis Provision
+zu Gehalt
+[source, sql]
+----
+select *
+from EMP
+order by SAL - nvl(COMM, 0);
+----
+
+== Abfrage
+Ausgabe des Durchschnittsgehalts zu jeder Abteilungsnummer
+[source, sql]
+----
+select DEPTNO, round(avg(SAL), 2) as Durchschnittsgehalt
+from EMP
+group by DEPTNO;
+----
+
+== Abfrage
+Berechne die durchschnittlichen Jahresgehälter derjenigen Jobs, die von mehr als 2 Mitarbeitern
+ausgeführt werden
+[source, sql]
+----
+select JOB, round(avg(SAL), 2) as AVGSAL
+from EMP
+group by JOB
+having count(*) > 2;
+----
+
+== Abfrage
+Ausgabe aller Abteilungsnummern mit mindestens 2 Büroangestellten
+[source, sql]
+----
+select DEPTNO
+from EMP
+group by DEPTNO
+having count(*) > 2;
+----
+
+== Abfrage
+Gesucht ist der durchschnittliche Wert für Gehalt und Provision aller Mitarbeiter aus Abteilung
+30
+[source, sql]
+----
+select round(avg(SAL), 2) as AVGSAL, round(avg(nvl(COMM, 0)), 2) as AVGCOMM
+from EMP
+where DEPTNO = 30;
+----
