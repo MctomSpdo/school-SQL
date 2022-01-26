@@ -347,6 +347,8 @@ group by to_char(PEN_DATE, 'yyyy')
 order by 1;
 ----
 
+https://mctomspdo.github.io/school-SQL/uebungen/05/Uebung_5.html[Übung 5]
+
 == JOIN
 A select statement is a join, when there are at least 2 Tables and a where statement that connects the Tables with each other.
 
