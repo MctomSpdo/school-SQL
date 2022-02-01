@@ -1,0 +1,39 @@
+= Übung 6
+Mctom Spdo
+1.0.0, {docdate}: ITP
+ifndef::imagesdir[:imagesdir: images]
+//:toc-placement!:  // prevents the generation of the doc at this position, so it can be printed afterwards
+:sourcedir: ../src/main/java
+:icons: font
+:sectnums:    // Nummerierung der Überschriften / section numbering
+:toc: left
+:stylesheet: ../../asciidocs/css/dark.css
+
+== Abfrage
+NAME, INITIALS und Anzahl der gewonnenen Sätze für jeden Spieler
+
+== Abfrage
+NAME, PEN_DATE und AMOUNT absteigend sortiert nach AMOUNT
+
+== Abfrage
+TEAMNO, NAME (des Kapitäns) pro Team
+
+== Abfrage
+NAME (Spielername), WON, LOST aller gewonnenen Matches
+
+== Abfrage
+PLAYERNO, NAME und Strafensumme für jeden Mannschaftsspieler. Hat eine Spieler
+noch keine Strafe erhalten, so soll er trotzdem ausgegeben werden. Die Sortierung soll
+nach der Höhe der Strafe aufsteigend erfolgen
+
+== Abfrage
+In welcher Stadt arbeitet der Mitarbeiter Allen?
+
+== Abfrage
+Gesucht sind alle Mitarbeiter, die mehr verdienen als ihr Vorgesetzter
+
+== Abfrage
+Ausgabe der Anzahl der Anstellungen in jedem Jahr
+
+== Abfrage
+Ausgabe aller Mitarbeiter, die einen Job haben wie ein Mitarbeiter aus CHICAGO

@@ -107,6 +107,14 @@ from PENALTIES
 where AMOUNT > 40
 group by PLAYERNO
 having count(*) >= 2);
+
+/* Mithilfe von Join */
+
+select pl.NAME, pl.INITIALS
+from PLAYERS pl, PENALTIES pe
+where pl.PLAYERNO = pe.PLAYERNO and AMOUNT > 40
+group by pl.NAME, pl.INITIALS
+having count(*) >= 2
 ----
 
 == Abfrage
@@ -123,6 +131,16 @@ group by PLAYERNO
 having sum(AMOUNT) = (
 select max(sum(AMOUNT))
 from PENALTIES group by PLAYERNO));
+
+/* Mithilfe von Join */
+
+select NAME, INITIALS
+from PLAYERS pl, PENALTIES pe
+where pe.PLAYERNO = pl.PLAYERNO
+group by pl.name, pl.INITIALS
+having sum(AMOUNT) = (
+select max(sum(AMOUNT))
+from PENALTIES group by PLAYERNO);
 ----
 
 == Abfrage
@@ -130,7 +148,7 @@ In welchem Jahr gab es die meisten Strafen und wie viele waren es
 
 [source, sql]
 ----
-select TO_CHAR(PEN_DATE, 'yyyy'), count(*)
+select TO_CHAR(PEN_DATE, 'yyyy')  as YEAR, count(*) as PENALTIES
 from PENALTIES
 group by TO_CHAR(PEN_DATE, 'yyyy')
 having count(*) = (
