@@ -130,7 +130,7 @@ a {
 <div class="details">
 <span id="author" class="author">Mctom Spdo</span><br>
 <span id="revnumber">version 1.0.0,</span>
-<span id="revdate">2022-02-01</span>
+<span id="revdate">2022-02-02</span>
 <br><span id="revremark">ITP</span>
 </div>
 <div id="toc" class="toc2">
@@ -155,6 +155,23 @@ a {
 <div class="paragraph">
 <p>NAME, INITIALS und Anzahl der gewonnenen Sätze für jeden Spieler</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> pl.NAME, pl.INITIALS, <span style="color:#369;font-weight:bold">sum</span>(WON) <span style="color:#080;font-weight:bold">as</span> S<span style="color:#F00;background-color:#FAA">ä</span>tze
+<span style="color:#080;font-weight:bold">from</span> PLAYERS pl, MATCHES me
+<span style="color:#080;font-weight:bold">where</span> pl.PLAYERNO = me.PLAYERNO
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> pl.NAME, pl.INITIALS;
+
+<span style="color:#777">/* With new joins: */</span>
+
+<span style="color:#B06;font-weight:bold">select</span> NAME, INITIALS, <span style="color:#369;font-weight:bold">sum</span>(WON) <span style="color:#080;font-weight:bold">as</span> S<span style="color:#F00;background-color:#FAA">ä</span>tze
+<span style="color:#080;font-weight:bold">from</span> PLAYERS pl <span style="color:#080;font-weight:bold">inner</span> <span style="color:#080;font-weight:bold">join</span> MATCHES me
+    <span style="color:#080;font-weight:bold">on</span> pl.PLAYERNO = me.PLAYERNO
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> pl.NAME, pl.INITIALS;
+
+<span style="color:#777">/* FIXME: Something is wrong */</span></code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -162,6 +179,15 @@ a {
 <div class="sectionbody">
 <div class="paragraph">
 <p>NAME, PEN_DATE und AMOUNT absteigend sortiert nach AMOUNT</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> NAME, PEN_DATE, <span style="color:#369;font-weight:bold">sum</span>(AMOUNT) <span style="color:#080;font-weight:bold">as</span> AMOUNT
+<span style="color:#080;font-weight:bold">from</span> PLAYERS pl, PENALTIES pe
+<span style="color:#080;font-weight:bold">where</span> pl.PLAYERNO = pe.PLAYERNO
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> pl.NAME, pe.PEN_DATE
+<span style="color:#080;font-weight:bold">order</span> <span style="color:#080;font-weight:bold">by</span> <span style="color:#00D">3</span>;</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -171,6 +197,19 @@ a {
 <div class="paragraph">
 <p>TEAMNO, NAME (des Kapitäns) pro Team</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> TEAMNO, NAME
+<span style="color:#080;font-weight:bold">from</span> TEAMS te, PLAYERS pl
+<span style="color:#080;font-weight:bold">where</span> pl.PLAYERNO = te.PLAYERNO;
+
+<span style="color:#777">/* With new joins */</span>
+
+<span style="color:#B06;font-weight:bold">select</span> TEAMNO, NAME
+<span style="color:#080;font-weight:bold">from</span> TEAMS te <span style="color:#080;font-weight:bold">inner</span> <span style="color:#080;font-weight:bold">join</span> PLAYERS P
+    <span style="color:#080;font-weight:bold">on</span> te.PLAYERNO = P.PLAYERNO;</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -178,6 +217,21 @@ a {
 <div class="sectionbody">
 <div class="paragraph">
 <p>NAME (Spielername), WON, LOST aller gewonnenen Matches</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> pl.NAME, <span style="color:#369;font-weight:bold">sum</span>(WON) <span style="color:#080;font-weight:bold">as</span> WON, <span style="color:#369;font-weight:bold">sum</span>(LOST) <span style="color:#080;font-weight:bold">as</span> LOST
+<span style="color:#080;font-weight:bold">from</span> PLAYERS pl, MATCHES me
+<span style="color:#080;font-weight:bold">where</span> me.PLAYERNO= pl.PLAYERNO
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> NAME;
+
+<span style="color:#777">/* With new joins */</span>
+
+<span style="color:#B06;font-weight:bold">select</span> NAME, <span style="color:#369;font-weight:bold">sum</span>(WON) <span style="color:#080;font-weight:bold">as</span> WON, <span style="color:#369;font-weight:bold">sum</span>(LOST) <span style="color:#080;font-weight:bold">as</span> LOST
+<span style="color:#080;font-weight:bold">from</span> MATCHES me <span style="color:#080;font-weight:bold">inner</span> <span style="color:#080;font-weight:bold">join</span> PLAYERS P
+    <span style="color:#080;font-weight:bold">on</span> me.PLAYERNO = P.PLAYERNO
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> NAME;</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -189,6 +243,15 @@ a {
 noch keine Strafe erhalten, so soll er trotzdem ausgegeben werden. Die Sortierung soll
 nach der Höhe der Strafe aufsteigend erfolgen</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> pl.PLAYERNO, NAME, nvl(<span style="color:#369;font-weight:bold">sum</span>(AMOUNT), <span style="color:#00D">0</span>) <span style="color:#080;font-weight:bold">as</span> PENALTIES
+<span style="color:#080;font-weight:bold">from</span> PLAYERS pl <span style="color:#080;font-weight:bold">left</span> <span style="color:#080;font-weight:bold">join</span> PENALTIES pe
+    <span style="color:#080;font-weight:bold">on</span> pl.PLAYERNO = pe.PLAYERNO
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> NAME, pl.PLAYERNO
+<span style="color:#080;font-weight:bold">order</span> <span style="color:#080;font-weight:bold">by</span> <span style="color:#00D">3</span> nulls first;</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -196,6 +259,14 @@ nach der Höhe der Strafe aufsteigend erfolgen</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In welcher Stadt arbeitet der Mitarbeiter Allen?</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> LOC
+<span style="color:#080;font-weight:bold">from</span> EMP E <span style="color:#080;font-weight:bold">left</span> <span style="color:#080;font-weight:bold">join</span> DEPT D
+    <span style="color:#080;font-weight:bold">on</span> E.DEPTNO = D.DEPTNO
+<span style="color:#080;font-weight:bold">where</span> ENAME <span style="color:#080;font-weight:bold">like</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">ALLEN</span><span style="color:#710">'</span></span>;</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -205,6 +276,14 @@ nach der Höhe der Strafe aufsteigend erfolgen</p>
 <div class="paragraph">
 <p>Gesucht sind alle Mitarbeiter, die mehr verdienen als ihr Vorgesetzter</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> E.ENAME <span style="color:#080;font-weight:bold">as</span> EMPNAME, E.SAL + nvl(E.COMM, <span style="color:#00D">0</span>) <span style="color:#080;font-weight:bold">as</span> EMPSAL,
+       R.ENAME <span style="color:#080;font-weight:bold">as</span> VNAME, R.SAL + nvl(R.COMM, <span style="color:#00D">0</span>) <span style="color:#080;font-weight:bold">as</span> VSAL
+<span style="color:#080;font-weight:bold">from</span> EMP E <span style="color:#080;font-weight:bold">inner</span> <span style="color:#080;font-weight:bold">join</span> EMP R <span style="color:#080;font-weight:bold">on</span> R.EMPNO = E.MGR
+<span style="color:#080;font-weight:bold">where</span> E.SAL + nvl(E.COMM, <span style="color:#00D">0</span>) &gt; R.SAL + nvl(R.COMM, <span style="color:#00D">0</span>);</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -212,6 +291,13 @@ nach der Höhe der Strafe aufsteigend erfolgen</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Ausgabe der Anzahl der Anstellungen in jedem Jahr</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> TO_CHAR(HIREDATE, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">yyyy</span><span style="color:#710">'</span></span>) <span style="color:#080;font-weight:bold">as</span> <span style="color:#0a8;font-weight:bold">YEAR</span>, <span style="color:#369;font-weight:bold">count</span>(*) <span style="color:#080;font-weight:bold">as</span> PEOPLE_HIRED
+<span style="color:#080;font-weight:bold">from</span> EMP
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> TO_CHAR(HIREDATE, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">yyyy</span><span style="color:#710">'</span></span>);</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -221,13 +307,29 @@ nach der Höhe der Strafe aufsteigend erfolgen</p>
 <div class="paragraph">
 <p>Ausgabe aller Mitarbeiter, die einen Job haben wie ein Mitarbeiter aus CHICAGO</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> EMPNO, ENAME, JOB, LOC
+<span style="color:#080;font-weight:bold">from</span> EMP <span style="color:#080;font-weight:bold">inner</span> <span style="color:#080;font-weight:bold">join</span> DEPT D
+    <span style="color:#080;font-weight:bold">on</span> D.DEPTNO = EMP.DEPTNO
+<span style="color:#080;font-weight:bold">where</span> JOB <span style="color:#080;font-weight:bold">in</span>(
+    <span style="color:#B06;font-weight:bold">select</span> *
+    <span style="color:#080;font-weight:bold">from</span> (
+        <span style="color:#B06;font-weight:bold">select</span> <span style="color:#080;font-weight:bold">distinct</span> JOB
+        <span style="color:#080;font-weight:bold">from</span> EMP <span style="color:#080;font-weight:bold">inner</span> <span style="color:#080;font-weight:bold">join</span> DEPT D
+            <span style="color:#080;font-weight:bold">on</span> D.DEPTNO = EMP.DEPTNO
+        <span style="color:#080;font-weight:bold">where</span> LOC <span style="color:#080;font-weight:bold">like</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">CHICAGO</span><span style="color:#710">'</span></span>
+        <span style="color:#080;font-weight:bold">order</span> <span style="color:#080;font-weight:bold">by</span> dbms_random.value)
+    <span style="color:#080;font-weight:bold">where</span> ROWNUM = <span style="color:#00D">1</span>);</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2022-02-01 08:42:46 +0100
+Last updated 2022-02-02 15:20:13 +0100
 </div>
 </div>
 </body>
