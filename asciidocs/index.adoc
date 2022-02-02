@@ -405,3 +405,88 @@ inner Join combines the data from both Tables:
 ----
 select * from EMP e inner join DEPT d on e.DEPTNO = d.DEPTNO;
 ----
+
+=== Mengen
+
+image::mengen.png[]
+
+==== left join:
+
+[source, sql]
+----
+select *
+from EMP e left join DEPT d
+    on e.DEPTNO = d.DEPTNO;
+----
+The outcome should be 15 rows long
+
+==== inner join:
+
+[source, sql]
+----
+select *
+from EMP e inner join DEPT d
+    on e.DEPTNO = d.DEPTNO;
+----
+The outcome should be 14 lines long, since the BIGBOSS does not have a DeptNo.
+
+==== left join + null
+
+[source, sql]
+----
+select *
+from EMP e left join DEPT d
+    on e.DEPTNO = d.DEPTNO
+where e.DEPTNO is null or d.DEPTNO is null;
+----
+
+==== full outer join
+
+[source, sql]
+----
+select *
+from EMP e full outer join DEPT d
+    on e.DEPTNO = d.DEPTNO;
+----
+
+==== full outer join + null
+
+[source, sql]
+----
+select *
+from EMP e full outer join DEPT d
+    on e.DEPTNO = d.DEPTNO
+where d.DEPTNO is null or e.DEPTNO is null;
+----
+
+[source,sql]
+----
+/* FIXME: Nächstes Mal*/
+select *
+from EMP e, DEPT d
+where e.DEPTNO  = d.DEPTNO (+) and (d.DEPTNO is null or e.DEPTNO is null);
+----
+
+==== right join
+The opposite for the left join
+
+[source,sql]
+----
+select *
+from EMP e right join DEPT D
+    on e.DEPTNO = D.DEPTNO;
+----
+
+16 rows
+
+==== right join + null
+
+[source, sql]
+----
+Select *
+from emp e right join dept d
+    on e.deptno=d.deptno
+where d.deptno is null;
+----
+
+0 rows

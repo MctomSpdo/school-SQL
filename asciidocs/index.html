@@ -130,7 +130,7 @@ a {
 <div class="details">
 <span id="author" class="author">Mctom Spdo</span><br>
 <span id="revnumber">version 1.0.0,</span>
-<span id="revdate">2022-01-25</span>
+<span id="revdate">2022-02-02</span>
 <br><span id="revremark">ITP</span>
 </div>
 <div id="toc" class="toc2">
@@ -166,7 +166,12 @@ a {
 <li><a href="#_in_operator">5. IN Operator</a></li>
 <li><a href="#_order_by">6. Order by</a></li>
 <li><a href="#_group_by">7. Group By</a></li>
-<li><a href="#_join">8. JOIN</a></li>
+<li><a href="#_join">8. JOIN</a>
+<ul class="sectlevel2">
+<li><a href="#_natural_join">8.1. Natural Join</a></li>
+<li><a href="#_mengen">8.2. Mengen</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -705,6 +710,9 @@ Examples:</p>
 <span style="color:#080;font-weight:bold">order</span> <span style="color:#080;font-weight:bold">by</span> <span style="color:#00D">1</span>;</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><a href="https://mctomspdo.github.io/school-SQL/uebungen/05/Uebung_5.html">Übung 5</a></p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -726,7 +734,156 @@ This is why we have to check that the Players and the penalties have the same Pl
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> pl.PLAYERNO, pl.NAME, <span style="color:#369;font-weight:bold">sum</span>(pe.AMOUNT) <span style="color:#080;font-weight:bold">as</span> PENALTIES
 <span style="color:#080;font-weight:bold">from</span> PLAYERS pl, PENALTIES pe
-<span style="color:#080;font-weight:bold">where</span> pl.PLAYERNO = pe.PLAYERNO <span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> pl.NAME, pl.PLAYERNO;</code></pre>
+<span style="color:#080;font-weight:bold">where</span> pl.PLAYERNO = pe.PLAYERNO
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> pl.NAME, pl.PLAYERNO;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The most used Jointype is the Equijoin (Natural Join).<br></p>
+</div>
+<div class="paragraph">
+<p>Join Types:
+<a href="https://mctomspdo.github.io/school-SQL/docs/Join_NEU.pdf">Join_NEU.pdf</a></p>
+</div>
+<div class="sect2">
+<h3 id="_natural_join">8.1. Natural Join</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> emp.ENAME, dept.DNAME <span style="color:#080;font-weight:bold">from</span> EMP, DEPT
+<span style="color:#080;font-weight:bold">where</span> EMP.DEPTNO = DEPT.DEPTNO;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> d.DEPTNO, e.ENAME, d.DNAME <span style="color:#080;font-weight:bold">from</span> EMP e, DEPT d
+<span style="color:#080;font-weight:bold">where</span> e.DEPTNO = d.DEPTNO;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> EMP.ENAME, DEPT.DNAME <span style="color:#080;font-weight:bold">from</span> EMP NATURAL <span style="color:#080;font-weight:bold">join</span> DEPT;
+
+<span style="color:#777">/* it can be also be written as: */</span>
+<span style="color:#B06;font-weight:bold">select</span> EMP.ENAME, DEPT.DNAME <span style="color:#080;font-weight:bold">from</span> EMP <span style="color:#080;font-weight:bold">INNER</span> <span style="color:#080;font-weight:bold">join</span> DEPT <span style="color:#080;font-weight:bold">on</span> EMP.DEPTNO = DEPT.DEPTNO;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>inner Join combines the data from both Tables:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> * <span style="color:#080;font-weight:bold">from</span> EMP e <span style="color:#080;font-weight:bold">inner</span> <span style="color:#080;font-weight:bold">join</span> DEPT d <span style="color:#080;font-weight:bold">on</span> e.DEPTNO = d.DEPTNO;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mengen">8.2. Mengen</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/mengen.png" alt="mengen">
+</div>
+</div>
+<div class="sect3">
+<h4 id="_left_join">8.2.1. left join:</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> *
+<span style="color:#080;font-weight:bold">from</span> EMP e <span style="color:#080;font-weight:bold">left</span> <span style="color:#080;font-weight:bold">join</span> DEPT d
+    <span style="color:#080;font-weight:bold">on</span> e.DEPTNO = d.DEPTNO;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The outcome should be 15 rows long</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_inner_join">8.2.2. inner join:</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> *
+<span style="color:#080;font-weight:bold">from</span> EMP e <span style="color:#080;font-weight:bold">inner</span> <span style="color:#080;font-weight:bold">join</span> DEPT d
+    <span style="color:#080;font-weight:bold">on</span> e.DEPTNO = d.DEPTNO;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The outcome should be 14 lines long, since the BIGBOSS does not have a DeptNo.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_left_join_null">8.2.3. left join + null</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> *
+<span style="color:#080;font-weight:bold">from</span> EMP e <span style="color:#080;font-weight:bold">left</span> <span style="color:#080;font-weight:bold">join</span> DEPT d
+    <span style="color:#080;font-weight:bold">on</span> e.DEPTNO = d.DEPTNO
+<span style="color:#080;font-weight:bold">where</span> e.DEPTNO <span style="color:#080;font-weight:bold">is</span> <span style="color:#069">null</span> <span style="color:#080;font-weight:bold">or</span> d.DEPTNO <span style="color:#080;font-weight:bold">is</span> <span style="color:#069">null</span>;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_full_outer_join">8.2.4. full outer join</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> *
+<span style="color:#080;font-weight:bold">from</span> EMP e <span style="color:#080;font-weight:bold">full</span> <span style="color:#080;font-weight:bold">outer</span> <span style="color:#080;font-weight:bold">join</span> DEPT d
+    <span style="color:#080;font-weight:bold">on</span> e.DEPTNO = d.DEPTNO;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_full_outer_join_null">8.2.5. full outer join + null</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> *
+<span style="color:#080;font-weight:bold">from</span> EMP e <span style="color:#080;font-weight:bold">full</span> <span style="color:#080;font-weight:bold">outer</span> <span style="color:#080;font-weight:bold">join</span> DEPT d
+    <span style="color:#080;font-weight:bold">on</span> e.DEPTNO = d.DEPTNO
+<span style="color:#080;font-weight:bold">where</span> d.DEPTNO <span style="color:#080;font-weight:bold">is</span> <span style="color:#069">null</span> <span style="color:#080;font-weight:bold">or</span> e.DEPTNO <span style="color:#080;font-weight:bold">is</span> <span style="color:#069">null</span>;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#777">/* FIXME: Nächstes Mal*/</span>
+<span style="color:#B06;font-weight:bold">select</span> *
+<span style="color:#080;font-weight:bold">from</span> EMP e, DEPT d
+<span style="color:#080;font-weight:bold">where</span> e.DEPTNO  = d.DEPTNO (+) <span style="color:#080;font-weight:bold">and</span> (d.DEPTNO <span style="color:#080;font-weight:bold">is</span> <span style="color:#069">null</span> <span style="color:#080;font-weight:bold">or</span> e.DEPTNO <span style="color:#080;font-weight:bold">is</span> <span style="color:#069">null</span>);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_right_join">8.2.6. right join</h4>
+<div class="paragraph">
+<p>The opposite for the left join</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> *
+<span style="color:#080;font-weight:bold">from</span> EMP e <span style="color:#080;font-weight:bold">right</span> <span style="color:#080;font-weight:bold">join</span> DEPT D
+    <span style="color:#080;font-weight:bold">on</span> e.DEPTNO = D.DEPTNO;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>16 rows</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_right_join_null">8.2.7. right join + null</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">Select</span> *
+<span style="color:#080;font-weight:bold">from</span> emp e <span style="color:#080;font-weight:bold">right</span> <span style="color:#080;font-weight:bold">join</span> dept d
+    <span style="color:#080;font-weight:bold">on</span> e.deptno=d.deptno
+<span style="color:#080;font-weight:bold">where</span> d.deptno <span style="color:#080;font-weight:bold">is</span> <span style="color:#069">null</span>;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>0 rows</p>
+</div>
 </div>
 </div>
 </div>
@@ -735,7 +892,7 @@ This is why we have to check that the Players and the penalties have the same Pl
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2022-01-25 14:07:26 +0100
+Last updated 2022-02-02 11:20:50 +0100
 </div>
 </div>
 </body>
