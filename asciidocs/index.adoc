@@ -483,10 +483,150 @@ from EMP e right join DEPT D
 
 [source, sql]
 ----
-Select *
+select *
 from emp e right join dept d
     on e.deptno=d.deptno
 where d.deptno is null;
 ----
 
 0 rows
+
+=== Das Subquery (Innerselect)
+
+Wieder ein select innerhalb der Bedingung. +
+
+* keine Order by im Subquery
+
+Suchreihenfolge:
+
+1.Suche der Columns im Subquery +
+2. Wenn nicht vorhanden, Suche im Übergeordneten select
+
+NOTE: Trick: Alias-Namen
+
+Bsp: +
+Ausgabe von SpielerNr, Spielername derjenigen Spieler, die mindestens eine Strafe erhalten haben.
+
+[source, sql]
+----
+/* 1. Möglichkeit */
+select distinct pl.PLAYERNO, pl.NAME
+from PLAYERS pl inner join PENALTIES P
+    on pl.PLAYERNO = P.PLAYERNO
+
+/* 2. Möglichkeit */
+select PLAYERNO, NAME
+from PLAYERS
+where exists (
+    select * from PENALTIES
+    where PLAYERS.PLAYERNO = PENALTIES.PLAYERNO);
+
+select PLAYERNO, NAME
+from PLAYERS
+where PLAYERNO in (select PLAYERNO from PENALTIES);
+----
+
+Bsp:
+Ausgabe der Spieler mit dne 4 höchsten Strafen
+
+[source, sql]
+----
+/* Gesamtsumme */
+select *
+from (
+    select pl.PLAYERNO, NAME, sum(P.AMOUNT) as AMOUNT
+    from PLAYERS pl inner join PENALTIES P
+        on pl.PLAYERNO = P.PLAYERNO
+    group by pl.PLAYERNO, pl.NAME
+    order by AMOUNT desc)
+where ROWNUM <= 4;
+
+/* Einzelne Strafen */
+select * from (
+    select pl.PLAYERNO, pl.NAME, P.AMOUNT
+    from PLAYERS pl inner join PENALTIES P
+        on pl.PLAYERNO = P.PLAYERNO order by AMOUNT desc)
+where ROWNUM <= 4;
+----
+
+== Sessiondatum abändern
+
+Einschub:
+Das Datumsformat für die Session kann jederzeit geändert werden, mithilfe folgendem Befehlt:
+
+Dies änder das Datum nur für die aktuelle Session
+
+[source, sql]
+----
+alter session set nls_date_format = 'DD-MON-YYYY HH24:MI:SS';
+----
+
+== Parts
+
+image::parts-img.png[]
+
+Hier kann man das UML Diagramm reverse-enginieeren
+
+[plantuml, parts]
+----
+@startuml
+
+class Parts
+
+left to right direction
+
+skinparam backgroundcolor transparent
+skinparam shadowing false
+
+Parts "0..1" -- "*" Parts
+
+@enduml
+----
+
+=== Parts.sql
+
+neue SQL Datei: parts.sql
+
+[source, sql]
+----
+select *
+from PARTS
+connect by SUB = SUPER;
+----
+
+Bsp: Ermittle die Teile as denen P3 besteht:
+
+[source, sql]
+----
+select *
+from PARTS
+connect by SUB = SUPER
+start with SUPER = 'P3';
+----
+
+Start With: Alle Bedingungen sind Möglich (SUPER < 3, ...)
+
+=== Unterschied zwischen START WITH (PRIOR) und WHERE: +
+Where entfernt nur die ihr entsprechenden Datensätze, keine Kind-DS
+
+Systemvariable: LEVEL
+
+Level is die Stufennummer beginnend mit 1
+
+[source, sql]
+----
+select rownum, level, SUB, SUPER, PRICE
+from PARTS
+connect by prior SUB = SUPER
+start with SUPER = 'P3';
+----
+
+Skalarfunktion: LPAD
+
+[source, sql]
+----
+select lpad(' ', 8 * (level -1)) || level || '-' || SUPER || '-' || SUB
+from PARTS
+connect by prior SUB=SUPER
+start with SUPER='P3';
+----
