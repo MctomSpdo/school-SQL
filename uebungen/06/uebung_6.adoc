@@ -26,7 +26,7 @@ from PLAYERS pl inner join MATCHES me
     on pl.PLAYERNO = me.PLAYERNO
 group by pl.NAME, pl.INITIALS;
 
-/* FIXME: Something is wrong */
+/* FIXME: EVERY PLAYER (full outer)*/
 ----
 
 == Abfrage
@@ -38,7 +38,7 @@ select NAME, PEN_DATE, sum(AMOUNT) as AMOUNT
 from PLAYERS pl, PENALTIES pe
 where pl.PLAYERNO = pe.PLAYERNO
 group by pl.NAME, pe.PEN_DATE
-order by 3;
+order by 3 desc;
 ----
 
 == Abfrage
@@ -73,6 +73,8 @@ select NAME, sum(WON) as WON, sum(LOST) as LOST
 from MATCHES me inner join PLAYERS P
     on me.PLAYERNO = P.PLAYERNO
 group by NAME;
+
+/* FIXME: WON > LOST */
 ----
 
 == Abfrage
@@ -85,8 +87,10 @@ nach der Höhe der Strafe aufsteigend erfolgen
 select pl.PLAYERNO, NAME, nvl(sum(AMOUNT), 0) as PENALTIES
 from PLAYERS pl left join PENALTIES pe
     on pl.PLAYERNO = pe.PLAYERNO
+where LEAGUENO is not null
 group by NAME, pl.PLAYERNO
 order by 3 nulls first;
+/* NVL can be removed */
 ----
 
 == Abfrage
