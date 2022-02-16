@@ -130,7 +130,7 @@ a {
 <div class="details">
 <span id="author" class="author">Mctom Spdo</span><br>
 <span id="revnumber">version 1.0.0,</span>
-<span id="revdate">2022-02-02</span>
+<span id="revdate">2022-02-16</span>
 <br><span id="revremark">ITP</span>
 </div>
 <div id="toc" class="toc2">
@@ -170,6 +170,14 @@ a {
 <ul class="sectlevel2">
 <li><a href="#_natural_join">8.1. Natural Join</a></li>
 <li><a href="#_mengen">8.2. Mengen</a></li>
+<li><a href="#_das_subquery_innerselect">8.3. Das Subquery (Innerselect)</a></li>
+</ul>
+</li>
+<li><a href="#_sessiondatum_abändern">9. Sessiondatum abändern</a></li>
+<li><a href="#_parts">10. Parts</a>
+<ul class="sectlevel2">
+<li><a href="#_parts_sql">10.1. Parts.sql</a></li>
+<li><a href="#_unterschied_zwischen_start_with_prior_und_where">10.2. Unterschied zwischen START WITH (PRIOR) und WHERE:<br></a></li>
 </ul>
 </li>
 </ul>
@@ -875,7 +883,7 @@ This is why we have to check that the Players and the penalties have the same Pl
 <h4 id="_right_join_null">8.2.7. right join + null</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">Select</span> *
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> *
 <span style="color:#080;font-weight:bold">from</span> emp e <span style="color:#080;font-weight:bold">right</span> <span style="color:#080;font-weight:bold">join</span> dept d
     <span style="color:#080;font-weight:bold">on</span> e.deptno=d.deptno
 <span style="color:#080;font-weight:bold">where</span> d.deptno <span style="color:#080;font-weight:bold">is</span> <span style="color:#069">null</span>;</code></pre>
@@ -886,13 +894,185 @@ This is why we have to check that the Players and the penalties have the same Pl
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_das_subquery_innerselect">8.3. Das Subquery (Innerselect)</h3>
+<div class="paragraph">
+<p>Wieder ein select innerhalb der Bedingung.<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>keine Order by im Subquery</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Suchreihenfolge:</p>
+</div>
+<div class="paragraph">
+<p>1.Suche der Columns im Subquery<br>
+2. Wenn nicht vorhanden, Suche im Übergeordneten select</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Trick: Alias-Namen
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Bsp:<br>
+Ausgabe von SpielerNr, Spielername derjenigen Spieler, die mindestens eine Strafe erhalten haben.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#777">/* 1. Möglichkeit */</span>
+<span style="color:#B06;font-weight:bold">select</span> <span style="color:#080;font-weight:bold">distinct</span> pl.PLAYERNO, pl.NAME
+<span style="color:#080;font-weight:bold">from</span> PLAYERS pl <span style="color:#080;font-weight:bold">inner</span> <span style="color:#080;font-weight:bold">join</span> PENALTIES P
+    <span style="color:#080;font-weight:bold">on</span> pl.PLAYERNO = P.PLAYERNO
+
+<span style="color:#777">/* 2. Möglichkeit */</span>
+<span style="color:#B06;font-weight:bold">select</span> PLAYERNO, NAME
+<span style="color:#080;font-weight:bold">from</span> PLAYERS
+<span style="color:#080;font-weight:bold">where</span> <span style="color:#080;font-weight:bold">exists</span> (
+    <span style="color:#B06;font-weight:bold">select</span> * <span style="color:#080;font-weight:bold">from</span> PENALTIES
+    <span style="color:#080;font-weight:bold">where</span> PLAYERS.PLAYERNO = PENALTIES.PLAYERNO);
+
+<span style="color:#B06;font-weight:bold">select</span> PLAYERNO, NAME
+<span style="color:#080;font-weight:bold">from</span> PLAYERS
+<span style="color:#080;font-weight:bold">where</span> PLAYERNO <span style="color:#080;font-weight:bold">in</span> (<span style="color:#B06;font-weight:bold">select</span> PLAYERNO <span style="color:#080;font-weight:bold">from</span> PENALTIES);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Bsp:
+Ausgabe der Spieler mit dne 4 höchsten Strafen</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#777">/* Gesamtsumme */</span>
+<span style="color:#B06;font-weight:bold">select</span> *
+<span style="color:#080;font-weight:bold">from</span> (
+    <span style="color:#B06;font-weight:bold">select</span> pl.PLAYERNO, NAME, <span style="color:#369;font-weight:bold">sum</span>(P.AMOUNT) <span style="color:#080;font-weight:bold">as</span> AMOUNT
+    <span style="color:#080;font-weight:bold">from</span> PLAYERS pl <span style="color:#080;font-weight:bold">inner</span> <span style="color:#080;font-weight:bold">join</span> PENALTIES P
+        <span style="color:#080;font-weight:bold">on</span> pl.PLAYERNO = P.PLAYERNO
+    <span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> pl.PLAYERNO, pl.NAME
+    <span style="color:#080;font-weight:bold">order</span> <span style="color:#080;font-weight:bold">by</span> AMOUNT <span style="color:#088;font-weight:bold">desc</span>)
+<span style="color:#080;font-weight:bold">where</span> ROWNUM &lt;= <span style="color:#00D">4</span>;
+
+<span style="color:#777">/* Einzelne Strafen */</span>
+<span style="color:#B06;font-weight:bold">select</span> * <span style="color:#080;font-weight:bold">from</span> (
+    <span style="color:#B06;font-weight:bold">select</span> pl.PLAYERNO, pl.NAME, P.AMOUNT
+    <span style="color:#080;font-weight:bold">from</span> PLAYERS pl <span style="color:#080;font-weight:bold">inner</span> <span style="color:#080;font-weight:bold">join</span> PENALTIES P
+        <span style="color:#080;font-weight:bold">on</span> pl.PLAYERNO = P.PLAYERNO <span style="color:#080;font-weight:bold">order</span> <span style="color:#080;font-weight:bold">by</span> AMOUNT <span style="color:#088;font-weight:bold">desc</span>)
+<span style="color:#080;font-weight:bold">where</span> ROWNUM &lt;= <span style="color:#00D">4</span>;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sessiondatum_abändern">9. Sessiondatum abändern</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Einschub:
+Das Datumsformat für die Session kann jederzeit geändert werden, mithilfe folgendem Befehlt:</p>
+</div>
+<div class="paragraph">
+<p>Dies änder das Datum nur für die aktuelle Session</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">alter</span> session <span style="color:#B06;font-weight:bold">set</span> nls_date_format = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">DD-MON-YYYY HH24:MI:SS</span><span style="color:#710">'</span></span>;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_parts">10. Parts</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/parts-img.png" alt="parts img">
+</div>
+</div>
+<div class="paragraph">
+<p>Hier kann man das UML Diagramm reverse-enginieeren</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/parts.png" alt="parts" width="79" height="95">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_parts_sql">10.1. Parts.sql</h3>
+<div class="paragraph">
+<p>neue SQL Datei: parts.sql</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> *
+<span style="color:#080;font-weight:bold">from</span> PARTS
+connect <span style="color:#080;font-weight:bold">by</span> SUB = SUPER;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Bsp: Ermittle die Teile as denen P3 besteht:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> *
+<span style="color:#080;font-weight:bold">from</span> PARTS
+connect <span style="color:#080;font-weight:bold">by</span> SUB = SUPER
+start with SUPER = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">P3</span><span style="color:#710">'</span></span>;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Start With: Alle Bedingungen sind Möglich (SUPER &lt; 3, &#8230;&#8203;)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_unterschied_zwischen_start_with_prior_und_where">10.2. Unterschied zwischen START WITH (PRIOR) und WHERE:<br></h3>
+<div class="paragraph">
+<p>Where entfernt nur die ihr entsprechenden Datensätze, keine Kind-DS</p>
+</div>
+<div class="paragraph">
+<p>Systemvariable: LEVEL</p>
+</div>
+<div class="paragraph">
+<p>Level is die Stufennummer beginnend mit 1</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> rownum, level, SUB, SUPER, PRICE
+<span style="color:#080;font-weight:bold">from</span> PARTS
+connect <span style="color:#080;font-weight:bold">by</span> prior SUB = SUPER
+start with SUPER = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">P3</span><span style="color:#710">'</span></span>;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Skalarfunktion: LPAD</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> lpad(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20"> </span><span style="color:#710">'</span></span>, <span style="color:#00D">8</span> * (level <span style="color:#00D">-1</span>)) || level || <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">-</span><span style="color:#710">'</span></span> || SUPER || <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">-</span><span style="color:#710">'</span></span> || SUB
+<span style="color:#080;font-weight:bold">from</span> PARTS
+connect <span style="color:#080;font-weight:bold">by</span> prior SUB=SUPER
+start with SUPER=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">P3</span><span style="color:#710">'</span></span>;</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2022-02-02 11:20:50 +0100
+Last updated 2022-02-16 11:14:50 +0100
 </div>
 </div>
 </body>
