@@ -142,4 +142,12 @@ where JOB in(
         where LOC like 'CHICAGO'
         order by dbms_random.value)
     where ROWNUM = 1);
+
+/* Solution from Teacher */
+select ENAME, JOB, DEPTNO
+from EMP
+where JOB IN(
+    select a.job
+    from EMP a, DEPT b
+    where a.DEPTNO = b.DEPTNO and upper(LOC) = 'CHICAGO');
 ----

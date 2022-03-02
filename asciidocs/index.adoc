@@ -637,5 +637,92 @@ Skalarfunktion: LPAD
 select lpad(' ', 8 * (level -1)) || level || '-' || SUPER || '-' || SUB
 from PARTS
 connect by prior SUB=SUPER
-start with SUPER='P3';
+start with SUPER = 'P3';
 ----
+
+== Daten manipulieren
+
+=== Einfügen
+
+Mithilfe von Insert into kann man werte in Tabellen einfügen
+
+image::abb31.png[]
+
+image::inserts.png[]
+
+==== Masseninsert:
+
+Mithilfe eines Masseninserts, kann man eine Kopie von der Tabelle anlegen, darauf arbeiten, und dann einen masseninsert machen, auf die Originaltablle speichern.
+
+image::abb33.png[]
+
+=== Ändern
+[source, sql]
+----
+UPDATE table_name SET column_name1 = expression | subquery
+[, col_name2 = expression | subquery, ...]
+[WHERE condition]
+----
+
+IMPORTANT: Where verwenden, sonst werden alle Zeilen geändert!
+
+image::abb34.png[]
+
+1: Preis von P05 auf ATS 100,- setzen
+
+[source, sql]
+----
+update PARTS
+set PRICE = 100
+where upper(SUB) = 'P5';
+----
+
+2: Preis von P05 um 10% erhöhen
+
+[source, sql]
+----
+update PARTS
+set PRICE = PRICE * 1.1
+where upper(SUB) = 'P5';
+----
+
+3: Alle Preise über ATS 60,- um 10% herabsetzen
+
+[source, sql]
+----
+update PARTS
+set PRICE = PRICE * 0.9
+where PRICE > 60;
+----
+
+4: Alle Preise unter dem Durchschnitt um 20% erhöhen.
+
+[source, sql]
+----
+update PARTS
+set PRICE = PRICE * 1.2
+where PRICE < (
+    select avg(PRICE)
+    from PARTS);
+----
+
+=== Löschen
+
+image::abb35.png[]
+
+Löschbefehlte:
+
+|====
+| Befehl |Beschreibung
+
+| DELETE
+| (DML) löscht nur die Daten, kann zurückgeholt werden
+
+| DROP
+| (DDL), alles wird gelöscht, kann nicht zurückgerollt werden
+
+| TRUNCATE <TABLE>
+| (DDL), gibt Speicherplatz frei, where nicht möglich, kann nicht zurückgerollt werden
+|====
+
+Aufgabe SQL 7 (15.03.2022, UNION, MINUS, INTERSECT, SUBSELECT, JOIN)
