@@ -130,7 +130,7 @@ a {
 <div class="details">
 <span id="author" class="author">Mctom Spdo</span><br>
 <span id="revnumber">version 1.0.0,</span>
-<span id="revdate">2022-03-02</span>
+<span id="revdate">2022-03-14</span>
 <br><span id="revremark">INSY</span>
 </div>
 <div id="toc" class="toc2">
@@ -157,7 +157,13 @@ haben</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql"></code></pre>
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> * <span style="color:#080;font-weight:bold">from</span> TEAMS;
+
+<span style="color:#B06;font-weight:bold">select</span> p.PLAYERNO <span style="color:#080;font-weight:bold">as</span> PLAYERNO, NAME, INITIALS, YEAR_OF_BIRTH, SEX
+<span style="color:#080;font-weight:bold">from</span> PLAYERS p
+    <span style="color:#080;font-weight:bold">full</span> <span style="color:#080;font-weight:bold">outer</span> <span style="color:#080;font-weight:bold">join</span> TEAMS t
+        <span style="color:#080;font-weight:bold">on</span> t.PLAYERNO = p.PLAYERNO
+<span style="color:#080;font-weight:bold">where</span> p.PLAYERNO <span style="color:#080;font-weight:bold">is</span> <span style="color:#069">null</span>;</code></pre>
 </div>
 </div>
 </div>
@@ -170,7 +176,11 @@ haben</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql"></code></pre>
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> pl.PLAYERNO <span style="color:#080;font-weight:bold">as</span> PLAYERNO, NAME, INITIALS, SEX, YEAR_JOINED
+<span style="color:#080;font-weight:bold">from</span> PENALTIES pe
+    <span style="color:#080;font-weight:bold">right</span> <span style="color:#080;font-weight:bold">join</span> PLAYERS pl o
+    n pe.PLAYERNO = pl.PLAYERNO
+<span style="color:#080;font-weight:bold">where</span> pe.PLAYERNO <span style="color:#080;font-weight:bold">is</span> <span style="color:#069">null</span>;</code></pre>
 </div>
 </div>
 </div>
@@ -183,7 +193,11 @@ haben</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql"></code></pre>
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> PL.PLAYERNO <span style="color:#080;font-weight:bold">as</span> PLAYERNO, NAME, INITIALS, YEAR_OF_BIRTH, SEX, YEAR_JOINED, PEN_DATE, AMOUNT
+<span style="color:#080;font-weight:bold">from</span> PLAYERS PL
+    <span style="color:#080;font-weight:bold">inner</span> <span style="color:#080;font-weight:bold">join</span> PENALTIES PE
+        <span style="color:#080;font-weight:bold">on</span> pl.PLAYERNO = PE.PLAYERNO
+<span style="color:#080;font-weight:bold">where</span> pe.AMOUNT &gt; <span style="color:#00D">80</span>;</code></pre>
 </div>
 </div>
 </div>
@@ -196,7 +210,14 @@ haben</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql"></code></pre>
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> *
+<span style="color:#080;font-weight:bold">from</span> PLAYERS pe <span style="color:#080;font-weight:bold">inner</span> <span style="color:#080;font-weight:bold">join</span> (
+    <span style="color:#B06;font-weight:bold">select</span> PLAYERNO NR, MINAMOUNT
+    <span style="color:#080;font-weight:bold">from</span> (<span style="color:#B06;font-weight:bold">select</span> PLAYERNO, <span style="color:#369;font-weight:bold">min</span>(AMOUNT) <span style="color:#080;font-weight:bold">as</span> MINAMOUNT
+    <span style="color:#080;font-weight:bold">from</span> PENALTIES
+    <span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> PLAYERNO)
+    <span style="color:#080;font-weight:bold">where</span> MINAMOUNT &gt; <span style="color:#00D">80</span>)
+    <span style="color:#080;font-weight:bold">on</span> pe.PLAYERNO = NR;</code></pre>
 </div>
 </div>
 </div>
@@ -210,7 +231,15 @@ Abteilung</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql"></code></pre>
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> ENAME, AVGSAL, SAL, DEPTNO, JOB, HIREDATE
+<span style="color:#080;font-weight:bold">from</span> (
+    <span style="color:#B06;font-weight:bold">select</span> EMP.DEPTNO <span style="color:#080;font-weight:bold">as</span> DEPARTNR, round(<span style="color:#369;font-weight:bold">avg</span>(SAL), <span style="color:#00D">2</span>) <span style="color:#080;font-weight:bold">as</span> AVGSAL
+    <span style="color:#080;font-weight:bold">from</span> EMP <span style="color:#080;font-weight:bold">left</span> <span style="color:#080;font-weight:bold">join</span> DEPT D
+        <span style="color:#080;font-weight:bold">on</span> EMP.DEPTNO = D.DEPTNO
+    <span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> EMP.DEPTNO)
+    <span style="color:#080;font-weight:bold">inner</span> <span style="color:#080;font-weight:bold">join</span> EMP
+        <span style="color:#080;font-weight:bold">on</span> EMP.DEPTNO = DEPARTNR
+<span style="color:#080;font-weight:bold">where</span> EMP.SAL &gt; AVGSAL;</code></pre>
 </div>
 </div>
 </div>
@@ -223,7 +252,11 @@ Abteilung</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql"></code></pre>
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> * <span style="color:#080;font-weight:bold">from</span> DEPT
+    <span style="color:#080;font-weight:bold">inner</span> <span style="color:#080;font-weight:bold">join</span> (
+        <span style="color:#B06;font-weight:bold">select</span> <span style="color:#080;font-weight:bold">distinct</span> DEPTNO <span style="color:#080;font-weight:bold">as</span> DEPART
+        <span style="color:#080;font-weight:bold">from</span> EMP <span style="color:#080;font-weight:bold">where</span> DEPTNO <span style="color:#080;font-weight:bold">is</span> <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span>)
+        <span style="color:#080;font-weight:bold">on</span> DEPART = DEPTNO;</code></pre>
 </div>
 </div>
 </div>
@@ -237,7 +270,12 @@ verdient</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql"></code></pre>
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> * <span style="color:#080;font-weight:bold">from</span> DEPT
+    <span style="color:#080;font-weight:bold">inner</span> <span style="color:#080;font-weight:bold">join</span> (
+        <span style="color:#B06;font-weight:bold">select</span> <span style="color:#080;font-weight:bold">distinct</span> DEPTNO <span style="color:#080;font-weight:bold">as</span> NUM
+        <span style="color:#080;font-weight:bold">from</span> EMP
+        <span style="color:#080;font-weight:bold">where</span> DEPTNO <span style="color:#080;font-weight:bold">is</span> <span style="color:#080;font-weight:bold">not</span> <span style="color:#069">null</span> <span style="color:#080;font-weight:bold">and</span> SAL &gt; <span style="color:#00D">1000</span>)
+        <span style="color:#080;font-weight:bold">on</span> DEPTNO = NUM;</code></pre>
 </div>
 </div>
 </div>
@@ -250,7 +288,12 @@ verdient</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql"></code></pre>
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> * <span style="color:#080;font-weight:bold">from</span> DEPT <span style="color:#080;font-weight:bold">left</span> <span style="color:#080;font-weight:bold">join</span> (
+    <span style="color:#B06;font-weight:bold">select</span> <span style="color:#080;font-weight:bold">distinct</span> DEPTNO <span style="color:#080;font-weight:bold">as</span> NUM
+    <span style="color:#080;font-weight:bold">from</span> EMP
+    <span style="color:#080;font-weight:bold">where</span> SAL &lt; <span style="color:#00D">1000</span>)
+    <span style="color:#080;font-weight:bold">on</span> DEPTNO = NUM
+<span style="color:#080;font-weight:bold">where</span> NUM <span style="color:#080;font-weight:bold">is</span> <span style="color:#069">null</span>;</code></pre>
 </div>
 </div>
 </div>
@@ -259,7 +302,7 @@ verdient</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2022-03-02 10:05:58 +0100
+Last updated 2022-03-14 20:01:48 +0100
 </div>
 </div>
 </body>
