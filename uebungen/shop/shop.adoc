@@ -1,4 +1,4 @@
-= Übung 5
+= Übung Shop
 Mctom Spdo
 1.0.0, {docdate}: ITP
 ifndef::imagesdir[:imagesdir: images]
@@ -63,4 +63,42 @@ where STATUS = 'E'
 group by ARTIKELNR, A.BEZEICHNUNG
 order by ARTIKELNR, BEZEICHNUNG
 /* something is wrong, trying again next week */
+----
+
+== Abfrage
+Erzeugen Sie eine vollständige Artikelliste und geben Sie den jeweils erwirtschafteten Gewinn (Netto) aus. Gutscheine
+können ignoriert werden! +
+Sortierung absteigend nach Gewinn
+
+[source, sql]
+----
+select ARTIKEL.ARTIKELNR as "ArtikelNr", BEZEICHNUNG,
+       to_char(sum((VKPREIS - ARTIKEL.EKPREIS) * ANZAHL), '9999.99') as "Gewinn"
+from ARTIKEL
+join BESTELLPOS B on ARTIKEL.ARTIKELNR = B.ARTIKELNR
+group by ARTIKEL.ARTIKELNR, BEZEICHNUNG
+order by 3 desc;
+----
+
+== Abfrage
+
+[source, sql]
+----
+select sum((A2.VKPREIS * BESTELLPOS.ANZAHL) * (1 + (UMSATZSTEUER / 100)) * (1 - nvl(G.RABATT, 0)/100)) "Umsatz",  LAND from BESTELLPOS
+inner join BESTELLUNG B on BESTELLPOS.BESTELLNR = B.BESTELLNR
+inner join KUNDE K on B.KUNDENNR = K.KUNDENNR
+inner join ARTIKEL A2 on BESTELLPOS.ARTIKELNR = A2.ARTIKELNR
+left join GUTSCHEIN G on B.GUTSCHEINNR = G.GUTSCHEINNR
+group by LAND;
+
+/* teacher: */
+
+select to_char(round(sum((VKPREIS * BESTELLPOS.ANZAHL) * (1 + (UMSATZSTEUER / 100))
+           * (1 - (nvl(GUTSCHEIN.RABATT, 0) / 100))), 2), '9999.99') "Umsatz", LAND
+from BESTELLPOS
+join ARTIKEL using (ARTIKELNR)
+join BESTELLUNG using (BESTELLNR)
+left join GUTSCHEIN using (GUTSCHEINNR)
+join KUNDE using (KUNDENNR)
+group by KUNDE.LAND
 ----
