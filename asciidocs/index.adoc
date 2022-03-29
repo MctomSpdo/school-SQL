@@ -816,3 +816,43 @@ select * from DBA_SEQUENCES; --nur Datenbankadministrator
 
 Dies kann nur ein Datenbankadministrator (DBA) ausführen.
 
+== Integrity Rules (Constraints)
+
+erzwingen Regeln
+
+[options=header]
+|===
+|Rule | Bedeutung
+|NOT NULL |can't be null
+|PK | Primary key
+|UNIQUE | can't exist multiple times
+|FK | Foreign key
+|CHECK | for more options
+|===
+
+image::abb45.png[]
+
+=== NOT NULL
+
+[source, sql]
+----
+column_name .... [CONSTRAINT constraint_name] NOT NULL
+----
+
+Name vom Constraints, wenn nicht angegeben, wir automatisch von ORACLE vergeben.
+(SYS_C[nnnn])
+
+Wenn der Name vergeben wird, gibt es meist Datenbankregeln, die von der
+Firma festgelegt werden.
+
+=== PK (PrimaryKey)
+
+image::abb46.png[]
+
+Der Primary key hat eigenschaften, die dieser gleich mitbringt:
+
+* not null
+* unique (darf einmal null sein)
+
+column integrity nur möglich, wenn PK aus einer Spalte besteht.
+

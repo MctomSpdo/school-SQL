@@ -130,7 +130,7 @@ a {
 <div class="details">
 <span id="author" class="author">Mctom Spdo</span><br>
 <span id="revnumber">version 1.0.0,</span>
-<span id="revdate">2022-03-23</span>
+<span id="revdate">2022-03-29</span>
 <br><span id="revremark">INSY</span>
 </div>
 <div id="toc" class="toc2">
@@ -193,6 +193,12 @@ a {
 <li><a href="#_ändern">12.2. Ändern</a></li>
 <li><a href="#_löschen">12.3. Löschen</a></li>
 <li><a href="#_nummerfolgen_sequenzen">12.4. Nummerfolgen (Sequenzen)</a></li>
+</ul>
+</li>
+<li><a href="#_integrity_rules_constraints">13. Integrity Rules (Constraints)</a>
+<ul class="sectlevel2">
+<li><a href="#_not_null">13.1. NOT NULL</a></li>
+<li><a href="#_pk_primarykey">13.2. PK (PrimaryKey)</a></li>
 </ul>
 </li>
 </ul>
@@ -1365,11 +1371,98 @@ Sequenzen, User, usw stehen im Datadictionary
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_integrity_rules_constraints">13. Integrity Rules (Constraints)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>erzwingen Regeln</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Rule</th>
+<th class="tableblock halign-left valign-top">Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NOT NULL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">can&#8217;t be null</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Primary key</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UNIQUE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">can&#8217;t exist multiple times</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Foreign key</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CHECK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">for more options</p></td>
+</tr>
+</tbody>
+</table>
+<div class="imageblock">
+<div class="content">
+<img src="images/abb45.png" alt="abb45">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_not_null">13.1. NOT NULL</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql">column_name .... [<span style="color:#339;font-weight:bold">CONSTRAINT</span> constraint_name] <span style="color:#080;font-weight:bold">NOT</span> <span style="color:#069">NULL</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Name vom Constraints, wenn nicht angegeben, wir automatisch von ORACLE vergeben.
+(SYS_C[nnnn])</p>
+</div>
+<div class="paragraph">
+<p>Wenn der Name vergeben wird, gibt es meist Datenbankregeln, die von der
+Firma festgelegt werden.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pk_primarykey">13.2. PK (PrimaryKey)</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/abb46.png" alt="abb46">
+</div>
+</div>
+<div class="paragraph">
+<p>Der Primary key hat eigenschaften, die dieser gleich mitbringt:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>not null</p>
+</li>
+<li>
+<p>unique (darf einmal null sein)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>column integrity nur möglich, wenn PK aus einer Spalte besteht.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2022-03-23 11:20:59 +0100
+Last updated 2022-03-29 09:44:01 +0200
 </div>
 </div>
 </body>
