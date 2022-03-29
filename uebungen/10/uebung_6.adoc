@@ -1,0 +1,123 @@
+= Übung 7
+Mctom Spdo
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+//:toc-placement!:  // prevents the generation of the doc at this position, so it can be printed afterwards
+:sourcedir: ../src/main/java
+:icons: font
+:sectnums:    // Nummerierung der Überschriften / section numbering
+:toc: left
+:stylesheet: ../../asciidocs/css/dark.css
+
+== Abfrage
+
+Einfügen eines neuen Satzes in die PLAYERS Table (eigene Daten verwenden)
+
+[source, sql]
+----
+create SEQUENCE seq_deptno
+    start with 3;
+
+insert into PLAYERS (PLAYERNO, NAME, INITIALS, YEAR_OF_BIRTH, SEX, YEAR_JOINED, STREET, HOUSENO, POSTCODE, TOWN, PHONENO, LEAGUENO)
+values (seq_deptno.nextval, 'Spindler', 'T', 2005, 'M', 2010, 'Limesstraße', 12, 4060, 'Leonding', 123456789, null);
+commit;
+----
+
+== Abfrage
+
+Ändern des Wertes 'F' in der Spalte SEX auf 'W'
+
+[source, sql]
+----
+update PLAYERS
+set SEX = 'W'
+where SEX = 'F';
+commit;
+----
+
+== Abfrage
+
+Erhöhen aller Strafen, die über dem Durchschnitt liegen, um 20%
+
+[source, sql]
+----
+update PENALTIES
+set AMOUNT = AMOUNT * 1.2
+where AMOUNT > (select avg(AMOUNT) from PENALTIES);
+commit;
+----
+
+== Abfrage
+
+Der Spieler mit der Nummer 95 erhält die Adresse des Spielers mit der
+Nummer 6
+
+[source, sql]
+----
+----
+
+== Abfrage
+
+Löschen aller Strafen des Spielers 44 aus 1980
+
+[source, sql]
+----
+----
+
+== Abfrage
+
+Änderungen aus 1.-5. fixieren
+
+[source, sql]
+----
+----
+
+== Abfrage
+
+Löschen aller Strafen derjenigen Spieler, die mindestens einmal in einem Team der zweiten Division gespielt haben
+
+[source, sql]
+----
+----
+
+== Abfrage
+
+Löschen aus 7. Rückgängig machen
+
+[source, sql]
+----
+----
+
+== Abfrage
+
+Alle Gehälter, die kleiner als 80% des Abteilungsdurchschnittsgehalts betragen,
+werden auf 80% des Abteilungsdurchschnittsgehalts gesetzt
+
+[source, sql]
+----
+----
+
+== Abfrage
+
+Löschen aller Angestellten, die schon länger als 35 Jahre in der Firma sind
+
+[source, sql]
+----
+----
+
+== Abfrage
+
+Erstellen einer Nummernfolge mit den Werten 50, 60, 70, 80, ...
+
+[source, sql]
+----
+----
+
+== Abfrage
+
+Einfügen eines neuen Satzes in die Tabelle DEPT mit DEPTNO entsprechend
+der Nummernfolge aus 11., DNAME 'HTL' und LOC 'LEONDING'
+
+[source, sql]
+----
+----

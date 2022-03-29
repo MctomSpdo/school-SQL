@@ -732,3 +732,87 @@ Löschbefehlte:
 |====
 
 Aufgabe SQL 7 (15.03.2022, UNION, MINUS, INTERSECT, SUBSELECT, JOIN)
+
+=== Nummerfolgen (Sequenzen)
+
+Verwendet für PrimaryKey (künstlichen Schlüssen)
+
+Variante: max
+
+==== Variante 1: max
+
+[source, sql]
+----
+select max(TEAMNO) + 1 from TEAMS;
+insert into TEAMS values (...)
+----
+
+==== Variante 2: eigene Nummerntabelle
+
+[source, sql]
+----
+select max(TEAMNO) +1 from TEAMS;
+insert into TEAMS values (..);
+insert into TEAMNO values (...)
+----
+
+Beide Möglichkeiten haben Paralellsisierungsprobleme
+
+==== Lösung: nicht automare statements
+
+[source, sql]
+----
+create sequence seq_name
+[start with integer]
+[increment by integer]
+[{MAXVALUE integer | NOMAXVALUE}]
+[{MINVALUE integer  | NOMINVALUE}]
+[{CYCLE | NOCYCLE}]
+[{ORDER | NORODER}]
+[{CACHE integer | NOCACHE}]
+----
+
+[source, sql]
+----
+create sequence seq_teamno start with 3;
+insert into TEAMS(teamsno, playerno, division)
+values (seg_teamno.nextval, 104, 'first');
+
+/* Values seg_teamno ausgeben: */
+select seq_teamno.currval from dual;
+----
+
+Pseudospalten: nextval, curval +
+
+* increment by ist default (1), auch negativmöglich
+* start with: Anfangswert
+* minvalue, maxvalue: mindest und höchstwert (limit erreicht bei ca. 10 ^ 27)
+
+.Abbildung 43
+image::abb43.png[]
+
+==== Löschen einer Sequence
+
+[source, sql]
+----
+drop sequence seq_name
+----
+
+==== Hinweis
+
+[source, sql]
+----
+select * from USER_SEQUENCES;
+----
+
+NOTE: Sequenzen, User, usw stehen im Datadictionary
+
+Alle Sequenzes in der Datenbank zeigen:
+
+[source, sql]
+----
+select * from DBA_SEQUENCES; --nur Datenbankadministrator
+----
+
+Dies kann nur ein Datenbankadministrator (DBA) ausführen.
+

@@ -130,7 +130,7 @@ a {
 <div class="details">
 <span id="author" class="author">Mctom Spdo</span><br>
 <span id="revnumber">version 1.0.0,</span>
-<span id="revdate">2022-03-22</span>
+<span id="revdate">2022-03-23</span>
 <br><span id="revremark">INSY</span>
 </div>
 <div id="toc" class="toc2">
@@ -192,6 +192,7 @@ a {
 <li><a href="#_einfügen">12.1. Einfügen</a></li>
 <li><a href="#_ändern">12.2. Ändern</a></li>
 <li><a href="#_löschen">12.3. Löschen</a></li>
+<li><a href="#_nummerfolgen_sequenzen">12.4. Nummerfolgen (Sequenzen)</a></li>
 </ul>
 </li>
 </ul>
@@ -1245,13 +1246,130 @@ Where verwenden, sonst werden alle Zeilen geändert!
 <p>Aufgabe SQL 7 (15.03.2022, UNION, MINUS, INTERSECT, SUBSELECT, JOIN)</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_nummerfolgen_sequenzen">12.4. Nummerfolgen (Sequenzen)</h3>
+<div class="paragraph">
+<p>Verwendet für PrimaryKey (künstlichen Schlüssen)</p>
+</div>
+<div class="paragraph">
+<p>Variante: max</p>
+</div>
+<div class="sect3">
+<h4 id="_variante_1_max">12.4.1. Variante 1: max</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> <span style="color:#369;font-weight:bold">max</span>(TEAMNO) + <span style="color:#00D">1</span> <span style="color:#080;font-weight:bold">from</span> TEAMS;
+<span style="color:#B06;font-weight:bold">insert</span> <span style="color:#B06;font-weight:bold">into</span> TEAMS <span style="color:#080;font-weight:bold">values</span> (...)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_variante_2_eigene_nummerntabelle">12.4.2. Variante 2: eigene Nummerntabelle</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> <span style="color:#369;font-weight:bold">max</span>(TEAMNO) <span style="color:#00D">+1</span> <span style="color:#080;font-weight:bold">from</span> TEAMS;
+<span style="color:#B06;font-weight:bold">insert</span> <span style="color:#B06;font-weight:bold">into</span> TEAMS <span style="color:#080;font-weight:bold">values</span> (..);
+<span style="color:#B06;font-weight:bold">insert</span> <span style="color:#B06;font-weight:bold">into</span> TEAMNO <span style="color:#080;font-weight:bold">values</span> (...)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Beide Möglichkeiten haben Paralellsisierungsprobleme</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_lösung_nicht_automare_statements">12.4.3. Lösung: nicht automare statements</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">create</span> sequence seq_name
+[start with <span style="color:#0a8;font-weight:bold">integer</span>]
+[increment <span style="color:#080;font-weight:bold">by</span> <span style="color:#0a8;font-weight:bold">integer</span>]
+[{MAXVALUE <span style="color:#0a8;font-weight:bold">integer</span> | NOMAXVALUE}]
+[{MINVALUE <span style="color:#0a8;font-weight:bold">integer</span>  | NOMINVALUE}]
+[{CYCLE | NOCYCLE}]
+[{<span style="color:#080;font-weight:bold">ORDER</span> | NORODER}]
+[{CACHE <span style="color:#0a8;font-weight:bold">integer</span> | NOCACHE}]</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">create</span> sequence seq_teamno start with <span style="color:#00D">3</span>;
+<span style="color:#B06;font-weight:bold">insert</span> <span style="color:#B06;font-weight:bold">into</span> TEAMS(teamsno, playerno, division)
+<span style="color:#080;font-weight:bold">values</span> (seg_teamno.nextval, <span style="color:#00D">104</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">first</span><span style="color:#710">'</span></span>);
+
+<span style="color:#777">/* Values seg_teamno ausgeben: */</span>
+<span style="color:#B06;font-weight:bold">select</span> seq_teamno.currval <span style="color:#080;font-weight:bold">from</span> dual;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pseudospalten: nextval, curval<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>increment by ist default (1), auch negativmöglich</p>
+</li>
+<li>
+<p>start with: Anfangswert</p>
+</li>
+<li>
+<p>minvalue, maxvalue: mindest und höchstwert (limit erreicht bei ca. 10 ^ 27)</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/abb43.png" alt="abb43">
+</div>
+<div class="title">Figure 1. Abbildung 43</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_löschen_einer_sequence">12.4.4. Löschen einer Sequence</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">drop</span> sequence seq_name</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_hinweis">12.4.5. Hinweis</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> * <span style="color:#080;font-weight:bold">from</span> USER_SEQUENCES;</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Sequenzen, User, usw stehen im Datadictionary
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Alle Sequenzes in der Datenbank zeigen:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> * <span style="color:#080;font-weight:bold">from</span> DBA_SEQUENCES; <span style="color:#777">--nur Datenbankadministrator</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Dies kann nur ein Datenbankadministrator (DBA) ausführen.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2022-03-22 09:07:26 +0100
+Last updated 2022-03-23 11:20:59 +0100
 </div>
 </div>
 </body>
