@@ -19,6 +19,7 @@ https://mctomspdo.github.io/school-SQL/uebungen/04/Uebung_4[Übung 4] +
 https://mctomspdo.github.io/school-SQL/uebungen/05/Uebung_5[Übung 5] +
 https://mctomspdo.github.io/school-SQL/uebungen/06/uebung_6[Übung 6] +
 https://mctomspdo.github.io/school-SQL/uebungen/07/uebung_7[Übung 7] +
+https://mctomspdo.github.io/school-SQL/uebungen/10/uebung_10[Übung 10] +
 
 === Shop
 

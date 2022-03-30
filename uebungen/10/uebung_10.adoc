@@ -54,6 +54,12 @@ Nummer 6
 
 [source, sql]
 ----
+update players set
+street=(select street from players where playerno = 6),
+houseno=(select houseno from players where playerno = 6),
+postcode=(select postcode from players where playerno = 6),
+town=(select town from players where playerno = 6),
+phoneno=(select phoneno from players where playerno = 6) where playerno = 95;
 ----
 
 == Abfrage
@@ -62,6 +68,8 @@ Löschen aller Strafen des Spielers 44 aus 1980
 
 [source, sql]
 ----
+delete from penalties
+where playerno = 44 and to_char(pen_date, 'YYYY') = 1980;
 ----
 
 == Abfrage
@@ -70,6 +78,7 @@ Löschen aller Strafen des Spielers 44 aus 1980
 
 [source, sql]
 ----
+commit;
 ----
 
 == Abfrage
@@ -78,6 +87,7 @@ Löschen aller Strafen derjenigen Spieler, die mindestens einmal in einem Team d
 
 [source, sql]
 ----
+
 ----
 
 == Abfrage
@@ -103,6 +113,8 @@ Löschen aller Angestellten, die schon länger als 35 Jahre in der Firma sind
 
 [source, sql]
 ----
+delete from emp
+where (to_char(sysdate, 'YYYY') - to_char(hiredate, 'YYYY')) > 35;
 ----
 
 == Abfrage
@@ -111,6 +123,8 @@ Erstellen einer Nummernfolge mit den Werten 50, 60, 70, 80, ...
 
 [source, sql]
 ----
+create SEQUENCE seq_deptno
+    start with 50 INCREMENT by 10;
 ----
 
 == Abfrage
@@ -120,4 +134,6 @@ der Nummernfolge aus 11., DNAME 'HTL' und LOC 'LEONDING'
 
 [source, sql]
 ----
+insert into dept
+values (SEQ_DEPTNO.nextval, 'HTL', 'LEONDING');
 ----
