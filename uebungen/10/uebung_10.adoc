@@ -1,4 +1,4 @@
-= Übung 7
+= Übung 10
 Mctom Spdo
 1.0.0, {docdate}: INSY
 ifndef::imagesdir[:imagesdir: images]
@@ -55,11 +55,11 @@ Nummer 6
 [source, sql]
 ----
 update players set
-street=(select street from players where playerno = 6),
-houseno=(select houseno from players where playerno = 6),
-postcode=(select postcode from players where playerno = 6),
-town=(select town from players where playerno = 6),
-phoneno=(select phoneno from players where playerno = 6) where playerno = 95;
+STREET=(select STREET from PLAYERS where PLAYERNO = 6),
+HOUSENO=(select HOUSENO from PLAYERS where PLAYERNO = 6),
+POSTCODE=(select POSTCODE from PLAYERS where PLAYERNO = 6),
+TOWN=(select TOWN from PLAYERS where PLAYERNO = 6),
+PHONENO=(select PHONENO from PLAYERS where PLAYERNO = 6) where PLAYERNO = 95;
 ----
 
 == Abfrage
@@ -69,7 +69,7 @@ Löschen aller Strafen des Spielers 44 aus 1980
 [source, sql]
 ----
 delete from penalties
-where playerno = 44 and to_char(pen_date, 'YYYY') = 1980;
+where PLAYERNO = 44 and to_char(PEN_DATE, 'YYYY') = 1980;
 ----
 
 == Abfrage
@@ -113,8 +113,8 @@ Löschen aller Angestellten, die schon länger als 35 Jahre in der Firma sind
 
 [source, sql]
 ----
-delete from emp
-where (to_char(sysdate, 'YYYY') - to_char(hiredate, 'YYYY')) > 35;
+delete from EMP
+where (to_char(sysdate, 'YYYY') - to_char(HIREDATE, 'YYYY')) > 35;
 ----
 
 == Abfrage
@@ -123,7 +123,7 @@ Erstellen einer Nummernfolge mit den Werten 50, 60, 70, 80, ...
 
 [source, sql]
 ----
-create SEQUENCE seq_deptno
+create SEQUENCE SEQ_DEPTNO
     start with 50 INCREMENT by 10;
 ----
 
