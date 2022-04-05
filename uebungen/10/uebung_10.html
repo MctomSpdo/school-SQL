@@ -130,7 +130,7 @@ a {
 <div class="details">
 <span id="author" class="author">Mctom Spdo</span><br>
 <span id="revnumber">version 1.0.0,</span>
-<span id="revdate">2022-03-30</span>
+<span id="revdate">2022-04-05</span>
 <br><span id="revremark">INSY</span>
 </div>
 <div id="toc" class="toc2">
@@ -163,8 +163,11 @@ a {
 <pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">create</span> SEQUENCE seq_deptno
     start with <span style="color:#00D">3</span>;
 
-<span style="color:#B06;font-weight:bold">insert</span> <span style="color:#B06;font-weight:bold">into</span> PLAYERS (PLAYERNO, NAME, INITIALS, YEAR_OF_BIRTH, SEX, YEAR_JOINED, STREET, HOUSENO, POSTCODE, TOWN, PHONENO, LEAGUENO)
-<span style="color:#080;font-weight:bold">values</span> (seq_deptno.nextval, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Spindler</span><span style="color:#710">'</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">T</span><span style="color:#710">'</span></span>, <span style="color:#00D">2005</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">M</span><span style="color:#710">'</span></span>, <span style="color:#00D">2010</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Limesstraße</span><span style="color:#710">'</span></span>, <span style="color:#00D">12</span>, <span style="color:#00D">4060</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Leonding</span><span style="color:#710">'</span></span>, <span style="color:#00D">123456789</span>, <span style="color:#069">null</span>);
+<span style="color:#B06;font-weight:bold">insert</span> <span style="color:#B06;font-weight:bold">into</span> PLAYERS
+    (PLAYERNO, NAME, INITIALS, YEAR_OF_BIRTH, SEX, YEAR_JOINED, STREET, HOUSENO, POSTCODE, TOWN, PHONENO, LEAGUENO)
+<span style="color:#080;font-weight:bold">values</span>
+       (seq_deptno.nextval, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Spindler</span><span style="color:#710">'</span></span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">T</span><span style="color:#710">'</span></span>, <span style="color:#00D">2005</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">M</span><span style="color:#710">'</span></span>, <span style="color:#00D">2010</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Limesstraße</span><span style="color:#710">'</span></span>, <span style="color:#00D">12</span>, <span style="color:#00D">4060</span>, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Leonding</span><span style="color:#710">'</span></span>, <span style="color:#00D">123456789</span>, <span style="color:#069">null</span>);
+
 <span style="color:#B06;font-weight:bold">commit</span>;</code></pre>
 </div>
 </div>
@@ -181,6 +184,7 @@ a {
 <pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">update</span> PLAYERS
 <span style="color:#B06;font-weight:bold">set</span> SEX = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">W</span><span style="color:#710">'</span></span>
 <span style="color:#080;font-weight:bold">where</span> SEX = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">F</span><span style="color:#710">'</span></span>;
+
 <span style="color:#B06;font-weight:bold">commit</span>;</code></pre>
 </div>
 </div>
@@ -197,6 +201,7 @@ a {
 <pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">update</span> PENALTIES
 <span style="color:#B06;font-weight:bold">set</span> AMOUNT = AMOUNT * <span style="color:#60E">1.2</span>
 <span style="color:#080;font-weight:bold">where</span> AMOUNT &gt; (<span style="color:#B06;font-weight:bold">select</span> <span style="color:#369;font-weight:bold">avg</span>(AMOUNT) <span style="color:#080;font-weight:bold">from</span> PENALTIES);
+
 <span style="color:#B06;font-weight:bold">commit</span>;</code></pre>
 </div>
 </div>
@@ -206,17 +211,22 @@ a {
 <h2 id="_abfrage_4">4. Abfrage</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Der Spieler mit der Nummer 95 erhält die Adresse des Spielers mit der
-Nummer 6</p>
+<p>Der Spieler mit der Nummer 95 erhält die Adresse des Spielers mit der Nummer 6</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">update</span> players <span style="color:#B06;font-weight:bold">set</span>
-STREET=(<span style="color:#B06;font-weight:bold">select</span> STREET <span style="color:#080;font-weight:bold">from</span> PLAYERS <span style="color:#080;font-weight:bold">where</span> PLAYERNO = <span style="color:#00D">6</span>),
-HOUSENO=(<span style="color:#B06;font-weight:bold">select</span> HOUSENO <span style="color:#080;font-weight:bold">from</span> PLAYERS <span style="color:#080;font-weight:bold">where</span> PLAYERNO = <span style="color:#00D">6</span>),
-POSTCODE=(<span style="color:#B06;font-weight:bold">select</span> POSTCODE <span style="color:#080;font-weight:bold">from</span> PLAYERS <span style="color:#080;font-weight:bold">where</span> PLAYERNO = <span style="color:#00D">6</span>),
-TOWN=(<span style="color:#B06;font-weight:bold">select</span> TOWN <span style="color:#080;font-weight:bold">from</span> PLAYERS <span style="color:#080;font-weight:bold">where</span> PLAYERNO = <span style="color:#00D">6</span>),
-PHONENO=(<span style="color:#B06;font-weight:bold">select</span> PHONENO <span style="color:#080;font-weight:bold">from</span> PLAYERS <span style="color:#080;font-weight:bold">where</span> PLAYERNO = <span style="color:#00D">6</span>) <span style="color:#080;font-weight:bold">where</span> PLAYERNO = <span style="color:#00D">95</span>;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">update</span> PLAYERS <span style="color:#B06;font-weight:bold">set</span>
+STREET = (<span style="color:#B06;font-weight:bold">select</span> STREET <span style="color:#080;font-weight:bold">from</span> PLAYERS <span style="color:#080;font-weight:bold">where</span> PLAYERNO = <span style="color:#00D">6</span>),
+HOUSENO = (<span style="color:#B06;font-weight:bold">select</span> HOUSENO <span style="color:#080;font-weight:bold">from</span> PLAYERS <span style="color:#080;font-weight:bold">where</span> PLAYERNO = <span style="color:#00D">6</span>),
+POSTCODE = (<span style="color:#B06;font-weight:bold">select</span> POSTCODE <span style="color:#080;font-weight:bold">from</span> PLAYERS <span style="color:#080;font-weight:bold">where</span> PLAYERNO = <span style="color:#00D">6</span>),
+TOWN = (<span style="color:#B06;font-weight:bold">select</span> TOWN <span style="color:#080;font-weight:bold">from</span> PLAYERS <span style="color:#080;font-weight:bold">where</span> PLAYERNO = <span style="color:#00D">6</span>),
+PHONENO = (<span style="color:#B06;font-weight:bold">select</span> PHONENO <span style="color:#080;font-weight:bold">from</span> PLAYERS <span style="color:#080;font-weight:bold">where</span> PLAYERNO = <span style="color:#00D">6</span>) <span style="color:#080;font-weight:bold">where</span> PLAYERNO = <span style="color:#00D">95</span>;
+
+<span style="color:#777">/* better solution: */</span>
+<span style="color:#B06;font-weight:bold">update</span> PLAYERS <span style="color:#B06;font-weight:bold">set</span>
+    (STREET, HOUSENO, POSTCODE, TOWN) =
+    (<span style="color:#B06;font-weight:bold">select</span> STREET, HOUSENO, POSTCODE, TOWN <span style="color:#080;font-weight:bold">from</span> PLAYERS <span style="color:#080;font-weight:bold">where</span> PLAYERNO = <span style="color:#00D">6</span>)
+<span style="color:#080;font-weight:bold">where</span> PLAYERNO = <span style="color:#00D">95</span>;</code></pre>
 </div>
 </div>
 </div>
@@ -256,7 +266,31 @@ PHONENO=(<span style="color:#B06;font-weight:bold">select</span> PHONENO <span s
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql"></code></pre>
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">delete</span> <span style="color:#080;font-weight:bold">from</span> PENALTIES
+<span style="color:#080;font-weight:bold">where</span> PLAYERNO <span style="color:#080;font-weight:bold">in</span>
+      (<span style="color:#B06;font-weight:bold">select</span> PLAYERNO
+      <span style="color:#080;font-weight:bold">from</span> PLAYERS
+          <span style="color:#080;font-weight:bold">inner</span> <span style="color:#080;font-weight:bold">join</span> TEAMS <span style="color:#080;font-weight:bold">using</span> (PLAYERNO)
+      <span style="color:#080;font-weight:bold">where</span> DIVISION = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">second</span><span style="color:#710">'</span></span>);
+
+<span style="color:#777">/* teacher: */</span>
+
+<span style="color:#B06;font-weight:bold">delete</span> PENALTIES
+<span style="color:#080;font-weight:bold">where</span> PLAYERNO <span style="color:#080;font-weight:bold">in</span>
+      (<span style="color:#B06;font-weight:bold">select</span> PLAYERNO
+      <span style="color:#080;font-weight:bold">from</span> MATCHES
+      <span style="color:#080;font-weight:bold">where</span> TEAMNO =
+            (<span style="color:#B06;font-weight:bold">select</span> TEAMNO
+            <span style="color:#080;font-weight:bold">from</span> TEAMS
+            <span style="color:#080;font-weight:bold">where</span> DIVISION = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">second</span><span style="color:#710">'</span></span>));
+
+<span style="color:#777">/* statisch: */</span>
+
+<span style="color:#B06;font-weight:bold">delete</span> PENALTIES
+<span style="color:#080;font-weight:bold">where</span> PLAYERNO <span style="color:#080;font-weight:bold">in</span> (
+    <span style="color:#B06;font-weight:bold">select</span> PLAYERNO
+    <span style="color:#080;font-weight:bold">from</span> MATCHES
+    <span style="color:#080;font-weight:bold">where</span> TEAMNO = <span style="color:#00D">2</span>);</code></pre>
 </div>
 </div>
 </div>
@@ -269,7 +303,7 @@ PHONENO=(<span style="color:#B06;font-weight:bold">select</span> PHONENO <span s
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql"></code></pre>
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">rollback</span>;</code></pre>
 </div>
 </div>
 </div>
@@ -278,12 +312,19 @@ PHONENO=(<span style="color:#B06;font-weight:bold">select</span> PHONENO <span s
 <h2 id="_abfrage_9">9. Abfrage</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Alle Gehälter, die kleiner als 80% des Abteilungsdurchschnittsgehalts betragen,
-werden auf 80% des Abteilungsdurchschnittsgehalts gesetzt</p>
+<p>Alle Gehälter, die kleiner als 80% des Abteilungsdurchschnittsgehalts betragen, werden auf 80% des Abteilungsdurchschnittsgehalts gesetzt</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql"></code></pre>
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">update</span> EMP e1
+<span style="color:#B06;font-weight:bold">set</span> SAL =
+    (<span style="color:#B06;font-weight:bold">select</span> (<span style="color:#369;font-weight:bold">avg</span>(SAL) * <span style="color:#60E">0.8</span>)
+    <span style="color:#080;font-weight:bold">from</span> EMP e2
+    <span style="color:#080;font-weight:bold">where</span> e2.DEPTNO = e1.DEPTNO)
+<span style="color:#080;font-weight:bold">where</span> sal &lt; (
+    <span style="color:#B06;font-weight:bold">select</span> (<span style="color:#369;font-weight:bold">avg</span>(SAL) * <span style="color:#60E">0.8</span>)
+    <span style="color:#080;font-weight:bold">from</span> EMP e3
+    <span style="color:#080;font-weight:bold">where</span> e3.DEPTNO = e1.DEPTNO);</code></pre>
 </div>
 </div>
 </div>
@@ -310,8 +351,14 @@ werden auf 80% des Abteilungsdurchschnittsgehalts gesetzt</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">create</span> SEQUENCE SEQ_DEPTNO
-    start with <span style="color:#00D">50</span> INCREMENT <span style="color:#080;font-weight:bold">by</span> <span style="color:#00D">10</span>;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="sql">(<span style="color:#B06;font-weight:bold">select</span> <span style="color:#369;font-weight:bold">max</span>(DEPTNO) <span style="color:#080;font-weight:bold">from</span> DEPT);
+
+<span style="color:#B06;font-weight:bold">create</span> SEQUENCE SEQ_DEPTNO
+    start with <span style="color:#00D">60</span> INCREMENT <span style="color:#080;font-weight:bold">by</span> <span style="color:#00D">10</span>;
+
+<span style="color:#777">/* teacher: (50 because of datasets that were not changed */</span>
+<span style="color:#B06;font-weight:bold">create</span> SEQUENCE dept_deptno
+start with <span style="color:#00D">50</span> increment <span style="color:#080;font-weight:bold">by</span> <span style="color:#00D">10</span> nomaxvalue nocache;</code></pre>
 </div>
 </div>
 </div>
@@ -320,8 +367,7 @@ werden auf 80% des Abteilungsdurchschnittsgehalts gesetzt</p>
 <h2 id="_abfrage_12">12. Abfrage</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Einfügen eines neuen Satzes in die Tabelle DEPT mit DEPTNO entsprechend
-der Nummernfolge aus 11., DNAME 'HTL' und LOC 'LEONDING'</p>
+<p>Einfügen eines neuen Satzes in die Tabelle DEPT mit DEPTNO entsprechend der Nummernfolge aus 11., DNAME 'HTL' und LOC 'LEONDING'</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -335,7 +381,7 @@ der Nummernfolge aus 11., DNAME 'HTL' und LOC 'LEONDING'</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2022-03-30 10:24:28 +0200
+Last updated 2022-04-05 09:46:26 +0200
 </div>
 </div>
 </body>
