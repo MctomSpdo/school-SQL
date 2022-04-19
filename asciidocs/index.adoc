@@ -966,3 +966,31 @@ DATE_OF_BIRTH date check(year_of_birth <= year_joined),
 ----
 alter table TABLE_NAME drop constraint CONSTRAINT_NAME;
 ----
+
+== TestStoff
+
+* ERD + RM
+* Create tables vom ERD (mit privmary and foreign keys)
+* select statement
+* insert
+* update
+* alter
+* delete
+* drop
+* Sequenzes
+* Constraints (Primary key, foreign key)
+
+=== Exercises
+
+==== ADAT 1:
+
+    Gegenstand(GegenstandID, Name
+    Test(TestID, GegenstandID, datum
+    Beispiel(BeispielID, TestID, Punkte)
+    Beispielsausführung(BeispielsausführungsID, BeispielID, TestausführungsID, Punkte
+    Testausführung(TestausführungsID, TestID, Gegenstand_SchülerID
+    Gegenstand_Schüler(Gegenstand_SchülerID, GegenstandID, SchülerID
+    Schüler(SchülerID, Vorname, Nachname
+    Schüler_Schuljahr(Schüler_SchuljarID, SchülerId, KlasseId, Mitarbeit
+    Klasse(KlasseId, Name, Schuljahr,
+    Notenschlüssel(NotenschlüsselID, note, prozent
