@@ -970,7 +970,7 @@ alter table TABLE_NAME drop constraint CONSTRAINT_NAME;
 == TestStoff
 
 * ERD + RM
-* Create tables vom ERD (mit privmary and foreign keys)
+* Create tables vom ERD (mit primary and foreign keys)
 * select statement
 * insert
 * update
@@ -980,17 +980,62 @@ alter table TABLE_NAME drop constraint CONSTRAINT_NAME;
 * Sequenzes
 * Constraints (Primary key, foreign key)
 
-=== Exercises
+=== Testbesprechung
 
-==== ADAT 1:
+-> SQL Developer (Verbindungsdaten auswendig lernen)
+-> script zum Einspielen
 
-    Gegenstand(GegenstandID, Name
-    Test(TestID, GegenstandID, datum
-    Beispiel(BeispielID, TestID, Punkte)
-    Beispielsausführung(BeispielsausführungsID, BeispielID, TestausführungsID, Punkte
-    Testausführung(TestausführungsID, TestID, Gegenstand_SchülerID
-    Gegenstand_Schüler(Gegenstand_SchülerID, GegenstandID, SchülerID
-    Schüler(SchülerID, Vorname, Nachname
-    Schüler_Schuljahr(Schüler_SchuljarID, SchülerId, KlasseId, Mitarbeit
-    Klasse(KlasseId, Name, Schuljahr,
-    Notenschlüssel(NotenschlüsselID, note, prozent
+* Befehlt für Anzeigen von Tables:
+
+[source, sql]
+----
+select * from cat
+/* oder */
+select table_name from user_tables
+----
+
+* Date format abändern:
+
+[source, sql]
+----
+alter session set nls_date_format = 'DD-MON-YYYY HH24:MI:SS';
+----
+
+* distinct anwenden können
+* group by
+* joins!!!
+* concat -> ||
+* like
+* to_date
+* substr
+* trim
+* upper, lower
+* nvl
+* to_char
+* to_date
+* order by
+* case:
+
+[source, sql]
+----
+SELECT cust_last_name,
+   CASE credit_limit WHEN 100 THEN 'Low'
+   WHEN 5000 THEN 'High'
+   ELSE 'Medium' END
+   FROM customers;
+----
+
+* connect by (kommt nicht)
+* intersect (kommt nicht)
+* minus (kommt nicht)
+* sequences
+* subselect
+* update
+* insert
+* delete
+* drop
+
+Die Tendenz auf dem Test liegt eher auf den select statements
+
+Es gibt wieder die outputs
+

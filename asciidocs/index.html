@@ -130,7 +130,7 @@ a {
 <div class="details">
 <span id="author" class="author">Mctom Spdo</span><br>
 <span id="revnumber">version 1.0.0,</span>
-<span id="revdate">2022-03-30</span>
+<span id="revdate">2022-04-26</span>
 <br><span id="revremark">INSY</span>
 </div>
 <div id="toc" class="toc2">
@@ -203,6 +203,11 @@ a {
 <li><a href="#_fk_foreign_key">13.4. FK (Foreign Key)</a></li>
 <li><a href="#_check">13.5. CHECK</a></li>
 <li><a href="#_löschen_von_constraints">13.6. Löschen von Constraints</a></li>
+</ul>
+</li>
+<li><a href="#_teststoff">14. TestStoff</a>
+<ul class="sectlevel2">
+<li><a href="#_testbesprechung">14.1. Testbesprechung</a></li>
 </ul>
 </li>
 </ul>
@@ -1591,11 +1596,175 @@ DATE_OF_BIRTH <span style="color:#0a8;font-weight:bold">date</span> <span style=
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_teststoff">14. TestStoff</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>ERD + RM</p>
+</li>
+<li>
+<p>Create tables vom ERD (mit primary and foreign keys)</p>
+</li>
+<li>
+<p>select statement</p>
+</li>
+<li>
+<p>insert</p>
+</li>
+<li>
+<p>update</p>
+</li>
+<li>
+<p>alter</p>
+</li>
+<li>
+<p>delete</p>
+</li>
+<li>
+<p>drop</p>
+</li>
+<li>
+<p>Sequenzes</p>
+</li>
+<li>
+<p>Constraints (Primary key, foreign key)</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_testbesprechung">14.1. Testbesprechung</h3>
+<div class="paragraph">
+<p>&#8594; SQL Developer (Verbindungsdaten auswendig lernen)
+&#8594; script zum Einspielen</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Befehlt für Anzeigen von Tables:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> * <span style="color:#080;font-weight:bold">from</span> cat
+<span style="color:#777">/* oder */</span>
+<span style="color:#B06;font-weight:bold">select</span> table_name <span style="color:#080;font-weight:bold">from</span> user_tables</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Date format abändern:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">alter</span> session <span style="color:#B06;font-weight:bold">set</span> nls_date_format = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">DD-MON-YYYY HH24:MI:SS</span><span style="color:#710">'</span></span>;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>distinct anwenden können</p>
+</li>
+<li>
+<p>group by</p>
+</li>
+<li>
+<p>joins!!!</p>
+</li>
+<li>
+<p>concat &#8594; ||</p>
+</li>
+<li>
+<p>like</p>
+</li>
+<li>
+<p>to_date</p>
+</li>
+<li>
+<p>substr</p>
+</li>
+<li>
+<p>trim</p>
+</li>
+<li>
+<p>upper, lower</p>
+</li>
+<li>
+<p>nvl</p>
+</li>
+<li>
+<p>to_char</p>
+</li>
+<li>
+<p>to_date</p>
+</li>
+<li>
+<p>order by</p>
+</li>
+<li>
+<p>case:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">SELECT</span> cust_last_name,
+   <span style="color:#080;font-weight:bold">CASE</span> credit_limit <span style="color:#080;font-weight:bold">WHEN</span> <span style="color:#00D">100</span> <span style="color:#080;font-weight:bold">THEN</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Low</span><span style="color:#710">'</span></span>
+   <span style="color:#080;font-weight:bold">WHEN</span> <span style="color:#00D">5000</span> <span style="color:#080;font-weight:bold">THEN</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">High</span><span style="color:#710">'</span></span>
+   <span style="color:#080;font-weight:bold">ELSE</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Medium</span><span style="color:#710">'</span></span> <span style="color:#080;font-weight:bold">END</span>
+   <span style="color:#080;font-weight:bold">FROM</span> customers;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>connect by (kommt nicht)</p>
+</li>
+<li>
+<p>intersect (kommt nicht)</p>
+</li>
+<li>
+<p>minus (kommt nicht)</p>
+</li>
+<li>
+<p>sequences</p>
+</li>
+<li>
+<p>subselect</p>
+</li>
+<li>
+<p>update</p>
+</li>
+<li>
+<p>insert</p>
+</li>
+<li>
+<p>delete</p>
+</li>
+<li>
+<p>drop</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Die Tendenz auf dem Test liegt eher auf den select statements</p>
+</div>
+<div class="paragraph">
+<p>Es gibt wieder die outputs</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2022-03-30 11:41:06 +0200
+Last updated 2022-04-26 09:45:38 +0200
 </div>
 </div>
 </body>
