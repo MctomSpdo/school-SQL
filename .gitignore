@@ -3,6 +3,8 @@
 asciidocs/.nojekyll
 asciidocs/.asciidoctor
 
+*.asciidoctor/*
+
 ### Linux ###
 *~
 
