@@ -1041,3 +1041,44 @@ Die Tendenz auf dem Test liegt eher auf den select statements
 
 Es gibt wieder die outputs
 
+== Index
+
+Ein Index ist ein Attributwert + Adresse (Inhaltsverzeichnis)
+
+Vorteil: kleiner daher leichter im Hauptspeicher platz findet
+
+image::abb51.png[]
+
+bei Oracle werden Indexe automatisch bei PK angelegt
+
+image::abb52.png[]
+
+[source, sql]
+----
+DESCRIBE user_indexes;
+select * from user_indexes;
+select * from user_ind_columns;
+----
+
+Vorteil: select, update, delete
+
+Nachteil: insert, update, delete
+
+image::abb53.png[]
+
+kein Index: (Faustregeln)
+
+* kleine Tabellen (wenig Zeilen)
+* Tabelle häufig aktualisiert
+* Abfragen rufen mehr als 2 - 4 % der Zeilen auf
+* Spalten werden nicht oft als Bedingungen verwendet
+
+Beispiel:
+
+[source, sql]
+----
+create index pen_plno on PENALTIES (PLAYERNO);
+----
+
+=== Views
+

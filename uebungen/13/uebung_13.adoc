@@ -38,7 +38,7 @@ left to right direction
 !theme plain
 
 class Teil {
-    - <u>TNR</u>
+    - <u>TNr</u>
     ---
     - Bezeichnung
     - Art
@@ -47,19 +47,19 @@ class Teil {
 }
 
 class Artikel {
-    - <u>TNR</u>
+    - <u>TNr</u>
     ---
     - Verkaufspreis
 }
 
 class Fremdteil {
-    - <u>TNR</u>
+    - <u>TNr</u>
     ---
     - Bestellpolitik
 }
 
 class Eigenteil {
-    - <u>TNR</u>
+    - <u>TNr</u>
     ---
     - Losgrösse
 }
@@ -85,6 +85,41 @@ class Arbeitsgang {
     ---
     - Vnr (reference)
 }
+
+class TechnischesVerfahren {
+    - <u>VNr</u>
+    ---
+    - Beizeichnung
+}
+
+class Betriebsmittel {
+    - <u>BMNr</u>
+    ---
+    - Bezeichnung
+    - Wartung
+}
+
+class AG_BM_Zuordnung {
+    - <u>APNr</u>
+    - <u>AGNr</u>
+    - <u>BMNr</u>
+    ---
+    - Ruhezeit
+    - Arbeitszeit
+}
+
+class AG_Komp_Zuordnung {
+    - <u>APNr</u>
+    - <u>AGNr</u>
+    - <u>TNr</u>
+    ----
+    - Menge
+}
+
+Teil "1"--"*" Eigenteil
+Teil "1"--"*" Fremdteil
+Teil "1"--"*" Artikel
+Teil "2"--"*" Struktur
 
 @enduml
 ----
