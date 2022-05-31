@@ -20,6 +20,8 @@ https://mctomspdo.github.io/school-SQL/uebungen/05/Uebung_5[Übung 5] +
 https://mctomspdo.github.io/school-SQL/uebungen/06/uebung_6[Übung 6] +
 https://mctomspdo.github.io/school-SQL/uebungen/07/uebung_7[Übung 7] +
 https://mctomspdo.github.io/school-SQL/uebungen/10/uebung_10[Übung 10] +
+link:../uebungen/12/uebung_12.html[Übung 12] +
+link:../uebungen/13/uebung_13.html[Übung 13]
 
 === Shop
 
