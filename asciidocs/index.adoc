@@ -1082,3 +1082,27 @@ create index pen_plno on PENALTIES (PLAYERNO);
 
 === Views
 
+Eine logische oder virtuelle Tabelle, die auf einer Tabelle oder einer anderen View basiert. (gleicht einem Fenster)
+
+image::abb54.png[]
+
+Syntax:
+
+image::abb55.png[]
+
+With check option:
+
+* insert und update (gehört der Satz nach einem update / insert weiterhin zur view?)
+* Einschränkungen:
+** kein distinct
+** kein group by
+
+Example:
+
+image::abb56.png[]
+
+== 2. Exam
+
+* create statement
+* insert statement
+* update statement

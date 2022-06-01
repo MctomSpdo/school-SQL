@@ -6,7 +6,6 @@ ifndef::imagesdir[:imagesdir: images]
 :sourcedir: ../src/main/java
 :icons: font
 :sectnums:    // Nummerierung der Überschriften / section numbering
-:toc: left
 :stylesheet: ../../asciidocs/css/dark.css
 
 == Schema
@@ -32,94 +31,5 @@ AG_Komp_Zuordnung (APNr, AGNr, TNr, Menge) +
 
 [plantuml,sceme]
 ----
-@startuml
-
-left to right direction
-!theme plain
-
-class Teil {
-    - <u>TNr</u>
-    ---
-    - Bezeichnung
-    - Art
-    - Lagerstand
-    - Mengeneinheit
-}
-
-class Artikel {
-    - <u>TNr</u>
-    ---
-    - Verkaufspreis
-}
-
-class Fremdteil {
-    - <u>TNr</u>
-    ---
-    - Bestellpolitik
-}
-
-class Eigenteil {
-    - <u>TNr</u>
-    ---
-    - Losgrösse
-}
-
-class Struktur {
-    - <u>OberTNr</u>
-    - <u>UnterTNr</u>
-    ---
-    - Menge
-}
-
-class Arbeitsplan {
-    - <u>APNr</u>
-    ---
-    - Ersteller
-    - ErstellDatum
-    - TNr (reference)
-}
-
-class Arbeitsgang {
-    - <u>APNr</u>
-    - <u>AGNr</u>
-    ---
-    - Vnr (reference)
-}
-
-class TechnischesVerfahren {
-    - <u>VNr</u>
-    ---
-    - Beizeichnung
-}
-
-class Betriebsmittel {
-    - <u>BMNr</u>
-    ---
-    - Bezeichnung
-    - Wartung
-}
-
-class AG_BM_Zuordnung {
-    - <u>APNr</u>
-    - <u>AGNr</u>
-    - <u>BMNr</u>
-    ---
-    - Ruhezeit
-    - Arbeitszeit
-}
-
-class AG_Komp_Zuordnung {
-    - <u>APNr</u>
-    - <u>AGNr</u>
-    - <u>TNr</u>
-    ----
-    - Menge
-}
-
-Teil "1"--"*" Eigenteil
-Teil "1"--"*" Fremdteil
-Teil "1"--"*" Artikel
-Teil "2"--"*" Struktur
-
-@enduml
+include::uebung13.puml[]
 ----
