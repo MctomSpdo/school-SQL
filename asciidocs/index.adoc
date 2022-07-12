@@ -16,6 +16,7 @@ ifndef::imagesdir[:imagesdir: images]
 === Main
 
 link:../uebungen/01/uebung_1.html[Übung 1 a] +
+link:../uebungen/01_01/uebung_1.html[Übung 1b] +
 link:../uebungen/04/Uebung_4[Übung 4] +
 link:../uebungen/05/Uebung_5[Übung 5] +
 link:../uebungen/06/uebung_6[Übung 6] +
