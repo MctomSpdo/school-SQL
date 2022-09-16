@@ -1,0 +1,113 @@
+= Übung 13
+Mctom Spdo
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+//:toc-placement!:  // prevents the generation of the doc at this position, so it can be printed afterwards
+:icons: font
+:sectnums:    // Nummerierung der Überschriften / section numbering
+:stylesheet: ../../asciidocs/css/dark.css
+
+== Übungen Versicherung
+
+image::erd-Versicherung.JPG[]
+
+=== Creating Tables
+
+[source, sql]
+----
+create table V_VERTRAGSORT (
+    ABSCHLUSSID number(9) primary key,
+    ORT varchar(30),
+    DATUM date
+);
+
+create table V_VERTRETER (
+    VERTRETERID number(9) primary key ,
+    NNAME varchar2(30),
+    PLZ number,
+    ORT varchar(30)
+);
+
+create table V_VERTRAG (
+    VERTRAGSID number(9) primary key,
+    folgevertrag varchar2(30),
+    nochgueltig varchar2(4),
+    VORGAENGERVERTRAG varchar2(30),
+    ABSCHLUSSDATUM date,
+    VERTRETERID number(9),
+    constraint FK_VERTRETERID foreign key (VERTRETERID) references V_VERTRETER
+);
+
+create table V_VERTRAGSABSCHLUSS (
+    VERTRAGSID number(9),
+    ABSCHLUSSID number(9),
+    VERTRAGSGROESSE_EURO number(9),
+    constraint FK_V_VERTRAG foreign key (VERTRAGSID) references V_VERTRAG,
+    constraint FK_V_VERTRAGSORT foreign key (ABSCHLUSSID) references V_VERTRAGSORT,
+    constraint PK_V_VERTRAGSABSCHLUSS primary key (ABSCHLUSSID, VERTRAGSID)
+);
+----
+
+[source, sql]
+----
+drop table V_VERTRAGSABSCHLUSS;
+drop table V_VERTRAG;
+drop table V_VERTRAGSORT;
+drop table V_VERTRETER;
+----
+
+== Inserts
+
+=== Change Date Format
+
+[source, sql]
+----
+alter session set nls_date_format = 'DD-MM-YYYY HH24:MI:SS';
+----
+
+=== Insert Script
+
+[source, sql]
+----
+include::insert.sql[]
+----
+
+=== Commit changes
+
+[source, sql]
+----
+commit;
+----
+
+== Abfragen
+
+=== Abfrage
+
+Zeige sämtliche Vertragsorte an sowie die Anzahl der dort abgeschlossenen Verträge.
+VERTRÄGE
+
+image::abfrage1.png[]
+
+[source, sql]
+----
+select 'Am ' || to_char(DATUM, 'DD-MM-YYYY') || ' in ' || ORT || ' mit ' || count(VERTRAGSID)  || ' Vertraege abgeschlossen' as result
+from V_VERTRAGSABSCHLUSS
+    full outer join V_VERTRAGSORT VV using (ABSCHLUSSID)
+group by ORT, DATUM
+order by DATUM;
+----
+
+=== Abfrage
+
+Zeige zu jedem Vertreter dessen Verträge. Beachten, dass die Verträge hierarchisch
+dargestellt werden sollen. Das erste Ordnungskriterium ist die Vertragsgeneration, das
+zweite der Vertragsnamen.
+Hinweis: Da hierarchische Abfragen nur auf einzelnen Tabellen erlaubt sind, verwende eine
+Subquery als Spaltenausdruck für den Vertreter.
+
+image::abfrage2.png[]
+
+
+
+
+

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.17">
+<meta name="author" content="Mctom Spdo">
+<title>Übung 13</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+:root{
+--maincolor:#282c34;
+--primarycolor:#f39c12;
+--secondarycolor:#03a9f4;
+--tertiarycolor:#4db6ac;
+--sidebarbackground:#21252b;
+--linkcolor:#f44336;
+--linkcoloralternate:#ff9800;
+--white:#FFFFFF;
+}
+
+/* custom added styles */
+.listingblock > .content > pre{
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+/* Text styles */
+body{font-family: "Noto Sans",sans-serif;background-color: var(--maincolor);color:var(--white);}
+
+h1{color:var(--primarycolor) !important;font-family:"Noto Sans",sans-serif;}
+h2,h3,h4,h5,h6{color:var(--secondarycolor) !important;font-family:"Noto Sans",sans-serif;}
+.title{color:var(--white) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Noto Sans",sans-serif ! important}
+#toc.toc2 a:link{color:var(--linkcolor);}
+blockquote{color:var(--tertiarycolor) !important}
+.quoteblock{color:var(--white)}
+code{color:var(--linkcoloralternate);background-color: var(--sidebarbackground) !important}
+
+
+/* Table styles */
+th{background-color: var(--maincolor);color:var(--white) !important;}
+td{background-color: var(--maincolor);color: var(--linkcoloralternate) !important}
+
+
+#toc.toc2{background-color:var(--sidebarbackground);}
+#toctitle{color:var(--white);}
+
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  table {
+    width: 55vw!important;
+    font-size: 3vw;
+  }
+}
+
+.exampleblock > .content {
+  background-color: var(--maincolor);
+}
+
+a {
+  color: var(--secondarycolor);
+}
+
+.admonitionblock td.icon .icon-tip::before {
+  text-shadow: none;
+  color: var(--white);
+}
+.admonitionblock td.icon .icon-note::before {
+  color: var(--tertiarycolor);
+}
+.admonitionblock td.icon .icon-important::before {
+  color: var(--linkcolor);
+}
+/*.admonitionblock td.icon .icon-caution::before {
+  color: var(--linkcoloralternate);
+}*/
+.admonitionblock td.icon .icon-warning::before {
+  color: var(--primarycolor);
+}
+
+#preamble > .sectionbody > .paragraph:first-of-type p {
+  color: var(--white);
+}
+
+.quoteblock blockquote::before {
+  color: var(--primarycolor);
+}
+.quoteblock .attribution cite, .verseblock .attribution cite {
+  color: var(--white);
+}
+.verseblock pre {
+  color: var(--white);
+}
+.quoteblock blockquote, .quoteblock blockquote p {
+  color: var(--white);
+}
+
+.sidebarblock {
+  background: var(--sidebarbackground);
+}
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+#header .details {
+  color: var(--white);
+}
+#header .details span.email a {
+  color: var(--linkcoloralternate);
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Übung 13</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2022-09-15</span>
+<br><span id="revremark">INSY</span>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_übungen_versicherung">1. Übungen Versicherung</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/erd-Versicherung.JPG" alt="erd Versicherung">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_creating_tables">1.1. Creating Tables</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">create</span> <span style="color:#339;font-weight:bold">table</span> V_VERTRAGSORT (
+    ABSCHLUSSID number(<span style="color:#00D">9</span>) <span style="color:#088;font-weight:bold">primary</span> <span style="color:#339;font-weight:bold">key</span>,
+    ORT <span style="color:#0a8;font-weight:bold">varchar</span>(<span style="color:#00D">30</span>),
+    DATUM <span style="color:#0a8;font-weight:bold">date</span>
+);
+
+<span style="color:#B06;font-weight:bold">create</span> <span style="color:#339;font-weight:bold">table</span> V_VERTRETER (
+    VERTRETERID number(<span style="color:#00D">9</span>) <span style="color:#088;font-weight:bold">primary</span> <span style="color:#339;font-weight:bold">key</span> ,
+    NNAME <span style="color:#0a8;font-weight:bold">varchar2</span>(<span style="color:#00D">30</span>),
+    PLZ number,
+    ORT <span style="color:#0a8;font-weight:bold">varchar</span>(<span style="color:#00D">30</span>)
+);
+
+<span style="color:#B06;font-weight:bold">create</span> <span style="color:#339;font-weight:bold">table</span> V_VERTRAG (
+    VERTRAGSID number(<span style="color:#00D">9</span>) <span style="color:#088;font-weight:bold">primary</span> <span style="color:#339;font-weight:bold">key</span>,
+    folgevertrag <span style="color:#0a8;font-weight:bold">varchar2</span>(<span style="color:#00D">30</span>),
+    nochgueltig <span style="color:#0a8;font-weight:bold">varchar2</span>(<span style="color:#00D">4</span>),
+    VORGAENGERVERTRAG <span style="color:#0a8;font-weight:bold">varchar2</span>(<span style="color:#00D">30</span>),
+    ABSCHLUSSDATUM <span style="color:#0a8;font-weight:bold">date</span>,
+    VERTRETERID number(<span style="color:#00D">9</span>),
+    <span style="color:#339;font-weight:bold">constraint</span> FK_VERTRETERID <span style="color:#088;font-weight:bold">foreign</span> <span style="color:#339;font-weight:bold">key</span> (VERTRETERID) <span style="color:#080;font-weight:bold">references</span> V_VERTRETER
+);
+
+<span style="color:#B06;font-weight:bold">create</span> <span style="color:#339;font-weight:bold">table</span> V_VERTRAGSABSCHLUSS (
+    VERTRAGSID number(<span style="color:#00D">9</span>),
+    ABSCHLUSSID number(<span style="color:#00D">9</span>),
+    VERTRAGSGROESSE_EURO number(<span style="color:#00D">9</span>),
+    <span style="color:#339;font-weight:bold">constraint</span> FK_V_VERTRAG <span style="color:#088;font-weight:bold">foreign</span> <span style="color:#339;font-weight:bold">key</span> (VERTRAGSID) <span style="color:#080;font-weight:bold">references</span> V_VERTRAG,
+    <span style="color:#339;font-weight:bold">constraint</span> FK_V_VERTRAGSORT <span style="color:#088;font-weight:bold">foreign</span> <span style="color:#339;font-weight:bold">key</span> (ABSCHLUSSID) <span style="color:#080;font-weight:bold">references</span> V_VERTRAGSORT,
+    <span style="color:#339;font-weight:bold">constraint</span> PK_V_VERTRAGSABSCHLUSS <span style="color:#088;font-weight:bold">primary</span> <span style="color:#339;font-weight:bold">key</span> (ABSCHLUSSID, VERTRAGSID)
+);</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">drop</span> <span style="color:#339;font-weight:bold">table</span> V_VERTRAGSABSCHLUSS;
+<span style="color:#B06;font-weight:bold">drop</span> <span style="color:#339;font-weight:bold">table</span> V_VERTRAG;
+<span style="color:#B06;font-weight:bold">drop</span> <span style="color:#339;font-weight:bold">table</span> V_VERTRAGSORT;
+<span style="color:#B06;font-weight:bold">drop</span> <span style="color:#339;font-weight:bold">table</span> V_VERTRETER;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_inserts">2. Inserts</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_change_date_format">2.1. Change Date Format</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">alter</span> session <span style="color:#B06;font-weight:bold">set</span> nls_date_format = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">DD-MM-YYYY HH24:MI:SS</span><span style="color:#710">'</span></span>;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_insert_script">2.2. Insert Script</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">alter</span> session <span style="color:#B06;font-weight:bold">set</span> nls_date_format = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">DD-MM-YYYY HH24:MI:SS</span><span style="color:#710">'</span></span>;
+
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertragsort
+(ABSCHLUSSID,ORT,DATUM)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">1</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">LONDON</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">17-03-2001</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertragsort
+(ABSCHLUSSID,ORT,DATUM)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">2</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">WIEN</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">23-05-2001</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertragsort
+(ABSCHLUSSID,ORT,DATUM)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">3</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">PARIS</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">04-08-2001</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertragsort
+(ABSCHLUSSID,ORT,DATUM)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">4</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">ROM</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">28-08-2001</span><span style="color:#710">'</span></span>)
+/
+
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertreter
+(VERTRETERID,NNAME,PLZ,ORT)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">1</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Maier</span><span style="color:#710">'</span></span>,<span style="color:#00D">9920</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">ROM</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertreter
+(VERTRETERID,NNAME,PLZ,ORT)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">2</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Müller</span><span style="color:#710">'</span></span>,<span style="color:#00D">5550</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">LONDON</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertreter
+(VERTRETERID,NNAME,PLZ,ORT)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">3</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Huber</span><span style="color:#710">'</span></span>,<span style="color:#00D">440</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">WIEN</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertreter
+(VERTRETERID,NNAME,PLZ,ORT)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">4</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Bauer</span><span style="color:#710">'</span></span>,<span style="color:#00D">6660</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">PARIS</span><span style="color:#710">'</span></span>)
+/
+
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertrag
+(vertragsid,folgevertrag,nochgueltig,vorgaengervertrag,abschlussdatum,vertreterid)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">1</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag1Haus</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">JA</span><span style="color:#710">'</span></span>,<span style="color:#069">NULL</span>,<span style="color:#069">NULL</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">1</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertrag
+(vertragsid,folgevertrag,nochgueltig,vorgaengervertrag,abschlussdatum,vertreterid)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">2</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag2Auto</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">NEIN</span><span style="color:#710">'</span></span>,<span style="color:#069">NULL</span>,<span style="color:#069">NULL</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">2</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertrag
+(vertragsid,folgevertrag,nochgueltig,vorgaengervertrag,abschlussdatum,vertreterid)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">3</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag3Auto</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">NEIN</span><span style="color:#710">'</span></span>,<span style="color:#069">NULL</span>,<span style="color:#069">NULL</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">2</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertrag
+(vertragsid,folgevertrag,nochgueltig,vorgaengervertrag,abschlussdatum,vertreterid)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">4</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag4Auto</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">JA</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag1Haus</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">02-01-1990</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">1</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertrag
+(vertragsid,folgevertrag,nochgueltig,vorgaengervertrag,abschlussdatum,vertreterid)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">5</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag5Auto</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">NEIN</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag1Haus</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">15-07-1990</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">2</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertrag
+(vertragsid,folgevertrag,nochgueltig,vorgaengervertrag,abschlussdatum,vertreterid)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">6</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag6Lebens</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">JA</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag1Haus</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">12-03-1991</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">3</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertrag
+(vertragsid,folgevertrag,nochgueltig,vorgaengervertrag,abschlussdatum,vertreterid)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">7</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag7Lebens</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">JA</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag1Haus</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">22-08-1992</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">4</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertrag
+(vertragsid,folgevertrag,nochgueltig,vorgaengervertrag,abschlussdatum,vertreterid)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">8</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag8Lebens</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">JA</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag4Auto</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">30-03-1993</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">1</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertrag
+(vertragsid,folgevertrag,nochgueltig,vorgaengervertrag,abschlussdatum,vertreterid)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">9</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag5AutoNE</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">JA</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag4Auto</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">04-12-1993</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">2</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertrag
+(vertragsid,folgevertrag,nochgueltig,vorgaengervertrag,abschlussdatum,vertreterid)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">10</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag9Lebens</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">JA</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag1Haus</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">09-02-1993</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">3</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertrag
+(vertragsid,folgevertrag,nochgueltig,vorgaengervertrag,abschlussdatum,vertreterid)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">11</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag10Lebens</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">NEIN</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag7Lebens</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">24-07-1994</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">4</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertrag
+(vertragsid,folgevertrag,nochgueltig,vorgaengervertrag,abschlussdatum,vertreterid)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">12</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag11Lebens</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">NEIN</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag4Auto</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">12-08-1995</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">4</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertrag
+(vertragsid,folgevertrag,nochgueltig,vorgaengervertrag,abschlussdatum,vertreterid)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">13</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag12Lebens</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">JA</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag5AutoNE</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">03-04-1996</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">4</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertrag
+(vertragsid,folgevertrag,nochgueltig,vorgaengervertrag,abschlussdatum,vertreterid)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">14</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag13Lebens</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">JA</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag5AutoNE</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">25-12-1996</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">2</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertrag
+(vertragsid,folgevertrag,nochgueltig,vorgaengervertrag,abschlussdatum,vertreterid)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">15</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag14Lebens</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">JA</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag7Lebens</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">21-07-1996</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">2</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertrag
+(vertragsid,folgevertrag,nochgueltig,vorgaengervertrag,abschlussdatum,vertreterid)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">16</span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag15Lebens</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">JA</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag12Lebens</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">11-10-1998</span><span style="color:#710">'</span></span>,<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">3</span><span style="color:#710">'</span></span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertragsabschluss
+(VERTRAGSID,ABSCHLUSSID,VERTRAGSGROESSE_EURO)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">11</span>,<span style="color:#00D">1</span>,<span style="color:#00D">500</span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertragsabschluss
+(VERTRAGSID,ABSCHLUSSID,VERTRAGSGROESSE_EURO)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">15</span>,<span style="color:#00D">1</span>,<span style="color:#00D">1000</span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertragsabschluss
+(VERTRAGSID,ABSCHLUSSID,VERTRAGSGROESSE_EURO)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">12</span>,<span style="color:#00D">3</span>,<span style="color:#00D">300</span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertragsabschluss
+(VERTRAGSID,ABSCHLUSSID,VERTRAGSGROESSE_EURO)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">11</span>,<span style="color:#00D">3</span>,<span style="color:#00D">600</span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertragsabschluss
+(VERTRAGSID,ABSCHLUSSID,VERTRAGSGROESSE_EURO)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">13</span>,<span style="color:#00D">4</span>,<span style="color:#00D">1000</span>)
+/
+<span style="color:#B06;font-weight:bold">INSERT</span> <span style="color:#B06;font-weight:bold">INTO</span> v_vertragsabschluss
+(VERTRAGSID,ABSCHLUSSID,VERTRAGSGROESSE_EURO)
+<span style="color:#080;font-weight:bold">VALUES</span>
+(<span style="color:#00D">14</span>,<span style="color:#00D">4</span>,<span style="color:#00D">300</span>)
+/</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_commit_changes">2.3. Commit changes</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">commit</span>;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfragen">3. Abfragen</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_abfrage">3.1. Abfrage</h3>
+<div class="paragraph">
+<p>Zeige sämtliche Vertragsorte an sowie die Anzahl der dort abgeschlossenen Verträge.
+VERTRÄGE</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/abfrage1.png" alt="abfrage1">
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Am </span><span style="color:#710">'</span></span> || to_char(DATUM, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">DD-MM-YYYY</span><span style="color:#710">'</span></span>) || <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20"> in </span><span style="color:#710">'</span></span> || ORT || <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20"> mit </span><span style="color:#710">'</span></span> || <span style="color:#369;font-weight:bold">count</span>(VERTRAGSID)  || <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20"> Vertraege abgeschlossen</span><span style="color:#710">'</span></span> <span style="color:#080;font-weight:bold">as</span> result
+<span style="color:#080;font-weight:bold">from</span> V_VERTRAGSABSCHLUSS
+    <span style="color:#080;font-weight:bold">full</span> <span style="color:#080;font-weight:bold">outer</span> <span style="color:#080;font-weight:bold">join</span> V_VERTRAGSORT VV <span style="color:#080;font-weight:bold">using</span> (ABSCHLUSSID)
+<span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> ORT, DATUM
+<span style="color:#080;font-weight:bold">order</span> <span style="color:#080;font-weight:bold">by</span> DATUM;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_abfrage_2">3.2. Abfrage</h3>
+<div class="paragraph">
+<p>Zeige zu jedem Vertreter dessen Verträge. Beachten, dass die Verträge hierarchisch
+dargestellt werden sollen. Das erste Ordnungskriterium ist die Vertragsgeneration, das
+zweite der Vertragsnamen.
+Hinweis: Da hierarchische Abfragen nur auf einzelnen Tabellen erlaubt sind, verwende eine
+Subquery als Spaltenausdruck für den Vertreter.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/abfrage2.png" alt="abfrage2">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2022-09-15 11:42:11 +0200
+</div>
+</div>
+</body>
+</html>

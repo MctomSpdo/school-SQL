@@ -27,6 +27,10 @@ link:../uebungen/13/uebung_13.html[Übung 13]
 
 https://mctomspdo.github.io/school-SQL/uebungen/shop/shop[Übung shop]
 
+=== Versicherung
+
+link:../uebungen/versicherung/versicherung.adoc[Übung Versicherungen]
+
 == Tables
 
 === Creating Tables
@@ -605,7 +609,7 @@ Dies änder das Datum nur für die aktuelle Session
 
 [source,sql]
 ----
-alter session set nls_date_format = 'DD-MON-YYYY HH24:MI:SS';
+alter session set nls_date_format = 'DD-MM-YYYY HH24:MI:SS';
 ----
 
 == Parts
@@ -1106,3 +1110,12 @@ image::abb56.png[]
 * create statement
 * insert statement
 * update statement
+
+== 3rd Semester plan
+
+* SQL
+* PLSQL
+* APEX
+* JPA (OR Mapper)
+* Mongo
+* R [?]
