@@ -15,21 +15,129 @@ ifndef::imagesdir[:imagesdir: images]
 
 === Main
 
-https://mctomspdo.github.io/school-SQL/uebungen/04/Uebung_4[Übung 4] +
-https://mctomspdo.github.io/school-SQL/uebungen/05/Uebung_5[Übung 5] +
-https://mctomspdo.github.io/school-SQL/uebungen/06/uebung_6[Übung 6] +
-https://mctomspdo.github.io/school-SQL/uebungen/07/uebung_7[Übung 7] +
-https://mctomspdo.github.io/school-SQL/uebungen/10/uebung_10[Übung 10] +
+link:../uebungen/04/Uebung_4[Übung 4] +
+link:../uebungen/05/Uebung_5[Übung 5] +
+link:../uebungen/06/uebung_6[Übung 6] +
+link:../uebungen/07/uebung_7[Übung 7] +
+link:../uebungen/07/uebung_7[Übung 7] +
+link:../uebungen/10/uebung_10[Übung 10] +
 link:../uebungen/12/uebung_12.html[Übung 12] +
 link:../uebungen/13/uebung_13.html[Übung 13]
 
 === Shop
 
-https://mctomspdo.github.io/school-SQL/uebungen/shop/shop[Übung shop]
+link:../uebungen/shop/shop.html[Übung shop]
 
 === Versicherung
 
-link:../uebungen/versicherung/versicherung.adoc[Übung Versicherungen]
+link:../uebungen/versicherung/versicherung.html[Übung Versicherungen]
+
+== Semesterstoff
+
+=== Semester 2
+
+.Exam 3
+[%collapsible]
+====
+
+* ERD + RM
+* Create tables vom ERD (mit primary and foreign keys)
+* select statement
+* insert
+* update
+* alter
+* delete
+* drop
+* Sequences
+* Constraints (Primary key, foreign key)
+
+====
+
+.Exam 4
+[%collapsible]
+====
+
+-> SQL Developer (Verbindungsdaten auswendig lernen)
+-> script zum Einspielen
+
+* Befehlt für Anzeigen von Tables:
+
+[source, sql]
+----
+select * from cat
+/* oder */
+select table_name from user_tables
+----
+
+* Date format abändern:
+
+[source, sql]
+----
+alter session set nls_date_format = 'DD-MON-YYYY HH24:MI:SS';
+----
+
+* distinct anwenden können
+* group by
+* joins!!!
+* concat -> ||
+* like
+* to_date
+* substr
+* trim
+* upper, lower
+* nvl
+* to_char
+* to_date
+* order by
+* case:
+
+[source, sql]
+----
+SELECT cust_last_name,
+   CASE credit_limit WHEN 100 THEN 'Low'
+   WHEN 5000 THEN 'High'
+   ELSE 'Medium' END
+   FROM customers;
+----
+
+* connect by (kommt nicht)
+* intersect (kommt nicht)
+* minus (kommt nicht)
+* sequences
+* subselect
+* update
+* insert
+* delete
+* drop
+
+Die Tendenz auf dem Test liegt eher auf den select statements
+
+Es gibt wieder die outputs
+
+====
+
+=== Semester 3
+
+* wiederholung SQL
+* PLSQL
+* APEX
+* JPA (OR Mapper)
+* Mongo
+* R [?]
+
+.Exam 1
+[%collapsible]
+====
+
+* create statement
+* insert statement
+* update statement
+
+====
+
+
+
+
 
 == Tables
 
@@ -393,7 +501,7 @@ group by to_char(PEN_DATE, 'yyyy')
 order by 1;
 ----
 
-https://mctomspdo.github.io/school-SQL/uebungen/05/Uebung_5.html[Übung 5]
+link:../uebungen/05/Uebung_5.html[Übung 5]
 
 == JOIN
 
@@ -415,11 +523,11 @@ where pl.PLAYERNO = pe.PLAYERNO
 group by pl.NAME, pl.PLAYERNO;
 ----
 
-The most used Jointype is the Equijoin (Natural Join). +
+The most used Join-type is the Equijoin (Natural Join). +
 // Der am häufigsten verwendete Jointyp ist der Equijoin (Vergleichsoperator = )
 
 Join Types:
-https://mctomspdo.github.io/school-SQL/docs/Join_NEU.pdf[Join_NEU.pdf]
+link:../docs/Join_NEU.pdf[Join_NEU.pdf]
 
 === Natural Join
 
@@ -478,7 +586,7 @@ from EMP e inner join DEPT d
     on e.DEPTNO = d.DEPTNO;
 ----
 
-The outcome should be 14 lines long, since the BIGBOSS does not have a DeptNo.
+The outcome should be 14 lines long, since the BIGBOSS does *not* have a DeptNo.
 
 ==== left join + null
 
@@ -673,7 +781,7 @@ connect by prior SUB = SUPER
 start with SUPER = 'P3';
 ----
 
-Skalarfunktion: LPAD
+Skalarfunktionen: LPAD
 
 [source,sql]
 ----
@@ -695,7 +803,7 @@ image::inserts.png[]
 
 ==== Masseninsert:
 
-Mithilfe eines Masseninserts, kann man eine Kopie von der Tabelle anlegen, darauf arbeiten, und dann einen masseninsert machen, auf die Originaltablle speichern.
+Mithilfe eines Masseninserts, kann man eine Kopie von der Tabelle anlegen, darauf arbeiten, und dann einen massen-insert machen, auf die Originaltabelle speichern.
 
 image::abb33.png[]
 
@@ -730,7 +838,7 @@ set PRICE = PRICE * 1.1
 where upper(SUB) = 'P5';
 ----
 
-3: Alle Preise über ATS 60,- um 10% herabsetzen
+3: Alle Preise über ATS 60,- um 10 % herabsetzen
 
 [source,sql]
 ----
@@ -739,7 +847,7 @@ set PRICE = PRICE * 0.9
 where PRICE > 60;
 ----
 
-4: Alle Preise unter dem Durchschnitt um 20% erhöhen.
+4: Alle Preise unter dem Durchschnitt um 20 % erhöhen.
 
 [source,sql]
 ----
@@ -771,7 +879,7 @@ Löschbefehlte:
 
 Aufgabe SQL 7 (15.03.2022, UNION, MINUS, INTERSECT, SUBSELECT, JOIN)
 
-=== Nummerfolgen (Sequenzen)
+=== Nummernfolgen (Sequenzen)
 
 Verwendet für PrimaryKey (künstlichen Schlüssen)
 
@@ -854,9 +962,9 @@ select * from DBA_SEQUENCES; --nur Datenbankadministrator
 
 Dies kann nur ein Datenbankadministrator (DBA) ausführen.
 
-== Integrity Rules (Constraints)
+== Constraints (Integrity Rules)
 
-erzwingen Regeln
+erzwingen von Regeln
 
 [options=header]
 |===
@@ -973,78 +1081,6 @@ DATE_OF_BIRTH date check(year_of_birth <= year_joined),
 alter table TABLE_NAME drop constraint CONSTRAINT_NAME;
 ----
 
-== TestStoff
-
-* ERD + RM
-* Create tables vom ERD (mit primary and foreign keys)
-* select statement
-* insert
-* update
-* alter
-* delete
-* drop
-* Sequenzes
-* Constraints (Primary key, foreign key)
-
-=== Testbesprechung
-
--> SQL Developer (Verbindungsdaten auswendig lernen)
--> script zum Einspielen
-
-* Befehlt für Anzeigen von Tables:
-
-[source, sql]
-----
-select * from cat
-/* oder */
-select table_name from user_tables
-----
-
-* Date format abändern:
-
-[source, sql]
-----
-alter session set nls_date_format = 'DD-MON-YYYY HH24:MI:SS';
-----
-
-* distinct anwenden können
-* group by
-* joins!!!
-* concat -> ||
-* like
-* to_date
-* substr
-* trim
-* upper, lower
-* nvl
-* to_char
-* to_date
-* order by
-* case:
-
-[source, sql]
-----
-SELECT cust_last_name,
-   CASE credit_limit WHEN 100 THEN 'Low'
-   WHEN 5000 THEN 'High'
-   ELSE 'Medium' END
-   FROM customers;
-----
-
-* connect by (kommt nicht)
-* intersect (kommt nicht)
-* minus (kommt nicht)
-* sequences
-* subselect
-* update
-* insert
-* delete
-* drop
-
-Die Tendenz auf dem Test liegt eher auf den select statements
-
-Es gibt wieder die outputs
-
 == Index
 
 Ein Index ist ein Attributwert + Adresse (Inhaltsverzeichnis)
@@ -1122,7 +1158,7 @@ ALTER USER system
 IDENTIFIED BY neupwd
 ----
 
-== Rechte
+== Rechte auf der Datenbank
 
 === Grant
 
@@ -1134,7 +1170,7 @@ TO user [, user...]
 
 ==== Grant rights to another user
 
-= [source, sql]
+[source, sql]
 ----
 grant all on EMP to IT190228
 ----
@@ -1148,18 +1184,3 @@ select * from IT190228.EMP;
 delete IT190228.EMP;
     rollback;
 ----
-
-== 2. Exam
-
-* create statement
-* insert statement
-* update statement
-
-== 3rd Semester plan
-
-* SQL
-* PLSQL
-* APEX
-* JPA (OR Mapper)
-* Mongo
-* R [?]
