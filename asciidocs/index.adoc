@@ -1105,6 +1105,50 @@ Example:
 
 image::abb56.png[]
 
+== New Password
+
+[source, sql]
+----
+GRANT CONNECT
+TO system
+IDENTIFIED BY neupw
+----
+
+oder
+
+[source, sql]
+----
+ALTER USER system
+IDENTIFIED BY neupwd
+----
+
+== Rechte
+
+=== Grant
+
+[source, sql]
+----
+GRANT system_Privelege [, system_privelege....]
+TO user [, user...]
+----
+
+==== Grant rights to another user
+
+= [source, sql]
+----
+grant all on EMP to IT190228
+----
+
+select tables from other user:
+
+[source, sql]
+----
+select * from IT190228.EMP;
+
+delete IT190228.EMP;
+    rollback;
+----
+
 == 2. Exam
 
 * create statement

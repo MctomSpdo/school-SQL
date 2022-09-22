@@ -130,7 +130,7 @@ a {
 <div class="details">
 <span id="author" class="author">Mctom Spdo</span><br>
 <span id="revnumber">version 1.0.0,</span>
-<span id="revdate">2022-09-15</span>
+<span id="revdate">2022-09-22</span>
 <br><span id="revremark">INSY</span>
 </div>
 </div>
@@ -389,7 +389,7 @@ VERTRÄGE</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Am </span><span style="color:#710">'</span></span> || to_char(DATUM, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">DD-MM-YYYY</span><span style="color:#710">'</span></span>) || <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20"> in </span><span style="color:#710">'</span></span> || ORT || <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20"> mit </span><span style="color:#710">'</span></span> || <span style="color:#369;font-weight:bold">count</span>(VERTRAGSID)  || <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20"> Vertraege abgeschlossen</span><span style="color:#710">'</span></span> <span style="color:#080;font-weight:bold">as</span> result
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Am </span><span style="color:#710">'</span></span> || to_char(DATUM, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">DD-MM-YYYY</span><span style="color:#710">'</span></span>) || <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20"> in </span><span style="color:#710">'</span></span> || ORT || <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20"> mit </span><span style="color:#710">'</span></span> || <span style="color:#369;font-weight:bold">count</span>(VERTRAGSID)  || <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20"> Vertraege abgeschlossen</span><span style="color:#710">'</span></span> <span style="color:#080;font-weight:bold">as</span> VERTR<span style="color:#F00;background-color:#FAA">Ä</span>GE
 <span style="color:#080;font-weight:bold">from</span> V_VERTRAGSABSCHLUSS
     <span style="color:#080;font-weight:bold">full</span> <span style="color:#080;font-weight:bold">outer</span> <span style="color:#080;font-weight:bold">join</span> V_VERTRAGSORT VV <span style="color:#080;font-weight:bold">using</span> (ABSCHLUSSID)
 <span style="color:#080;font-weight:bold">group</span> <span style="color:#080;font-weight:bold">by</span> ORT, DATUM
@@ -411,6 +411,80 @@ Subquery als Spaltenausdruck für den Vertreter.</p>
 <img src="images/abfrage2.png" alt="abfrage2">
 </div>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> (<span style="color:#B06;font-weight:bold">select</span> nname <span style="color:#080;font-weight:bold">from</span> V_VERTRETER <span style="color:#080;font-weight:bold">where</span> VERTRETERID = v.VERTRETERID) vertrer, lpad(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20"> </span><span style="color:#710">'</span></span>, <span style="color:#00D">4</span> * (LEVEL <span style="color:#00D">-1</span>)) || <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20"> </span><span style="color:#710">'</span></span> || FOLGEVERTRAG vertrag <span style="color:#080;font-weight:bold">from</span> V_VERTRAG v
+connect <span style="color:#080;font-weight:bold">by</span> prior FOLGEVERTRAG = VORGAENGERVERTRAG
+start with FOLGEVERTRAG = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag1Haus</span><span style="color:#710">'</span></span>
+<span style="color:#080;font-weight:bold">order</span> <span style="color:#080;font-weight:bold">by</span> LEVEL, VERTRAG</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_abfrage_3">3.3. Abfrage</h3>
+<div class="paragraph">
+<p>Zeige zu jedem Vertrag die Vertragsorte und die Provision. In dieser Aufteilung sollen auch
+jene Verträge angeführt werden, die keine Provision enthalten</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/abfrage3.png" alt="abfrage3">
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> VERTRAGSID,
+       FOLGEVERTRAG,
+       nvl(ORT, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">---</span><span style="color:#710">'</span></span>) <span style="color:#080;font-weight:bold">as</span> ORT,
+       nvl(VERTRAGSGROESSE_EURO, <span style="color:#00D">0</span>) || <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20"> EURO Umsatz</span><span style="color:#710">'</span></span> <span style="color:#080;font-weight:bold">as</span> PROVISION,
+       nvl(to_char(DATUM, <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">DD-MM-YYYY</span><span style="color:#710">'</span></span>), <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">---</span><span style="color:#710">'</span></span>) <span style="color:#080;font-weight:bold">as</span> Abschlussdatum
+<span style="color:#080;font-weight:bold">from</span> V_VERTRAG
+    <span style="color:#080;font-weight:bold">left</span> <span style="color:#080;font-weight:bold">join</span> V_VERTRAGSABSCHLUSS <span style="color:#080;font-weight:bold">using</span> (VERTRAGSID)
+    <span style="color:#080;font-weight:bold">left</span> <span style="color:#080;font-weight:bold">join</span> V_VERTRAGSORT <span style="color:#080;font-weight:bold">using</span> (ABSCHLUSSID)
+<span style="color:#080;font-weight:bold">order</span> <span style="color:#080;font-weight:bold">by</span> PROVISION;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_abfrage_4">3.4. Abfrage</h3>
+<div class="paragraph">
+<p>Führe alle Vorverträge des Vertrages 'Vertrag1Haus' an. (max 10 Punkte)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/abfrage4.png" alt="abfrage4">
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> lpad(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">  </span><span style="color:#710">'</span></span>, <span style="color:#00D">2</span> * (LEVEL <span style="color:#00D">-1</span>)) || FOLGEVERTRAG <span style="color:#080;font-weight:bold">as</span> VORVERTRAEGE
+<span style="color:#080;font-weight:bold">from</span> V_VERTRAG
+connect <span style="color:#080;font-weight:bold">by</span> prior FOLGEVERTRAG = VORGAENGERVERTRAG
+start with FOLGEVERTRAG = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">Vertrag1Haus</span><span style="color:#710">'</span></span>;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_abfrage_5">3.5. Abfrage</h3>
+<div class="paragraph">
+<p>Führe die Verträge von Vertretern an, die beim Abschluss mehr als 400 Euro Provision
+abwarfen.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/abfrage5.png" alt="abfrage5">
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> NNAME, PLZ, ORT <span style="color:#080;font-weight:bold">from</span> V_VERTRAG
+    <span style="color:#080;font-weight:bold">join</span> V_VERTRETER <span style="color:#080;font-weight:bold">using</span> (VERTRETERID)
+    <span style="color:#080;font-weight:bold">join</span> V_VERTRAGSABSCHLUSS <span style="color:#080;font-weight:bold">using</span> (VERTRAGSID)
+<span style="color:#080;font-weight:bold">where</span> VERTRAGSGROESSE_EURO &gt; <span style="color:#00D">400</span>
+  <span style="color:#080;font-weight:bold">and</span> NOCHGUELTIG = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">JA</span><span style="color:#710">'</span></span>
+<span style="color:#080;font-weight:bold">order</span> <span style="color:#080;font-weight:bold">by</span> <span style="color:#00D">1</span>;</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -418,7 +492,7 @@ Subquery als Spaltenausdruck für den Vertreter.</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2022-09-15 11:42:11 +0200
+Last updated 2022-09-22 11:00:41 +0200
 </div>
 </div>
 </body>

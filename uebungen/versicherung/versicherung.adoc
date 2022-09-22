@@ -90,7 +90,7 @@ image::abfrage1.png[]
 
 [source, sql]
 ----
-select 'Am ' || to_char(DATUM, 'DD-MM-YYYY') || ' in ' || ORT || ' mit ' || count(VERTRAGSID)  || ' Vertraege abgeschlossen' as result
+select 'Am ' || to_char(DATUM, 'DD-MM-YYYY') || ' in ' || ORT || ' mit ' || count(VERTRAGSID)  || ' Vertraege abgeschlossen' as VERTRÄGE
 from V_VERTRAGSABSCHLUSS
     full outer join V_VERTRAGSORT VV using (ABSCHLUSSID)
 group by ORT, DATUM
@@ -107,7 +107,61 @@ Subquery als Spaltenausdruck für den Vertreter.
 
 image::abfrage2.png[]
 
+[source, sql]
+----
+select (select nname from V_VERTRETER where VERTRETERID = v.VERTRETERID) vertrer, lpad(' ', 4 * (LEVEL -1)) || ' ' || FOLGEVERTRAG vertrag from V_VERTRAG v
+connect by prior FOLGEVERTRAG = VORGAENGERVERTRAG
+start with FOLGEVERTRAG = 'Vertrag1Haus'
+order by LEVEL, VERTRAG
+----
 
+=== Abfrage
 
+Zeige zu jedem Vertrag die Vertragsorte und die Provision. In dieser Aufteilung sollen auch
+jene Verträge angeführt werden, die keine Provision enthalten
 
+image::abfrage3.png[]
 
+[source, sql]
+----
+select VERTRAGSID,
+       FOLGEVERTRAG,
+       nvl(ORT, '---') as ORT,
+       nvl(VERTRAGSGROESSE_EURO, 0) || ' EURO Umsatz' as PROVISION,
+       nvl(to_char(DATUM, 'DD-MM-YYYY'), '---') as Abschlussdatum
+from V_VERTRAG
+    left join V_VERTRAGSABSCHLUSS using (VERTRAGSID)
+    left join V_VERTRAGSORT using (ABSCHLUSSID)
+order by PROVISION;
+----
+
+=== Abfrage
+
+Führe alle Vorverträge des Vertrages 'Vertrag1Haus' an. (max 10 Punkte)
+
+image::abfrage4.png[]
+
+[source, sql]
+----
+select lpad('  ', 2 * (LEVEL -1)) || FOLGEVERTRAG as VORVERTRAEGE
+from V_VERTRAG
+connect by prior FOLGEVERTRAG = VORGAENGERVERTRAG
+start with FOLGEVERTRAG = 'Vertrag1Haus';
+----
+
+=== Abfrage
+
+Führe die Verträge von Vertretern an, die beim Abschluss mehr als 400 Euro Provision
+abwarfen.
+
+image::abfrage5.png[]
+
+[source, sql]
+----
+select NNAME, PLZ, ORT from V_VERTRAG
+    join V_VERTRETER using (VERTRETERID)
+    join V_VERTRAGSABSCHLUSS using (VERTRAGSID)
+where VERTRAGSGROESSE_EURO > 400
+  and NOCHGUELTIG = 'JA'
+order by 1;
+----
