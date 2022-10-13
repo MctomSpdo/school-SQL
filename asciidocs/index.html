@@ -8,118 +8,118 @@
 <meta name="author" content="Mctom Spdo">
 <title>Lecture Notes INSY</title>
 <style>
-/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
-
-@import url(//fonts.googleapis.com/css?family=Noto+Sans);
-@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
-
-/* CUSTOMISATIONS */
-/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
-:root{
---maincolor:#282c34;
---primarycolor:#f39c12;
---secondarycolor:#03a9f4;
---tertiarycolor:#4db6ac;
---sidebarbackground:#21252b;
---linkcolor:#f44336;
---linkcoloralternate:#ff9800;
---white:#FFFFFF;
-}
-
-/* custom added styles */
-.listingblock > .content > pre{
-  background: var(--sidebarbackground);
-  color: var(--white);
-}
-
-/* Text styles */
-body{font-family: "Noto Sans",sans-serif;background-color: var(--maincolor);color:var(--white);}
-
-h1{color:var(--primarycolor) !important;font-family:"Noto Sans",sans-serif;}
-h2,h3,h4,h5,h6{color:var(--secondarycolor) !important;font-family:"Noto Sans",sans-serif;}
-.title{color:var(--white) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
-p{font-family: "Noto Sans",sans-serif ! important}
-#toc.toc2 a:link{color:var(--linkcolor);}
-blockquote{color:var(--tertiarycolor) !important}
-.quoteblock{color:var(--white)}
-code{color:var(--linkcoloralternate);background-color: var(--sidebarbackground) !important}
-
-
-/* Table styles */
-th{background-color: var(--maincolor);color:var(--white) !important;}
-td{background-color: var(--maincolor);color: var(--linkcoloralternate) !important}
-
-
-#toc.toc2{background-color:var(--sidebarbackground);}
-#toctitle{color:var(--white);}
-
-/* Responsiveness fixes */
-video {
-  max-width: 100%;
-}
-
-@media all and (max-width: 600px) {
-  table {
-    width: 55vw!important;
-    font-size: 3vw;
-  }
-}
-
-.exampleblock > .content {
-  background-color: var(--maincolor);
-}
-
-a {
-  color: var(--secondarycolor);
-}
-
-.admonitionblock td.icon .icon-tip::before {
-  text-shadow: none;
-  color: var(--white);
-}
-.admonitionblock td.icon .icon-note::before {
-  color: var(--tertiarycolor);
-}
-.admonitionblock td.icon .icon-important::before {
-  color: var(--linkcolor);
-}
-/*.admonitionblock td.icon .icon-caution::before {
-  color: var(--linkcoloralternate);
-}*/
-.admonitionblock td.icon .icon-warning::before {
-  color: var(--primarycolor);
-}
-
-#preamble > .sectionbody > .paragraph:first-of-type p {
-  color: var(--white);
-}
-
-.quoteblock blockquote::before {
-  color: var(--primarycolor);
-}
-.quoteblock .attribution cite, .verseblock .attribution cite {
-  color: var(--white);
-}
-.verseblock pre {
-  color: var(--white);
-}
-.quoteblock blockquote, .quoteblock blockquote p {
-  color: var(--white);
-}
-
-.sidebarblock {
-  background: var(--sidebarbackground);
-}
-.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
-  background: var(--sidebarbackground);
-  color: var(--white);
-}
-
-#header .details {
-  color: var(--white);
-}
-#header .details span.email a {
-  color: var(--linkcoloralternate);
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+:root{
+--maincolor:#282c34;
+--primarycolor:#f39c12;
+--secondarycolor:#03a9f4;
+--tertiarycolor:#4db6ac;
+--sidebarbackground:#21252b;
+--linkcolor:#f44336;
+--linkcoloralternate:#ff9800;
+--white:#FFFFFF;
+}
+
+/* custom added styles */
+.listingblock > .content > pre{
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+/* Text styles */
+body{font-family: "Noto Sans",sans-serif;background-color: var(--maincolor);color:var(--white);}
+
+h1{color:var(--primarycolor) !important;font-family:"Noto Sans",sans-serif;}
+h2,h3,h4,h5,h6{color:var(--secondarycolor) !important;font-family:"Noto Sans",sans-serif;}
+.title{color:var(--white) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Noto Sans",sans-serif ! important}
+#toc.toc2 a:link{color:var(--linkcolor);}
+blockquote{color:var(--tertiarycolor) !important}
+.quoteblock{color:var(--white)}
+code{color:var(--linkcoloralternate);background-color: var(--sidebarbackground) !important}
+
+
+/* Table styles */
+th{background-color: var(--maincolor);color:var(--white) !important;}
+td{background-color: var(--maincolor);color: var(--linkcoloralternate) !important}
+
+
+#toc.toc2{background-color:var(--sidebarbackground);}
+#toctitle{color:var(--white);}
+
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  table {
+    width: 55vw!important;
+    font-size: 3vw;
+  }
+}
+
+.exampleblock > .content {
+  background-color: var(--maincolor);
+}
+
+a {
+  color: var(--secondarycolor);
+}
+
+.admonitionblock td.icon .icon-tip::before {
+  text-shadow: none;
+  color: var(--white);
+}
+.admonitionblock td.icon .icon-note::before {
+  color: var(--tertiarycolor);
+}
+.admonitionblock td.icon .icon-important::before {
+  color: var(--linkcolor);
+}
+/*.admonitionblock td.icon .icon-caution::before {
+  color: var(--linkcoloralternate);
+}*/
+.admonitionblock td.icon .icon-warning::before {
+  color: var(--primarycolor);
+}
+
+#preamble > .sectionbody > .paragraph:first-of-type p {
+  color: var(--white);
+}
+
+.quoteblock blockquote::before {
+  color: var(--primarycolor);
+}
+.quoteblock .attribution cite, .verseblock .attribution cite {
+  color: var(--white);
+}
+.verseblock pre {
+  color: var(--white);
+}
+.quoteblock blockquote, .quoteblock blockquote p {
+  color: var(--white);
+}
+
+.sidebarblock {
+  background: var(--sidebarbackground);
+}
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+#header .details {
+  color: var(--white);
+}
+#header .details span.email a {
+  color: var(--linkcoloralternate);
 }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -130,7 +130,7 @@ a {
 <div class="details">
 <span id="author" class="author">Mctom Spdo</span><br>
 <span id="revnumber">version 1.0.0,</span>
-<span id="revdate">2022-09-22</span>
+<span id="revdate">2022-10-13</span>
 <br><span id="revremark">INSY</span>
 </div>
 <div id="toc" class="toc2">
@@ -223,6 +223,7 @@ a {
 <li><a href="#_grant">17.1. Grant</a></li>
 </ul>
 </li>
+<li><a href="#_plsql">18. PL/SQL</a></li>
 </ul>
 </div>
 </div>
@@ -1298,10 +1299,8 @@ Das Datumsformat für die Session kann jederzeit geändert werden, mithilfe folg
 <div class="paragraph">
 <p>Hier kann man das UML Diagramm reverse-enginieeren</p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="images/parts.png" alt="parts" width="83" height="95">
-</div>
+<div class="paragraph">
+<p>Unable to render diagram. To render diagrams, go to the AsciiDoc plugin&#8217;s settings and download extensions or enable Kroki.</p>
 </div>
 <div class="sect2">
 <h3 id="_parts_sql">12.1. Parts.sql</h3>
@@ -2008,11 +2007,19 @@ IDENTIFIED <span style="color:#080;font-weight:bold">BY</span> neupwd</code></pr
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_plsql">18. PL/SQL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="../docs/PLSQL-Skript.pdf">PLSQL Script</a></p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2022-09-22 16:15:39 +0200
+Last updated 2022-10-13 11:24:28 +0200
 </div>
 </div>
 </body>

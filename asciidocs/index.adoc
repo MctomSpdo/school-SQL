@@ -1184,3 +1184,8 @@ select * from IT190228.EMP;
 delete IT190228.EMP;
     rollback;
 ----
+
+== PL/SQL
+
+link:../docs/PLSQL-Skript.pdf[PLSQL Script]
+
