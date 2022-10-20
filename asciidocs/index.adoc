@@ -1187,6 +1187,9 @@ delete IT190228.EMP;
 
 link:../docs/PLSQL-Skript.pdf[PLSQL Script]
 
+link:../uebungen/PLSQL/00/plsql_00.html[PLSQL Übung 0] +
+link:../uebungen/PLSQL/01/plsql_01.html[PLSQL Übung 1]
+
 === Functions
 
 === stored Functions
