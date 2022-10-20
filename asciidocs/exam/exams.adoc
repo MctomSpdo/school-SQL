@@ -1,0 +1,10 @@
+= Lecture Notes INSY
+Mctom Spdo
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:    // Nummerierung der Überschriften / section numbering
+:toc: left
+:stylesheet: ../css/dark.css
+
+The exams were not returned all the time.

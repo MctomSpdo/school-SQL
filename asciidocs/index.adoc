@@ -2,8 +2,6 @@
 Mctom Spdo
 1.0.0, {docdate}: INSY
 ifndef::imagesdir[:imagesdir: images]
-//:toc-placement!:  // prevents the generation of the doc at this position, so it can be printed afterwards
-:sourcedir: ../src/main/java
 :icons: font
 :sectnums:    // Nummerierung der Überschriften / section numbering
 :toc: left
@@ -1188,4 +1186,12 @@ delete IT190228.EMP;
 == PL/SQL
 
 link:../docs/PLSQL-Skript.pdf[PLSQL Script]
+
+=== Functions
+
+=== stored Functions
+
+==== Syntax
+
+image::plsq-stored-function-syntax.png[]
 

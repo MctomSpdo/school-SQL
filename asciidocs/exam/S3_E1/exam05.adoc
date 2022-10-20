@@ -1,0 +1,96 @@
+= Exam Semester 03 INSY
+Mctom Spdo
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:    // Nummerierung der Überschriften / section numbering
+:toc: left
+:stylesheet: ../../css/dark.css
+
+== Statement
+
+Alle Teile, aus denen der ``'Business PC'`` unmittelbar aufgebaut ist
+
+[source, sql]
+----
+select 'Business PC enthält' || TEILBEZ
+from TEIL
+         left join STUECKLISTE on TEILNR = UTEILNR
+where HTEILNR = (select TEILNR from TEIL where TEILBEZ = 'Business PC');
+----
+
+== Statement
+
+Gesamtdifferenz Istzeit - Sollzeit eines jeden Arbeitsauftrages, der bereits fertiggestellt worden ist und dessen Gesamtdifferenz kleiner als 0 ist sortiert nach der Different
+
+[source, sql]
+----
+select AUFTRNR, MITARBNAME, SUM(ISTZEIT - SOLLZEIT) "GESAMTDIFFERENZ"
+from ARBEITSZEIT
+         join ARBEITSGANG using (AGNR)
+         join ARBEITSAUFTRAG using (AUFTRNR)
+         join MITARBEITER using (MITARBNR)
+where FERTIGDATUM is not null
+  and ARBEITSGANG.TEILNR = ARBEITSAUFTRAG.TEILNR
+group by AUFTRNR, MITARBNAME
+having SUM(ISTZEIT - SOLLZEIT) < 0
+order by 2;
+----
+
+== Statement
+
+Alle Arbeitsgänge, wo das Wort ``'Speicher'`` beteiligt ist.
+
+[source, sql]
+----
+select AGNR, AGBESCHREIBUNG, TEILBEZ
+from ARBEITSGANG
+         inner join TEIL using (TEILNR)
+where upper(AGBESCHREIBUNG) like '%SPEICHER%';
+----
+
+== Statement
+
+Alle Teile, deren Preis über dem durchschnittlichen Preis liegt.
+
+[source,sql]
+----
+select *
+from TEIL
+where TEILPREIS > (select avg(TEILPREIS)
+                   from TEIL);
+----
+
+== SQL multiple choice Oracle, beiliegend
+
+=== Question
+
+Which type of join returns rows from one table that have NO direct match in the other table
+
+* [ ] Equijoin
+* [ ] Self join
+* [ ] Outer join
+* [ ] Naturnal join
+
+=== Question
+
+Which statement about a natural join is true?
+
+* [ ] Columns with the same names must have identical data types.
+* [ ] Columns with the same names must have the same precision and datatype.
+* [ ] Columns with the same names must have the compatible data types.
+* [ ] Columns with the same names must cannot be included in the SELECT list of the query.
+
+
+=== Question
+
+IMPORTANT: This is not finished yet
+
+//TODO: finish this
+
+== Angabe der Testdaten
+
+[source, sql]
+----
+include::microware-Script.sql[]
+----

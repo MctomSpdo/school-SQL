@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.17">
+<meta name="author" content="Mctom Spdo">
+<title>PLSQL Übung 1</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+:root{
+--maincolor:#282c34;
+--primarycolor:#f39c12;
+--secondarycolor:#03a9f4;
+--tertiarycolor:#4db6ac;
+--sidebarbackground:#21252b;
+--linkcolor:#f44336;
+--linkcoloralternate:#ff9800;
+--white:#FFFFFF;
+}
+
+/* custom added styles */
+.listingblock > .content > pre{
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+/* Text styles */
+body{font-family: "Noto Sans",sans-serif;background-color: var(--maincolor);color:var(--white);}
+
+h1{color:var(--primarycolor) !important;font-family:"Noto Sans",sans-serif;}
+h2,h3,h4,h5,h6{color:var(--secondarycolor) !important;font-family:"Noto Sans",sans-serif;}
+.title{color:var(--white) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Noto Sans",sans-serif ! important}
+#toc.toc2 a:link{color:var(--linkcolor);}
+blockquote{color:var(--tertiarycolor) !important}
+.quoteblock{color:var(--white)}
+code{color:var(--linkcoloralternate);background-color: var(--sidebarbackground) !important}
+
+
+/* Table styles */
+th{background-color: var(--maincolor);color:var(--white) !important;}
+td{background-color: var(--maincolor);color: var(--linkcoloralternate) !important}
+
+
+#toc.toc2{background-color:var(--sidebarbackground);}
+#toctitle{color:var(--white);}
+
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  table {
+    width: 55vw!important;
+    font-size: 3vw;
+  }
+}
+
+.exampleblock > .content {
+  background-color: var(--maincolor);
+}
+
+a {
+  color: var(--secondarycolor);
+}
+
+.admonitionblock td.icon .icon-tip::before {
+  text-shadow: none;
+  color: var(--white);
+}
+.admonitionblock td.icon .icon-note::before {
+  color: var(--tertiarycolor);
+}
+.admonitionblock td.icon .icon-important::before {
+  color: var(--linkcolor);
+}
+/*.admonitionblock td.icon .icon-caution::before {
+  color: var(--linkcoloralternate);
+}*/
+.admonitionblock td.icon .icon-warning::before {
+  color: var(--primarycolor);
+}
+
+#preamble > .sectionbody > .paragraph:first-of-type p {
+  color: var(--white);
+}
+
+.quoteblock blockquote::before {
+  color: var(--primarycolor);
+}
+.quoteblock .attribution cite, .verseblock .attribution cite {
+  color: var(--white);
+}
+.verseblock pre {
+  color: var(--white);
+}
+.quoteblock blockquote, .quoteblock blockquote p {
+  color: var(--white);
+}
+
+.sidebarblock {
+  background: var(--sidebarbackground);
+}
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+#header .details {
+  color: var(--white);
+}
+#header .details span.email a {
+  color: var(--linkcoloralternate);
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>PLSQL Übung 1</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2022-10-20</span>
+<br><span id="revremark">ITP</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_aufgabe">1. Aufgabe</a></li>
+<li><a href="#_aufgabe_2">2. Aufgabe</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="PLSQL-Übung-01.pdf">Angabe</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_aufgabe">1. Aufgabe</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Erstelle eine Stored Function GEHALT, die zu einem Angestellten (Eingabepara-
+meter EMPNO) SAL+COMM berechnet und zurückgibt. Teste die Funktion.</p>
+</div>
+<div class="listingblock">
+<div class="title">Function</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">create</span> <span style="color:#080;font-weight:bold">or</span> <span style="color:#B06;font-weight:bold">replace</span> <span style="color:#339;font-weight:bold">function</span> EMP_GEHALT(empnom <span style="color:#080;font-weight:bold">in</span> EMP.EMPNO%type) <span style="color:#088;font-weight:bold">return</span> EMP.SAL%type <span style="color:#080;font-weight:bold">is</span> gehalt EMP.SAL%type;
+<span style="color:#B06;font-weight:bold">begin</span>
+    <span style="color:#B06;font-weight:bold">select</span> nvl(SAL, <span style="color:#00D">0</span>) + nvl(COMM, <span style="color:#00D">0</span>) <span style="color:#B06;font-weight:bold">into</span> gehalt
+        <span style="color:#080;font-weight:bold">from</span> EMP e <span style="color:#080;font-weight:bold">where</span> e.EMPNO = empnom;
+    <span style="color:#088;font-weight:bold">return</span> gehalt;
+<span style="color:#080;font-weight:bold">end</span> EMP_GEHALT;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Execute</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> EMP_GEHALT(<span style="color:#00D">7839</span>) <span style="color:#080;font-weight:bold">from</span> dual;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_aufgabe_2">2. Aufgabe</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">Function</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">create</span> <span style="color:#080;font-weight:bold">or</span> <span style="color:#B06;font-weight:bold">replace</span> <span style="color:#339;font-weight:bold">function</span> EMP_DIFF
+    (empno1 <span style="color:#080;font-weight:bold">in</span> EMP.EMPNO%type, empno2 <span style="color:#080;font-weight:bold">in</span> EMP.EMPNO%type)
+    <span style="color:#088;font-weight:bold">return</span> <span style="color:#0a8;font-weight:bold">varchar</span> <span style="color:#080;font-weight:bold">is</span>
+        difference number;
+        name1 EMP.ENAME%type;
+        name2 EMP.ENAME%type;
+<span style="color:#B06;font-weight:bold">begin</span>
+    <span style="color:#777">-- get difference in days</span>
+    <span style="color:#B06;font-weight:bold">select</span> <span style="color:#369;font-weight:bold">abs</span>((<span style="color:#B06;font-weight:bold">select</span> HIREDATE <span style="color:#080;font-weight:bold">from</span> EMP <span style="color:#080;font-weight:bold">where</span> EMPNO = empno1) -
+        (<span style="color:#B06;font-weight:bold">select</span> HIREDATE <span style="color:#080;font-weight:bold">from</span> EMP <span style="color:#080;font-weight:bold">where</span> EMPNO = empno2)) <span style="color:#B06;font-weight:bold">into</span> difference
+            <span style="color:#080;font-weight:bold">from</span> dual;
+    <span style="color:#777">-- get names</span>
+    <span style="color:#B06;font-weight:bold">select</span> ENAME <span style="color:#B06;font-weight:bold">into</span> name1 <span style="color:#080;font-weight:bold">from</span> EMP <span style="color:#080;font-weight:bold">where</span> EMPNO = empno1;
+    <span style="color:#B06;font-weight:bold">select</span> ENAME <span style="color:#B06;font-weight:bold">into</span> name2 <span style="color:#080;font-weight:bold">from</span> EMP <span style="color:#080;font-weight:bold">where</span> EMPNO = empno2;
+
+    <span style="color:#088;font-weight:bold">return</span> name1 || <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">    </span><span style="color:#710">'</span></span> || difference || <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20"> Tage vor </span><span style="color:#710">'</span></span> || name2;
+<span style="color:#080;font-weight:bold">end</span> EMP_DIFF;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Execute</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span style="color:#B06;font-weight:bold">select</span> EMP_DIFF(<span style="color:#00D">7369</span>, <span style="color:#00D">7499</span>) <span style="color:#080;font-weight:bold">from</span> dual;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2022-10-20 11:45:06 +0200
+</div>
+</div>
+</body>
+</html>

@@ -1,11 +1,9 @@
-= Übung 5
+= Übung 4
 Mctom Spdo
 1.0.0, {docdate}: ITP
 ifndef::imagesdir[:imagesdir: images]
-//:toc-placement!:  // prevents the generation of the doc at this position, so it can be printed afterwards
-:sourcedir: ../src/main/java
 :icons: font
-:sectnums:    // Nummerierung der Überschriften / section numbering
+:sectnums:
 :toc: left
 :stylesheet: ../../asciidocs/css/dark.css
 

@@ -1,0 +1,62 @@
+= PLSQL Übung 1
+Mctom Spdo
+1.0.0, {docdate}: ITP
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../../../asciidocs/css/dark.css
+
+link:PLSQL-Übung-01.pdf[Angabe]
+
+== Aufgabe
+
+Erstelle eine Stored Function GEHALT, die zu einem Angestellten (Eingabepara-
+meter EMPNO) SAL+COMM berechnet und zurückgibt. Teste die Funktion.
+
+.Function
+[source, sql]
+----
+create or replace function EMP_GEHALT(empnom in EMP.EMPNO%type) return EMP.SAL%type is gehalt EMP.SAL%type;
+begin
+    select nvl(SAL, 0) + nvl(COMM, 0) into gehalt
+        from EMP e where e.EMPNO = empnom;
+    return gehalt;
+end EMP_GEHALT;
+----
+
+.Execute
+[source, sql]
+----
+select EMP_GEHALT(7839) from dual;
+----
+
+== Aufgabe
+
+.Function
+[source, sql]
+----
+create or replace function EMP_DIFF
+    (empno1 in EMP.EMPNO%type, empno2 in EMP.EMPNO%type)
+    return varchar is
+        difference number;
+        name1 EMP.ENAME%type;
+        name2 EMP.ENAME%type;
+begin
+    -- get difference in days
+    select abs((select HIREDATE from EMP where EMPNO = empno1) -
+        (select HIREDATE from EMP where EMPNO = empno2)) into difference
+            from dual;
+    -- get names
+    select ENAME into name1 from EMP where EMPNO = empno1;
+    select ENAME into name2 from EMP where EMPNO = empno2;
+
+    return name1 || '    ' || difference || ' Tage vor ' || name2;
+end EMP_DIFF;
+----
+
+.Execute
+[source, sql]
+----
+select EMP_DIFF(7369, 7499) from dual;
+----
