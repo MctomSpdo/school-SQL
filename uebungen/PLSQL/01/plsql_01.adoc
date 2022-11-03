@@ -17,7 +17,8 @@ meter EMPNO) SAL+COMM berechnet und zurückgibt. Teste die Funktion.
 .Function
 [source, sql]
 ----
-create or replace function EMP_GEHALT(empnom in EMP.EMPNO%type) return EMP.SAL%type is gehalt EMP.SAL%type;
+create or replace function EMP_GEHALT(empnom in EMP.EMPNO%type)
+    return EMP.SAL%type is gehalt EMP.SAL%type;
 begin
     select nvl(SAL, 0) + nvl(COMM, 0) into gehalt
         from EMP e where e.EMPNO = empnom;
@@ -32,16 +33,21 @@ select EMP_GEHALT(7839) from dual;
 ----
 
 == Aufgabe
+Erstelle eine Stored Function DIFF, die die Tagesdifferenz bezüglich des Anstellungsdatums zweier Angestellter (Eingabeparameter 2x EMPNO) ausgibt.
+Die Ausgabe soll folgende Format haben: ... 65 Tage vor ...
+Teste die Funktion.
 
 .Function
 [source, sql]
 ----
-create or replace function EMP_DIFF
-    (empno1 in EMP.EMPNO%type, empno2 in EMP.EMPNO%type)
-    return varchar is
-        difference number;
-        name1 EMP.ENAME%type;
-        name2 EMP.ENAME%type;
+create or replace function EMP_DIFF(
+    empno1 in EMP.EMPNO%type,
+    empno2 in EMP.EMPNO%type)
+    return varchar
+as
+    difference number;
+    name1 EMP.ENAME%type;
+    name2 EMP.ENAME%type;
 begin
     -- get difference in days
     select abs((select HIREDATE from EMP where EMPNO = empno1) -
