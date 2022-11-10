@@ -1,13 +1,10 @@
-= Test 01 B
+= Semester 1 Exam 1 Group B
 Mctom Spdo
-1.0.0, {docdate}: ITP
+1.0.0, {docdate}: INSY
 ifndef::imagesdir[:imagesdir: images]
-//:toc-placement!:  // prevents the generation of the doc at this position, so it can be printed afterwards
-:sourcedir: ../src/main/java
 :icons: font
-:sectnums:    // Nummerierung der Überschriften / section numbering
-:toc: left
-:stylesheet: ../../asciidocs/css/dark.css
+:sectnums:
+:stylesheet: ../../css/dark.css
 
 Für diese Übung benötigt man die Oracle Nordwind demo daten.
 

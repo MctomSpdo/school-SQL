@@ -1,11 +1,10 @@
 = Übung 13
 Mctom Spdo
-1.0.0, {docdate}: INSY
+1.0.0, {docdate}: ITP
 ifndef::imagesdir[:imagesdir: images]
-//:toc-placement!:  // prevents the generation of the doc at this position, so it can be printed afterwards
 :icons: font
-:sectnums:    // Nummerierung der Überschriften / section numbering
-:stylesheet: ../../asciidocs/css/dark.css
+:sectnums:
+:stylesheet: ../../css/dark.css
 
 == Übungen Versicherung
 
