@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.18">
+<meta name="author" content="Mctom Spdo">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>Übung 12</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+:root{
+--maincolor:#282c34;
+--primarycolor:#f39c12;
+--secondarycolor:#03a9f4;
+--tertiarycolor:#4db6ac;
+--sidebarbackground:#21252b;
+--linkcolor:#f44336;
+--linkcoloralternate:#ff9800;
+--white:#FFFFFF;
+}
+
+/* custom added styles */
+.listingblock > .content > pre{
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+/* Text styles */
+body{font-family: "Noto Sans",sans-serif;background-color: var(--maincolor);color:var(--white);}
+
+h1{color:var(--primarycolor) !important;font-family:"Noto Sans",sans-serif;}
+h2,h3,h4,h5,h6{color:var(--secondarycolor) !important;font-family:"Noto Sans",sans-serif;}
+.title{color:var(--white) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Noto Sans",sans-serif ! important}
+#toc.toc2 a:link{color:var(--linkcolor);}
+blockquote{color:var(--tertiarycolor) !important}
+.quoteblock{color:var(--white)}
+code{color:var(--linkcoloralternate);background-color: var(--sidebarbackground) !important}
+
+
+/* Table styles */
+th{background-color: var(--maincolor);color:var(--white) !important;}
+td{background-color: var(--maincolor);color: var(--linkcoloralternate) !important}
+
+
+#toc.toc2{background-color:var(--sidebarbackground);}
+#toctitle{color:var(--white);}
+
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  table {
+    width: 55vw!important;
+    font-size: 3vw;
+  }
+}
+
+.exampleblock > .content {
+  background-color: var(--maincolor);
+}
+
+a {
+  color: var(--secondarycolor);
+}
+
+.admonitionblock td.icon .icon-tip::before {
+  text-shadow: none;
+  color: var(--white);
+}
+.admonitionblock td.icon .icon-note::before {
+  color: var(--tertiarycolor);
+}
+.admonitionblock td.icon .icon-important::before {
+  color: var(--linkcolor);
+}
+/*.admonitionblock td.icon .icon-caution::before {
+  color: var(--linkcoloralternate);
+}*/
+.admonitionblock td.icon .icon-warning::before {
+  color: var(--primarycolor);
+}
+
+#preamble > .sectionbody > .paragraph:first-of-type p {
+  color: var(--white);
+}
+
+.quoteblock blockquote::before {
+  color: var(--primarycolor);
+}
+.quoteblock .attribution cite, .verseblock .attribution cite {
+  color: var(--white);
+}
+.verseblock pre {
+  color: var(--white);
+}
+.quoteblock blockquote, .quoteblock blockquote p {
+  color: var(--white);
+}
+
+.sidebarblock {
+  background: var(--sidebarbackground);
+}
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+#header .details {
+  color: var(--white);
+}
+#header .details span.email a {
+  color: var(--linkcoloralternate);
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge .cm {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cp {
+  color: #999999;
+  font-weight: bold;
+}
+pre.rouge .c1 {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cs {
+  color: #999999;
+  font-weight: bold;
+  font-style: italic;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cpf {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+pre.rouge .gd {
+  color: #000000;
+  background-color: #ffdddd;
+}
+pre.rouge .ge {
+  color: #000000;
+  font-style: italic;
+}
+pre.rouge .gr {
+  color: #aa0000;
+}
+pre.rouge .gh {
+  color: #999999;
+}
+pre.rouge .gi {
+  color: #000000;
+  background-color: #ddffdd;
+}
+pre.rouge .go {
+  color: #888888;
+}
+pre.rouge .gp {
+  color: #555555;
+}
+pre.rouge .gs {
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #aaaaaa;
+}
+pre.rouge .gt {
+  color: #aa0000;
+}
+pre.rouge .kc {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kd {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kn {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kp {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kr {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kt {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .k, pre.rouge .kv {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .mf {
+  color: #009999;
+}
+pre.rouge .mh {
+  color: #009999;
+}
+pre.rouge .il {
+  color: #009999;
+}
+pre.rouge .mi {
+  color: #009999;
+}
+pre.rouge .mo {
+  color: #009999;
+}
+pre.rouge .m, pre.rouge .mb, pre.rouge .mx {
+  color: #009999;
+}
+pre.rouge .sa {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .sb {
+  color: #d14;
+}
+pre.rouge .sc {
+  color: #d14;
+}
+pre.rouge .sd {
+  color: #d14;
+}
+pre.rouge .s2 {
+  color: #d14;
+}
+pre.rouge .se {
+  color: #d14;
+}
+pre.rouge .sh {
+  color: #d14;
+}
+pre.rouge .si {
+  color: #d14;
+}
+pre.rouge .sx {
+  color: #d14;
+}
+pre.rouge .sr {
+  color: #009926;
+}
+pre.rouge .s1 {
+  color: #d14;
+}
+pre.rouge .ss {
+  color: #990073;
+}
+pre.rouge .s, pre.rouge .dl {
+  color: #d14;
+}
+pre.rouge .na {
+  color: #008080;
+}
+pre.rouge .bp {
+  color: #999999;
+}
+pre.rouge .nb {
+  color: #0086B3;
+}
+pre.rouge .nc {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .no {
+  color: #008080;
+}
+pre.rouge .nd {
+  color: #3c5d5d;
+  font-weight: bold;
+}
+pre.rouge .ni {
+  color: #800080;
+}
+pre.rouge .ne {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nl {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nn {
+  color: #555555;
+}
+pre.rouge .nt {
+  color: #000080;
+}
+pre.rouge .vc {
+  color: #008080;
+}
+pre.rouge .vg {
+  color: #008080;
+}
+pre.rouge .vi {
+  color: #008080;
+}
+pre.rouge .nv, pre.rouge .vm {
+  color: #008080;
+}
+pre.rouge .ow {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .o {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .w {
+  color: #bbbbbb;
+}
+pre.rouge {
+  background-color: #f8f8f8;
+}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Übung 12</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2022-11-10</span>
+<br><span id="revremark">ITP</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_erstelle_die_tabelle_pkt">1. Erstelle die Tabelle PKT</a></li>
+<li><a href="#_erstelle_die_tabelle_fkt_mit">2. Erstelle die Tabelle FKT mit</a></li>
+<li><a href="#_löschen_der_integritätsbedingung_auf_c1_in_pkt">3. Löschen der Integritätsbedingung auf C1 in PKT</a></li>
+<li><a href="#_löschen_der_beiden_tabellen">4. Löschen der beiden Tabellen</a></li>
+<li><a href="#_schulungsinstitut">5. Schulungsinstitut</a>
+<ul class="sectlevel2">
+<li><a href="#_erd">5.1. ERD</a></li>
+<li><a href="#_rm">5.2. RM</a></li>
+<li><a href="#_create_tables">5.3. Create tables</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_erstelle_die_tabelle_pkt"><a class="anchor" href="#_erstelle_die_tabelle_pkt"></a>1. Erstelle die Tabelle PKT</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">numerisch, 3 Stellen, Primärschlüssel</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">alphanumerisch, 20 Stellen, 1. Stelle muss A oder F sein</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">numerisch, 3 Vorkommastellen, 1 Nachkommastelle, Werte zwischen 0.0 und 199.9 erlaubt</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">table</span> <span class="n">PKT</span> <span class="p">(</span>
+    <span class="n">PK</span> <span class="n">number</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+    <span class="n">C1</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+    <span class="n">C2</span> <span class="nb">decimal</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="k">constraint</span> <span class="n">c1_first_letter</span> <span class="k">check</span><span class="p">(</span><span class="n">C1</span> <span class="k">like</span> <span class="s1">'A%'</span> <span class="k">or</span> <span class="n">C1</span> <span class="k">like</span> <span class="s1">'F%'</span><span class="p">),</span>
+    <span class="k">constraint</span> <span class="n">c2_between</span> <span class="k">check</span><span class="p">(</span><span class="n">C2</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span> <span class="k">and</span> <span class="n">C2</span> <span class="o">&lt;=</span> <span class="mi">199</span><span class="p">.</span><span class="mi">9</span><span class="p">)</span>
+<span class="p">);</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_erstelle_die_tabelle_fkt_mit"><a class="anchor" href="#_erstelle_die_tabelle_fkt_mit"></a>2. Erstelle die Tabelle FKT mit</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PK1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">numerisch, 2 Stellen</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PK2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">numerisch, 1 Stelle, Primärschlüssel (PK1,PK2)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Datum</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">alphanumerisch, 1 Stelle. Es sind nur die Werte 'J' und 'N' erlaubt</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">numerisch, 3 Stellen, Fremdschlüssel, verweist auf PKT,
+wird ein Satz in PKT gelöscht, so sollen alle entsprechenden Sätze aus
+FKT automatisch mitgelöscht werden</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">table</span> <span class="n">FKT</span> <span class="p">(</span>
+    <span class="n">PK1</span> <span class="n">number</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">PK2</span> <span class="n">number</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">C1</span> <span class="nb">date</span><span class="p">,</span>
+    <span class="n">C2</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">FK</span> <span class="n">number</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+    <span class="k">constraint</span> <span class="n">primary_key</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">PK1</span><span class="p">,</span> <span class="n">PK2</span><span class="p">),</span>
+    <span class="k">constraint</span> <span class="n">C2_yes_no</span> <span class="k">check</span><span class="p">(</span><span class="n">C2</span> <span class="o">=</span> <span class="s1">'J'</span> <span class="k">or</span> <span class="n">C2</span> <span class="o">=</span> <span class="s1">'N'</span><span class="p">),</span>
+    <span class="k">constraint</span> <span class="n">fkt_pkt</span> <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">FK</span><span class="p">)</span> <span class="k">references</span> <span class="n">PKT</span> <span class="k">on</span> <span class="k">delete</span> <span class="k">cascade</span>
+<span class="p">);</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_löschen_der_integritätsbedingung_auf_c1_in_pkt"><a class="anchor" href="#_löschen_der_integritätsbedingung_auf_c1_in_pkt"></a>3. Löschen der Integritätsbedingung auf C1 in PKT</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">alter</span> <span class="k">table</span> <span class="n">PKT</span> <span class="k">drop</span> <span class="k">constraint</span> <span class="n">C1_FIRST_LETTER</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_löschen_der_beiden_tabellen"><a class="anchor" href="#_löschen_der_beiden_tabellen"></a>4. Löschen der beiden Tabellen</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">drop</span> <span class="k">table</span> <span class="n">FKT</span><span class="p">;</span>
+<span class="k">drop</span> <span class="k">table</span> <span class="n">PKT</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_schulungsinstitut"><a class="anchor" href="#_schulungsinstitut"></a>5. Schulungsinstitut</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ein Schulungsinstitut veranstaltet Kurse. Aus didaktischen und platztechnischen
+Gründen wird lediglich eine bestimmte Höchstteilnehmerzahl zugelassen (als Stan-
+dard wird der Wert 15 vorgesehen). Um den Schulungserfolg weitgehend zu sichern
+bzw. eine homogene Teilnehmergruppe sicherzustellen, sind für die Teilnahme an
+bestimmten Kursen Voraussetzungskurse Bedingung (es kann davon ausgegangen
+werden, dass 1 Voraussetzungskurs hinreichend ist).+
+Jeder Kurs wird mehrmals veranstaltet - wobei jede Kursveranstaltung von unter-
+schiedlichen Referenten abgewickelt werden kann. Jede Kursveranstaltung wird ge-
+sondert beurteilt (Schulnoten!)</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Zeichne das ERD</p>
+</li>
+<li>
+<p>Wandle das ERD in ein relationales Modell um und erstelle ein Script der CREATE TABLES mit den notwendigen Constraints.</p>
+</li>
+<li>
+<p>Teste das System durch Eingabe von Datensätzen.</p>
+</li>
+<li>
+<p>Lösche die Tables</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_erd"><a class="anchor" href="#_erd"></a>5.1. ERD</h3>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/5-schulungsinstut.png" alt="5 schulungsinstut" width="1088" height="237">
+</div>
+</div>
+<div class="paragraph">
+<p>Lösung des Lehrers:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/5-schulinstitut-solution.png" alt="5 schulinstitut solution" width="751" height="244">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rm"><a class="anchor" href="#_rm"></a>5.2. RM</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Kurs(KID, SKID, Maximal, Name)</p>
+</li>
+<li>
+<p>Veranstaltung(VID, Name, KID, Datum)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_tables"><a class="anchor" href="#_create_tables"></a>5.3. Create tables</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">table</span> <span class="n">KURS</span> <span class="p">(</span>
+    <span class="n">KID</span> <span class="n">number</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+    <span class="n">SKID</span> <span class="n">number</span><span class="p">,</span>
+    <span class="n">NAME</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
+    <span class="k">constraint</span> <span class="n">fkt_SKID</span> <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">SKID</span><span class="p">)</span> <span class="k">references</span> <span class="n">KURS</span>
+<span class="p">);</span>
+
+<span class="k">create</span> <span class="k">table</span> <span class="n">VERANSTALTUNG</span><span class="p">(</span>
+    <span class="n">VID</span> <span class="n">number</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+    <span class="n">NAME</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
+    <span class="n">KID</span> <span class="n">number</span><span class="p">,</span>
+    <span class="n">DATUM</span> <span class="nb">date</span><span class="p">,</span>
+    <span class="k">constraint</span> <span class="n">fkt_KID</span> <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">KID</span><span class="p">)</span> <span class="k">references</span> <span class="n">KURS</span>
+<span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>this is not finished yet, it will be later</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2022-11-10 13:51:00 UTC
+</div>
+</div>
+</body>
+</html>

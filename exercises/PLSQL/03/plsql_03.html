@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.18">
+<meta name="author" content="Mctom Spdo">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>PLSQL Übung 3</title>
+<style>
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge .cm {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cp {
+  color: #999999;
+  font-weight: bold;
+}
+pre.rouge .c1 {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cs {
+  color: #999999;
+  font-weight: bold;
+  font-style: italic;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cpf {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+pre.rouge .gd {
+  color: #000000;
+  background-color: #ffdddd;
+}
+pre.rouge .ge {
+  color: #000000;
+  font-style: italic;
+}
+pre.rouge .gr {
+  color: #aa0000;
+}
+pre.rouge .gh {
+  color: #999999;
+}
+pre.rouge .gi {
+  color: #000000;
+  background-color: #ddffdd;
+}
+pre.rouge .go {
+  color: #888888;
+}
+pre.rouge .gp {
+  color: #555555;
+}
+pre.rouge .gs {
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #aaaaaa;
+}
+pre.rouge .gt {
+  color: #aa0000;
+}
+pre.rouge .kc {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kd {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kn {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kp {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kr {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kt {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .k, pre.rouge .kv {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .mf {
+  color: #009999;
+}
+pre.rouge .mh {
+  color: #009999;
+}
+pre.rouge .il {
+  color: #009999;
+}
+pre.rouge .mi {
+  color: #009999;
+}
+pre.rouge .mo {
+  color: #009999;
+}
+pre.rouge .m, pre.rouge .mb, pre.rouge .mx {
+  color: #009999;
+}
+pre.rouge .sa {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .sb {
+  color: #d14;
+}
+pre.rouge .sc {
+  color: #d14;
+}
+pre.rouge .sd {
+  color: #d14;
+}
+pre.rouge .s2 {
+  color: #d14;
+}
+pre.rouge .se {
+  color: #d14;
+}
+pre.rouge .sh {
+  color: #d14;
+}
+pre.rouge .si {
+  color: #d14;
+}
+pre.rouge .sx {
+  color: #d14;
+}
+pre.rouge .sr {
+  color: #009926;
+}
+pre.rouge .s1 {
+  color: #d14;
+}
+pre.rouge .ss {
+  color: #990073;
+}
+pre.rouge .s, pre.rouge .dl {
+  color: #d14;
+}
+pre.rouge .na {
+  color: #008080;
+}
+pre.rouge .bp {
+  color: #999999;
+}
+pre.rouge .nb {
+  color: #0086B3;
+}
+pre.rouge .nc {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .no {
+  color: #008080;
+}
+pre.rouge .nd {
+  color: #3c5d5d;
+  font-weight: bold;
+}
+pre.rouge .ni {
+  color: #800080;
+}
+pre.rouge .ne {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nl {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nn {
+  color: #555555;
+}
+pre.rouge .nt {
+  color: #000080;
+}
+pre.rouge .vc {
+  color: #008080;
+}
+pre.rouge .vg {
+  color: #008080;
+}
+pre.rouge .vi {
+  color: #008080;
+}
+pre.rouge .nv, pre.rouge .vm {
+  color: #008080;
+}
+pre.rouge .ow {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .o {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .w {
+  color: #bbbbbb;
+}
+pre.rouge {
+  background-color: #f8f8f8;
+}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>PLSQL Übung 3</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2022-11-10</span>
+<br><span id="revremark">ITP</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_ablaufsteuerung_umwandlung_in_römische_zahlen">1. Ablaufsteuerung – Umwandlung in römische Zahlen</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="Übung_PLSQL_3.pdf">Angabe</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ablaufsteuerung_umwandlung_in_römische_zahlen"><a class="anchor" href="#_ablaufsteuerung_umwandlung_in_römische_zahlen"></a>1. Ablaufsteuerung – Umwandlung in römische Zahlen</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Schreiben Sie ein Programm, welches Integer-Zahlen als römische Zahlen darstellt.</p>
+</div>
+<div class="paragraph">
+<p>1=I, 5=V, 10=X, 50=L, 100=C, 500=D, 1000=M<br>
+Würde ein Zeichen mehr als 3 mal hintereinander vorkommen, wird stattdessen das
+nächste höherwerte Zeichen genommen und der Wert davor subtrahiert:<br>
+zB 4 &#8594; IV (anstatt IIII), 40 &#8594; XL (anstatt XXXX)</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1. Schreiben Sie einen PL/SQL-Block, der den Wert der Variablen v_zahl in eine
+römische Zahl umwandelt. Implementieren Sie dabei die oben beschriebene
+Vorgangsweise mittels Schleifen und Case-Ausdrücken.
+Geben Sie das Resultat aus.</p>
+</li>
+<li>
+<p>2.Legen Sie eine weitere Schleife um die Umrechnungsroutine.
+Ermitteln Sie 20 Zufallszahlen, die jeweils umgerechnet werden.
+Lassen Sie die Zahl zu Kontrollzwecken auch von Oracle selbst umrechnen, indem
+Sie folgenden Befehl nutzen: TO_CHAR(&lt;Zahl&gt;, 'RN').
+Geben Sie dann Ihren ermittelt Wert und den Kontrollwert von Oracle
+nebeneinander aus, und ergänzen Sie die Zeile mit OK bzw. NOK, je nachdem ob
+die Werte identisch sind.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Zufallszahlen können Sie mittels folgendem Befehl ermitteln:
+DBMS_RANDOM.VALUE(1, 3999); // 3999 = Max. Wert der RN-Option</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">or</span> <span class="k">replace</span> <span class="k">function</span> <span class="n">ROMAN_NUMBERS</span><span class="p">(</span><span class="n">enter</span> <span class="k">in</span> <span class="n">number</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">varchar</span>
+<span class="k">as</span>
+    <span class="n">v_output</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">200</span><span class="p">);</span>
+    <span class="n">p_input</span> <span class="n">number</span><span class="p">;</span>
+<span class="k">begin</span>
+    <span class="n">p_input</span> <span class="p">:</span><span class="o">=</span> <span class="n">enter</span><span class="p">;</span>
+    <span class="n">while</span> <span class="p">(</span><span class="n">p_input</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">loop</span>
+        <span class="k">case</span>
+            <span class="k">when</span> <span class="n">p_input</span> <span class="o">&gt;=</span> <span class="mi">1000</span> <span class="k">then</span>
+                <span class="n">v_output</span> <span class="p">:</span><span class="o">=</span> <span class="n">v_output</span> <span class="o">||</span> <span class="s1">'M'</span><span class="p">;</span>
+                <span class="n">p_input</span><span class="p">:</span><span class="o">=</span> <span class="n">p_input</span> <span class="o">-</span> <span class="mi">1000</span><span class="p">;</span>
+            <span class="k">when</span> <span class="n">p_input</span> <span class="o">&gt;=</span> <span class="mi">900</span> <span class="k">then</span>
+                <span class="n">v_output</span> <span class="p">:</span><span class="o">=</span> <span class="n">v_output</span> <span class="o">||</span> <span class="s1">'CM'</span><span class="p">;</span>
+                <span class="n">p_input</span> <span class="p">:</span><span class="o">=</span> <span class="n">p_input</span> <span class="o">-</span> <span class="mi">900</span><span class="p">;</span>
+            <span class="k">when</span> <span class="n">p_input</span> <span class="o">&gt;=</span> <span class="mi">500</span> <span class="k">then</span>
+                <span class="n">v_output</span> <span class="p">:</span><span class="o">=</span> <span class="n">v_output</span> <span class="o">||</span> <span class="s1">'D'</span><span class="p">;</span>
+                <span class="n">p_input</span> <span class="p">:</span><span class="o">=</span> <span class="n">p_input</span> <span class="o">-</span> <span class="mi">500</span><span class="p">;</span>
+            <span class="k">when</span> <span class="n">p_input</span> <span class="o">&gt;=</span> <span class="mi">400</span> <span class="k">then</span>
+                <span class="n">v_output</span> <span class="p">:</span><span class="o">=</span> <span class="n">v_output</span> <span class="o">||</span> <span class="s1">'CD'</span><span class="p">;</span>
+                <span class="n">p_input</span> <span class="p">:</span><span class="o">=</span> <span class="n">p_input</span> <span class="o">-</span> <span class="mi">400</span><span class="p">;</span>
+            <span class="k">when</span> <span class="n">p_input</span> <span class="o">&gt;=</span> <span class="mi">100</span> <span class="k">then</span>
+                <span class="n">v_output</span> <span class="p">:</span><span class="o">=</span> <span class="n">v_output</span> <span class="o">||</span> <span class="s1">'C'</span><span class="p">;</span>
+                <span class="n">p_input</span> <span class="p">:</span><span class="o">=</span> <span class="n">p_input</span> <span class="o">-</span> <span class="mi">100</span><span class="p">;</span>
+            <span class="k">when</span> <span class="n">p_input</span> <span class="o">&gt;=</span> <span class="mi">90</span> <span class="k">then</span>
+                <span class="n">v_output</span> <span class="p">:</span><span class="o">=</span> <span class="n">v_output</span> <span class="o">||</span> <span class="s1">'XC'</span><span class="p">;</span>
+                <span class="n">p_input</span> <span class="p">:</span><span class="o">=</span> <span class="n">p_input</span> <span class="o">-</span> <span class="mi">90</span><span class="p">;</span>
+            <span class="k">when</span> <span class="n">p_input</span> <span class="o">&gt;=</span> <span class="mi">50</span> <span class="k">then</span>
+                <span class="n">v_output</span> <span class="p">:</span><span class="o">=</span> <span class="n">v_output</span> <span class="o">||</span> <span class="s1">'L'</span><span class="p">;</span>
+                <span class="n">p_input</span> <span class="p">:</span><span class="o">=</span> <span class="n">p_input</span> <span class="o">-</span> <span class="mi">50</span><span class="p">;</span>
+            <span class="k">when</span> <span class="n">p_input</span> <span class="o">&gt;=</span> <span class="mi">10</span> <span class="k">then</span>
+                <span class="n">v_output</span> <span class="p">:</span><span class="o">=</span> <span class="n">v_output</span> <span class="o">||</span> <span class="s1">'X'</span><span class="p">;</span>
+                <span class="n">p_input</span> <span class="p">:</span><span class="o">=</span> <span class="n">p_input</span> <span class="o">-</span> <span class="mi">10</span><span class="p">;</span>
+            <span class="k">when</span> <span class="n">p_input</span> <span class="o">&gt;=</span> <span class="mi">9</span> <span class="k">then</span>
+                <span class="n">v_output</span> <span class="p">:</span><span class="o">=</span> <span class="n">v_output</span> <span class="o">||</span> <span class="s1">'IX'</span><span class="p">;</span>
+                <span class="n">p_input</span> <span class="p">:</span><span class="o">=</span> <span class="n">p_input</span> <span class="o">-</span> <span class="mi">9</span><span class="p">;</span>
+            <span class="k">when</span> <span class="n">p_input</span> <span class="o">&gt;=</span> <span class="mi">5</span> <span class="k">then</span>
+                <span class="n">v_output</span> <span class="p">:</span><span class="o">=</span> <span class="n">v_output</span> <span class="o">||</span> <span class="s1">'V'</span><span class="p">;</span>
+                <span class="n">p_input</span> <span class="p">:</span><span class="o">=</span> <span class="n">p_input</span> <span class="o">-</span> <span class="mi">5</span><span class="p">;</span>
+            <span class="k">when</span> <span class="n">p_input</span> <span class="o">&gt;=</span> <span class="mi">4</span> <span class="k">then</span>
+                <span class="n">v_output</span> <span class="p">:</span><span class="o">=</span> <span class="n">v_output</span> <span class="o">||</span> <span class="s1">'IV'</span><span class="p">;</span>
+                <span class="n">p_input</span> <span class="p">:</span><span class="o">=</span> <span class="n">p_input</span> <span class="o">-</span><span class="mi">4</span><span class="p">;</span>
+            <span class="k">when</span> <span class="n">p_input</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="k">then</span>
+                <span class="n">v_output</span> <span class="p">:</span><span class="o">=</span> <span class="n">v_output</span> <span class="o">||</span> <span class="s1">'I'</span><span class="p">;</span>
+                <span class="n">p_input</span> <span class="p">:</span><span class="o">=</span> <span class="n">p_input</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="k">else</span>
+                <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'test'</span><span class="p">);</span>
+        <span class="k">end</span> <span class="k">case</span><span class="p">;</span>
+    <span class="k">end</span> <span class="n">loop</span><span class="p">;</span>
+    <span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="s1">'Program completed'</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">v_output</span><span class="p">;</span>
+<span class="k">end</span><span class="p">;</span>
+<span class="o">/</span>
+
+<span class="k">select</span> <span class="n">ROMAN_NUMBERS</span><span class="p">(</span><span class="mi">999</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2022-11-10 13:51:00 UTC
+</div>
+</div>
+</body>
+</html>

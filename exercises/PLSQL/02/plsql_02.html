@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.18">
+<meta name="author" content="Mctom Spdo">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>PLSQL Übung 2</title>
+<style>
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge .cm {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cp {
+  color: #999999;
+  font-weight: bold;
+}
+pre.rouge .c1 {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cs {
+  color: #999999;
+  font-weight: bold;
+  font-style: italic;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cpf {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+pre.rouge .gd {
+  color: #000000;
+  background-color: #ffdddd;
+}
+pre.rouge .ge {
+  color: #000000;
+  font-style: italic;
+}
+pre.rouge .gr {
+  color: #aa0000;
+}
+pre.rouge .gh {
+  color: #999999;
+}
+pre.rouge .gi {
+  color: #000000;
+  background-color: #ddffdd;
+}
+pre.rouge .go {
+  color: #888888;
+}
+pre.rouge .gp {
+  color: #555555;
+}
+pre.rouge .gs {
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #aaaaaa;
+}
+pre.rouge .gt {
+  color: #aa0000;
+}
+pre.rouge .kc {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kd {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kn {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kp {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kr {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kt {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .k, pre.rouge .kv {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .mf {
+  color: #009999;
+}
+pre.rouge .mh {
+  color: #009999;
+}
+pre.rouge .il {
+  color: #009999;
+}
+pre.rouge .mi {
+  color: #009999;
+}
+pre.rouge .mo {
+  color: #009999;
+}
+pre.rouge .m, pre.rouge .mb, pre.rouge .mx {
+  color: #009999;
+}
+pre.rouge .sa {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .sb {
+  color: #d14;
+}
+pre.rouge .sc {
+  color: #d14;
+}
+pre.rouge .sd {
+  color: #d14;
+}
+pre.rouge .s2 {
+  color: #d14;
+}
+pre.rouge .se {
+  color: #d14;
+}
+pre.rouge .sh {
+  color: #d14;
+}
+pre.rouge .si {
+  color: #d14;
+}
+pre.rouge .sx {
+  color: #d14;
+}
+pre.rouge .sr {
+  color: #009926;
+}
+pre.rouge .s1 {
+  color: #d14;
+}
+pre.rouge .ss {
+  color: #990073;
+}
+pre.rouge .s, pre.rouge .dl {
+  color: #d14;
+}
+pre.rouge .na {
+  color: #008080;
+}
+pre.rouge .bp {
+  color: #999999;
+}
+pre.rouge .nb {
+  color: #0086B3;
+}
+pre.rouge .nc {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .no {
+  color: #008080;
+}
+pre.rouge .nd {
+  color: #3c5d5d;
+  font-weight: bold;
+}
+pre.rouge .ni {
+  color: #800080;
+}
+pre.rouge .ne {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nl {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nn {
+  color: #555555;
+}
+pre.rouge .nt {
+  color: #000080;
+}
+pre.rouge .vc {
+  color: #008080;
+}
+pre.rouge .vg {
+  color: #008080;
+}
+pre.rouge .vi {
+  color: #008080;
+}
+pre.rouge .nv, pre.rouge .vm {
+  color: #008080;
+}
+pre.rouge .ow {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .o {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .w {
+  color: #bbbbbb;
+}
+pre.rouge {
+  background-color: #f8f8f8;
+}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>PLSQL Übung 2</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2022-11-10</span>
+<br><span id="revremark">ITP</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_aufgabe">1. Aufgabe</a></li>
+<li><a href="#_aufgabe_2">2. Aufgabe</a></li>
+<li><a href="#_aufgabe_3">3. Aufgabe</a></li>
+<li><a href="#_aufgabe_4">4. Aufgabe</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="PLSQL-Übung-02.pdf">Angabe</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_aufgabe"><a class="anchor" href="#_aufgabe"></a>1. Aufgabe</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Erstelle eine Stored Function EMPCOUNT mit folgenden Parametern:
+Eingabeparameter: DEPTNO
+Zur DEPTNO soll die Anzahl der Angestellten ermittelt und zurückgegeben wer-
+den. Teste die Funktion.</p>
+</div>
+<div class="listingblock">
+<div class="title">Function</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">or</span> <span class="k">replace</span> <span class="k">function</span> <span class="n">EMPCOUNT</span><span class="p">(</span>
+    <span class="n">DEPTNO</span> <span class="k">in</span> <span class="n">DEPT</span><span class="p">.</span><span class="n">DEPTNO</span><span class="o">%</span><span class="k">type</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">integer</span>
+<span class="k">as</span>
+    <span class="n">counter</span> <span class="nb">integer</span><span class="p">;</span>
+<span class="k">begin</span>
+    <span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">into</span> <span class="n">counter</span> <span class="k">from</span> <span class="n">EMP</span> <span class="k">where</span> <span class="n">DEPTNO</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">counter</span><span class="p">;</span>
+<span class="k">end</span> <span class="n">EMPCOUNT</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Execute</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">EMPCOUNT</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_aufgabe_2"><a class="anchor" href="#_aufgabe_2"></a>2. Aufgabe</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Erstelle eine Stored Procedure EMPNAME mit folgenden Parametern: Eingabeparameter:<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>EMPNO</p>
+</li>
+<li>
+<p>CODE (1 oder 2)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Zur EMPNO soll ENAME ermittelt und als Parameter werden.
+Zusätzlich werden in Abhängigkeit vom Code folgende Werte ermittelt und ebenfalls als Parameter zurückgegeben:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>wenn CODE 1, dann SAL+COMM,</p>
+</li>
+<li>
+<p>wenn CODE 2, dann nur SAL.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Falls die Prozedur den Angestellten nicht finden kann, soll für ENAME 'Unbekannt' und für das Gehalt NULL ausgegeben werden.
+Teste die Prozedur, indem Sie aus einem unnamed block aufgerufen wird.</p>
+</div>
+<div class="listingblock">
+<div class="title">Procedure</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">or</span> <span class="k">replace</span> <span class="k">procedure</span> <span class="n">EMPNAME</span><span class="p">(</span>
+    <span class="n">empnom</span> <span class="k">in</span> <span class="n">EMP</span><span class="p">.</span><span class="n">EMPNO</span><span class="o">%</span><span class="k">type</span><span class="p">,</span>
+    <span class="n">code</span> <span class="k">in</span> <span class="n">number</span><span class="p">)</span>
+<span class="k">is</span>
+    <span class="n">ename</span> <span class="n">EMP</span><span class="p">.</span><span class="n">ENAME</span><span class="o">%</span><span class="k">type</span><span class="p">;</span>
+    <span class="n">money</span> <span class="n">number</span><span class="p">;</span>
+<span class="k">begin</span>
+    <span class="k">select</span> <span class="n">E</span><span class="p">.</span><span class="n">ENAME</span> <span class="k">into</span> <span class="n">ename</span> <span class="k">from</span> <span class="n">EMP</span> <span class="n">E</span> <span class="k">where</span> <span class="n">EMPNO</span> <span class="o">=</span> <span class="n">empnom</span><span class="p">;</span>
+
+    <span class="n">if</span> <span class="n">code</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">then</span>
+        <span class="k">select</span> <span class="n">nvl</span><span class="p">(</span><span class="n">E</span><span class="p">.</span><span class="n">SAL</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">nvl</span><span class="p">(</span><span class="n">E</span><span class="p">.</span><span class="n">COMM</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">into</span> <span class="n">money</span> <span class="k">from</span> <span class="n">EMP</span> <span class="n">E</span> <span class="k">where</span> <span class="n">EMPNO</span> <span class="o">=</span> <span class="n">empnom</span><span class="p">;</span>
+    <span class="n">elsif</span> <span class="n">code</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">then</span>
+        <span class="k">select</span> <span class="n">nvl</span><span class="p">(</span><span class="n">E</span><span class="p">.</span><span class="n">SAL</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">into</span> <span class="n">money</span> <span class="k">from</span> <span class="n">EMP</span> <span class="n">E</span> <span class="k">where</span> <span class="n">EMPNO</span> <span class="o">=</span> <span class="n">empnom</span><span class="p">;</span>
+    <span class="k">end</span> <span class="n">if</span><span class="p">;</span>
+
+    <span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="s1">'ENAME: '</span> <span class="o">||</span> <span class="n">nvl</span><span class="p">(</span><span class="n">ename</span><span class="p">,</span> <span class="s1">'Unbekannt'</span><span class="p">));</span>
+    <span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="s1">'MONEY: '</span> <span class="o">||</span> <span class="n">nvl</span><span class="p">(</span><span class="n">to_char</span><span class="p">(</span><span class="n">money</span><span class="p">),</span> <span class="s1">'NULL'</span><span class="p">));</span>
+
+<span class="n">exception</span>
+    <span class="k">when</span> <span class="n">NO_DATA_FOUND</span> <span class="k">then</span>
+        <span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="s1">'ENAME: Unbekannt'</span><span class="p">);</span>
+        <span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="s1">'MONEY: NULL'</span><span class="p">);</span>
+    <span class="k">when</span> <span class="n">OTHERS</span> <span class="k">then</span>
+        <span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="s1">'UNKNOWN ERROR'</span><span class="p">);</span>
+<span class="k">end</span> <span class="n">EMPNAME</span><span class="p">;</span>
+<span class="o">/</span></code></pre>
+</div>
+</div>
+<details>
+<summary class="title">Get random valid EMPNO</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="p">(</span>
+    <span class="k">select</span> <span class="n">EMPNO</span>
+    <span class="k">from</span> <span class="n">EMP</span>
+    <span class="k">order</span> <span class="k">by</span> <span class="n">dbms_random</span><span class="p">.</span><span class="n">random</span><span class="p">())</span>
+<span class="k">where</span> <span class="n">rownum</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</details>
+<div class="listingblock">
+<div class="title">Execute</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">begin</span>
+    <span class="n">EMPNAME</span><span class="p">(</span><span class="mi">7934</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="k">end</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<details>
+<summary class="title">Teachers Solution</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">or</span> <span class="k">replace</span> <span class="k">procedure</span> <span class="n">EMPNAME_SOLUTION</span><span class="p">(</span><span class="n">p_empno</span> <span class="k">in</span> <span class="n">EMP</span><span class="p">.</span><span class="n">EMPNO</span><span class="o">%</span><span class="k">TYPE</span><span class="p">,</span> <span class="n">code</span> <span class="k">in</span> <span class="n">number</span><span class="p">)</span>
+<span class="k">as</span>
+    <span class="n">save_ename</span> <span class="n">EMP</span><span class="p">.</span><span class="n">ENAME</span><span class="o">%</span><span class="k">TYPE</span><span class="p">;</span>
+    <span class="n">save_sal</span> <span class="n">EMP</span><span class="p">.</span><span class="n">SAL</span><span class="o">%</span><span class="k">TYPE</span><span class="p">;</span>
+    <span class="n">save_comm</span> <span class="n">EMP</span><span class="p">.</span><span class="n">COMM</span><span class="o">%</span><span class="k">TYPE</span><span class="p">;</span>
+<span class="k">begin</span>
+    <span class="k">select</span> <span class="n">ENAME</span><span class="p">,</span> <span class="n">nvl</span><span class="p">(</span><span class="n">SAL</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">nvl</span><span class="p">(</span><span class="n">COMM</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">into</span> <span class="n">save_ename</span><span class="p">,</span> <span class="n">save_sal</span><span class="p">,</span> <span class="n">save_comm</span> <span class="k">from</span> <span class="n">EMP</span> <span class="n">E</span> <span class="k">where</span> <span class="n">E</span><span class="p">.</span><span class="n">EMPNO</span> <span class="o">=</span> <span class="n">p_empno</span><span class="p">;</span>
+    <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'Employee Name: '</span> <span class="o">||</span> <span class="n">save_ename</span><span class="p">);</span>
+
+    <span class="n">if</span> <span class="n">code</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">then</span>
+        <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'Mit Provision'</span> <span class="o">||</span> <span class="p">(</span><span class="n">save_sal</span> <span class="o">+</span> <span class="n">save_comm</span><span class="p">));</span>
+    <span class="k">else</span>
+        <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'Ohne Provision'</span> <span class="o">||</span> <span class="n">save_sal</span><span class="p">);</span>
+    <span class="k">end</span> <span class="n">if</span><span class="p">;</span>
+<span class="n">exception</span>
+    <span class="k">when</span> <span class="n">NO_DATA_FOUND</span> <span class="k">then</span>
+        <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'Unbekannt: Null'</span><span class="p">);</span>
+<span class="k">end</span><span class="p">;</span>
+<span class="o">/</span>
+
+<span class="k">begin</span>
+    <span class="n">EMPNAME_SOLUTION</span><span class="p">(</span><span class="mi">7934</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="k">end</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</details>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_aufgabe_3"><a class="anchor" href="#_aufgabe_3"></a>3. Aufgabe</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Erstelle eine Stored Function SAL_COMM mit folgenden Parametern:
+Eingabeparameter: EMPNO<br>
+Zur EMPNO soll das Verhältnis zwischen SAL und COMM (Wert SAL/COMM) be-
+rechnet und folgender String zurückgeliefert werden: 'Verhältnis: &#8230;&#8203;'.
+Hat ein Angestellter keine Provision, so soll 'Keine Provision!' zurückgeliefert wer-
+den (Verwende dazu die eingebaute Exception ZERO_DIVIDE).<br>
+Teste die Funktion.</p>
+</div>
+<div class="listingblock">
+<div class="title">Function</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">or</span> <span class="k">replace</span> <span class="k">function</span> <span class="n">EMP_SAL_COMM</span><span class="p">(</span>
+    <span class="n">empnom</span> <span class="k">in</span> <span class="n">EMP</span><span class="p">.</span><span class="n">EMPNO</span><span class="o">%</span><span class="k">type</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">varchar</span>
+<span class="k">as</span>
+    <span class="n">difference</span> <span class="n">number</span><span class="p">;</span>
+    <span class="n">sal</span> <span class="n">EMP</span><span class="p">.</span><span class="n">SAL</span><span class="o">%</span><span class="k">type</span><span class="p">;</span>
+    <span class="n">comm</span> <span class="n">EMP</span><span class="p">.</span><span class="n">SAL</span><span class="o">%</span><span class="k">type</span><span class="p">;</span>
+<span class="k">begin</span>
+    <span class="k">select</span> <span class="n">nvl</span><span class="p">(</span><span class="n">E</span><span class="p">.</span><span class="n">SAL</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">nvl</span><span class="p">(</span><span class="n">E</span><span class="p">.</span><span class="n">COMM</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">into</span> <span class="n">sal</span><span class="p">,</span> <span class="n">comm</span> <span class="k">from</span> <span class="n">EMP</span> <span class="n">E</span> <span class="k">where</span> <span class="n">E</span><span class="p">.</span><span class="n">EMPNO</span> <span class="o">=</span> <span class="n">empnom</span><span class="p">;</span>
+    <span class="n">difference</span> <span class="p">:</span><span class="o">=</span> <span class="n">sal</span> <span class="o">/</span> <span class="n">comm</span><span class="p">;</span>
+    <span class="k">return</span> <span class="s1">'Verhältnis: '</span> <span class="o">||</span> <span class="n">difference</span><span class="p">;</span>
+<span class="n">exception</span>
+    <span class="c1">-- when there is no comm, or comm is 0:</span>
+    <span class="k">when</span> <span class="n">zero_divide</span> <span class="k">then</span>
+        <span class="k">return</span> <span class="s1">'Keine Provision!'</span><span class="p">;</span>
+<span class="k">end</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Execute</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">EMP_SAL_COMM</span><span class="p">(</span><span class="mi">7876</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<details>
+<summary class="title">Teachers solution</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">or</span> <span class="k">replace</span> <span class="k">function</span> <span class="n">EMP_SAL_COMM_SOLUTION</span><span class="p">(</span><span class="n">empno</span> <span class="k">in</span> <span class="n">EMP</span><span class="p">.</span><span class="n">EMPNO</span><span class="o">%</span><span class="k">TYPE</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">varchar</span>
+<span class="k">as</span>
+    <span class="n">save_verhaeltnis</span> <span class="n">number</span><span class="p">;</span>
+<span class="k">begin</span>
+    <span class="k">select</span> <span class="n">nvl</span><span class="p">(</span><span class="n">sal</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">nvl</span><span class="p">(</span><span class="n">comm</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">into</span> <span class="n">save_verhaeltnis</span> <span class="k">from</span> <span class="n">emp</span> <span class="n">e</span> <span class="k">where</span> <span class="n">e</span><span class="p">.</span><span class="n">EMPNO</span> <span class="o">=</span> <span class="n">EMP_SAL_COMM_SOLUTION</span><span class="p">.</span><span class="n">empno</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="s1">'Verhältnis'</span> <span class="o">||</span> <span class="n">save_verhaeltnis</span><span class="p">;</span>
+<span class="n">exception</span>
+    <span class="k">when</span> <span class="n">ZERO_DIVIDE</span> <span class="k">then</span>
+        <span class="k">return</span> <span class="s1">'Keine Provision'</span><span class="p">;</span>
+<span class="k">end</span><span class="p">;</span>
+<span class="o">/</span>
+
+<span class="k">select</span> <span class="n">EMP_SAL_COMM_SOLUTION</span><span class="p">(</span><span class="mi">7876</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</details>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_aufgabe_4"><a class="anchor" href="#_aufgabe_4"></a>4. Aufgabe</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The purpose of the procedure sell is to accept the paint_id parameter passed and update the stock on hand quantity by the qty value parameter. If there is insufficient stock then we need to produce an error message.<br>
+Before we get started with the procedure we need to quickly create the table  (paints) that our Procedure will update.<br>
+The desc(ription) of our table should be.</p>
+</div>
+<div class="listingblock">
+<div class="title">Procedure</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="c1">-- data source unknown</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Execute</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2022-11-10 13:51:00 UTC
+</div>
+</div>
+</body>
+</html>

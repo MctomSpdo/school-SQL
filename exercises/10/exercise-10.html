@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.18">
+<meta name="author" content="Mctom Spdo">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>Übung 10</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+:root{
+--maincolor:#282c34;
+--primarycolor:#f39c12;
+--secondarycolor:#03a9f4;
+--tertiarycolor:#4db6ac;
+--sidebarbackground:#21252b;
+--linkcolor:#f44336;
+--linkcoloralternate:#ff9800;
+--white:#FFFFFF;
+}
+
+/* custom added styles */
+.listingblock > .content > pre{
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+/* Text styles */
+body{font-family: "Noto Sans",sans-serif;background-color: var(--maincolor);color:var(--white);}
+
+h1{color:var(--primarycolor) !important;font-family:"Noto Sans",sans-serif;}
+h2,h3,h4,h5,h6{color:var(--secondarycolor) !important;font-family:"Noto Sans",sans-serif;}
+.title{color:var(--white) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Noto Sans",sans-serif ! important}
+#toc.toc2 a:link{color:var(--linkcolor);}
+blockquote{color:var(--tertiarycolor) !important}
+.quoteblock{color:var(--white)}
+code{color:var(--linkcoloralternate);background-color: var(--sidebarbackground) !important}
+
+
+/* Table styles */
+th{background-color: var(--maincolor);color:var(--white) !important;}
+td{background-color: var(--maincolor);color: var(--linkcoloralternate) !important}
+
+
+#toc.toc2{background-color:var(--sidebarbackground);}
+#toctitle{color:var(--white);}
+
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  table {
+    width: 55vw!important;
+    font-size: 3vw;
+  }
+}
+
+.exampleblock > .content {
+  background-color: var(--maincolor);
+}
+
+a {
+  color: var(--secondarycolor);
+}
+
+.admonitionblock td.icon .icon-tip::before {
+  text-shadow: none;
+  color: var(--white);
+}
+.admonitionblock td.icon .icon-note::before {
+  color: var(--tertiarycolor);
+}
+.admonitionblock td.icon .icon-important::before {
+  color: var(--linkcolor);
+}
+/*.admonitionblock td.icon .icon-caution::before {
+  color: var(--linkcoloralternate);
+}*/
+.admonitionblock td.icon .icon-warning::before {
+  color: var(--primarycolor);
+}
+
+#preamble > .sectionbody > .paragraph:first-of-type p {
+  color: var(--white);
+}
+
+.quoteblock blockquote::before {
+  color: var(--primarycolor);
+}
+.quoteblock .attribution cite, .verseblock .attribution cite {
+  color: var(--white);
+}
+.verseblock pre {
+  color: var(--white);
+}
+.quoteblock blockquote, .quoteblock blockquote p {
+  color: var(--white);
+}
+
+.sidebarblock {
+  background: var(--sidebarbackground);
+}
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+#header .details {
+  color: var(--white);
+}
+#header .details span.email a {
+  color: var(--linkcoloralternate);
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge .cm {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cp {
+  color: #999999;
+  font-weight: bold;
+}
+pre.rouge .c1 {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cs {
+  color: #999999;
+  font-weight: bold;
+  font-style: italic;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cpf {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+pre.rouge .gd {
+  color: #000000;
+  background-color: #ffdddd;
+}
+pre.rouge .ge {
+  color: #000000;
+  font-style: italic;
+}
+pre.rouge .gr {
+  color: #aa0000;
+}
+pre.rouge .gh {
+  color: #999999;
+}
+pre.rouge .gi {
+  color: #000000;
+  background-color: #ddffdd;
+}
+pre.rouge .go {
+  color: #888888;
+}
+pre.rouge .gp {
+  color: #555555;
+}
+pre.rouge .gs {
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #aaaaaa;
+}
+pre.rouge .gt {
+  color: #aa0000;
+}
+pre.rouge .kc {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kd {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kn {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kp {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kr {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kt {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .k, pre.rouge .kv {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .mf {
+  color: #009999;
+}
+pre.rouge .mh {
+  color: #009999;
+}
+pre.rouge .il {
+  color: #009999;
+}
+pre.rouge .mi {
+  color: #009999;
+}
+pre.rouge .mo {
+  color: #009999;
+}
+pre.rouge .m, pre.rouge .mb, pre.rouge .mx {
+  color: #009999;
+}
+pre.rouge .sa {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .sb {
+  color: #d14;
+}
+pre.rouge .sc {
+  color: #d14;
+}
+pre.rouge .sd {
+  color: #d14;
+}
+pre.rouge .s2 {
+  color: #d14;
+}
+pre.rouge .se {
+  color: #d14;
+}
+pre.rouge .sh {
+  color: #d14;
+}
+pre.rouge .si {
+  color: #d14;
+}
+pre.rouge .sx {
+  color: #d14;
+}
+pre.rouge .sr {
+  color: #009926;
+}
+pre.rouge .s1 {
+  color: #d14;
+}
+pre.rouge .ss {
+  color: #990073;
+}
+pre.rouge .s, pre.rouge .dl {
+  color: #d14;
+}
+pre.rouge .na {
+  color: #008080;
+}
+pre.rouge .bp {
+  color: #999999;
+}
+pre.rouge .nb {
+  color: #0086B3;
+}
+pre.rouge .nc {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .no {
+  color: #008080;
+}
+pre.rouge .nd {
+  color: #3c5d5d;
+  font-weight: bold;
+}
+pre.rouge .ni {
+  color: #800080;
+}
+pre.rouge .ne {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nl {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nn {
+  color: #555555;
+}
+pre.rouge .nt {
+  color: #000080;
+}
+pre.rouge .vc {
+  color: #008080;
+}
+pre.rouge .vg {
+  color: #008080;
+}
+pre.rouge .vi {
+  color: #008080;
+}
+pre.rouge .nv, pre.rouge .vm {
+  color: #008080;
+}
+pre.rouge .ow {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .o {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .w {
+  color: #bbbbbb;
+}
+pre.rouge {
+  background-color: #f8f8f8;
+}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Übung 10</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2022-11-10</span>
+<br><span id="revremark">ITP</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_abfrage">1. Abfrage</a></li>
+<li><a href="#_abfrage_2">2. Abfrage</a></li>
+<li><a href="#_abfrage_3">3. Abfrage</a></li>
+<li><a href="#_abfrage_4">4. Abfrage</a></li>
+<li><a href="#_abfrage_5">5. Abfrage</a></li>
+<li><a href="#_abfrage_6">6. Abfrage</a></li>
+<li><a href="#_abfrage_7">7. Abfrage</a></li>
+<li><a href="#_abfrage_8">8. Abfrage</a></li>
+<li><a href="#_abfrage_9">9. Abfrage</a></li>
+<li><a href="#_abfrage_10">10. Abfrage</a></li>
+<li><a href="#_abfrage_11">11. Abfrage</a></li>
+<li><a href="#_abfrage_12">12. Abfrage</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_abfrage"><a class="anchor" href="#_abfrage"></a>1. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Einfügen eines neuen Satzes in die PLAYERS Table (eigene Daten verwenden)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="n">SEQUENCE</span> <span class="n">seq_deptno</span>
+    <span class="k">start</span> <span class="k">with</span> <span class="mi">3</span><span class="p">;</span>
+
+<span class="k">insert</span> <span class="k">into</span> <span class="n">PLAYERS</span>
+    <span class="p">(</span><span class="n">PLAYERNO</span><span class="p">,</span> <span class="n">NAME</span><span class="p">,</span> <span class="n">INITIALS</span><span class="p">,</span> <span class="n">YEAR_OF_BIRTH</span><span class="p">,</span> <span class="n">SEX</span><span class="p">,</span> <span class="n">YEAR_JOINED</span><span class="p">,</span> <span class="n">STREET</span><span class="p">,</span> <span class="n">HOUSENO</span><span class="p">,</span> <span class="n">POSTCODE</span><span class="p">,</span> <span class="n">TOWN</span><span class="p">,</span> <span class="n">PHONENO</span><span class="p">,</span> <span class="n">LEAGUENO</span><span class="p">)</span>
+<span class="k">values</span>
+       <span class="p">(</span><span class="n">seq_deptno</span><span class="p">.</span><span class="n">nextval</span><span class="p">,</span> <span class="s1">'Spindler'</span><span class="p">,</span> <span class="s1">'T'</span><span class="p">,</span> <span class="mi">2005</span><span class="p">,</span> <span class="s1">'M'</span><span class="p">,</span> <span class="mi">2010</span><span class="p">,</span> <span class="s1">'Limesstraße'</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">4060</span><span class="p">,</span> <span class="s1">'Leonding'</span><span class="p">,</span> <span class="mi">123456789</span><span class="p">,</span> <span class="k">null</span><span class="p">);</span>
+
+<span class="k">commit</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_2"><a class="anchor" href="#_abfrage_2"></a>2. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ändern des Wertes 'F' in der Spalte SEX auf 'W'</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">update</span> <span class="n">PLAYERS</span>
+<span class="k">set</span> <span class="n">SEX</span> <span class="o">=</span> <span class="s1">'W'</span>
+<span class="k">where</span> <span class="n">SEX</span> <span class="o">=</span> <span class="s1">'F'</span><span class="p">;</span>
+
+<span class="k">commit</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_3"><a class="anchor" href="#_abfrage_3"></a>3. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Erhöhen aller Strafen, die über dem Durchschnitt liegen, um 20%</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">update</span> <span class="n">PENALTIES</span>
+<span class="k">set</span> <span class="n">AMOUNT</span> <span class="o">=</span> <span class="n">AMOUNT</span> <span class="o">*</span> <span class="mi">1</span><span class="p">.</span><span class="mi">2</span>
+<span class="k">where</span> <span class="n">AMOUNT</span> <span class="o">&gt;</span> <span class="p">(</span><span class="k">select</span> <span class="k">avg</span><span class="p">(</span><span class="n">AMOUNT</span><span class="p">)</span> <span class="k">from</span> <span class="n">PENALTIES</span><span class="p">);</span>
+
+<span class="k">commit</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_4"><a class="anchor" href="#_abfrage_4"></a>4. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Der Spieler mit der Nummer 95 erhält die Adresse des Spielers mit der Nummer 6</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">update</span> <span class="n">PLAYERS</span> <span class="k">set</span>
+    <span class="p">(</span><span class="n">STREET</span><span class="p">,</span> <span class="n">HOUSENO</span><span class="p">,</span> <span class="n">POSTCODE</span><span class="p">,</span> <span class="n">TOWN</span><span class="p">)</span> <span class="o">=</span>
+    <span class="p">(</span><span class="k">select</span> <span class="n">STREET</span><span class="p">,</span> <span class="n">HOUSENO</span><span class="p">,</span> <span class="n">POSTCODE</span><span class="p">,</span> <span class="n">TOWN</span> <span class="k">from</span> <span class="n">PLAYERS</span> <span class="k">where</span> <span class="n">PLAYERNO</span> <span class="o">=</span> <span class="mi">6</span><span class="p">)</span>
+<span class="k">where</span> <span class="n">PLAYERNO</span> <span class="o">=</span> <span class="mi">95</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<details>
+<summary class="title">Old Solution</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">update</span> <span class="n">PLAYERS</span> <span class="k">set</span>
+<span class="n">STREET</span> <span class="o">=</span> <span class="p">(</span><span class="k">select</span> <span class="n">STREET</span> <span class="k">from</span> <span class="n">PLAYERS</span> <span class="k">where</span> <span class="n">PLAYERNO</span> <span class="o">=</span> <span class="mi">6</span><span class="p">),</span>
+<span class="n">HOUSENO</span> <span class="o">=</span> <span class="p">(</span><span class="k">select</span> <span class="n">HOUSENO</span> <span class="k">from</span> <span class="n">PLAYERS</span> <span class="k">where</span> <span class="n">PLAYERNO</span> <span class="o">=</span> <span class="mi">6</span><span class="p">),</span>
+<span class="n">POSTCODE</span> <span class="o">=</span> <span class="p">(</span><span class="k">select</span> <span class="n">POSTCODE</span> <span class="k">from</span> <span class="n">PLAYERS</span> <span class="k">where</span> <span class="n">PLAYERNO</span> <span class="o">=</span> <span class="mi">6</span><span class="p">),</span>
+<span class="n">TOWN</span> <span class="o">=</span> <span class="p">(</span><span class="k">select</span> <span class="n">TOWN</span> <span class="k">from</span> <span class="n">PLAYERS</span> <span class="k">where</span> <span class="n">PLAYERNO</span> <span class="o">=</span> <span class="mi">6</span><span class="p">),</span>
+<span class="n">PHONENO</span> <span class="o">=</span> <span class="p">(</span><span class="k">select</span> <span class="n">PHONENO</span> <span class="k">from</span> <span class="n">PLAYERS</span> <span class="k">where</span> <span class="n">PLAYERNO</span> <span class="o">=</span> <span class="mi">6</span><span class="p">)</span> <span class="k">where</span> <span class="n">PLAYERNO</span> <span class="o">=</span> <span class="mi">95</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</details>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_5"><a class="anchor" href="#_abfrage_5"></a>5. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Löschen aller Strafen des Spielers 44 aus 1980</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">delete</span> <span class="k">from</span> <span class="n">penalties</span>
+<span class="k">where</span> <span class="n">PLAYERNO</span> <span class="o">=</span> <span class="mi">44</span> <span class="k">and</span> <span class="n">to_char</span><span class="p">(</span><span class="n">PEN_DATE</span><span class="p">,</span> <span class="s1">'YYYY'</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1980</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_6"><a class="anchor" href="#_abfrage_6"></a>6. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Änderungen aus 1.-5. fixieren</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">commit</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_7"><a class="anchor" href="#_abfrage_7"></a>7. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Löschen aller Strafen derjenigen Spieler, die mindestens einmal in einem Team der zweiten Division gespielt haben</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">delete</span> <span class="k">from</span> <span class="n">PENALTIES</span>
+<span class="k">where</span> <span class="n">PLAYERNO</span> <span class="k">in</span>
+      <span class="p">(</span><span class="k">select</span> <span class="n">PLAYERNO</span>
+      <span class="k">from</span> <span class="n">PLAYERS</span>
+          <span class="k">inner</span> <span class="k">join</span> <span class="n">TEAMS</span> <span class="k">using</span> <span class="p">(</span><span class="n">PLAYERNO</span><span class="p">)</span>
+      <span class="k">where</span> <span class="n">DIVISION</span> <span class="o">=</span> <span class="s1">'second'</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<details>
+<summary class="title">Teacher</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">delete</span> <span class="n">PENALTIES</span>
+<span class="k">where</span> <span class="n">PLAYERNO</span> <span class="k">in</span>
+      <span class="p">(</span><span class="k">select</span> <span class="n">PLAYERNO</span>
+      <span class="k">from</span> <span class="n">MATCHES</span>
+      <span class="k">where</span> <span class="n">TEAMNO</span> <span class="o">=</span>
+            <span class="p">(</span><span class="k">select</span> <span class="n">TEAMNO</span>
+            <span class="k">from</span> <span class="n">TEAMS</span>
+            <span class="k">where</span> <span class="n">DIVISION</span> <span class="o">=</span> <span class="s1">'second'</span><span class="p">));</span></code></pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Statisch</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">delete</span> <span class="n">PENALTIES</span>
+<span class="k">where</span> <span class="n">PLAYERNO</span> <span class="k">in</span> <span class="p">(</span>
+    <span class="k">select</span> <span class="n">PLAYERNO</span>
+    <span class="k">from</span> <span class="n">MATCHES</span>
+    <span class="k">where</span> <span class="n">TEAMNO</span> <span class="o">=</span> <span class="mi">2</span><span class="p">);</span></code></pre>
+</div>
+</div>
+</div>
+</details>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_8"><a class="anchor" href="#_abfrage_8"></a>8. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Löschen aus 7. Rückgängig machen</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">rollback</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_9"><a class="anchor" href="#_abfrage_9"></a>9. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Alle Gehälter, die kleiner als 80% des Abteilungsdurchschnittsgehalts betragen, werden auf 80% des Abteilungsdurchschnittsgehalts gesetzt</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">update</span> <span class="n">EMP</span> <span class="n">e1</span>
+<span class="k">set</span> <span class="n">SAL</span> <span class="o">=</span>
+    <span class="p">(</span><span class="k">select</span> <span class="p">(</span><span class="k">avg</span><span class="p">(</span><span class="n">SAL</span><span class="p">)</span> <span class="o">*</span> <span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">)</span>
+    <span class="k">from</span> <span class="n">EMP</span> <span class="n">e2</span>
+    <span class="k">where</span> <span class="n">e2</span><span class="p">.</span><span class="n">DEPTNO</span> <span class="o">=</span> <span class="n">e1</span><span class="p">.</span><span class="n">DEPTNO</span><span class="p">)</span>
+<span class="k">where</span> <span class="n">sal</span> <span class="o">&lt;</span> <span class="p">(</span>
+    <span class="k">select</span> <span class="p">(</span><span class="k">avg</span><span class="p">(</span><span class="n">SAL</span><span class="p">)</span> <span class="o">*</span> <span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">)</span>
+    <span class="k">from</span> <span class="n">EMP</span> <span class="n">e3</span>
+    <span class="k">where</span> <span class="n">e3</span><span class="p">.</span><span class="n">DEPTNO</span> <span class="o">=</span> <span class="n">e1</span><span class="p">.</span><span class="n">DEPTNO</span><span class="p">);</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_10"><a class="anchor" href="#_abfrage_10"></a>10. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Löschen aller Angestellten, die schon länger als 35 Jahre in der Firma sind</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">delete</span> <span class="k">from</span> <span class="n">EMP</span>
+<span class="k">where</span> <span class="p">(</span><span class="n">to_char</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="s1">'YYYY'</span><span class="p">)</span> <span class="o">-</span> <span class="n">to_char</span><span class="p">(</span><span class="n">HIREDATE</span><span class="p">,</span> <span class="s1">'YYYY'</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">35</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_11"><a class="anchor" href="#_abfrage_11"></a>11. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Erstellen einer Nummernfolge mit den Werten 50, 60, 70, 80, &#8230;&#8203;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="n">SEQUENCE</span> <span class="n">SEQ_DEPTNO</span>
+<span class="k">start</span> <span class="k">with</span> <span class="mi">50</span> <span class="k">increment</span> <span class="k">by</span> <span class="mi">10</span> <span class="n">nomaxvalue</span> <span class="n">nocache</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfrage_12"><a class="anchor" href="#_abfrage_12"></a>12. Abfrage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Einfügen eines neuen Satzes in die Tabelle DEPT mit DEPTNO entsprechend der Nummernfolge aus 11., DNAME 'HTL' und LOC 'LEONDING'</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">insert</span> <span class="k">into</span> <span class="n">dept</span>
+<span class="k">values</span> <span class="p">(</span><span class="n">SEQ_DEPTNO</span><span class="p">.</span><span class="n">nextval</span><span class="p">,</span> <span class="s1">'HTL'</span><span class="p">,</span> <span class="s1">'LEONDING'</span><span class="p">);</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2022-11-10 13:51:00 UTC
+</div>
+</div>
+</body>
+</html>

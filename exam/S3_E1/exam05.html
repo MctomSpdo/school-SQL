@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.18">
+<meta name="author" content="Mctom Spdo">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>Exam Semester 03 INSY</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+:root{
+--maincolor:#282c34;
+--primarycolor:#f39c12;
+--secondarycolor:#03a9f4;
+--tertiarycolor:#4db6ac;
+--sidebarbackground:#21252b;
+--linkcolor:#f44336;
+--linkcoloralternate:#ff9800;
+--white:#FFFFFF;
+}
+
+/* custom added styles */
+.listingblock > .content > pre{
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+/* Text styles */
+body{font-family: "Noto Sans",sans-serif;background-color: var(--maincolor);color:var(--white);}
+
+h1{color:var(--primarycolor) !important;font-family:"Noto Sans",sans-serif;}
+h2,h3,h4,h5,h6{color:var(--secondarycolor) !important;font-family:"Noto Sans",sans-serif;}
+.title{color:var(--white) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Noto Sans",sans-serif ! important}
+#toc.toc2 a:link{color:var(--linkcolor);}
+blockquote{color:var(--tertiarycolor) !important}
+.quoteblock{color:var(--white)}
+code{color:var(--linkcoloralternate);background-color: var(--sidebarbackground) !important}
+
+
+/* Table styles */
+th{background-color: var(--maincolor);color:var(--white) !important;}
+td{background-color: var(--maincolor);color: var(--linkcoloralternate) !important}
+
+
+#toc.toc2{background-color:var(--sidebarbackground);}
+#toctitle{color:var(--white);}
+
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  table {
+    width: 55vw!important;
+    font-size: 3vw;
+  }
+}
+
+.exampleblock > .content {
+  background-color: var(--maincolor);
+}
+
+a {
+  color: var(--secondarycolor);
+}
+
+.admonitionblock td.icon .icon-tip::before {
+  text-shadow: none;
+  color: var(--white);
+}
+.admonitionblock td.icon .icon-note::before {
+  color: var(--tertiarycolor);
+}
+.admonitionblock td.icon .icon-important::before {
+  color: var(--linkcolor);
+}
+/*.admonitionblock td.icon .icon-caution::before {
+  color: var(--linkcoloralternate);
+}*/
+.admonitionblock td.icon .icon-warning::before {
+  color: var(--primarycolor);
+}
+
+#preamble > .sectionbody > .paragraph:first-of-type p {
+  color: var(--white);
+}
+
+.quoteblock blockquote::before {
+  color: var(--primarycolor);
+}
+.quoteblock .attribution cite, .verseblock .attribution cite {
+  color: var(--white);
+}
+.verseblock pre {
+  color: var(--white);
+}
+.quoteblock blockquote, .quoteblock blockquote p {
+  color: var(--white);
+}
+
+.sidebarblock {
+  background: var(--sidebarbackground);
+}
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+#header .details {
+  color: var(--white);
+}
+#header .details span.email a {
+  color: var(--linkcoloralternate);
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge .cm {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cp {
+  color: #999999;
+  font-weight: bold;
+}
+pre.rouge .c1 {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cs {
+  color: #999999;
+  font-weight: bold;
+  font-style: italic;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cpf {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+pre.rouge .gd {
+  color: #000000;
+  background-color: #ffdddd;
+}
+pre.rouge .ge {
+  color: #000000;
+  font-style: italic;
+}
+pre.rouge .gr {
+  color: #aa0000;
+}
+pre.rouge .gh {
+  color: #999999;
+}
+pre.rouge .gi {
+  color: #000000;
+  background-color: #ddffdd;
+}
+pre.rouge .go {
+  color: #888888;
+}
+pre.rouge .gp {
+  color: #555555;
+}
+pre.rouge .gs {
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #aaaaaa;
+}
+pre.rouge .gt {
+  color: #aa0000;
+}
+pre.rouge .kc {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kd {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kn {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kp {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kr {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kt {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .k, pre.rouge .kv {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .mf {
+  color: #009999;
+}
+pre.rouge .mh {
+  color: #009999;
+}
+pre.rouge .il {
+  color: #009999;
+}
+pre.rouge .mi {
+  color: #009999;
+}
+pre.rouge .mo {
+  color: #009999;
+}
+pre.rouge .m, pre.rouge .mb, pre.rouge .mx {
+  color: #009999;
+}
+pre.rouge .sa {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .sb {
+  color: #d14;
+}
+pre.rouge .sc {
+  color: #d14;
+}
+pre.rouge .sd {
+  color: #d14;
+}
+pre.rouge .s2 {
+  color: #d14;
+}
+pre.rouge .se {
+  color: #d14;
+}
+pre.rouge .sh {
+  color: #d14;
+}
+pre.rouge .si {
+  color: #d14;
+}
+pre.rouge .sx {
+  color: #d14;
+}
+pre.rouge .sr {
+  color: #009926;
+}
+pre.rouge .s1 {
+  color: #d14;
+}
+pre.rouge .ss {
+  color: #990073;
+}
+pre.rouge .s, pre.rouge .dl {
+  color: #d14;
+}
+pre.rouge .na {
+  color: #008080;
+}
+pre.rouge .bp {
+  color: #999999;
+}
+pre.rouge .nb {
+  color: #0086B3;
+}
+pre.rouge .nc {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .no {
+  color: #008080;
+}
+pre.rouge .nd {
+  color: #3c5d5d;
+  font-weight: bold;
+}
+pre.rouge .ni {
+  color: #800080;
+}
+pre.rouge .ne {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nl {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nn {
+  color: #555555;
+}
+pre.rouge .nt {
+  color: #000080;
+}
+pre.rouge .vc {
+  color: #008080;
+}
+pre.rouge .vg {
+  color: #008080;
+}
+pre.rouge .vi {
+  color: #008080;
+}
+pre.rouge .nv, pre.rouge .vm {
+  color: #008080;
+}
+pre.rouge .ow {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .o {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .w {
+  color: #bbbbbb;
+}
+pre.rouge {
+  background-color: #f8f8f8;
+}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Exam Semester 03 INSY</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2022-11-10</span>
+<br><span id="revremark">INSY</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_statement">1. Statement</a></li>
+<li><a href="#_statement_2">2. Statement</a></li>
+<li><a href="#_statement_3">3. Statement</a></li>
+<li><a href="#_statement_4">4. Statement</a></li>
+<li><a href="#_sql_multiple_choice_oracle_beiliegend">5. SQL multiple choice Oracle, beiliegend</a>
+<ul class="sectlevel2">
+<li><a href="#_question">5.1. Question</a></li>
+<li><a href="#_question_2">5.2. Question</a></li>
+<li><a href="#_question_3">5.3. Question</a></li>
+</ul>
+</li>
+<li><a href="#_angabe_der_testdaten">6. Angabe der Testdaten</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_statement"><a class="anchor" href="#_statement"></a>1. Statement</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Alle Teile, aus denen der <code>'Business PC'</code> unmittelbar aufgebaut ist</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="s1">'Business PC enthält'</span> <span class="o">||</span> <span class="n">TEILBEZ</span>
+<span class="k">from</span> <span class="n">TEIL</span>
+         <span class="k">left</span> <span class="k">join</span> <span class="n">STUECKLISTE</span> <span class="k">on</span> <span class="n">TEILNR</span> <span class="o">=</span> <span class="n">UTEILNR</span>
+<span class="k">where</span> <span class="n">HTEILNR</span> <span class="o">=</span> <span class="p">(</span><span class="k">select</span> <span class="n">TEILNR</span> <span class="k">from</span> <span class="n">TEIL</span> <span class="k">where</span> <span class="n">TEILBEZ</span> <span class="o">=</span> <span class="s1">'Business PC'</span><span class="p">);</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_statement_2"><a class="anchor" href="#_statement_2"></a>2. Statement</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Gesamtdifferenz Istzeit - Sollzeit eines jeden Arbeitsauftrages, der bereits fertiggestellt worden ist und dessen Gesamtdifferenz kleiner als 0 ist sortiert nach der Different</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">AUFTRNR</span><span class="p">,</span> <span class="n">MITARBNAME</span><span class="p">,</span> <span class="k">SUM</span><span class="p">(</span><span class="n">ISTZEIT</span> <span class="o">-</span> <span class="n">SOLLZEIT</span><span class="p">)</span> <span class="nv">"GESAMTDIFFERENZ"</span>
+<span class="k">from</span> <span class="n">ARBEITSZEIT</span>
+         <span class="k">join</span> <span class="n">ARBEITSGANG</span> <span class="k">using</span> <span class="p">(</span><span class="n">AGNR</span><span class="p">)</span>
+         <span class="k">join</span> <span class="n">ARBEITSAUFTRAG</span> <span class="k">using</span> <span class="p">(</span><span class="n">AUFTRNR</span><span class="p">)</span>
+         <span class="k">join</span> <span class="n">MITARBEITER</span> <span class="k">using</span> <span class="p">(</span><span class="n">MITARBNR</span><span class="p">)</span>
+<span class="k">where</span> <span class="n">FERTIGDATUM</span> <span class="k">is</span> <span class="k">not</span> <span class="k">null</span>
+  <span class="k">and</span> <span class="n">ARBEITSGANG</span><span class="p">.</span><span class="n">TEILNR</span> <span class="o">=</span> <span class="n">ARBEITSAUFTRAG</span><span class="p">.</span><span class="n">TEILNR</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">AUFTRNR</span><span class="p">,</span> <span class="n">MITARBNAME</span>
+<span class="k">having</span> <span class="k">SUM</span><span class="p">(</span><span class="n">ISTZEIT</span> <span class="o">-</span> <span class="n">SOLLZEIT</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span>
+<span class="k">order</span> <span class="k">by</span> <span class="mi">2</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_statement_3"><a class="anchor" href="#_statement_3"></a>3. Statement</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Alle Arbeitsgänge, wo das Wort <code>'Speicher'</code> beteiligt ist.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">AGNR</span><span class="p">,</span> <span class="n">AGBESCHREIBUNG</span><span class="p">,</span> <span class="n">TEILBEZ</span>
+<span class="k">from</span> <span class="n">ARBEITSGANG</span>
+         <span class="k">inner</span> <span class="k">join</span> <span class="n">TEIL</span> <span class="k">using</span> <span class="p">(</span><span class="n">TEILNR</span><span class="p">)</span>
+<span class="k">where</span> <span class="k">upper</span><span class="p">(</span><span class="n">AGBESCHREIBUNG</span><span class="p">)</span> <span class="k">like</span> <span class="s1">'%SPEICHER%'</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_statement_4"><a class="anchor" href="#_statement_4"></a>4. Statement</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Alle Teile, deren Preis über dem durchschnittlichen Preis liegt.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">TEIL</span>
+<span class="k">where</span> <span class="n">TEILPREIS</span> <span class="o">&gt;</span> <span class="p">(</span><span class="k">select</span> <span class="k">avg</span><span class="p">(</span><span class="n">TEILPREIS</span><span class="p">)</span>
+                   <span class="k">from</span> <span class="n">TEIL</span><span class="p">);</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sql_multiple_choice_oracle_beiliegend"><a class="anchor" href="#_sql_multiple_choice_oracle_beiliegend"></a>5. SQL multiple choice Oracle, beiliegend</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_question"><a class="anchor" href="#_question"></a>5.1. Question</h3>
+<div class="paragraph">
+<p>Which type of join returns rows from one table that have NO direct match in the other table</p>
+</div>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><i class="fa fa-square-o"></i> Equijoin</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Self join</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Outer join</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Naturnal join</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_2"><a class="anchor" href="#_question_2"></a>5.2. Question</h3>
+<div class="paragraph">
+<p>Which statement about a natural join is true?</p>
+</div>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><i class="fa fa-square-o"></i> Columns with the same names must have identical data types.</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Columns with the same names must have the same precision and datatype.</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Columns with the same names must have the compatible data types.</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Columns with the same names must cannot be included in the SELECT list of the query.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_3"><a class="anchor" href="#_question_3"></a>5.3. Question</h3>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+This is not finished yet
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_angabe_der_testdaten"><a class="anchor" href="#_angabe_der_testdaten"></a>6. Angabe der Testdaten</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">drop</span> <span class="k">table</span> <span class="n">arbeitsgang</span><span class="p">;</span>
+<span class="o">/</span>
+<span class="k">create</span> <span class="k">table</span> <span class="n">arbeitsgang</span> <span class="p">(</span><span class="n">agnr</span> <span class="n">number</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
+                    <span class="n">teilnr</span> <span class="n">number</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
+                    <span class="n">agbeschreibung</span> <span class="n">varchar2</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span>
+                    <span class="n">sollzeit</span> <span class="n">number</span><span class="p">,</span>
+                    <span class="k">primary</span> <span class="k">key</span><span class="p">(</span><span class="n">agnr</span><span class="p">,</span><span class="n">teilnr</span><span class="p">));</span>
+<span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitsgang</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s1">'Prozessor und Speicher einbauen'</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitsgang</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s1">'Festplatte einbauen'</span><span class="p">,</span><span class="mi">30</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitsgang</span> <span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s1">'Grafikkarte einbauen'</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitsgang</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s1">'Prozessor und Speicher einbauen'</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitsgang</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s1">'Festplatte einbauen'</span><span class="p">,</span><span class="mi">40</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitsgang</span> <span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s1">'Grafikkarte einbauen'</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitsgang</span> <span class="k">values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s1">'CD-ROM einbauen'</span><span class="p">,</span><span class="mi">40</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitsgang</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="s1">'Prozessor und Speicher einbauen'</span><span class="p">,</span><span class="mi">25</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitsgang</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="s1">'Festplatte einbauen'</span><span class="p">,</span><span class="mi">40</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitsgang</span> <span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="s1">'Grafikkarte einbauen'</span><span class="p">,</span><span class="mi">30</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitsgang</span> <span class="k">values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="s1">'CD-ROM einbauen'</span><span class="p">,</span><span class="mi">30</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitsgang</span> <span class="k">values</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="s1">'Soundkarte einbauen'</span><span class="p">,</span><span class="mi">35</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitsgang</span> <span class="k">values</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="s1">'Netzwerkkarte einbauen'</span><span class="p">,</span><span class="mi">25</span><span class="p">);</span>
+<span class="k">drop</span> <span class="k">table</span> <span class="n">teil</span>
+<span class="o">/</span>
+<span class="k">create</span> <span class="k">table</span> <span class="n">teil</span> <span class="p">(</span><span class="n">teilnr</span> <span class="n">number</span> <span class="k">not</span> <span class="k">null</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+                    <span class="n">teilbez</span> <span class="n">varchar2</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span>
+                    <span class="n">teilpreis</span> <span class="n">number</span><span class="p">);</span>               
+<span class="k">insert</span> <span class="k">into</span> <span class="n">teil</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">'Standard PC'</span><span class="p">,</span><span class="k">NULL</span><span class="p">);</span> 	
+<span class="k">insert</span> <span class="k">into</span> <span class="n">teil</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s1">'Business PC'</span><span class="p">,</span><span class="k">NULL</span><span class="p">);</span>	
+<span class="k">insert</span> <span class="k">into</span> <span class="n">teil</span> <span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="s1">'Internet PC'</span><span class="p">,</span><span class="k">NULL</span><span class="p">);</span>	
+<span class="k">insert</span> <span class="k">into</span> <span class="n">teil</span> <span class="k">values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="s1">'Prozessor Intel 266MHz'</span><span class="p">,</span><span class="mi">989</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">teil</span> <span class="k">values</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="s1">'Prozessor Intel 300MHz'</span><span class="p">,</span><span class="mi">1479</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">teil</span> <span class="k">values</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="s1">'Festplatte IBM 2GB'</span><span class="p">,</span><span class="mi">2499</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">teil</span> <span class="k">values</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="s1">'Festplatte Hitachi 4GB'</span><span class="p">,</span><span class="mi">3499</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">teil</span> <span class="k">values</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="s1">'8 DIMM 16MB'</span><span class="p">,</span><span class="mi">419</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">teil</span> <span class="k">values</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="s1">'DIMM 32MB'</span><span class="p">,</span><span class="mi">839</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">teil</span> <span class="k">values</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="s1">'Grafikkarte 4MB'</span><span class="p">,</span><span class="mi">599</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">teil</span> <span class="k">values</span> <span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="s1">'CD-ROM 24Fach'</span><span class="p">,</span><span class="mi">329</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">teil</span> <span class="k">values</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="s1">'CD-ROM 32Fach'</span><span class="p">,</span><span class="mi">839</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">teil</span> <span class="k">values</span> <span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="s1">'Sound Card 16Bit'</span><span class="p">,</span><span class="mi">329</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">teil</span> <span class="k">values</span> <span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="s1">'Netzwerkkarte'</span><span class="p">,</span><span class="mi">949</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">teil</span> <span class="k">values</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="s1">'PentiumII Board'</span><span class="p">,</span><span class="mi">2499</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">teil</span> <span class="k">values</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="s1">'Pentium II Board Standard'</span><span class="p">,</span><span class="k">NULL</span><span class="p">);</span> 	
+<span class="k">insert</span> <span class="k">into</span> <span class="n">teil</span> <span class="k">values</span> <span class="p">(</span><span class="mi">17</span><span class="p">,</span><span class="s1">'Pentium II Board Business'</span><span class="p">,</span><span class="k">NULL</span><span class="p">);</span> 	
+<span class="k">insert</span> <span class="k">into</span> <span class="n">teil</span> <span class="k">values</span> <span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="s1">'Pentium II Board Internet'</span><span class="p">,</span><span class="k">NULL</span><span class="p">);</span> 	
+<span class="k">insert</span> <span class="k">into</span> <span class="n">teil</span> <span class="k">values</span> <span class="p">(</span><span class="mi">19</span><span class="p">,</span><span class="s1">'Desktop Geh�use'</span><span class="p">,</span><span class="mi">589</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">teil</span> <span class="k">values</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="s1">'Minitower Geh�use'</span><span class="p">,</span><span class="mi">459</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">teil</span> <span class="k">values</span> <span class="p">(</span><span class="mi">21</span><span class="p">,</span><span class="s1">'Tower Geh�use'</span><span class="p">,</span><span class="mi">749</span><span class="p">);</span>
+<span class="k">drop</span> <span class="k">table</span> <span class="n">stueckliste</span>
+<span class="o">/</span>
+<span class="k">create</span> <span class="k">table</span> <span class="n">stueckliste</span> <span class="p">(</span>
+                    <span class="n">hteilnr</span> <span class="n">number</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
+                    <span class="n">uteilnr</span> <span class="n">number</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
+                    <span class="n">anzahl</span> <span class="n">number</span><span class="p">,</span>
+                    <span class="k">primary</span> <span class="k">key</span><span class="p">(</span><span class="n">hteilnr</span><span class="p">,</span><span class="n">uteilnr</span><span class="p">));</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">17</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">17</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">17</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">stueckliste</span> <span class="k">values</span> <span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">drop</span> <span class="k">table</span> <span class="n">mitarbeiter</span>
+<span class="o">/</span>
+<span class="k">create</span> <span class="k">table</span> <span class="n">mitarbeiter</span> <span class="p">(</span>
+                    <span class="n">mitarbnr</span> <span class="n">number</span> <span class="k">not</span> <span class="k">null</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+                    <span class="n">mitarbname</span> <span class="n">varchar2</span><span class="p">(</span><span class="mi">40</span><span class="p">));</span>                  
+<span class="k">insert</span> <span class="k">into</span> <span class="n">mitarbeiter</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">'Maier'</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">mitarbeiter</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s1">'Huber'</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">mitarbeiter</span> <span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="s1">'M�ller'</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">mitarbeiter</span> <span class="k">values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="s1">'Schmidt'</span><span class="p">);</span>
+<span class="k">drop</span> <span class="k">table</span> <span class="n">arbeitsauftrag</span>
+<span class="o">/</span>
+<span class="k">alter</span> <span class="k">session</span> <span class="k">set</span> <span class="n">nls_date_format</span> <span class="o">=</span> <span class="s1">'DD.MM.YYYY HH24:MI:SS'</span><span class="p">;</span>
+<span class="k">create</span> <span class="k">table</span> <span class="n">arbeitsauftrag</span> <span class="p">(</span>
+                    <span class="n">auftrnr</span> <span class="n">number</span> <span class="k">not</span> <span class="k">null</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+                    <span class="n">teilnr</span> <span class="n">number</span><span class="p">,</span>
+                    <span class="n">anzahl</span> <span class="n">number</span><span class="p">,</span>
+                    <span class="n">mitarbnr</span> <span class="n">number</span><span class="p">,</span>
+                    <span class="n">ausstelldatum</span> <span class="nb">date</span><span class="p">,</span>
+                    <span class="n">fertigdatum</span> <span class="nb">date</span><span class="p">,</span>
+                    <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">mitarbnr</span><span class="p">)</span> <span class="k">references</span> <span class="n">mitarbeiter</span><span class="p">,</span>
+                    <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">teilnr</span><span class="p">)</span> <span class="k">references</span> <span class="n">teil</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitsauftrag</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="s1">'18.01.2003'</span><span class="p">,</span><span class="s1">'19.01.2003'</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitsauftrag</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="s1">'24.01.2003'</span><span class="p">,</span><span class="s1">'25.01.2003'</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitsauftrag</span> <span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s1">'25.01.2003'</span><span class="p">,</span><span class="s1">'26.01.2003'</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitsauftrag</span> <span class="k">values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="s1">'26.01.2003'</span><span class="p">,</span><span class="k">NULL</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitsauftrag</span> <span class="k">values</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="s1">'26.01.2003'</span><span class="p">,</span><span class="k">NULL</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitsauftrag</span> <span class="k">values</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s1">'27.01.2003'</span><span class="p">,</span><span class="k">NULL</span><span class="p">);</span>
+<span class="k">drop</span> <span class="k">table</span> <span class="n">arbeitszeit</span>
+<span class="o">/</span>
+<span class="k">create</span> <span class="k">table</span> <span class="n">arbeitszeit</span> <span class="p">(</span>
+                    <span class="n">auftrnr</span> <span class="n">number</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
+                    <span class="n">agnr</span> <span class="n">number</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
+                    <span class="n">istzeit</span> <span class="n">number</span><span class="p">,</span>
+                    <span class="k">primary</span> <span class="k">key</span><span class="p">(</span><span class="n">auftrnr</span><span class="p">,</span><span class="n">agnr</span><span class="p">));</span>              
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">15</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">25</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">30</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">30</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">30</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">25</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">35</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">15</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">45</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="k">NULL</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="k">NULL</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">25</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="k">NULL</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="k">NULL</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="k">NULL</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="k">NULL</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="k">NULL</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="k">NULL</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="k">NULL</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">arbeitszeit</span> <span class="k">values</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="k">NULL</span><span class="p">);</span>
+
+<span class="k">commit</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2022-11-10 13:51:00 UTC
+</div>
+</div>
+</body>
+</html>

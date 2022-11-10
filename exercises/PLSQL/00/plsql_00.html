@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.18">
+<meta name="author" content="Mctom Spdo">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>PLSQL Übung 0</title>
+<style>
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge .cm {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cp {
+  color: #999999;
+  font-weight: bold;
+}
+pre.rouge .c1 {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cs {
+  color: #999999;
+  font-weight: bold;
+  font-style: italic;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cpf {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+pre.rouge .gd {
+  color: #000000;
+  background-color: #ffdddd;
+}
+pre.rouge .ge {
+  color: #000000;
+  font-style: italic;
+}
+pre.rouge .gr {
+  color: #aa0000;
+}
+pre.rouge .gh {
+  color: #999999;
+}
+pre.rouge .gi {
+  color: #000000;
+  background-color: #ddffdd;
+}
+pre.rouge .go {
+  color: #888888;
+}
+pre.rouge .gp {
+  color: #555555;
+}
+pre.rouge .gs {
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #aaaaaa;
+}
+pre.rouge .gt {
+  color: #aa0000;
+}
+pre.rouge .kc {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kd {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kn {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kp {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kr {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kt {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .k, pre.rouge .kv {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .mf {
+  color: #009999;
+}
+pre.rouge .mh {
+  color: #009999;
+}
+pre.rouge .il {
+  color: #009999;
+}
+pre.rouge .mi {
+  color: #009999;
+}
+pre.rouge .mo {
+  color: #009999;
+}
+pre.rouge .m, pre.rouge .mb, pre.rouge .mx {
+  color: #009999;
+}
+pre.rouge .sa {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .sb {
+  color: #d14;
+}
+pre.rouge .sc {
+  color: #d14;
+}
+pre.rouge .sd {
+  color: #d14;
+}
+pre.rouge .s2 {
+  color: #d14;
+}
+pre.rouge .se {
+  color: #d14;
+}
+pre.rouge .sh {
+  color: #d14;
+}
+pre.rouge .si {
+  color: #d14;
+}
+pre.rouge .sx {
+  color: #d14;
+}
+pre.rouge .sr {
+  color: #009926;
+}
+pre.rouge .s1 {
+  color: #d14;
+}
+pre.rouge .ss {
+  color: #990073;
+}
+pre.rouge .s, pre.rouge .dl {
+  color: #d14;
+}
+pre.rouge .na {
+  color: #008080;
+}
+pre.rouge .bp {
+  color: #999999;
+}
+pre.rouge .nb {
+  color: #0086B3;
+}
+pre.rouge .nc {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .no {
+  color: #008080;
+}
+pre.rouge .nd {
+  color: #3c5d5d;
+  font-weight: bold;
+}
+pre.rouge .ni {
+  color: #800080;
+}
+pre.rouge .ne {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nl {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nn {
+  color: #555555;
+}
+pre.rouge .nt {
+  color: #000080;
+}
+pre.rouge .vc {
+  color: #008080;
+}
+pre.rouge .vg {
+  color: #008080;
+}
+pre.rouge .vi {
+  color: #008080;
+}
+pre.rouge .nv, pre.rouge .vm {
+  color: #008080;
+}
+pre.rouge .ow {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .o {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .w {
+  color: #bbbbbb;
+}
+pre.rouge {
+  background-color: #f8f8f8;
+}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>PLSQL Übung 0</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2022-11-10</span>
+<br><span id="revremark">ITP</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_aufgabe">1. Aufgabe</a></li>
+<li><a href="#_aufgabe_2">2. Aufgabe</a></li>
+<li><a href="#_aufgabe_3">3. Aufgabe</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="ADAT_PLSQL-Übung-00.pdf">Angabe</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_aufgabe"><a class="anchor" href="#_aufgabe"></a>1. Aufgabe</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Erstelle dein erstes PL/SQL Programm welches <code>'Hello World !'</code> ausgibt.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">begin</span>
+<span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span> <span class="p">(</span><span class="s1">'Hello World !'</span><span class="p">);</span>
+<span class="k">end</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_aufgabe_2"><a class="anchor" href="#_aufgabe_2"></a>2. Aufgabe</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Erstelle ein PL/SQL Programm, welches aus der Tabelle emp den Namen für die Personalnummer 7369 liest und ausgibt</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">ENAME</span> <span class="k">from</span> <span class="n">EMP</span> <span class="k">where</span> <span class="n">EMPNO</span> <span class="o">=</span> <span class="mi">7369</span><span class="p">;</span>
+
+<span class="k">declare</span>
+    <span class="n">personalnummer</span> <span class="n">number</span> <span class="p">:</span><span class="o">=</span> <span class="mi">7369</span><span class="p">;</span>
+    <span class="n">name</span>  <span class="nb">varchar</span><span class="p">(</span><span class="mi">250</span><span class="p">);</span>
+<span class="k">begin</span>
+    <span class="k">select</span> <span class="n">ENAME</span> <span class="k">into</span> <span class="n">name</span> <span class="k">from</span> <span class="n">EMP</span> <span class="k">where</span> <span class="n">EMPNO</span> <span class="o">=</span> <span class="n">personalnummer</span><span class="p">;</span>
+    <span class="n">dbms_output</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+<span class="k">end</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_aufgabe_3"><a class="anchor" href="#_aufgabe_3"></a>3. Aufgabe</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Schreibe das PL/SQL Programm von Seite 1 ab (Verkauf von Tennis-Rackets wird nur dann zugelassen, wenn genügende Anzahl vorrätig ist).
+Ergänze feh- lende Rahmenbedingungen und teste die Funktionsweise.</p>
+</div>
+<details>
+<summary class="title">Angabe</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">DEMO_TENNIS</span><span class="p">.</span><span class="n">players</span><span class="p">;</span>
+
+<span class="k">DECLARE</span>
+    <span class="n">qty_on_hand</span> <span class="n">NUMBER</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">-- lokale Variable</span>
+<span class="k">BEGIN</span>
+    <span class="k">SELECT</span> <span class="n">quantity</span> <span class="k">INTO</span> <span class="n">qty_on_hand</span> <span class="k">FROM</span> <span class="n">inventory</span>
+    <span class="k">WHERE</span> <span class="n">product</span> <span class="o">=</span> <span class="s1">'TENNIS RACKET'</span>
+    <span class="k">FOR</span> <span class="k">UPDATE</span> <span class="k">OF</span> <span class="n">quantity</span><span class="p">;</span>
+    <span class="c1">-- Verzweigung</span>
+    <span class="n">IF</span> <span class="n">qty_on_hand</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">THEN</span> <span class="c1">-- check quantity</span>
+        <span class="k">UPDATE</span> <span class="n">inventory</span> <span class="k">SET</span> <span class="n">quantity</span> <span class="o">=</span> <span class="n">quantity</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">WHERE</span> <span class="n">product</span> <span class="o">=</span> <span class="s1">'TENNIS RACKET'</span><span class="p">;</span>
+        <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">purchase_record</span>
+        <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'Tennis racket purchased'</span><span class="p">,</span> <span class="n">SYSDATE</span><span class="p">);</span>
+    <span class="k">ELSE</span>
+        <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">purchase_record</span>
+        <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'Out of tennis rackets'</span><span class="p">,</span> <span class="n">SYSDATE</span><span class="p">);</span>
+    <span class="k">END</span> <span class="n">IF</span><span class="p">;</span>
+    <span class="k">COMMIT</span><span class="p">;</span>
+<span class="k">END</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</details>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">DECLARE</span>
+    <span class="n">qty_on_hand</span> <span class="n">NUMBER</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">-- lokale Variable</span>
+<span class="k">BEGIN</span>
+    <span class="k">SELECT</span> <span class="n">quantity</span> <span class="k">INTO</span> <span class="n">qty_on_hand</span> <span class="k">FROM</span> <span class="n">inventory</span>
+    <span class="k">WHERE</span> <span class="n">product</span> <span class="o">=</span> <span class="s1">'TENNIS RACKET'</span>
+    <span class="k">FOR</span> <span class="k">UPDATE</span> <span class="k">OF</span> <span class="n">quantity</span><span class="p">;</span>
+    <span class="c1">-- Verzweigung</span>
+    <span class="n">IF</span> <span class="n">qty_on_hand</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">THEN</span> <span class="c1">-- check quantity</span>
+        <span class="k">UPDATE</span> <span class="n">inventory</span> <span class="k">SET</span> <span class="n">quantity</span> <span class="o">=</span> <span class="n">quantity</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">WHERE</span> <span class="n">product</span> <span class="o">=</span> <span class="s1">'TENNIS RACKET'</span><span class="p">;</span>
+        <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">purchase_record</span>
+        <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'Tennis racket purchased'</span><span class="p">,</span> <span class="n">SYSDATE</span><span class="p">);</span>
+    <span class="k">ELSE</span>
+        <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">purchase_record</span>
+        <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'Out of tennis rackets'</span><span class="p">,</span> <span class="n">SYSDATE</span><span class="p">);</span>
+    <span class="k">END</span> <span class="n">IF</span><span class="p">;</span>
+    <span class="k">COMMIT</span><span class="p">;</span>
+<span class="k">END</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2022-11-10 13:51:00 UTC
+</div>
+</div>
+</body>
+</html>

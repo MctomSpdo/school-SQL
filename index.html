@@ -1,0 +1,2235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.18">
+<meta name="author" content="Mctom Spdo">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>Lecture Notes INSY</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+:root{
+--maincolor:#282c34;
+--primarycolor:#f39c12;
+--secondarycolor:#03a9f4;
+--tertiarycolor:#4db6ac;
+--sidebarbackground:#21252b;
+--linkcolor:#f44336;
+--linkcoloralternate:#ff9800;
+--white:#FFFFFF;
+}
+
+/* custom added styles */
+.listingblock > .content > pre{
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+/* Text styles */
+body{font-family: "Noto Sans",sans-serif;background-color: var(--maincolor);color:var(--white);}
+
+h1{color:var(--primarycolor) !important;font-family:"Noto Sans",sans-serif;}
+h2,h3,h4,h5,h6{color:var(--secondarycolor) !important;font-family:"Noto Sans",sans-serif;}
+.title{color:var(--white) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Noto Sans",sans-serif ! important}
+#toc.toc2 a:link{color:var(--linkcolor);}
+blockquote{color:var(--tertiarycolor) !important}
+.quoteblock{color:var(--white)}
+code{color:var(--linkcoloralternate);background-color: var(--sidebarbackground) !important}
+
+
+/* Table styles */
+th{background-color: var(--maincolor);color:var(--white) !important;}
+td{background-color: var(--maincolor);color: var(--linkcoloralternate) !important}
+
+
+#toc.toc2{background-color:var(--sidebarbackground);}
+#toctitle{color:var(--white);}
+
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  table {
+    width: 55vw!important;
+    font-size: 3vw;
+  }
+}
+
+.exampleblock > .content {
+  background-color: var(--maincolor);
+}
+
+a {
+  color: var(--secondarycolor);
+}
+
+.admonitionblock td.icon .icon-tip::before {
+  text-shadow: none;
+  color: var(--white);
+}
+.admonitionblock td.icon .icon-note::before {
+  color: var(--tertiarycolor);
+}
+.admonitionblock td.icon .icon-important::before {
+  color: var(--linkcolor);
+}
+/*.admonitionblock td.icon .icon-caution::before {
+  color: var(--linkcoloralternate);
+}*/
+.admonitionblock td.icon .icon-warning::before {
+  color: var(--primarycolor);
+}
+
+#preamble > .sectionbody > .paragraph:first-of-type p {
+  color: var(--white);
+}
+
+.quoteblock blockquote::before {
+  color: var(--primarycolor);
+}
+.quoteblock .attribution cite, .verseblock .attribution cite {
+  color: var(--white);
+}
+.verseblock pre {
+  color: var(--white);
+}
+.quoteblock blockquote, .quoteblock blockquote p {
+  color: var(--white);
+}
+
+.sidebarblock {
+  background: var(--sidebarbackground);
+}
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+#header .details {
+  color: var(--white);
+}
+#header .details span.email a {
+  color: var(--linkcoloralternate);
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge .cm {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cp {
+  color: #999999;
+  font-weight: bold;
+}
+pre.rouge .c1 {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cs {
+  color: #999999;
+  font-weight: bold;
+  font-style: italic;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cpf {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+pre.rouge .gd {
+  color: #000000;
+  background-color: #ffdddd;
+}
+pre.rouge .ge {
+  color: #000000;
+  font-style: italic;
+}
+pre.rouge .gr {
+  color: #aa0000;
+}
+pre.rouge .gh {
+  color: #999999;
+}
+pre.rouge .gi {
+  color: #000000;
+  background-color: #ddffdd;
+}
+pre.rouge .go {
+  color: #888888;
+}
+pre.rouge .gp {
+  color: #555555;
+}
+pre.rouge .gs {
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #aaaaaa;
+}
+pre.rouge .gt {
+  color: #aa0000;
+}
+pre.rouge .kc {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kd {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kn {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kp {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kr {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kt {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .k, pre.rouge .kv {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .mf {
+  color: #009999;
+}
+pre.rouge .mh {
+  color: #009999;
+}
+pre.rouge .il {
+  color: #009999;
+}
+pre.rouge .mi {
+  color: #009999;
+}
+pre.rouge .mo {
+  color: #009999;
+}
+pre.rouge .m, pre.rouge .mb, pre.rouge .mx {
+  color: #009999;
+}
+pre.rouge .sa {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .sb {
+  color: #d14;
+}
+pre.rouge .sc {
+  color: #d14;
+}
+pre.rouge .sd {
+  color: #d14;
+}
+pre.rouge .s2 {
+  color: #d14;
+}
+pre.rouge .se {
+  color: #d14;
+}
+pre.rouge .sh {
+  color: #d14;
+}
+pre.rouge .si {
+  color: #d14;
+}
+pre.rouge .sx {
+  color: #d14;
+}
+pre.rouge .sr {
+  color: #009926;
+}
+pre.rouge .s1 {
+  color: #d14;
+}
+pre.rouge .ss {
+  color: #990073;
+}
+pre.rouge .s, pre.rouge .dl {
+  color: #d14;
+}
+pre.rouge .na {
+  color: #008080;
+}
+pre.rouge .bp {
+  color: #999999;
+}
+pre.rouge .nb {
+  color: #0086B3;
+}
+pre.rouge .nc {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .no {
+  color: #008080;
+}
+pre.rouge .nd {
+  color: #3c5d5d;
+  font-weight: bold;
+}
+pre.rouge .ni {
+  color: #800080;
+}
+pre.rouge .ne {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nl {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nn {
+  color: #555555;
+}
+pre.rouge .nt {
+  color: #000080;
+}
+pre.rouge .vc {
+  color: #008080;
+}
+pre.rouge .vg {
+  color: #008080;
+}
+pre.rouge .vi {
+  color: #008080;
+}
+pre.rouge .nv, pre.rouge .vm {
+  color: #008080;
+}
+pre.rouge .ow {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .o {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .w {
+  color: #bbbbbb;
+}
+pre.rouge {
+  background-color: #f8f8f8;
+}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Lecture Notes INSY</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2022-11-10</span>
+<br><span id="revremark">INSY</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_index">1. Index</a>
+<ul class="sectlevel2">
+<li><a href="#_übungen">1.1. Übungen</a></li>
+</ul>
+</li>
+<li><a href="#_semesterstoff">2. Semesterstoff</a>
+<ul class="sectlevel2">
+<li><a href="#_semester_2">2.1. Semester 2</a></li>
+<li><a href="#_semester_3">2.2. Semester 3</a></li>
+</ul>
+</li>
+<li><a href="#_tables">3. Tables</a>
+<ul class="sectlevel2">
+<li><a href="#_creating_tables">3.1. Creating Tables</a></li>
+<li><a href="#_dropping_tables">3.2. Dropping Tables</a></li>
+<li><a href="#_alter_table">3.3. Alter Table</a></li>
+</ul>
+</li>
+<li><a href="#_select_statements">4. Select Statements</a>
+<ul class="sectlevel2">
+<li><a href="#_literals">4.1. Literals</a></li>
+<li><a href="#_system_variables">4.2. System variables</a></li>
+<li><a href="#_functions">4.3. Functions</a></li>
+<li><a href="#_alphanumerical_functions">4.4. Alphanumerical Functions</a></li>
+<li><a href="#_date_functions">4.5. Date Functions</a></li>
+<li><a href="#_statistical_functions">4.6. Statistical Functions</a></li>
+</ul>
+</li>
+<li><a href="#_clauses">5. Clauses</a>
+<ul class="sectlevel2">
+<li><a href="#_table_and_columnnames">5.1. Table and Columnnames</a></li>
+</ul>
+</li>
+<li><a href="#_null">6. NULL</a>
+<ul class="sectlevel2">
+<li><a href="#_examples">6.1. Examples:</a></li>
+</ul>
+</li>
+<li><a href="#_in_operator">7. IN Operator</a></li>
+<li><a href="#_order_by">8. Order by</a></li>
+<li><a href="#_group_by">9. Group By</a></li>
+<li><a href="#_join">10. JOIN</a>
+<ul class="sectlevel2">
+<li><a href="#_natural_join">10.1. Natural Join</a></li>
+<li><a href="#_mengen">10.2. Mengen</a></li>
+<li><a href="#_das_subquery_innerselect">10.3. Das Subquery (Innerselect)</a></li>
+</ul>
+</li>
+<li><a href="#_sessiondatum_abändern">11. Sessiondatum abändern</a></li>
+<li><a href="#_parts">12. Parts</a>
+<ul class="sectlevel2">
+<li><a href="#_parts_sql">12.1. Parts.sql</a></li>
+<li><a href="#_unterschied_zwischen_start_with_prior_und_where">12.2. Unterschied zwischen START WITH (PRIOR) und WHERE:<br></a></li>
+</ul>
+</li>
+<li><a href="#_daten_manipulieren">13. Daten manipulieren</a>
+<ul class="sectlevel2">
+<li><a href="#_einfügen">13.1. Einfügen</a></li>
+<li><a href="#_ändern">13.2. Ändern</a></li>
+<li><a href="#_löschen">13.3. Löschen</a></li>
+<li><a href="#_nummernfolgen_sequenzen">13.4. Nummernfolgen (Sequenzen)</a></li>
+</ul>
+</li>
+<li><a href="#_constraints_integrity_rules">14. Constraints (Integrity Rules)</a>
+<ul class="sectlevel2">
+<li><a href="#_not_null">14.1. NOT NULL</a></li>
+<li><a href="#_pk_primarykey">14.2. PK (PrimaryKey)</a></li>
+<li><a href="#_unique">14.3. UNIQUE</a></li>
+<li><a href="#_fk_foreign_key">14.4. FK (Foreign Key)</a></li>
+<li><a href="#_check">14.5. CHECK</a></li>
+<li><a href="#_löschen_von_constraints">14.6. Löschen von Constraints</a></li>
+</ul>
+</li>
+<li><a href="#_index_2">15. Index</a>
+<ul class="sectlevel2">
+<li><a href="#_views">15.1. Views</a></li>
+</ul>
+</li>
+<li><a href="#_new_password">16. New Password</a></li>
+<li><a href="#_rechte_auf_der_datenbank">17. Rechte auf der Datenbank</a>
+<ul class="sectlevel2">
+<li><a href="#_grant">17.1. Grant</a></li>
+</ul>
+</li>
+<li><a href="#_plsql">18. PL/SQL</a>
+<ul class="sectlevel2">
+<li><a href="#_functions_2">18.1. Functions</a></li>
+<li><a href="#_stored_functions">18.2. stored Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_index"><a class="anchor" href="#_index"></a>1. Index</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_übungen"><a class="anchor" href="#_übungen"></a>1.1. Übungen</h3>
+<div class="paragraph">
+<p><a href="exercises/exercises.html">Exercise</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_semesterstoff"><a class="anchor" href="#_semesterstoff"></a>2. Semesterstoff</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_semester_2"><a class="anchor" href="#_semester_2"></a>2.1. Semester 2</h3>
+<details>
+<summary class="title">Exam 3</summary>
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>ERD + RM</p>
+</li>
+<li>
+<p>Create tables vom ERD (mit primary and foreign keys)</p>
+</li>
+<li>
+<p>select statement</p>
+</li>
+<li>
+<p>insert</p>
+</li>
+<li>
+<p>update</p>
+</li>
+<li>
+<p>alter</p>
+</li>
+<li>
+<p>delete</p>
+</li>
+<li>
+<p>drop</p>
+</li>
+<li>
+<p>Sequences</p>
+</li>
+<li>
+<p>Constraints (Primary key, foreign key)</p>
+</li>
+</ul>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Exam 4</summary>
+<div class="content">
+<div class="paragraph">
+<p>&#8594; SQL Developer (Verbindungsdaten auswendig lernen)
+&#8594; script zum Einspielen</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Befehlt für Anzeigen von Tables:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">cat</span>
+<span class="cm">/* oder */</span>
+<span class="k">select</span> <span class="k">table_name</span> <span class="k">from</span> <span class="n">user_tables</span></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Date format abändern:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">alter</span> <span class="k">session</span> <span class="k">set</span> <span class="n">nls_date_format</span> <span class="o">=</span> <span class="s1">'DD-MON-YYYY HH24:MI:SS'</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>distinct anwenden können</p>
+</li>
+<li>
+<p>group by</p>
+</li>
+<li>
+<p>joins!!!</p>
+</li>
+<li>
+<p>concat &#8594; ||</p>
+</li>
+<li>
+<p>like</p>
+</li>
+<li>
+<p>to_date</p>
+</li>
+<li>
+<p>substr</p>
+</li>
+<li>
+<p>trim</p>
+</li>
+<li>
+<p>upper, lower</p>
+</li>
+<li>
+<p>nvl</p>
+</li>
+<li>
+<p>to_char</p>
+</li>
+<li>
+<p>to_date</p>
+</li>
+<li>
+<p>order by</p>
+</li>
+<li>
+<p>case:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">SELECT</span> <span class="n">cust_last_name</span><span class="p">,</span>
+   <span class="k">CASE</span> <span class="n">credit_limit</span> <span class="k">WHEN</span> <span class="mi">100</span> <span class="k">THEN</span> <span class="s1">'Low'</span>
+   <span class="k">WHEN</span> <span class="mi">5000</span> <span class="k">THEN</span> <span class="s1">'High'</span>
+   <span class="k">ELSE</span> <span class="s1">'Medium'</span> <span class="k">END</span>
+   <span class="k">FROM</span> <span class="n">customers</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>connect by (kommt nicht)</p>
+</li>
+<li>
+<p>intersect (kommt nicht)</p>
+</li>
+<li>
+<p>minus (kommt nicht)</p>
+</li>
+<li>
+<p>sequences</p>
+</li>
+<li>
+<p>subselect</p>
+</li>
+<li>
+<p>update</p>
+</li>
+<li>
+<p>insert</p>
+</li>
+<li>
+<p>delete</p>
+</li>
+<li>
+<p>drop</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Die Tendenz auf dem Test liegt eher auf den select statements</p>
+</div>
+<div class="paragraph">
+<p>Es gibt wieder die outputs</p>
+</div>
+</div>
+</details>
+</div>
+<div class="sect2">
+<h3 id="_semester_3"><a class="anchor" href="#_semester_3"></a>2.2. Semester 3</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>wiederholung SQL</p>
+</li>
+<li>
+<p>PLSQL</p>
+</li>
+<li>
+<p>APEX</p>
+</li>
+<li>
+<p>JPA (OR Mapper)</p>
+</li>
+<li>
+<p>Mongo</p>
+</li>
+<li>
+<p>R [?]</p>
+</li>
+</ul>
+</div>
+<details>
+<summary class="title">Exam 1</summary>
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>create statement</p>
+</li>
+<li>
+<p>insert statement</p>
+</li>
+<li>
+<p>update statement</p>
+</li>
+</ul>
+</div>
+</div>
+</details>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tables"><a class="anchor" href="#_tables"></a>3. Tables</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_creating_tables"><a class="anchor" href="#_creating_tables"></a>3.1. Creating Tables</h3>
+<div class="paragraph">
+<p>Creates a new Table</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">table</span> <span class="k">TABLE_NAME</span>
+    <span class="p">[(</span><span class="k">column_name</span> <span class="p">[</span><span class="n">colum</span> <span class="n">integfrity</span> <span class="k">rule</span><span class="p">],</span> <span class="k">column_name</span> <span class="p">....,</span> <span class="p">])]</span>
+    <span class="k">as</span> <span class="k">select</span> <span class="k">COLUMN_NAME</span> <span class="p">[,</span> <span class="k">column_name</span> <span class="p">...</span> <span class="p">,</span> <span class="p">...]</span> <span class="k">from</span> <span class="k">TABLE_NAME</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dropping_tables"><a class="anchor" href="#_dropping_tables"></a>3.2. Dropping Tables</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">drop</span> <span class="k">table</span> <span class="k">TABLE_NAME</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_alter_table"><a class="anchor" href="#_alter_table"></a>3.3. Alter Table</h3>
+<div class="sect3">
+<h4 id="_add_column"><a class="anchor" href="#_add_column"></a>3.3.1. Add column</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">alter</span> <span class="k">table</span> <span class="k">TABLE_NAME</span> <span class="k">add</span>
+    <span class="p">(</span><span class="k">COLUMN_NAME</span> <span class="n">data_type</span> <span class="p">[</span><span class="k">default</span> <span class="n">expression</span><span class="p">]</span>
+    <span class="p">[</span><span class="k">column</span> <span class="n">integrity</span> <span class="k">rule</span><span class="p">][,</span> <span class="k">COLUMN_NAME</span><span class="p">;</span> <span class="p">....];</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_synonyms_for_table_names"><a class="anchor" href="#_synonyms_for_table_names"></a>3.3.2. Synonyms for table names</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="p">[</span><span class="k">public</span><span class="p">]</span> <span class="n">synonym</span> <span class="n">SYNONYM_NAME</span> <span class="k">for</span> <span class="k">TABLE_NAME</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_select_statements"><a class="anchor" href="#_select_statements"></a>4. Select Statements</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Select statements are used to get data from the database.</p>
+</div>
+<div class="sect2">
+<h3 id="_literals"><a class="anchor" href="#_literals"></a>4.1. Literals</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Literals</th>
+<th class="tableblock halign-left valign-top">example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">decimal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.22</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">floating point</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0.999e2</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_system_variables"><a class="anchor" href="#_system_variables"></a>4.2. System variables</h3>
+<div class="paragraph">
+<p>Get the current User:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="k">user</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Name and Number of the row:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">rownum</span><span class="p">,</span> <span class="n">name</span> <span class="k">from</span> <span class="n">players</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_functions"><a class="anchor" href="#_functions"></a>4.3. Functions</h3>
+<div class="sect3">
+<h4 id="_numerical_functions"><a class="anchor" href="#_numerical_functions"></a>4.3.1. Numerical Functions:</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Expressions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">*</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mod()</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">amount</span><span class="o">+</span><span class="mi">2</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="k">select</span> <span class="mi">3</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="mi">2</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="k">select</span> <span class="k">mod</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_alphanumerical_functions"><a class="anchor" href="#_alphanumerical_functions"></a>4.4. Alphanumerical Functions</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Expressions</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">length()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gives the length from a String</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">decode()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">allows you to replace certain parts of a String with another String <a href="https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions040.htm">doc</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">substr()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gives part of a given String <a href="https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions162.htm">doc</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">instr()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">to find a certain part of a String in a given String <a href="https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions068.htm">doc</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">upper()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transforms a given String to uppercase</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">lower()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transforms a given String to lowercase</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_date_functions"><a class="anchor" href="#_date_functions"></a>4.5. Date Functions</h3>
+<div class="paragraph">
+<p>Difference between 2 Dates:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">sysdate</span> <span class="o">-</span> <span class="n">pen_date</span> <span class="k">from</span> <span class="n">penalties</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Parse Date:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">to_date</span><span class="p">(</span><span class="s1">'2022-01-25'</span><span class="p">,</span> <span class="s1">'YYYY-MM-DD'</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Date to String:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">to_char</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="s1">'DD-MM-YY'</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_formats_for_dates"><a class="anchor" href="#_formats_for_dates"></a>4.5.1. Formats for Dates</h4>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">to_char</span><span class="p">(</span><span class="n">PEN_DATE</span><span class="p">,</span> <span class="s1">'DD-MM.YY'</span><span class="p">)</span> <span class="k">from</span> <span class="n">PENALTIES</span><span class="p">;</span>
+
+<span class="k">select</span> <span class="n">to_char</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span> <span class="s1">'DD-MM.YY'</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Formats:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">FormatString</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DD, Dy, Day</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Days</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MM, Mon, Month</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Months (3 letters), (English Months)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">YY, YYYY</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Years (2 or 4 digits)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HH, HH12, HH24</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hours (12 or 24h format)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Minutes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Seconds</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The case of the Formats will translate to the output
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_statistical_functions"><a class="anchor" href="#_statistical_functions"></a>4.6. Statistical Functions</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Function</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">count()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">counts the numer of rows</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gets the tiniest Value out of a column</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">max()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gets the biggest Value out of a column</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">avg()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">average out of all the values</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">stddev()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Standard definition out of all the values</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">variance()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Variance between all the values</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span> <span class="cm">/* returns: 1*/</span>
+
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="cm">/* Amount of players that are from Stratford */</span>
+<span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">from</span> <span class="n">players</span> <span class="k">where</span> <span class="n">TOWN</span> <span class="o">=</span> <span class="s1">'Stratford'</span><span class="p">;</span>
+
+<span class="cm">/* highest penalty */</span>
+<span class="k">select</span> <span class="k">max</span><span class="p">(</span><span class="n">AMOUNT</span><span class="p">)</span> <span class="k">from</span> <span class="n">PENALTIES</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_clauses"><a class="anchor" href="#_clauses"></a>5. Clauses</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A SQL statement is made out of Clauses, and they could look like this;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="p">..</span> <span class="k">from</span> <span class="p">..</span>
+<span class="p">[</span><span class="k">WHERE</span> <span class="p">..]</span>
+<span class="p">[</span><span class="k">CONNECT</span> <span class="k">BY</span> <span class="p">..]</span>
+<span class="p">[</span><span class="k">GROUP</span> <span class="k">BY</span> <span class="p">..]</span>
+    <span class="p">[</span><span class="k">HAVING</span> <span class="p">..]</span>
+<span class="p">[</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="p">..]</span></code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_table_and_columnnames"><a class="anchor" href="#_table_and_columnnames"></a>5.1. Table and Columnnames</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">PEN_DATE</span> <span class="k">from</span> <span class="n">PENALTIES</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>is the same as:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">MCTOM</span><span class="p">.</span><span class="n">PENALTIES</span><span class="p">.</span><span class="n">PEN_DATE</span> <span class="k">from</span> <span class="n">MCTOM</span><span class="p">.</span><span class="n">PENALTIES</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>remove redundant lines:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="k">distinct</span> <span class="n">PLAYERNO</span> <span class="k">from</span> <span class="n">PLAYERS</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_null"><a class="anchor" href="#_null"></a>6. NULL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Null is special operator.<br>
+If a Value is NULL it is unknown or undefined.</p>
+</div>
+<div class="paragraph">
+<p>if you want to check if a Value is null, you can do this with "is null"</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+You can not check null with "= null"!
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Condition and given Datatype</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Given Value</th>
+<th class="tableblock halign-left valign-top">Condition</th>
+<th class="tableblock halign-left valign-top">Evaluates to:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">is null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">is not null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">is null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">is not null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">!= null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UNKNOWN</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">= null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UNKNOWN</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="_examples"><a class="anchor" href="#_examples"></a>6.1. Examples:</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="cm">/*all players that are playing professionally*/</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">PLAYERS</span> <span class="k">where</span> <span class="n">LEAGUENO</span> <span class="k">is</span> <span class="k">not</span> <span class="k">null</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_in_operator"><a class="anchor" href="#_in_operator"></a>7. IN Operator</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>with the In operator, you can check if a value is in a list of Values.<br>
+Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="cm">/* Players with the numbers 6, 8, 27, 44 and 104 */</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">PLAYERS</span> <span class="k">where</span> <span class="n">PLAYERNO</span> <span class="k">in</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">104</span><span class="p">)</span>
+
+<span class="cm">/* with the help of subqueries:
+   All Players that have one or more Penalty: */</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">PLAYERS</span>
+<span class="k">where</span> <span class="n">PLAYERNO</span> <span class="k">in</span> <span class="p">(</span><span class="k">select</span> <span class="k">distinct</span> <span class="n">PLAYERNO</span> <span class="k">from</span> <span class="n">PENALTIES</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="paragraph">
+<p>Output PlayerNo, name and initials of all Players, that have won at least 1 Match.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">PLAYERNO</span><span class="p">,</span> <span class="n">NAME</span><span class="p">,</span> <span class="n">INITIALS</span> <span class="k">from</span> <span class="n">PLAYERS</span>
+<span class="k">where</span> <span class="n">PLAYERNO</span> <span class="k">in</span>
+<span class="p">(</span><span class="k">select</span> <span class="n">PLAYERNO</span> <span class="k">from</span> <span class="n">MATCHES</span> <span class="k">where</span> <span class="n">WON</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">);</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_order_by"><a class="anchor" href="#_order_by"></a>8. Order by</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Order by sorts the output by a given value.</p>
+</div>
+<div class="paragraph">
+<p>Example: All Towns and how many Players are in there sorted by Town</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">town</span><span class="p">,</span> <span class="n">NAME</span> <span class="k">as</span> <span class="n">Players</span> <span class="k">from</span> <span class="n">PLAYERS</span> <span class="k">order</span> <span class="k">by</span> <span class="n">TOWN</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_group_by"><a class="anchor" href="#_group_by"></a>9. Group By</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Groups the rows by a certain argument.
+For example groups the players by town:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">TOWN</span><span class="p">,</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">as</span> <span class="n">Anzahl</span>
+<span class="k">from</span> <span class="n">PLAYERS</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">TOWN</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Amount of penalties for each year:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">to_char</span><span class="p">(</span><span class="n">PEN_DATE</span><span class="p">,</span> <span class="s1">'yyyy'</span><span class="p">)</span> <span class="k">as</span> <span class="nb">YEAR</span><span class="p">,</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">as</span> <span class="n">AMOUNT</span><span class="p">,</span> <span class="k">sum</span><span class="p">(</span><span class="n">AMOUNT</span><span class="p">)</span> <span class="o">||</span> <span class="s1">' €'</span> <span class="k">as</span> <span class="n">PENALTIES</span>
+<span class="k">from</span> <span class="n">PENALTIES</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">to_char</span><span class="p">(</span><span class="n">PEN_DATE</span><span class="p">,</span> <span class="s1">'yyyy'</span><span class="p">)</span>
+<span class="k">order</span> <span class="k">by</span> <span class="mi">1</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="../uebungen/05/Uebung_5.html">Übung 5</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_join"><a class="anchor" href="#_join"></a>10. JOIN</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A select statement is a join, when there are at least 2 Tables and a where statement that connects the Tables with each other.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">PLAYERS</span><span class="p">,</span> <span class="n">PENALTIES</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this case we would get a cartesisches Product, that means that each row will be outputted with each row.<br>
+This is why we have to check that the Players and the penalties have the same Playerno.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">pl</span><span class="p">.</span><span class="n">PLAYERNO</span><span class="p">,</span> <span class="n">pl</span><span class="p">.</span><span class="n">NAME</span><span class="p">,</span> <span class="k">sum</span><span class="p">(</span><span class="n">pe</span><span class="p">.</span><span class="n">AMOUNT</span><span class="p">)</span> <span class="k">as</span> <span class="n">PENALTIES</span>
+<span class="k">from</span> <span class="n">PLAYERS</span> <span class="n">pl</span><span class="p">,</span> <span class="n">PENALTIES</span> <span class="n">pe</span>
+<span class="k">where</span> <span class="n">pl</span><span class="p">.</span><span class="n">PLAYERNO</span> <span class="o">=</span> <span class="n">pe</span><span class="p">.</span><span class="n">PLAYERNO</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">pl</span><span class="p">.</span><span class="n">NAME</span><span class="p">,</span> <span class="n">pl</span><span class="p">.</span><span class="n">PLAYERNO</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The most used Join-type is the Equijoin (Natural Join).<br></p>
+</div>
+<div class="paragraph">
+<p>Join Types:
+<a href="../docs/Join_NEU.pdf">Join_NEU.pdf</a></p>
+</div>
+<div class="sect2">
+<h3 id="_natural_join"><a class="anchor" href="#_natural_join"></a>10.1. Natural Join</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">emp</span><span class="p">.</span><span class="n">ENAME</span><span class="p">,</span> <span class="n">dept</span><span class="p">.</span><span class="n">DNAME</span> <span class="k">from</span> <span class="n">EMP</span><span class="p">,</span> <span class="n">DEPT</span>
+<span class="k">where</span> <span class="n">EMP</span><span class="p">.</span><span class="n">DEPTNO</span> <span class="o">=</span> <span class="n">DEPT</span><span class="p">.</span><span class="n">DEPTNO</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">d</span><span class="p">.</span><span class="n">DEPTNO</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">ENAME</span><span class="p">,</span> <span class="n">d</span><span class="p">.</span><span class="n">DNAME</span> <span class="k">from</span> <span class="n">EMP</span> <span class="n">e</span><span class="p">,</span> <span class="n">DEPT</span> <span class="n">d</span>
+<span class="k">where</span> <span class="n">e</span><span class="p">.</span><span class="n">DEPTNO</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">DEPTNO</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">EMP</span><span class="p">.</span><span class="n">ENAME</span><span class="p">,</span> <span class="n">DEPT</span><span class="p">.</span><span class="n">DNAME</span> <span class="k">from</span> <span class="n">EMP</span> <span class="k">NATURAL</span> <span class="k">join</span> <span class="n">DEPT</span><span class="p">;</span>
+
+<span class="cm">/* it can be also be written as: */</span>
+<span class="k">select</span> <span class="n">EMP</span><span class="p">.</span><span class="n">ENAME</span><span class="p">,</span> <span class="n">DEPT</span><span class="p">.</span><span class="n">DNAME</span> <span class="k">from</span> <span class="n">EMP</span> <span class="k">INNER</span> <span class="k">join</span> <span class="n">DEPT</span> <span class="k">on</span> <span class="n">EMP</span><span class="p">.</span><span class="n">DEPTNO</span> <span class="o">=</span> <span class="n">DEPT</span><span class="p">.</span><span class="n">DEPTNO</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>inner Join combines the data from both Tables:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">EMP</span> <span class="n">e</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">DEPT</span> <span class="n">d</span> <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">DEPTNO</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">DEPTNO</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mengen"><a class="anchor" href="#_mengen"></a>10.2. Mengen</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/mengen.png" alt="mengen">
+</div>
+</div>
+<div class="sect3">
+<h4 id="_left_join"><a class="anchor" href="#_left_join"></a>10.2.1. left join:</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">EMP</span> <span class="n">e</span> <span class="k">left</span> <span class="k">join</span> <span class="n">DEPT</span> <span class="n">d</span>
+    <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">DEPTNO</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">DEPTNO</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The outcome should be 15 rows long</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_inner_join"><a class="anchor" href="#_inner_join"></a>10.2.2. inner join:</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">EMP</span> <span class="n">e</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">DEPT</span> <span class="n">d</span>
+    <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">DEPTNO</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">DEPTNO</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The outcome should be 14 lines long, since the BIGBOSS does <strong>not</strong> have a DeptNo.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_left_join_null"><a class="anchor" href="#_left_join_null"></a>10.2.3. left join + null</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">EMP</span> <span class="n">e</span> <span class="k">left</span> <span class="k">join</span> <span class="n">DEPT</span> <span class="n">d</span>
+    <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">DEPTNO</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">DEPTNO</span>
+<span class="k">where</span> <span class="n">e</span><span class="p">.</span><span class="n">DEPTNO</span> <span class="k">is</span> <span class="k">null</span> <span class="k">or</span> <span class="n">d</span><span class="p">.</span><span class="n">DEPTNO</span> <span class="k">is</span> <span class="k">null</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_full_outer_join"><a class="anchor" href="#_full_outer_join"></a>10.2.4. full outer join</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">EMP</span> <span class="n">e</span> <span class="k">full</span> <span class="k">outer</span> <span class="k">join</span> <span class="n">DEPT</span> <span class="n">d</span>
+    <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">DEPTNO</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">DEPTNO</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_full_outer_join_null"><a class="anchor" href="#_full_outer_join_null"></a>10.2.5. full outer join + null</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">EMP</span> <span class="n">e</span> <span class="k">full</span> <span class="k">outer</span> <span class="k">join</span> <span class="n">DEPT</span> <span class="n">d</span>
+    <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">DEPTNO</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">DEPTNO</span>
+<span class="k">where</span> <span class="n">d</span><span class="p">.</span><span class="n">DEPTNO</span> <span class="k">is</span> <span class="k">null</span> <span class="k">or</span> <span class="n">e</span><span class="p">.</span><span class="n">DEPTNO</span> <span class="k">is</span> <span class="k">null</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="cm">/* FIXME: Nächstes Mal*/</span>
+<span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">EMP</span> <span class="n">e</span><span class="p">,</span> <span class="n">DEPT</span> <span class="n">d</span>
+<span class="k">where</span> <span class="n">e</span><span class="p">.</span><span class="n">DEPTNO</span>  <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">DEPTNO</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span> <span class="k">and</span> <span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">DEPTNO</span> <span class="k">is</span> <span class="k">null</span> <span class="k">or</span> <span class="n">e</span><span class="p">.</span><span class="n">DEPTNO</span> <span class="k">is</span> <span class="k">null</span><span class="p">);</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_right_join"><a class="anchor" href="#_right_join"></a>10.2.6. right join</h4>
+<div class="paragraph">
+<p>The opposite for the left join</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">EMP</span> <span class="n">e</span> <span class="k">right</span> <span class="k">join</span> <span class="n">DEPT</span> <span class="n">D</span>
+    <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">DEPTNO</span> <span class="o">=</span> <span class="n">D</span><span class="p">.</span><span class="n">DEPTNO</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>16 rows</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_right_join_null"><a class="anchor" href="#_right_join_null"></a>10.2.7. right join + null</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">emp</span> <span class="n">e</span> <span class="k">right</span> <span class="k">join</span> <span class="n">dept</span> <span class="n">d</span>
+    <span class="k">on</span> <span class="n">e</span><span class="p">.</span><span class="n">deptno</span><span class="o">=</span><span class="n">d</span><span class="p">.</span><span class="n">deptno</span>
+<span class="k">where</span> <span class="n">d</span><span class="p">.</span><span class="n">deptno</span> <span class="k">is</span> <span class="k">null</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>0 rows</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_das_subquery_innerselect"><a class="anchor" href="#_das_subquery_innerselect"></a>10.3. Das Subquery (Innerselect)</h3>
+<div class="paragraph">
+<p>Wieder ein select innerhalb der Bedingung.<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>keine Order by im Subquery</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Suchreihenfolge:</p>
+</div>
+<div class="paragraph">
+<p>1.Suche der Columns im Subquery<br>
+2. Wenn nicht vorhanden, Suche im Übergeordneten select</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Trick: Alias-Namen
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Bsp:<br>
+Ausgabe von SpielerNr, Spielername derjenigen Spieler, die mindestens eine Strafe erhalten haben.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="cm">/* 1. Möglichkeit */</span>
+<span class="k">select</span> <span class="k">distinct</span> <span class="n">pl</span><span class="p">.</span><span class="n">PLAYERNO</span><span class="p">,</span> <span class="n">pl</span><span class="p">.</span><span class="n">NAME</span>
+<span class="k">from</span> <span class="n">PLAYERS</span> <span class="n">pl</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">PENALTIES</span> <span class="n">P</span>
+    <span class="k">on</span> <span class="n">pl</span><span class="p">.</span><span class="n">PLAYERNO</span> <span class="o">=</span> <span class="n">P</span><span class="p">.</span><span class="n">PLAYERNO</span>
+
+<span class="cm">/* 2. Möglichkeit */</span>
+<span class="k">select</span> <span class="n">PLAYERNO</span><span class="p">,</span> <span class="n">NAME</span>
+<span class="k">from</span> <span class="n">PLAYERS</span>
+<span class="k">where</span> <span class="k">exists</span> <span class="p">(</span>
+    <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">PENALTIES</span>
+    <span class="k">where</span> <span class="n">PLAYERS</span><span class="p">.</span><span class="n">PLAYERNO</span> <span class="o">=</span> <span class="n">PENALTIES</span><span class="p">.</span><span class="n">PLAYERNO</span><span class="p">);</span>
+
+<span class="k">select</span> <span class="n">PLAYERNO</span><span class="p">,</span> <span class="n">NAME</span>
+<span class="k">from</span> <span class="n">PLAYERS</span>
+<span class="k">where</span> <span class="n">PLAYERNO</span> <span class="k">in</span> <span class="p">(</span><span class="k">select</span> <span class="n">PLAYERNO</span> <span class="k">from</span> <span class="n">PENALTIES</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Bsp:
+Ausgabe der Spieler mit dne 4 höchsten Strafen</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="cm">/* Gesamtsumme */</span>
+<span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="p">(</span>
+    <span class="k">select</span> <span class="n">pl</span><span class="p">.</span><span class="n">PLAYERNO</span><span class="p">,</span> <span class="n">NAME</span><span class="p">,</span> <span class="k">sum</span><span class="p">(</span><span class="n">P</span><span class="p">.</span><span class="n">AMOUNT</span><span class="p">)</span> <span class="k">as</span> <span class="n">AMOUNT</span>
+    <span class="k">from</span> <span class="n">PLAYERS</span> <span class="n">pl</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">PENALTIES</span> <span class="n">P</span>
+        <span class="k">on</span> <span class="n">pl</span><span class="p">.</span><span class="n">PLAYERNO</span> <span class="o">=</span> <span class="n">P</span><span class="p">.</span><span class="n">PLAYERNO</span>
+    <span class="k">group</span> <span class="k">by</span> <span class="n">pl</span><span class="p">.</span><span class="n">PLAYERNO</span><span class="p">,</span> <span class="n">pl</span><span class="p">.</span><span class="n">NAME</span>
+    <span class="k">order</span> <span class="k">by</span> <span class="n">AMOUNT</span> <span class="k">desc</span><span class="p">)</span>
+<span class="k">where</span> <span class="n">ROWNUM</span> <span class="o">&lt;=</span> <span class="mi">4</span><span class="p">;</span>
+
+<span class="cm">/* Einzelne Strafen */</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="p">(</span>
+    <span class="k">select</span> <span class="n">pl</span><span class="p">.</span><span class="n">PLAYERNO</span><span class="p">,</span> <span class="n">pl</span><span class="p">.</span><span class="n">NAME</span><span class="p">,</span> <span class="n">P</span><span class="p">.</span><span class="n">AMOUNT</span>
+    <span class="k">from</span> <span class="n">PLAYERS</span> <span class="n">pl</span> <span class="k">inner</span> <span class="k">join</span> <span class="n">PENALTIES</span> <span class="n">P</span>
+        <span class="k">on</span> <span class="n">pl</span><span class="p">.</span><span class="n">PLAYERNO</span> <span class="o">=</span> <span class="n">P</span><span class="p">.</span><span class="n">PLAYERNO</span> <span class="k">order</span> <span class="k">by</span> <span class="n">AMOUNT</span> <span class="k">desc</span><span class="p">)</span>
+<span class="k">where</span> <span class="n">ROWNUM</span> <span class="o">&lt;=</span> <span class="mi">4</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sessiondatum_abändern"><a class="anchor" href="#_sessiondatum_abändern"></a>11. Sessiondatum abändern</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Einschub:
+Das Datumsformat für die Session kann jederzeit geändert werden, mithilfe folgendem Befehlt:</p>
+</div>
+<div class="paragraph">
+<p>Dies änder das Datum nur für die aktuelle Session</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">alter</span> <span class="k">session</span> <span class="k">set</span> <span class="n">nls_date_format</span> <span class="o">=</span> <span class="s1">'DD-MM-YYYY HH24:MI:SS'</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_parts"><a class="anchor" href="#_parts"></a>12. Parts</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/parts-img.png" alt="parts img">
+</div>
+</div>
+<div class="paragraph">
+<p>Hier kann man das UML Diagramm reverse-enginieeren</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/parts.png" alt="parts" width="86" height="95">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_parts_sql"><a class="anchor" href="#_parts_sql"></a>12.1. Parts.sql</h3>
+<div class="paragraph">
+<p>neue SQL Datei: parts.sql</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">PARTS</span>
+<span class="k">connect</span> <span class="k">by</span> <span class="n">SUB</span> <span class="o">=</span> <span class="n">SUPER</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Bsp: Ermittle die Teile as denen P3 besteht:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">PARTS</span>
+<span class="k">connect</span> <span class="k">by</span> <span class="n">SUB</span> <span class="o">=</span> <span class="n">SUPER</span>
+<span class="k">start</span> <span class="k">with</span> <span class="n">SUPER</span> <span class="o">=</span> <span class="s1">'P3'</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Start With: Alle Bedingungen sind Möglich (SUPER &lt; 3, &#8230;&#8203;)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_unterschied_zwischen_start_with_prior_und_where"><a class="anchor" href="#_unterschied_zwischen_start_with_prior_und_where"></a>12.2. Unterschied zwischen START WITH (PRIOR) und WHERE:<br></h3>
+<div class="paragraph">
+<p>Where entfernt nur die ihr entsprechenden Datensätze, keine Kind-DS</p>
+</div>
+<div class="paragraph">
+<p>Systemvariable: LEVEL</p>
+</div>
+<div class="paragraph">
+<p>Level is die Stufennummer beginnend mit 1</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">rownum</span><span class="p">,</span> <span class="k">level</span><span class="p">,</span> <span class="n">SUB</span><span class="p">,</span> <span class="n">SUPER</span><span class="p">,</span> <span class="n">PRICE</span>
+<span class="k">from</span> <span class="n">PARTS</span>
+<span class="k">connect</span> <span class="k">by</span> <span class="k">prior</span> <span class="n">SUB</span> <span class="o">=</span> <span class="n">SUPER</span>
+<span class="k">start</span> <span class="k">with</span> <span class="n">SUPER</span> <span class="o">=</span> <span class="s1">'P3'</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Skalarfunktionen: LPAD</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">lpad</span><span class="p">(</span><span class="s1">' '</span><span class="p">,</span> <span class="mi">8</span> <span class="o">*</span> <span class="p">(</span><span class="k">level</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">||</span> <span class="k">level</span> <span class="o">||</span> <span class="s1">'-'</span> <span class="o">||</span> <span class="n">SUPER</span> <span class="o">||</span> <span class="s1">'-'</span> <span class="o">||</span> <span class="n">SUB</span>
+<span class="k">from</span> <span class="n">PARTS</span>
+<span class="k">connect</span> <span class="k">by</span> <span class="k">prior</span> <span class="n">SUB</span><span class="o">=</span><span class="n">SUPER</span>
+<span class="k">start</span> <span class="k">with</span> <span class="n">SUPER</span> <span class="o">=</span> <span class="s1">'P3'</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_daten_manipulieren"><a class="anchor" href="#_daten_manipulieren"></a>13. Daten manipulieren</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_einfügen"><a class="anchor" href="#_einfügen"></a>13.1. Einfügen</h3>
+<div class="paragraph">
+<p>Mithilfe von Insert into kann man werte in Tabellen einfügen</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/abb31.png" alt="abb31">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/inserts.png" alt="inserts">
+</div>
+</div>
+<div class="sect3">
+<h4 id="_masseninsert"><a class="anchor" href="#_masseninsert"></a>13.1.1. Masseninsert:</h4>
+<div class="paragraph">
+<p>Mithilfe eines Masseninserts, kann man eine Kopie von der Tabelle anlegen, darauf arbeiten, und dann einen massen-insert machen, auf die Originaltabelle speichern.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/abb33.png" alt="abb33">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ändern"><a class="anchor" href="#_ändern"></a>13.2. Ändern</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">UPDATE</span> <span class="k">table_name</span> <span class="k">SET</span> <span class="n">column_name1</span> <span class="o">=</span> <span class="n">expression</span> <span class="o">|</span> <span class="n">subquery</span>
+<span class="p">[,</span> <span class="n">col_name2</span> <span class="o">=</span> <span class="n">expression</span> <span class="o">|</span> <span class="n">subquery</span><span class="p">,</span> <span class="p">...]</span>
+<span class="p">[</span><span class="k">WHERE</span> <span class="n">condition</span><span class="p">]</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Where verwenden, sonst werden alle Zeilen geändert!
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/abb34.png" alt="abb34">
+</div>
+</div>
+<div class="paragraph">
+<p>1: Preis von P05 auf ATS 100,- setzen</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">update</span> <span class="n">PARTS</span>
+<span class="k">set</span> <span class="n">PRICE</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="k">where</span> <span class="k">upper</span><span class="p">(</span><span class="n">SUB</span><span class="p">)</span> <span class="o">=</span> <span class="s1">'P5'</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>2: Preis von P05 um 10% erhöhen</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">update</span> <span class="n">PARTS</span>
+<span class="k">set</span> <span class="n">PRICE</span> <span class="o">=</span> <span class="n">PRICE</span> <span class="o">*</span> <span class="mi">1</span><span class="p">.</span><span class="mi">1</span>
+<span class="k">where</span> <span class="k">upper</span><span class="p">(</span><span class="n">SUB</span><span class="p">)</span> <span class="o">=</span> <span class="s1">'P5'</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>3: Alle Preise über ATS 60,- um 10 % herabsetzen</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">update</span> <span class="n">PARTS</span>
+<span class="k">set</span> <span class="n">PRICE</span> <span class="o">=</span> <span class="n">PRICE</span> <span class="o">*</span> <span class="mi">0</span><span class="p">.</span><span class="mi">9</span>
+<span class="k">where</span> <span class="n">PRICE</span> <span class="o">&gt;</span> <span class="mi">60</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>4: Alle Preise unter dem Durchschnitt um 20 % erhöhen.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">update</span> <span class="n">PARTS</span>
+<span class="k">set</span> <span class="n">PRICE</span> <span class="o">=</span> <span class="n">PRICE</span> <span class="o">*</span> <span class="mi">1</span><span class="p">.</span><span class="mi">2</span>
+<span class="k">where</span> <span class="n">PRICE</span> <span class="o">&lt;</span> <span class="p">(</span>
+    <span class="k">select</span> <span class="k">avg</span><span class="p">(</span><span class="n">PRICE</span><span class="p">)</span>
+    <span class="k">from</span> <span class="n">PARTS</span><span class="p">);</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_löschen"><a class="anchor" href="#_löschen"></a>13.3. Löschen</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/abb35.png" alt="abb35">
+</div>
+</div>
+<div class="paragraph">
+<p>Löschbefehlte:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Befehl</th>
+<th class="tableblock halign-left valign-top">Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DELETE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(DML) löscht nur die Daten, kann zurückgeholt werden</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DROP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(DDL), alles wird gelöscht, kann nicht zurückgerollt werden</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TRUNCATE &lt;TABLE&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(DDL), gibt Speicherplatz frei, where nicht möglich, kann nicht zurückgerollt werden</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Aufgabe SQL 7 (15.03.2022, UNION, MINUS, INTERSECT, SUBSELECT, JOIN)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_nummernfolgen_sequenzen"><a class="anchor" href="#_nummernfolgen_sequenzen"></a>13.4. Nummernfolgen (Sequenzen)</h3>
+<div class="paragraph">
+<p>Verwendet für PrimaryKey (künstlichen Schlüssen)</p>
+</div>
+<div class="paragraph">
+<p>Variante: max</p>
+</div>
+<div class="sect3">
+<h4 id="_variante_1_max"><a class="anchor" href="#_variante_1_max"></a>13.4.1. Variante 1: max</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="k">max</span><span class="p">(</span><span class="n">TEAMNO</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">from</span> <span class="n">TEAMS</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">TEAMS</span> <span class="k">values</span> <span class="p">(...)</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_variante_2_eigene_nummerntabelle"><a class="anchor" href="#_variante_2_eigene_nummerntabelle"></a>13.4.2. Variante 2: eigene Nummerntabelle</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="k">max</span><span class="p">(</span><span class="n">TEAMNO</span><span class="p">)</span> <span class="o">+</span><span class="mi">1</span> <span class="k">from</span> <span class="n">TEAMS</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">TEAMS</span> <span class="k">values</span> <span class="p">(..);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">TEAMNO</span> <span class="k">values</span> <span class="p">(...)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Beide Möglichkeiten haben Paralellsisierungsprobleme</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_lösung_nicht_automare_statements"><a class="anchor" href="#_lösung_nicht_automare_statements"></a>13.4.3. Lösung: nicht automare statements</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="n">sequence</span> <span class="n">seq_name</span>
+<span class="p">[</span><span class="k">start</span> <span class="k">with</span> <span class="nb">integer</span><span class="p">]</span>
+<span class="p">[</span><span class="k">increment</span> <span class="k">by</span> <span class="nb">integer</span><span class="p">]</span>
+<span class="p">[{</span><span class="k">MAXVALUE</span> <span class="nb">integer</span> <span class="o">|</span> <span class="n">NOMAXVALUE</span><span class="p">}]</span>
+<span class="p">[{</span><span class="k">MINVALUE</span> <span class="nb">integer</span>  <span class="o">|</span> <span class="n">NOMINVALUE</span><span class="p">}]</span>
+<span class="p">[{</span><span class="k">CYCLE</span> <span class="o">|</span> <span class="n">NOCYCLE</span><span class="p">}]</span>
+<span class="p">[{</span><span class="k">ORDER</span> <span class="o">|</span> <span class="n">NORODER</span><span class="p">}]</span>
+<span class="p">[{</span><span class="k">CACHE</span> <span class="nb">integer</span> <span class="o">|</span> <span class="n">NOCACHE</span><span class="p">}]</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="n">sequence</span> <span class="n">seq_teamno</span> <span class="k">start</span> <span class="k">with</span> <span class="mi">3</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">TEAMS</span><span class="p">(</span><span class="n">teamsno</span><span class="p">,</span> <span class="n">playerno</span><span class="p">,</span> <span class="n">division</span><span class="p">)</span>
+<span class="k">values</span> <span class="p">(</span><span class="n">seg_teamno</span><span class="p">.</span><span class="n">nextval</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="s1">'first'</span><span class="p">);</span>
+
+<span class="cm">/* Values seg_teamno ausgeben: */</span>
+<span class="k">select</span> <span class="n">seq_teamno</span><span class="p">.</span><span class="n">currval</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pseudospalten: nextval, curval<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>increment by ist default (1), auch negativmöglich</p>
+</li>
+<li>
+<p>start with: Anfangswert</p>
+</li>
+<li>
+<p>minvalue, maxvalue: mindest und höchstwert (limit erreicht bei ca. 10 ^ 27)</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/abb43.png" alt="abb43">
+</div>
+<div class="title">Figure 1. Abbildung 43</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_löschen_einer_sequence"><a class="anchor" href="#_löschen_einer_sequence"></a>13.4.4. Löschen einer Sequence</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">drop</span> <span class="n">sequence</span> <span class="n">seq_name</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_hinweis"><a class="anchor" href="#_hinweis"></a>13.4.5. Hinweis</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">USER_SEQUENCES</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Sequenzen, User, usw stehen im Datadictionary
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Alle Sequenzes in der Datenbank zeigen:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">DBA_SEQUENCES</span><span class="p">;</span> <span class="c1">--nur Datenbankadministrator</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Dies kann nur ein Datenbankadministrator (DBA) ausführen.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_constraints_integrity_rules"><a class="anchor" href="#_constraints_integrity_rules"></a>14. Constraints (Integrity Rules)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>erzwingen von Regeln</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Rule</th>
+<th class="tableblock halign-left valign-top">Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NOT NULL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">can&#8217;t be null</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Primary key</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UNIQUE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">can&#8217;t exist multiple times</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Foreign key</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CHECK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">for more options</p></td>
+</tr>
+</tbody>
+</table>
+<div class="imageblock">
+<div class="content">
+<img src="images/abb45.png" alt="abb45">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_not_null"><a class="anchor" href="#_not_null"></a>14.1. NOT NULL</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">column_name</span> <span class="p">....</span> <span class="p">[</span><span class="k">CONSTRAINT</span> <span class="k">constraint_name</span><span class="p">]</span> <span class="k">NOT</span> <span class="k">NULL</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Name vom Constraints, wenn nicht angegeben, wir automatisch von ORACLE vergeben.
+(SYS_C[nnnn])</p>
+</div>
+<div class="paragraph">
+<p>Wenn der Name vergeben wird, gibt es meist Datenbankregeln, die von der Firma festgelegt werden.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pk_primarykey"><a class="anchor" href="#_pk_primarykey"></a>14.2. PK (PrimaryKey)</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/abb46.png" alt="abb46">
+</div>
+</div>
+<div class="paragraph">
+<p>Der Primary key hat eigenschaften, die dieser gleich mitbringt:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>not null</p>
+</li>
+<li>
+<p>unique (darf einmal null sein)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>column integrity nur möglich, wenn PK aus einer Spalte besteht.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Ein PK, der aus 2 Columns besteht, nennt man zusammengesetzter PK
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Beispiel column integrity:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">table</span> <span class="n">teams</span> <span class="p">(</span>
+    <span class="n">teamno</span> <span class="n">number</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="k">constraint</span> <span class="n">pk_teams</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+    <span class="n">playerno</span> <span class="n">number</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+    <span class="n">division</span> <span class="n">varchar2</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Beispiel table integrity:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">table</span> <span class="n">teams</span> <span class="p">(</span>
+    <span class="n">teamno</span> <span class="n">number</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">playerno</span> <span class="n">number</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+    <span class="n">division</span> <span class="n">varchar2</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span>
+    <span class="k">constraint</span> <span class="n">pk_teams</span> <span class="k">primary</span> <span class="k">key</span><span class="p">(</span><span class="n">teamno</span><span class="p">)</span>
+<span class="p">);</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_unique"><a class="anchor" href="#_unique"></a>14.3. UNIQUE</h3>
+<div class="paragraph">
+<p>Unterschied zu PK:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Null hier möglich (1 mal)</p>
+</li>
+<li>
+<p>mehrere UNIQUE Bedingungen pro Tabelle</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Syntax:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>column integrity:</p>
+<div class="literalblock">
+<div class="content">
+<pre>column_name .... [CONSTRAINT constraint_name]
+REFERENCES table_name[(column_name1[,column_name2,....])]
+[ON DELETE CASCADE]</pre>
+</div>
+</div>
+</li>
+<li>
+<p>table integrity:</p>
+<div class="literalblock">
+<div class="content">
+<pre>column_name ....,
+[CONSTRAINT constraint_name]
+UNIQUE (column_name1 [,column_name2,....]),</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_fk_foreign_key"><a class="anchor" href="#_fk_foreign_key"></a>14.4. FK (Foreign Key)</h3>
+<div class="paragraph">
+<p><span class="image"><img src="images/abb47.png" alt="abb47"></span></p>
+</div>
+<div class="paragraph">
+<p>On Delete Cascade, so werden die Sätze mit dem entsprechenden Fremdschlüsselwert automatisch mitgelöscht.</p>
+</div>
+<div class="paragraph">
+<p>DML &#8594; Data Manipulation Language (update, update, delete)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/abb48.png" alt="abb48">
+</div>
+</div>
+<div class="paragraph">
+<p>Tables in tennis-tables.sql.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_check"><a class="anchor" href="#_check"></a>14.5. CHECK</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/abb49.png" alt="abb49">
+</div>
+</div>
+<div class="paragraph">
+<p>Bsp:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="p">...</span>
+<span class="n">SEX</span> <span class="nb">char</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">check</span><span class="p">(</span><span class="n">SEX</span> <span class="k">in</span> <span class="p">(</span><span class="s1">'M'</span><span class="p">,</span> <span class="s1">'F'</span><span class="p">,</span> <span class="s1">'X'</span><span class="p">)),</span>
+<span class="n">DATE_OF_BIRTH</span> <span class="nb">date</span> <span class="k">check</span><span class="p">(</span><span class="n">year_of_birth</span> <span class="o">&lt;=</span> <span class="n">year_joined</span><span class="p">),</span>
+<span class="p">...</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_löschen_von_constraints"><a class="anchor" href="#_löschen_von_constraints"></a>14.6. Löschen von Constraints</h3>
+<div class="listingblock">
+<div class="title">Abbildung 50</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">alter</span> <span class="k">table</span> <span class="k">TABLE_NAME</span> <span class="k">drop</span> <span class="k">constraint</span> <span class="k">CONSTRAINT_NAME</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_index_2"><a class="anchor" href="#_index_2"></a>15. Index</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ein Index ist ein Attributwert + Adresse (Inhaltsverzeichnis)</p>
+</div>
+<div class="paragraph">
+<p>Vorteil: kleiner daher leichter im Hauptspeicher platz findet</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/abb51.png" alt="abb51">
+</div>
+</div>
+<div class="paragraph">
+<p>bei Oracle werden Indexe automatisch bei PK angelegt</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/abb52.png" alt="abb52">
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">DESCRIBE</span> <span class="n">user_indexes</span><span class="p">;</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">user_indexes</span><span class="p">;</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">user_ind_columns</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Vorteil: select, update, delete</p>
+</div>
+<div class="paragraph">
+<p>Nachteil: insert, update, delete</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/abb53.png" alt="abb53">
+</div>
+</div>
+<div class="paragraph">
+<p>kein Index: (Faustregeln)</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>kleine Tabellen (wenig Zeilen)</p>
+</li>
+<li>
+<p>Tabelle häufig aktualisiert</p>
+</li>
+<li>
+<p>Abfragen rufen mehr als 2 - 4 % der Zeilen auf</p>
+</li>
+<li>
+<p>Spalten werden nicht oft als Bedingungen verwendet</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Beispiel:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">index</span> <span class="n">pen_plno</span> <span class="k">on</span> <span class="n">PENALTIES</span> <span class="p">(</span><span class="n">PLAYERNO</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_views"><a class="anchor" href="#_views"></a>15.1. Views</h3>
+<div class="paragraph">
+<p>Eine logische oder virtuelle Tabelle, die auf einer Tabelle oder einer anderen View basiert. (gleicht einem Fenster)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/abb54.png" alt="abb54">
+</div>
+</div>
+<div class="paragraph">
+<p>Syntax:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/abb55.png" alt="abb55">
+</div>
+</div>
+<div class="paragraph">
+<p>With check option:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>insert und update (gehört der Satz nach einem update / insert weiterhin zur view?)</p>
+</li>
+<li>
+<p>Einschränkungen:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>kein distinct</p>
+</li>
+<li>
+<p>kein group by</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/abb56.png" alt="abb56">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_new_password"><a class="anchor" href="#_new_password"></a>16. New Password</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">GRANT</span> <span class="k">CONNECT</span>
+<span class="k">TO</span> <span class="k">system</span>
+<span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="n">neupw</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>oder</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">ALTER</span> <span class="k">USER</span> <span class="k">system</span>
+<span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="n">neupwd</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_rechte_auf_der_datenbank"><a class="anchor" href="#_rechte_auf_der_datenbank"></a>17. Rechte auf der Datenbank</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_grant"><a class="anchor" href="#_grant"></a>17.1. Grant</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">GRANT</span> <span class="n">system_Privelege</span> <span class="p">[,</span> <span class="n">system_privelege</span><span class="p">....]</span>
+<span class="k">TO</span> <span class="k">user</span> <span class="p">[,</span> <span class="k">user</span><span class="p">...]</span></code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_grant_rights_to_another_user"><a class="anchor" href="#_grant_rights_to_another_user"></a>17.1.1. Grant rights to another user</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">grant</span> <span class="k">all</span> <span class="k">on</span> <span class="n">EMP</span> <span class="k">to</span> <span class="n">IT190228</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>select tables from other user:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">IT190228</span><span class="p">.</span><span class="n">EMP</span><span class="p">;</span>
+
+<span class="k">delete</span> <span class="n">IT190228</span><span class="p">.</span><span class="n">EMP</span><span class="p">;</span>
+    <span class="k">rollback</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_plsql"><a class="anchor" href="#_plsql"></a>18. PL/SQL</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_functions_2"><a class="anchor" href="#_functions_2"></a>18.1. Functions</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_stored_functions"><a class="anchor" href="#_stored_functions"></a>18.2. stored Functions</h3>
+<div class="sect3">
+<h4 id="_syntax"><a class="anchor" href="#_syntax"></a>18.2.1. Syntax</h4>
+<div class="imageblock">
+<div class="content">
+<img src="images/plsq-stored-function-syntax.png" alt="plsq stored function syntax">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2022-11-10 13:51:00 UTC
+</div>
+</div>
+</body>
+</html>

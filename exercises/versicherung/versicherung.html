@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.18">
+<meta name="author" content="Mctom Spdo">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>Übung 13</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+:root{
+--maincolor:#282c34;
+--primarycolor:#f39c12;
+--secondarycolor:#03a9f4;
+--tertiarycolor:#4db6ac;
+--sidebarbackground:#21252b;
+--linkcolor:#f44336;
+--linkcoloralternate:#ff9800;
+--white:#FFFFFF;
+}
+
+/* custom added styles */
+.listingblock > .content > pre{
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+/* Text styles */
+body{font-family: "Noto Sans",sans-serif;background-color: var(--maincolor);color:var(--white);}
+
+h1{color:var(--primarycolor) !important;font-family:"Noto Sans",sans-serif;}
+h2,h3,h4,h5,h6{color:var(--secondarycolor) !important;font-family:"Noto Sans",sans-serif;}
+.title{color:var(--white) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Noto Sans",sans-serif ! important}
+#toc.toc2 a:link{color:var(--linkcolor);}
+blockquote{color:var(--tertiarycolor) !important}
+.quoteblock{color:var(--white)}
+code{color:var(--linkcoloralternate);background-color: var(--sidebarbackground) !important}
+
+
+/* Table styles */
+th{background-color: var(--maincolor);color:var(--white) !important;}
+td{background-color: var(--maincolor);color: var(--linkcoloralternate) !important}
+
+
+#toc.toc2{background-color:var(--sidebarbackground);}
+#toctitle{color:var(--white);}
+
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  table {
+    width: 55vw!important;
+    font-size: 3vw;
+  }
+}
+
+.exampleblock > .content {
+  background-color: var(--maincolor);
+}
+
+a {
+  color: var(--secondarycolor);
+}
+
+.admonitionblock td.icon .icon-tip::before {
+  text-shadow: none;
+  color: var(--white);
+}
+.admonitionblock td.icon .icon-note::before {
+  color: var(--tertiarycolor);
+}
+.admonitionblock td.icon .icon-important::before {
+  color: var(--linkcolor);
+}
+/*.admonitionblock td.icon .icon-caution::before {
+  color: var(--linkcoloralternate);
+}*/
+.admonitionblock td.icon .icon-warning::before {
+  color: var(--primarycolor);
+}
+
+#preamble > .sectionbody > .paragraph:first-of-type p {
+  color: var(--white);
+}
+
+.quoteblock blockquote::before {
+  color: var(--primarycolor);
+}
+.quoteblock .attribution cite, .verseblock .attribution cite {
+  color: var(--white);
+}
+.verseblock pre {
+  color: var(--white);
+}
+.quoteblock blockquote, .quoteblock blockquote p {
+  color: var(--white);
+}
+
+.sidebarblock {
+  background: var(--sidebarbackground);
+}
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+#header .details {
+  color: var(--white);
+}
+#header .details span.email a {
+  color: var(--linkcoloralternate);
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge .cm {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cp {
+  color: #999999;
+  font-weight: bold;
+}
+pre.rouge .c1 {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cs {
+  color: #999999;
+  font-weight: bold;
+  font-style: italic;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cpf {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+pre.rouge .gd {
+  color: #000000;
+  background-color: #ffdddd;
+}
+pre.rouge .ge {
+  color: #000000;
+  font-style: italic;
+}
+pre.rouge .gr {
+  color: #aa0000;
+}
+pre.rouge .gh {
+  color: #999999;
+}
+pre.rouge .gi {
+  color: #000000;
+  background-color: #ddffdd;
+}
+pre.rouge .go {
+  color: #888888;
+}
+pre.rouge .gp {
+  color: #555555;
+}
+pre.rouge .gs {
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #aaaaaa;
+}
+pre.rouge .gt {
+  color: #aa0000;
+}
+pre.rouge .kc {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kd {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kn {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kp {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kr {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kt {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .k, pre.rouge .kv {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .mf {
+  color: #009999;
+}
+pre.rouge .mh {
+  color: #009999;
+}
+pre.rouge .il {
+  color: #009999;
+}
+pre.rouge .mi {
+  color: #009999;
+}
+pre.rouge .mo {
+  color: #009999;
+}
+pre.rouge .m, pre.rouge .mb, pre.rouge .mx {
+  color: #009999;
+}
+pre.rouge .sa {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .sb {
+  color: #d14;
+}
+pre.rouge .sc {
+  color: #d14;
+}
+pre.rouge .sd {
+  color: #d14;
+}
+pre.rouge .s2 {
+  color: #d14;
+}
+pre.rouge .se {
+  color: #d14;
+}
+pre.rouge .sh {
+  color: #d14;
+}
+pre.rouge .si {
+  color: #d14;
+}
+pre.rouge .sx {
+  color: #d14;
+}
+pre.rouge .sr {
+  color: #009926;
+}
+pre.rouge .s1 {
+  color: #d14;
+}
+pre.rouge .ss {
+  color: #990073;
+}
+pre.rouge .s, pre.rouge .dl {
+  color: #d14;
+}
+pre.rouge .na {
+  color: #008080;
+}
+pre.rouge .bp {
+  color: #999999;
+}
+pre.rouge .nb {
+  color: #0086B3;
+}
+pre.rouge .nc {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .no {
+  color: #008080;
+}
+pre.rouge .nd {
+  color: #3c5d5d;
+  font-weight: bold;
+}
+pre.rouge .ni {
+  color: #800080;
+}
+pre.rouge .ne {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nl {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nn {
+  color: #555555;
+}
+pre.rouge .nt {
+  color: #000080;
+}
+pre.rouge .vc {
+  color: #008080;
+}
+pre.rouge .vg {
+  color: #008080;
+}
+pre.rouge .vi {
+  color: #008080;
+}
+pre.rouge .nv, pre.rouge .vm {
+  color: #008080;
+}
+pre.rouge .ow {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .o {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .w {
+  color: #bbbbbb;
+}
+pre.rouge {
+  background-color: #f8f8f8;
+}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Übung 13</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2022-11-10</span>
+<br><span id="revremark">ITP</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_übungen_versicherung">1. Übungen Versicherung</a>
+<ul class="sectlevel2">
+<li><a href="#_creating_tables">1.1. Creating Tables</a></li>
+</ul>
+</li>
+<li><a href="#_inserts">2. Inserts</a>
+<ul class="sectlevel2">
+<li><a href="#_change_date_format">2.1. Change Date Format</a></li>
+<li><a href="#_insert_script">2.2. Insert Script</a></li>
+<li><a href="#_commit_changes">2.3. Commit changes</a></li>
+</ul>
+</li>
+<li><a href="#_abfragen">3. Abfragen</a>
+<ul class="sectlevel2">
+<li><a href="#_abfrage">3.1. Abfrage</a></li>
+<li><a href="#_abfrage_2">3.2. Abfrage</a></li>
+<li><a href="#_abfrage_3">3.3. Abfrage</a></li>
+<li><a href="#_abfrage_4">3.4. Abfrage</a></li>
+<li><a href="#_abfrage_5">3.5. Abfrage</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_übungen_versicherung"><a class="anchor" href="#_übungen_versicherung"></a>1. Übungen Versicherung</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="../../images/erd-Versicherung.JPG" alt="erd Versicherung">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_creating_tables"><a class="anchor" href="#_creating_tables"></a>1.1. Creating Tables</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">table</span> <span class="n">V_VERTRAGSORT</span> <span class="p">(</span>
+    <span class="n">ABSCHLUSSID</span> <span class="n">number</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+    <span class="n">ORT</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
+    <span class="n">DATUM</span> <span class="nb">date</span>
+<span class="p">);</span>
+
+<span class="k">create</span> <span class="k">table</span> <span class="n">V_VERTRETER</span> <span class="p">(</span>
+    <span class="n">VERTRETERID</span> <span class="n">number</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span> <span class="k">primary</span> <span class="k">key</span> <span class="p">,</span>
+    <span class="n">NNAME</span> <span class="n">varchar2</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
+    <span class="n">PLZ</span> <span class="n">number</span><span class="p">,</span>
+    <span class="n">ORT</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">create</span> <span class="k">table</span> <span class="n">V_VERTRAG</span> <span class="p">(</span>
+    <span class="n">VERTRAGSID</span> <span class="n">number</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+    <span class="n">folgevertrag</span> <span class="n">varchar2</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
+    <span class="n">nochgueltig</span> <span class="n">varchar2</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+    <span class="n">VORGAENGERVERTRAG</span> <span class="n">varchar2</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span>
+    <span class="n">ABSCHLUSSDATUM</span> <span class="nb">date</span><span class="p">,</span>
+    <span class="n">VERTRETERID</span> <span class="n">number</span><span class="p">(</span><span class="mi">9</span><span class="p">),</span>
+    <span class="k">constraint</span> <span class="n">FK_VERTRETERID</span> <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">VERTRETERID</span><span class="p">)</span> <span class="k">references</span> <span class="n">V_VERTRETER</span>
+<span class="p">);</span>
+
+<span class="k">create</span> <span class="k">table</span> <span class="n">V_VERTRAGSABSCHLUSS</span> <span class="p">(</span>
+    <span class="n">VERTRAGSID</span> <span class="n">number</span><span class="p">(</span><span class="mi">9</span><span class="p">),</span>
+    <span class="n">ABSCHLUSSID</span> <span class="n">number</span><span class="p">(</span><span class="mi">9</span><span class="p">),</span>
+    <span class="n">VERTRAGSGROESSE_EURO</span> <span class="n">number</span><span class="p">(</span><span class="mi">9</span><span class="p">),</span>
+    <span class="k">constraint</span> <span class="n">FK_V_VERTRAG</span> <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">VERTRAGSID</span><span class="p">)</span> <span class="k">references</span> <span class="n">V_VERTRAG</span><span class="p">,</span>
+    <span class="k">constraint</span> <span class="n">FK_V_VERTRAGSORT</span> <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">ABSCHLUSSID</span><span class="p">)</span> <span class="k">references</span> <span class="n">V_VERTRAGSORT</span><span class="p">,</span>
+    <span class="k">constraint</span> <span class="n">PK_V_VERTRAGSABSCHLUSS</span> <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">ABSCHLUSSID</span><span class="p">,</span> <span class="n">VERTRAGSID</span><span class="p">)</span>
+<span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">drop</span> <span class="k">table</span> <span class="n">V_VERTRAGSABSCHLUSS</span><span class="p">;</span>
+<span class="k">drop</span> <span class="k">table</span> <span class="n">V_VERTRAG</span><span class="p">;</span>
+<span class="k">drop</span> <span class="k">table</span> <span class="n">V_VERTRAGSORT</span><span class="p">;</span>
+<span class="k">drop</span> <span class="k">table</span> <span class="n">V_VERTRETER</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_inserts"><a class="anchor" href="#_inserts"></a>2. Inserts</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_change_date_format"><a class="anchor" href="#_change_date_format"></a>2.1. Change Date Format</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">alter</span> <span class="k">session</span> <span class="k">set</span> <span class="n">nls_date_format</span> <span class="o">=</span> <span class="s1">'DD-MM-YYYY HH24:MI:SS'</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_insert_script"><a class="anchor" href="#_insert_script"></a>2.2. Insert Script</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">alter</span> <span class="k">session</span> <span class="k">set</span> <span class="n">nls_date_format</span> <span class="o">=</span> <span class="s1">'DD-MM-YYYY HH24:MI:SS'</span><span class="p">;</span>
+
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertragsort</span>
+<span class="p">(</span><span class="n">ABSCHLUSSID</span><span class="p">,</span><span class="n">ORT</span><span class="p">,</span><span class="n">DATUM</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">'LONDON'</span><span class="p">,</span><span class="s1">'17-03-2001'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertragsort</span>
+<span class="p">(</span><span class="n">ABSCHLUSSID</span><span class="p">,</span><span class="n">ORT</span><span class="p">,</span><span class="n">DATUM</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s1">'WIEN'</span><span class="p">,</span><span class="s1">'23-05-2001'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertragsort</span>
+<span class="p">(</span><span class="n">ABSCHLUSSID</span><span class="p">,</span><span class="n">ORT</span><span class="p">,</span><span class="n">DATUM</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="s1">'PARIS'</span><span class="p">,</span><span class="s1">'04-08-2001'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertragsort</span>
+<span class="p">(</span><span class="n">ABSCHLUSSID</span><span class="p">,</span><span class="n">ORT</span><span class="p">,</span><span class="n">DATUM</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="s1">'ROM'</span><span class="p">,</span><span class="s1">'28-08-2001'</span><span class="p">)</span>
+<span class="o">/</span>
+
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertreter</span>
+<span class="p">(</span><span class="n">VERTRETERID</span><span class="p">,</span><span class="n">NNAME</span><span class="p">,</span><span class="n">PLZ</span><span class="p">,</span><span class="n">ORT</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">'Maier'</span><span class="p">,</span><span class="mi">9920</span><span class="p">,</span><span class="s1">'ROM'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertreter</span>
+<span class="p">(</span><span class="n">VERTRETERID</span><span class="p">,</span><span class="n">NNAME</span><span class="p">,</span><span class="n">PLZ</span><span class="p">,</span><span class="n">ORT</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s1">'Müller'</span><span class="p">,</span><span class="mi">5550</span><span class="p">,</span><span class="s1">'LONDON'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertreter</span>
+<span class="p">(</span><span class="n">VERTRETERID</span><span class="p">,</span><span class="n">NNAME</span><span class="p">,</span><span class="n">PLZ</span><span class="p">,</span><span class="n">ORT</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="s1">'Huber'</span><span class="p">,</span><span class="mi">440</span><span class="p">,</span><span class="s1">'WIEN'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertreter</span>
+<span class="p">(</span><span class="n">VERTRETERID</span><span class="p">,</span><span class="n">NNAME</span><span class="p">,</span><span class="n">PLZ</span><span class="p">,</span><span class="n">ORT</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="s1">'Bauer'</span><span class="p">,</span><span class="mi">6660</span><span class="p">,</span><span class="s1">'PARIS'</span><span class="p">)</span>
+<span class="o">/</span>
+
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertrag</span>
+<span class="p">(</span><span class="n">vertragsid</span><span class="p">,</span><span class="n">folgevertrag</span><span class="p">,</span><span class="n">nochgueltig</span><span class="p">,</span><span class="n">vorgaengervertrag</span><span class="p">,</span><span class="n">abschlussdatum</span><span class="p">,</span><span class="n">vertreterid</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">'Vertrag1Haus'</span><span class="p">,</span><span class="s1">'JA'</span><span class="p">,</span><span class="k">NULL</span><span class="p">,</span><span class="k">NULL</span><span class="p">,</span><span class="s1">'1'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertrag</span>
+<span class="p">(</span><span class="n">vertragsid</span><span class="p">,</span><span class="n">folgevertrag</span><span class="p">,</span><span class="n">nochgueltig</span><span class="p">,</span><span class="n">vorgaengervertrag</span><span class="p">,</span><span class="n">abschlussdatum</span><span class="p">,</span><span class="n">vertreterid</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s1">'Vertrag2Auto'</span><span class="p">,</span><span class="s1">'NEIN'</span><span class="p">,</span><span class="k">NULL</span><span class="p">,</span><span class="k">NULL</span><span class="p">,</span><span class="s1">'2'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertrag</span>
+<span class="p">(</span><span class="n">vertragsid</span><span class="p">,</span><span class="n">folgevertrag</span><span class="p">,</span><span class="n">nochgueltig</span><span class="p">,</span><span class="n">vorgaengervertrag</span><span class="p">,</span><span class="n">abschlussdatum</span><span class="p">,</span><span class="n">vertreterid</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="s1">'Vertrag3Auto'</span><span class="p">,</span><span class="s1">'NEIN'</span><span class="p">,</span><span class="k">NULL</span><span class="p">,</span><span class="k">NULL</span><span class="p">,</span><span class="s1">'2'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertrag</span>
+<span class="p">(</span><span class="n">vertragsid</span><span class="p">,</span><span class="n">folgevertrag</span><span class="p">,</span><span class="n">nochgueltig</span><span class="p">,</span><span class="n">vorgaengervertrag</span><span class="p">,</span><span class="n">abschlussdatum</span><span class="p">,</span><span class="n">vertreterid</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="s1">'Vertrag4Auto'</span><span class="p">,</span><span class="s1">'JA'</span><span class="p">,</span><span class="s1">'Vertrag1Haus'</span><span class="p">,</span><span class="s1">'02-01-1990'</span><span class="p">,</span><span class="s1">'1'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertrag</span>
+<span class="p">(</span><span class="n">vertragsid</span><span class="p">,</span><span class="n">folgevertrag</span><span class="p">,</span><span class="n">nochgueltig</span><span class="p">,</span><span class="n">vorgaengervertrag</span><span class="p">,</span><span class="n">abschlussdatum</span><span class="p">,</span><span class="n">vertreterid</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="s1">'Vertrag5Auto'</span><span class="p">,</span><span class="s1">'NEIN'</span><span class="p">,</span><span class="s1">'Vertrag1Haus'</span><span class="p">,</span><span class="s1">'15-07-1990'</span><span class="p">,</span><span class="s1">'2'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertrag</span>
+<span class="p">(</span><span class="n">vertragsid</span><span class="p">,</span><span class="n">folgevertrag</span><span class="p">,</span><span class="n">nochgueltig</span><span class="p">,</span><span class="n">vorgaengervertrag</span><span class="p">,</span><span class="n">abschlussdatum</span><span class="p">,</span><span class="n">vertreterid</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="s1">'Vertrag6Lebens'</span><span class="p">,</span><span class="s1">'JA'</span><span class="p">,</span><span class="s1">'Vertrag1Haus'</span><span class="p">,</span><span class="s1">'12-03-1991'</span><span class="p">,</span><span class="s1">'3'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertrag</span>
+<span class="p">(</span><span class="n">vertragsid</span><span class="p">,</span><span class="n">folgevertrag</span><span class="p">,</span><span class="n">nochgueltig</span><span class="p">,</span><span class="n">vorgaengervertrag</span><span class="p">,</span><span class="n">abschlussdatum</span><span class="p">,</span><span class="n">vertreterid</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="s1">'Vertrag7Lebens'</span><span class="p">,</span><span class="s1">'JA'</span><span class="p">,</span><span class="s1">'Vertrag1Haus'</span><span class="p">,</span><span class="s1">'22-08-1992'</span><span class="p">,</span><span class="s1">'4'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertrag</span>
+<span class="p">(</span><span class="n">vertragsid</span><span class="p">,</span><span class="n">folgevertrag</span><span class="p">,</span><span class="n">nochgueltig</span><span class="p">,</span><span class="n">vorgaengervertrag</span><span class="p">,</span><span class="n">abschlussdatum</span><span class="p">,</span><span class="n">vertreterid</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="s1">'Vertrag8Lebens'</span><span class="p">,</span><span class="s1">'JA'</span><span class="p">,</span><span class="s1">'Vertrag4Auto'</span><span class="p">,</span><span class="s1">'30-03-1993'</span><span class="p">,</span><span class="s1">'1'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertrag</span>
+<span class="p">(</span><span class="n">vertragsid</span><span class="p">,</span><span class="n">folgevertrag</span><span class="p">,</span><span class="n">nochgueltig</span><span class="p">,</span><span class="n">vorgaengervertrag</span><span class="p">,</span><span class="n">abschlussdatum</span><span class="p">,</span><span class="n">vertreterid</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="s1">'Vertrag5AutoNE'</span><span class="p">,</span><span class="s1">'JA'</span><span class="p">,</span><span class="s1">'Vertrag4Auto'</span><span class="p">,</span><span class="s1">'04-12-1993'</span><span class="p">,</span><span class="s1">'2'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertrag</span>
+<span class="p">(</span><span class="n">vertragsid</span><span class="p">,</span><span class="n">folgevertrag</span><span class="p">,</span><span class="n">nochgueltig</span><span class="p">,</span><span class="n">vorgaengervertrag</span><span class="p">,</span><span class="n">abschlussdatum</span><span class="p">,</span><span class="n">vertreterid</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="s1">'Vertrag9Lebens'</span><span class="p">,</span><span class="s1">'JA'</span><span class="p">,</span><span class="s1">'Vertrag1Haus'</span><span class="p">,</span><span class="s1">'09-02-1993'</span><span class="p">,</span><span class="s1">'3'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertrag</span>
+<span class="p">(</span><span class="n">vertragsid</span><span class="p">,</span><span class="n">folgevertrag</span><span class="p">,</span><span class="n">nochgueltig</span><span class="p">,</span><span class="n">vorgaengervertrag</span><span class="p">,</span><span class="n">abschlussdatum</span><span class="p">,</span><span class="n">vertreterid</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="s1">'Vertrag10Lebens'</span><span class="p">,</span><span class="s1">'NEIN'</span><span class="p">,</span><span class="s1">'Vertrag7Lebens'</span><span class="p">,</span><span class="s1">'24-07-1994'</span><span class="p">,</span><span class="s1">'4'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertrag</span>
+<span class="p">(</span><span class="n">vertragsid</span><span class="p">,</span><span class="n">folgevertrag</span><span class="p">,</span><span class="n">nochgueltig</span><span class="p">,</span><span class="n">vorgaengervertrag</span><span class="p">,</span><span class="n">abschlussdatum</span><span class="p">,</span><span class="n">vertreterid</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="s1">'Vertrag11Lebens'</span><span class="p">,</span><span class="s1">'NEIN'</span><span class="p">,</span><span class="s1">'Vertrag4Auto'</span><span class="p">,</span><span class="s1">'12-08-1995'</span><span class="p">,</span><span class="s1">'4'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertrag</span>
+<span class="p">(</span><span class="n">vertragsid</span><span class="p">,</span><span class="n">folgevertrag</span><span class="p">,</span><span class="n">nochgueltig</span><span class="p">,</span><span class="n">vorgaengervertrag</span><span class="p">,</span><span class="n">abschlussdatum</span><span class="p">,</span><span class="n">vertreterid</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="s1">'Vertrag12Lebens'</span><span class="p">,</span><span class="s1">'JA'</span><span class="p">,</span><span class="s1">'Vertrag5AutoNE'</span><span class="p">,</span><span class="s1">'03-04-1996'</span><span class="p">,</span><span class="s1">'4'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertrag</span>
+<span class="p">(</span><span class="n">vertragsid</span><span class="p">,</span><span class="n">folgevertrag</span><span class="p">,</span><span class="n">nochgueltig</span><span class="p">,</span><span class="n">vorgaengervertrag</span><span class="p">,</span><span class="n">abschlussdatum</span><span class="p">,</span><span class="n">vertreterid</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="s1">'Vertrag13Lebens'</span><span class="p">,</span><span class="s1">'JA'</span><span class="p">,</span><span class="s1">'Vertrag5AutoNE'</span><span class="p">,</span><span class="s1">'25-12-1996'</span><span class="p">,</span><span class="s1">'2'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertrag</span>
+<span class="p">(</span><span class="n">vertragsid</span><span class="p">,</span><span class="n">folgevertrag</span><span class="p">,</span><span class="n">nochgueltig</span><span class="p">,</span><span class="n">vorgaengervertrag</span><span class="p">,</span><span class="n">abschlussdatum</span><span class="p">,</span><span class="n">vertreterid</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="s1">'Vertrag14Lebens'</span><span class="p">,</span><span class="s1">'JA'</span><span class="p">,</span><span class="s1">'Vertrag7Lebens'</span><span class="p">,</span><span class="s1">'21-07-1996'</span><span class="p">,</span><span class="s1">'2'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertrag</span>
+<span class="p">(</span><span class="n">vertragsid</span><span class="p">,</span><span class="n">folgevertrag</span><span class="p">,</span><span class="n">nochgueltig</span><span class="p">,</span><span class="n">vorgaengervertrag</span><span class="p">,</span><span class="n">abschlussdatum</span><span class="p">,</span><span class="n">vertreterid</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="s1">'Vertrag15Lebens'</span><span class="p">,</span><span class="s1">'JA'</span><span class="p">,</span><span class="s1">'Vertrag12Lebens'</span><span class="p">,</span><span class="s1">'11-10-1998'</span><span class="p">,</span><span class="s1">'3'</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertragsabschluss</span>
+<span class="p">(</span><span class="n">VERTRAGSID</span><span class="p">,</span><span class="n">ABSCHLUSSID</span><span class="p">,</span><span class="n">VERTRAGSGROESSE_EURO</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertragsabschluss</span>
+<span class="p">(</span><span class="n">VERTRAGSID</span><span class="p">,</span><span class="n">ABSCHLUSSID</span><span class="p">,</span><span class="n">VERTRAGSGROESSE_EURO</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertragsabschluss</span>
+<span class="p">(</span><span class="n">VERTRAGSID</span><span class="p">,</span><span class="n">ABSCHLUSSID</span><span class="p">,</span><span class="n">VERTRAGSGROESSE_EURO</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">300</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertragsabschluss</span>
+<span class="p">(</span><span class="n">VERTRAGSID</span><span class="p">,</span><span class="n">ABSCHLUSSID</span><span class="p">,</span><span class="n">VERTRAGSGROESSE_EURO</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">600</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertragsabschluss</span>
+<span class="p">(</span><span class="n">VERTRAGSID</span><span class="p">,</span><span class="n">ABSCHLUSSID</span><span class="p">,</span><span class="n">VERTRAGSGROESSE_EURO</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
+<span class="o">/</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">v_vertragsabschluss</span>
+<span class="p">(</span><span class="n">VERTRAGSID</span><span class="p">,</span><span class="n">ABSCHLUSSID</span><span class="p">,</span><span class="n">VERTRAGSGROESSE_EURO</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">300</span><span class="p">)</span>
+<span class="o">/</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_commit_changes"><a class="anchor" href="#_commit_changes"></a>2.3. Commit changes</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">commit</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_abfragen"><a class="anchor" href="#_abfragen"></a>3. Abfragen</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_abfrage"><a class="anchor" href="#_abfrage"></a>3.1. Abfrage</h3>
+<div class="paragraph">
+<p>Zeige sämtliche Vertragsorte an sowie die Anzahl der dort abgeschlossenen Verträge.
+VERTRÄGE</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/abfrage1.png" alt="abfrage1">
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="s1">'Am '</span> <span class="o">||</span> <span class="n">to_char</span><span class="p">(</span><span class="n">DATUM</span><span class="p">,</span> <span class="s1">'DD-MM-YYYY'</span><span class="p">)</span> <span class="o">||</span> <span class="s1">' in '</span> <span class="o">||</span> <span class="n">ORT</span> <span class="o">||</span> <span class="s1">' mit '</span> <span class="o">||</span> <span class="k">count</span><span class="p">(</span><span class="n">VERTRAGSID</span><span class="p">)</span>  <span class="o">||</span> <span class="s1">' Vertraege abgeschlossen'</span> <span class="k">as</span> <span class="n">VERTR</span><span class="err">Ä</span><span class="n">GE</span>
+<span class="k">from</span> <span class="n">V_VERTRAGSABSCHLUSS</span>
+    <span class="k">full</span> <span class="k">outer</span> <span class="k">join</span> <span class="n">V_VERTRAGSORT</span> <span class="n">VV</span> <span class="k">using</span> <span class="p">(</span><span class="n">ABSCHLUSSID</span><span class="p">)</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">ORT</span><span class="p">,</span> <span class="n">DATUM</span>
+<span class="k">order</span> <span class="k">by</span> <span class="n">DATUM</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_abfrage_2"><a class="anchor" href="#_abfrage_2"></a>3.2. Abfrage</h3>
+<div class="paragraph">
+<p>Zeige zu jedem Vertreter dessen Verträge. Beachten, dass die Verträge hierarchisch
+dargestellt werden sollen. Das erste Ordnungskriterium ist die Vertragsgeneration, das
+zweite der Vertragsnamen.
+Hinweis: Da hierarchische Abfragen nur auf einzelnen Tabellen erlaubt sind, verwende eine
+Subquery als Spaltenausdruck für den Vertreter.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/abfrage2.png" alt="abfrage2">
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="p">(</span><span class="k">select</span> <span class="n">nname</span> <span class="k">from</span> <span class="n">V_VERTRETER</span> <span class="k">where</span> <span class="n">VERTRETERID</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">VERTRETERID</span><span class="p">)</span> <span class="n">vertrer</span><span class="p">,</span> <span class="n">lpad</span><span class="p">(</span><span class="s1">' '</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="k">LEVEL</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">||</span> <span class="s1">' '</span> <span class="o">||</span> <span class="n">FOLGEVERTRAG</span> <span class="n">vertrag</span> <span class="k">from</span> <span class="n">V_VERTRAG</span> <span class="n">v</span>
+<span class="k">connect</span> <span class="k">by</span> <span class="k">prior</span> <span class="n">FOLGEVERTRAG</span> <span class="o">=</span> <span class="n">VORGAENGERVERTRAG</span>
+<span class="k">start</span> <span class="k">with</span> <span class="n">FOLGEVERTRAG</span> <span class="o">=</span> <span class="s1">'Vertrag1Haus'</span>
+<span class="k">order</span> <span class="k">by</span> <span class="k">LEVEL</span><span class="p">,</span> <span class="n">VERTRAG</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_abfrage_3"><a class="anchor" href="#_abfrage_3"></a>3.3. Abfrage</h3>
+<div class="paragraph">
+<p>Zeige zu jedem Vertrag die Vertragsorte und die Provision. In dieser Aufteilung sollen auch
+jene Verträge angeführt werden, die keine Provision enthalten</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/abfrage3.png" alt="abfrage3">
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">VERTRAGSID</span><span class="p">,</span>
+       <span class="n">FOLGEVERTRAG</span><span class="p">,</span>
+       <span class="n">nvl</span><span class="p">(</span><span class="n">ORT</span><span class="p">,</span> <span class="s1">'---'</span><span class="p">)</span> <span class="k">as</span> <span class="n">ORT</span><span class="p">,</span>
+       <span class="n">nvl</span><span class="p">(</span><span class="n">VERTRAGSGROESSE_EURO</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">||</span> <span class="s1">' EURO Umsatz'</span> <span class="k">as</span> <span class="n">PROVISION</span><span class="p">,</span>
+       <span class="n">nvl</span><span class="p">(</span><span class="n">to_char</span><span class="p">(</span><span class="n">DATUM</span><span class="p">,</span> <span class="s1">'DD-MM-YYYY'</span><span class="p">),</span> <span class="s1">'---'</span><span class="p">)</span> <span class="k">as</span> <span class="n">Abschlussdatum</span>
+<span class="k">from</span> <span class="n">V_VERTRAG</span>
+    <span class="k">left</span> <span class="k">join</span> <span class="n">V_VERTRAGSABSCHLUSS</span> <span class="k">using</span> <span class="p">(</span><span class="n">VERTRAGSID</span><span class="p">)</span>
+    <span class="k">left</span> <span class="k">join</span> <span class="n">V_VERTRAGSORT</span> <span class="k">using</span> <span class="p">(</span><span class="n">ABSCHLUSSID</span><span class="p">)</span>
+<span class="k">order</span> <span class="k">by</span> <span class="n">PROVISION</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_abfrage_4"><a class="anchor" href="#_abfrage_4"></a>3.4. Abfrage</h3>
+<div class="paragraph">
+<p>Führe alle Vorverträge des Vertrages 'Vertrag1Haus' an. (max 10 Punkte)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/abfrage4.png" alt="abfrage4">
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">lpad</span><span class="p">(</span><span class="s1">'  '</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="k">LEVEL</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="o">||</span> <span class="n">FOLGEVERTRAG</span> <span class="k">as</span> <span class="n">VORVERTRAEGE</span>
+<span class="k">from</span> <span class="n">V_VERTRAG</span>
+<span class="k">connect</span> <span class="k">by</span> <span class="k">prior</span> <span class="n">FOLGEVERTRAG</span> <span class="o">=</span> <span class="n">VORGAENGERVERTRAG</span>
+<span class="k">start</span> <span class="k">with</span> <span class="n">FOLGEVERTRAG</span> <span class="o">=</span> <span class="s1">'Vertrag1Haus'</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_abfrage_5"><a class="anchor" href="#_abfrage_5"></a>3.5. Abfrage</h3>
+<div class="paragraph">
+<p>Führe die Verträge von Vertretern an, die beim Abschluss mehr als 400 Euro Provision
+abwarfen.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/abfrage5.png" alt="abfrage5">
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">NNAME</span><span class="p">,</span> <span class="n">PLZ</span><span class="p">,</span> <span class="n">ORT</span> <span class="k">from</span> <span class="n">V_VERTRAG</span>
+    <span class="k">join</span> <span class="n">V_VERTRETER</span> <span class="k">using</span> <span class="p">(</span><span class="n">VERTRETERID</span><span class="p">)</span>
+    <span class="k">join</span> <span class="n">V_VERTRAGSABSCHLUSS</span> <span class="k">using</span> <span class="p">(</span><span class="n">VERTRAGSID</span><span class="p">)</span>
+<span class="k">where</span> <span class="n">VERTRAGSGROESSE_EURO</span> <span class="o">&gt;</span> <span class="mi">400</span>
+  <span class="k">and</span> <span class="n">NOCHGUELTIG</span> <span class="o">=</span> <span class="s1">'JA'</span>
+<span class="k">order</span> <span class="k">by</span> <span class="mi">1</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2022-11-10 13:51:00 UTC
+</div>
+</div>
+</body>
+</html>
