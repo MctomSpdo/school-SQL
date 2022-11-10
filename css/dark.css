@@ -111,3 +111,9 @@ a {
 #header .details span.email a {
   color: var(--linkcoloralternate);
 }
+
+/* in code style fixes */
+
+.k {
+  color: #BB0066
+}
