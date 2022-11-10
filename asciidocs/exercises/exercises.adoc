@@ -1,0 +1,12 @@
+= Lecture Notes INSY
+Mctom Spdo
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../css/dark.css
+
+== SQL Exercises
+
+link:04/exercise-4.html[Exercise 4]

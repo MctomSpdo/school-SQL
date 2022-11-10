@@ -3,7 +3,7 @@ Mctom Spdo
 1.0.0, {docdate}: INSY
 ifndef::imagesdir[:imagesdir: images]
 :icons: font
-:sectnums:    // Nummerierung der Überschriften / section numbering
+:sectnums:
 :toc: left
 :stylesheet: ./css/dark.css
 
