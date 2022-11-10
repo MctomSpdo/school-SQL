@@ -11,24 +11,7 @@ ifndef::imagesdir[:imagesdir: images]
 
 === Übungen
 
-=== Main
-
-link:../uebungen/04/Uebung_4[Übung 4] +
-link:../uebungen/05/Uebung_5[Übung 5] +
-link:../uebungen/06/uebung_6[Übung 6] +
-link:../uebungen/07/uebung_7[Übung 7] +
-link:../uebungen/07/uebung_7[Übung 7] +
-link:../uebungen/10/uebung_10[Übung 10] +
-link:../uebungen/12/uebung_12.html[Übung 12] +
-link:../uebungen/13/uebung_13.html[Übung 13]
-
-=== Shop
-
-link:../uebungen/shop/shop.html[Übung shop]
-
-=== Versicherung
-
-link:../uebungen/versicherung/versicherung.html[Übung Versicherungen]
+link:exercises/exercises.html[Exercise]
 
 == Semesterstoff
 
@@ -1184,11 +1167,6 @@ delete IT190228.EMP;
 ----
 
 == PL/SQL
-
-link:../docs/PLSQL-Skript.pdf[PLSQL Script]
-
-link:../uebungen/PLSQL/00/plsql_00.html[PLSQL Übung 0] +
-link:../uebungen/PLSQL/01/plsql_01.html[PLSQL Übung 1]
 
 === Functions
 
