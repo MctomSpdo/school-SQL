@@ -5,7 +5,7 @@ ifndef::imagesdir[:imagesdir: images]
 :icons: font
 :sectnums:
 :toc: left
-:stylesheet: ../../../asciidocs/css/dark.css
+:stylesheet: ../../../css/dark.css
 
 link:Übung_PLSQL_3.pdf[Angabe]
 
