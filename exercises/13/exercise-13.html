@@ -126,7 +126,23 @@ a {
 /* in code style fixes */
 
 .k {
-  color: #BB0066
+  color: #008800 !important;
+}
+
+.k:contains("select"), .k:contains("create"), .k:contains("update"), .k:contains("replace"), .k:contains("beginn") {
+  color: #BB0066 !important;
+}
+
+.k:contains("return") {
+  color: #008888 !important;
+}
+
+.mi {
+  color: #0202D2 !important;
+}
+
+.nb {
+  color: #00AA88 !important;
 }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -208,7 +224,7 @@ bellen erm√∂glicht. Erstellen Sie weiters ein "DROP-Skript" zum automatischen L√
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2022-11-10 14:06:52 UTC
+Last updated 2022-11-10 14:16:59 UTC
 </div>
 </div>
 </body>
