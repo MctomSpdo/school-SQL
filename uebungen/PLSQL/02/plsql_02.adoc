@@ -7,7 +7,7 @@ ifndef::imagesdir[:imagesdir: images]
 :toc: left
 :stylesheet: ../../../asciidocs/css/dark.css
 
-link:PLSQL-Übung-01.pdf[Angabe]
+link:PLSQL-Übung-02.pdf[Angabe]
 
 == Aufgabe
 
@@ -104,6 +104,39 @@ begin
 end;
 ----
 
+.Teachers Solution
+[%collapsible]
+====
+
+[source, sql]
+----
+create or replace procedure EMPNAME_SOLUTION(p_empno in EMP.EMPNO%TYPE, code in number)
+as
+    save_ename EMP.ENAME%TYPE;
+    save_sal EMP.SAL%TYPE;
+    save_comm EMP.COMM%TYPE;
+begin
+    select ENAME, nvl(SAL, 0), nvl(COMM, 0) into save_ename, save_sal, save_comm from EMP E where E.EMPNO = p_empno;
+    DBMS_OUTPUT.PUT_LINE('Employee Name: ' || save_ename);
+
+    if code = 1 then
+        DBMS_OUTPUT.PUT_LINE('Mit Provision' || (save_sal + save_comm));
+    else
+        DBMS_OUTPUT.PUT_LINE('Ohne Provision' || save_sal);
+    end if;
+exception
+    when NO_DATA_FOUND then
+        DBMS_OUTPUT.PUT_LINE('Unbekannt: Null');
+end;
+/
+
+begin
+    EMPNAME_SOLUTION(7934, 0);
+end;
+----
+
+====
+
 == Aufgabe
 
 Erstelle eine Stored Function SAL_COMM mit folgenden Parametern:
@@ -140,6 +173,31 @@ end;
 ----
 select EMP_SAL_COMM(7876) from dual;
 ----
+
+.Teachers solution
+[%collapsible]
+====
+
+[source, sql]
+----
+create or replace function EMP_SAL_COMM_SOLUTION(empno in EMP.EMPNO%TYPE)
+    return varchar
+as
+    save_verhaeltnis number;
+begin
+    select nvl(sal, 0) / nvl(comm, 0) into save_verhaeltnis from emp e where e.EMPNO = EMP_SAL_COMM_SOLUTION.empno;
+
+    return 'Verhältnis' || save_verhaeltnis;
+exception
+    when ZERO_DIVIDE then
+        return 'Keine Provision';
+end;
+/
+
+select EMP_SAL_COMM_SOLUTION(7876) from dual;
+----
+
+====
 
 == Aufgabe
 

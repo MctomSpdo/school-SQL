@@ -1,0 +1,95 @@
+= PLSQL Übung 3
+Mctom Spdo
+1.0.0, {docdate}: ITP
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../../../asciidocs/css/dark.css
+
+link:Übung_PLSQL_3.pdf[Angabe]
+
+== Ablaufsteuerung – Umwandlung in römische Zahlen
+
+Schreiben Sie ein Programm, welches Integer-Zahlen als römische Zahlen darstellt.
+
+1=I, 5=V, 10=X, 50=L, 100=C, 500=D, 1000=M +
+Würde ein Zeichen mehr als 3 mal hintereinander vorkommen, wird stattdessen das
+nächste höherwerte Zeichen genommen und der Wert davor subtrahiert: +
+zB 4 -> IV (anstatt IIII), 40 -> XL (anstatt XXXX)
+
+* 1. Schreiben Sie einen PL/SQL-Block, der den Wert der Variablen v_zahl in eine
+römische Zahl umwandelt. Implementieren Sie dabei die oben beschriebene
+Vorgangsweise mittels Schleifen und Case-Ausdrücken.
+Geben Sie das Resultat aus.
+
+* 2.Legen Sie eine weitere Schleife um die Umrechnungsroutine.
+Ermitteln Sie 20 Zufallszahlen, die jeweils umgerechnet werden.
+Lassen Sie die Zahl zu Kontrollzwecken auch von Oracle selbst umrechnen, indem
+Sie folgenden Befehl nutzen: TO_CHAR(<Zahl>, 'RN').
+Geben Sie dann Ihren ermittelt Wert und den Kontrollwert von Oracle
+nebeneinander aus, und ergänzen Sie die Zeile mit OK bzw. NOK, je nachdem ob
+die Werte identisch sind.
+
+Zufallszahlen können Sie mittels folgendem Befehl ermitteln:
+DBMS_RANDOM.VALUE(1, 3999); // 3999 = Max. Wert der RN-Option
+
+[source, sql]
+----
+create or replace function ROMAN_NUMBERS(enter in number)
+    return varchar
+as
+    v_output varchar(200);
+    p_input number;
+begin
+    p_input := enter;
+    while (p_input > 1)
+    loop
+        case
+            when p_input >= 1000 then
+                v_output := v_output || 'M';
+                p_input:= p_input - 1000;
+            when p_input >= 900 then
+                v_output := v_output || 'CM';
+                p_input := p_input - 900;
+            when p_input >= 500 then
+                v_output := v_output || 'D';
+                p_input := p_input - 500;
+            when p_input >= 400 then
+                v_output := v_output || 'CD';
+                p_input := p_input - 400;
+            when p_input >= 100 then
+                v_output := v_output || 'C';
+                p_input := p_input - 100;
+            when p_input >= 90 then
+                v_output := v_output || 'XC';
+                p_input := p_input - 90;
+            when p_input >= 50 then
+                v_output := v_output || 'L';
+                p_input := p_input - 50;
+            when p_input >= 10 then
+                v_output := v_output || 'X';
+                p_input := p_input - 10;
+            when p_input >= 9 then
+                v_output := v_output || 'IX';
+                p_input := p_input - 9;
+            when p_input >= 5 then
+                v_output := v_output || 'V';
+                p_input := p_input - 5;
+            when p_input >= 4 then
+                v_output := v_output || 'IV';
+                p_input := p_input -4;
+            when p_input >= 1 then
+                v_output := v_output || 'I';
+                p_input := p_input - 1;
+            else
+                DBMS_OUTPUT.PUT_LINE('test');
+        end case;
+    end loop;
+    dbms_output.put_line('Program completed');
+    return v_output;
+end;
+/
+
+select ROMAN_NUMBERS(999) from dual;
+----
