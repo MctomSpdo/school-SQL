@@ -1,5 +1,11 @@
 @startuml
+
 !theme plain
+
+skinparam backgroundColor transparent
+skinparam monochrome reverse
+
+left to right direction
 
 class Teil {
     - <u>TNr</u>

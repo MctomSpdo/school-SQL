@@ -1,15 +1,13 @@
 = Übung 7
 Mctom Spdo
-1.0.0, {docdate}: INSY
+1.0.0, {docdate}: ITP
 ifndef::imagesdir[:imagesdir: images]
-//:toc-placement!:  // prevents the generation of the doc at this position, so it can be printed afterwards
-:sourcedir: ../src/main/java
 :icons: font
-:sectnums:    // Nummerierung der Überschriften / section numbering
-:toc: left
-:stylesheet: ../../asciidocs/css/dark.css
+:sectnums:
+:stylesheet: ../../css/dark.css
 
 == Abfrage
+
 Ausgabe der Spielernamen, die sowohl für das Team 1 als auch für das Team 2 gespielt
 haben
 
@@ -25,6 +23,7 @@ where p.PLAYERNO is null;
 ----
 
 == Abfrage
+
 NAME und INITIALS der Spieler, die 1980 keine Strafe erhalten haben
 
 [source, sql]
@@ -37,6 +36,7 @@ where pe.PLAYERNO is null;
 ----
 
 == Abfrage
+
 Ausgabe der Spieler, der mindestens eine Strafe über $80 erhalten haben
 
 [source, sql]
@@ -49,6 +49,7 @@ where pe.AMOUNT > 80;
 ----
 
 == Abfrage
+
 Ausgabe der Spieler, bei denen jede Strafe über $80 lag
 
 [source, sql]
@@ -65,8 +66,8 @@ from PLAYERS pe inner join (
 ----
 
 == Abfrage
-Gesucht sind alle Mitarbeiter, deren Gehalt höher ist als das Durchschnittsgehalt ihrer
-Abteilung
+
+Gesucht sind alle Mitarbeiter, deren Gehalt höher ist als das Durchschnittsgehalt ihrer Abteilung
 
 [source, sql]
 ----
@@ -82,6 +83,7 @@ where EMP.SAL > AVGSAL;
 ----
 
 == Abfrage
+
 Ermittlung aller Abteilungen, die mindestens einen Mitarbeiter haben
 
 [source, sql]
@@ -94,8 +96,8 @@ select * from DEPT
 ----
 
 == Abfrage
-Ausgabe aller Abteilungen, die mindestens einen Mitarbeiter aufweisen, der über 1000,-
-verdient
+
+Ausgabe aller Abteilungen, die mindestens einen Mitarbeiter aufweisen, der über 1000,- verdient
 
 [source, sql]
 ----

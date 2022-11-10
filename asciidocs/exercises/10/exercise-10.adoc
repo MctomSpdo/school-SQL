@@ -1,13 +1,10 @@
 = Übung 10
 Mctom Spdo
-1.0.0, {docdate}: INSY
+1.0.0, {docdate}: ITP
 ifndef::imagesdir[:imagesdir: images]
-//:toc-placement!:  // prevents the generation of the doc at this position, so it can be printed afterwards
-:sourcedir: ../src/main/java
 :icons: font
-:sectnums:    // Nummerierung der Überschriften / section numbering
-:toc: left
-:stylesheet: ../../asciidocs/css/dark.css
+:sectnums:
+:stylesheet: ../../css/dark.css
 
 == Abfrage
 
@@ -59,18 +56,26 @@ Der Spieler mit der Nummer 95 erhält die Adresse des Spielers mit der Nummer 6
 [source,sql]
 ----
 update PLAYERS set
+    (STREET, HOUSENO, POSTCODE, TOWN) =
+    (select STREET, HOUSENO, POSTCODE, TOWN from PLAYERS where PLAYERNO = 6)
+where PLAYERNO = 95;
+----
+
+.Old Solution
+[%collapsible]
+====
+
+[source, sql]
+----
+update PLAYERS set
 STREET = (select STREET from PLAYERS where PLAYERNO = 6),
 HOUSENO = (select HOUSENO from PLAYERS where PLAYERNO = 6),
 POSTCODE = (select POSTCODE from PLAYERS where PLAYERNO = 6),
 TOWN = (select TOWN from PLAYERS where PLAYERNO = 6),
 PHONENO = (select PHONENO from PLAYERS where PLAYERNO = 6) where PLAYERNO = 95;
-
-/* better solution: */
-update PLAYERS set
-    (STREET, HOUSENO, POSTCODE, TOWN) =
-    (select STREET, HOUSENO, POSTCODE, TOWN from PLAYERS where PLAYERNO = 6)
-where PLAYERNO = 95;
 ----
+
+====
 
 == Abfrage
 
@@ -103,9 +108,14 @@ where PLAYERNO in
       from PLAYERS
           inner join TEAMS using (PLAYERNO)
       where DIVISION = 'second');
+----
 
-/* teacher: */
+.Teacher
+[%collapsible]
+====
 
+[source, sql]
+----
 delete PENALTIES
 where PLAYERNO in
       (select PLAYERNO
@@ -114,15 +124,24 @@ where PLAYERNO in
             (select TEAMNO
             from TEAMS
             where DIVISION = 'second'));
+----
 
-/* statisch: */
+====
 
+.Statisch
+[%collapsible]
+====
+
+[source, sql]
+----
 delete PENALTIES
 where PLAYERNO in (
     select PLAYERNO
     from MATCHES
     where TEAMNO = 2);
 ----
+
+====
 
 == Abfrage
 
@@ -166,13 +185,7 @@ Erstellen einer Nummernfolge mit den Werten 50, 60, 70, 80, ...
 
 [source,sql]
 ----
-(select max(DEPTNO) from DEPT);
-
 create SEQUENCE SEQ_DEPTNO
-    start with 60 INCREMENT by 10;
-
-/* teacher: (50 because of datasets that were not changed */
-create SEQUENCE dept_deptno
 start with 50 increment by 10 nomaxvalue nocache;
 ----
 

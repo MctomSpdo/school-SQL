@@ -2,14 +2,12 @@
 Mctom Spdo
 1.0.0, {docdate}: ITP
 ifndef::imagesdir[:imagesdir: images]
-//:toc-placement!:  // prevents the generation of the doc at this position, so it can be printed afterwards
-:sourcedir: ../src/main/java
 :icons: font
-:sectnums:    // Nummerierung der Überschriften / section numbering
-:toc: left
-:stylesheet: ../../asciidocs/css/dark.css
+:sectnums:
+:stylesheet: ../../css/dark.css
 
 == Abfrage
+
 NAME, INITIALS und Anzahl der gewonnenen Sätze für jeden Spieler
 
 [source, sql]
@@ -30,6 +28,7 @@ group by pl.NAME, pl.INITIALS;
 ----
 
 == Abfrage
+
 NAME, PEN_DATE und AMOUNT absteigend sortiert nach AMOUNT
 
 [source, sql]
@@ -42,6 +41,7 @@ order by 3 desc;
 ----
 
 == Abfrage
+
 TEAMNO, NAME (des Kapitäns) pro Team
 
 [source, sql]
@@ -58,6 +58,7 @@ from TEAMS te inner join PLAYERS P
 ----
 
 == Abfrage
+
 NAME (Spielername), WON, LOST aller gewonnenen Matches
 
 [source, sql]
@@ -78,6 +79,7 @@ group by NAME;
 ----
 
 == Abfrage
+
 PLAYERNO, NAME und Strafensumme für jeden Mannschaftsspieler. Hat eine Spieler
 noch keine Strafe erhalten, so soll er trotzdem ausgegeben werden. Die Sortierung soll
 nach der Höhe der Strafe aufsteigend erfolgen
@@ -94,6 +96,7 @@ order by 3 nulls first;
 ----
 
 == Abfrage
+
 In welcher Stadt arbeitet der Mitarbeiter Allen?
 
 [source, sql]
@@ -105,6 +108,7 @@ where ENAME like 'ALLEN';
 ----
 
 == Abfrage
+
 Gesucht sind alle Mitarbeiter, die mehr verdienen als ihr Vorgesetzter
 
 [source, sql]
@@ -116,6 +120,7 @@ where E.SAL + nvl(E.COMM, 0) > R.SAL + nvl(R.COMM, 0);
 ----
 
 == Abfrage
+
 Ausgabe der Anzahl der Anstellungen in jedem Jahr
 
 [source,sql]
@@ -126,6 +131,7 @@ group by TO_CHAR(HIREDATE, 'yyyy');
 ----
 
 == Abfrage
+
 Ausgabe aller Mitarbeiter, die einen Job haben wie ein Mitarbeiter aus CHICAGO
 
 [source, sql]
@@ -142,8 +148,14 @@ where JOB in(
         where LOC like 'CHICAGO'
         order by dbms_random.value)
     where ROWNUM = 1);
+----
 
-/* Solution from Teacher */
+.Solution from the teacher
+[%collapsible]
+====
+
+[source, sql]
+----
 select ENAME, JOB, DEPTNO
 from EMP
 where JOB IN(
@@ -151,3 +163,5 @@ where JOB IN(
     from EMP a, DEPT b
     where a.DEPTNO = b.DEPTNO and upper(LOC) = 'CHICAGO');
 ----
+
+====

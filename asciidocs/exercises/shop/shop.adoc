@@ -2,12 +2,9 @@
 Mctom Spdo
 1.0.0, {docdate}: ITP
 ifndef::imagesdir[:imagesdir: images]
-//:toc-placement!:  // prevents the generation of the doc at this position, so it can be printed afterwards
-:sourcedir: ../src/main/java
 :icons: font
-:sectnums:    // Nummerierung der Überschriften / section numbering
-:toc: left
-:stylesheet: ../../asciidocs/css/dark.css
+:sectnums:
+:stylesheet: ../../css/dark.css
 
 Für diese Übung werden die Daten von shop.sql benötigt.
 
@@ -39,14 +36,22 @@ from BESTELLUNG BS
             inner join ARTIKEL A on B.ARTIKELNR = A.ARTIKELNR
         group by BESTELLNR) on BST = BS.BESTELLNR;
 
-/* Musterlösung */
+----
 
+.Solution from Teacher
+[%collapsible]
+====
+
+[source,sql]
+----
 select sum(BS.ANZAHL * A.VKPREIS * (1 + A.UMSATZSTEUER / 100))
 from BESTELLPOS BS
     join ARTIKEL A on BS.ARTIKELNR = A.ARTIKELNR
     join BESTELLUNG B on B.BESTELLNR = BS.BESTELLNR
 where B.STATUS = 'E';
 ----
+
+====
 
 == Abfrage
 Erstellen Sie eine Liste aller Artikel und sortieren Sie diese absteigend nach Verkaufszahl. Es sollen nur erledigte Bestellungen berücksichtigt werden
@@ -90,9 +95,14 @@ inner join KUNDE K on B.KUNDENNR = K.KUNDENNR
 inner join ARTIKEL A2 on BESTELLPOS.ARTIKELNR = A2.ARTIKELNR
 left join GUTSCHEIN G on B.GUTSCHEINNR = G.GUTSCHEINNR
 group by LAND;
+----
 
-/* teacher: */
+.Solution from the teacher
+[%collapsible]
+====
 
+[source, sql]
+----
 select to_char(round(sum((VKPREIS * BESTELLPOS.ANZAHL) * (1 + (UMSATZSTEUER / 100))
            * (1 - (nvl(GUTSCHEIN.RABATT, 0) / 100))), 2), '9999.99') "Umsatz", LAND
 from BESTELLPOS
@@ -102,3 +112,5 @@ left join GUTSCHEIN using (GUTSCHEINNR)
 join KUNDE using (KUNDENNR)
 group by KUNDE.LAND
 ----
+
+====

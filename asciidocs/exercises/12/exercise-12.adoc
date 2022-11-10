@@ -1,13 +1,10 @@
 = Übung 12
 Mctom Spdo
-1.0.0, {docdate}: INSY
+1.0.0, {docdate}: ITP
 ifndef::imagesdir[:imagesdir: images]
-//:toc-placement!:  // prevents the generation of the doc at this position, so it can be printed afterwards
-:sourcedir: ../src/main/java
 :icons: font
-:sectnums:    // Nummerierung der Überschriften / section numbering
-:toc: left
-:stylesheet: ../../asciidocs/css/dark.css
+:sectnums:
+:stylesheet: ../../css/dark.css
 
 == Erstelle die Tabelle PKT
 
@@ -96,7 +93,7 @@ Gründen wird lediglich eine bestimmte Höchstteilnehmerzahl zugelassen (als Sta
 dard wird der Wert 15 vorgesehen). Um den Schulungserfolg weitgehend zu sichern
 bzw. eine homogene Teilnehmergruppe sicherzustellen, sind für die Teilnahme an
 bestimmten Kursen Voraussetzungskurse Bedingung (es kann davon ausgegangen
-werden, dass 1 Voraussetzungskurs hinreichend ist).
+werden, dass 1 Voraussetzungskurs hinreichend ist).+
 Jeder Kurs wird mehrmals veranstaltet - wobei jede Kursveranstaltung von unter-
 schiedlichen Referenten abgewickelt werden kann. Jede Kursveranstaltung wird ge-
 sondert beurteilt (Schulnoten!)
@@ -114,8 +111,10 @@ sondert beurteilt (Schulnoten!)
 ----
 @startuml
 
+skinparam backgroundColor transparent
+skinparam monochrome reverse
+
 left to right direction
-!theme plain
 
 class Kurs {
 - maxPeople: number(15)
@@ -153,9 +152,10 @@ Lösung des Lehrers:
 [plantuml, 5-schulinstitut-solution]
 ----
 
-left to right direction
+skinparam backgroundColor transparent
+skinparam monochrome reverse
 
-!theme plain
+left to right direction
 
 class Kurs {
 }
@@ -201,4 +201,4 @@ create table VERANSTALTUNG(
 );
 ----
 
-TODO: finish
+this is not finished yet, it will be later

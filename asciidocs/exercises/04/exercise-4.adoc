@@ -4,10 +4,10 @@ Mctom Spdo
 ifndef::imagesdir[:imagesdir: images]
 :icons: font
 :sectnums:
-:toc: left
-:stylesheet: ../../asciidocs/css/dark.css
+:stylesheet: ../../css/dark.css
 
 == Abfrage
+
 Ausgabe von TEAMNO der Teams, in denen nicht der Spieler mit der Nummer 27 Kapitän ist
 
 [source, sql]
@@ -18,6 +18,7 @@ where PLAYERNO != 27;
 ----
 
 == Abfrage
+
 Ausgabe von PLAYERNO, NAME und INITIALS der Spieler, die mindestens ein Match gewonnen haben
 
 [source, sql]
@@ -31,6 +32,7 @@ where PLAYERNO in (
 ----
 
 == Abfrage
+
 Ausgabe von SpielerNr und Name der Spieler, die mindestens eine Strafe erhalten haben
 
 [source, sql]
@@ -42,6 +44,7 @@ from PLAYERS where PLAYERNO in (
 ----
 
 == Abfrage
+
 Ausgabe von SpielerNr und Name der Spieler, die mindestens eine Strafe über 50.- erhalten haben
 
 [source, sql]
@@ -55,6 +58,7 @@ where PLAYERNO in (
 ----
 
 == Abfrage
+
 Ausgabe von SpielerNr und Name der Spieler, die im selben Jahr wie R. Parmenter geboren sind
 
 [source, sql]
@@ -68,6 +72,7 @@ where YEAR_OF_BIRTH = (
 ----
 
 == Abfrage
+
 Ausgabe von SpielerNr und Name des ältesten Spielers aus Stratford
 
 [source, sql]
@@ -80,6 +85,7 @@ where YEAR_OF_BIRTH = (
 ----
 
 == Abfrage
+
 Gesucht sind alle Abteilungen, die keine Mitarbeiter beschäftigen
 
 [source, sql]
@@ -92,6 +98,7 @@ where DEPTNO not in(
 ----
 
 == Abfrage
+
 Gesucht sind alle Mitarbeiter, die den gleichen Job wie JONES haben
 
 [source, sql]
@@ -104,7 +111,24 @@ where JOB = (
 ----
 
 == Abfrage
+
 Anzeigen aller Mitarbeiter, die mehr verdienen als irgendein Mitarbeiter aus Abteilung 30
+
+[source, sql]
+----
+select EMPNO, ENAME
+from EMP
+where SAL > ANY(
+    select sal
+    from EMP
+    where DEPTNO = 30);
+----
+
+.Original Solution
+[%collapsible]
+====
+
+This is the original solution I came up with
 
 [source, sql]
 ----
@@ -117,19 +141,13 @@ where SAL > (
         where DEPTNO = 30
         order by dbms_random.value)
     where rownum = 1);
-
-/* Better Solution */
-
-select EMPNO, ENAME
-from EMP
-where SAL > ANY(
-    select sal
-    from EMP
-    where DEPTNO = 30);
 ----
 
+====
+
 == Abfrage
- Anzeigen aller Mitarbeiter, die mehr verdienen als jeder Mitarbeiter aus Abteilung 30
+
+Anzeigen aller Mitarbeiter, die mehr verdienen als jeder Mitarbeiter aus Abteilung 30
 
 [source,sql]
 ----
@@ -142,6 +160,7 @@ where SAL > (
 ----
 
 == Abfrage
+
 Anzeigen aller Mitarbeiter aus Abteilung 10, deren Job von keinem Mitarbeiter aus Abteilung 30 ausgeübt wird
 
 [source,sql]
@@ -155,6 +174,7 @@ where DEPTNO = 10 and JOB not in(
 ----
 
 == Abfrage
+
 Gesucht sind die Mitarbeiterdaten (EMPNO, ENAME, JOB, SAL) des Mitarbeiters mit dem höchsten Gehalt
 
 [source,sql]
