@@ -1,4 +1,4 @@
-= Übung 13
+= Übung Versicherungen
 Mctom Spdo
 1.0.0, {docdate}: ITP
 ifndef::imagesdir[:imagesdir: images]
@@ -8,7 +8,7 @@ ifndef::imagesdir[:imagesdir: images]
 
 == Übungen Versicherung
 
-image::erd-Versicherung.JPG[]
+image::erd-versicherung.jpg[]
 
 === Creating Tables
 
