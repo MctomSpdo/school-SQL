@@ -1047,19 +1047,19 @@ Syntax:
 
 === FK (Foreign Key)
 
-image:abb_47.png[]
+image:abb47.png[]
 
 On Delete Cascade, so werden die Sätze mit dem entsprechenden Fremdschlüsselwert automatisch mitgelöscht.
 
 DML -> Data Manipulation Language (update, update, delete)
 
-image::abb_48.png[]
+image::abb48.png[]
 
 Tables in tennis-tables.sql.
 
 === CHECK
 
-image::abb_49.png[]
+image::abb49.png[]
 
 Bsp:
 
