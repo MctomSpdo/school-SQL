@@ -1,0 +1,167 @@
+= Übung 6
+Mctom Spdo
+1.0.0, {docdate}: ITP
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:stylesheet: ../../css/dark.css
+
+== Abfrage
+
+NAME, INITIALS und Anzahl der gewonnenen Sätze für jeden Spieler
+
+[source, sql]
+----
+select pl.NAME, pl.INITIALS, sum(WON) as Sätze
+from PLAYERS pl, MATCHES me
+where pl.PLAYERNO = me.PLAYERNO
+group by pl.NAME, pl.INITIALS;
+
+/* With new joins: */
+
+select NAME, INITIALS, sum(WON) as Sätze
+from PLAYERS pl inner join MATCHES me
+    on pl.PLAYERNO = me.PLAYERNO
+group by pl.NAME, pl.INITIALS;
+
+/* FIXME: EVERY PLAYER (full outer)*/
+----
+
+== Abfrage
+
+NAME, PEN_DATE und AMOUNT absteigend sortiert nach AMOUNT
+
+[source, sql]
+----
+select NAME, PEN_DATE, sum(AMOUNT) as AMOUNT
+from PLAYERS pl, PENALTIES pe
+where pl.PLAYERNO = pe.PLAYERNO
+group by pl.NAME, pe.PEN_DATE
+order by 3 desc;
+----
+
+== Abfrage
+
+TEAMNO, NAME (des Kapitäns) pro Team
+
+[source, sql]
+----
+select TEAMNO, NAME
+from TEAMS te, PLAYERS pl
+where pl.PLAYERNO = te.PLAYERNO;
+
+/* With new joins */
+
+select TEAMNO, NAME
+from TEAMS te inner join PLAYERS P
+    on te.PLAYERNO = P.PLAYERNO;
+----
+
+== Abfrage
+
+NAME (Spielername), WON, LOST aller gewonnenen Matches
+
+[source, sql]
+----
+select pl.NAME, sum(WON) as WON, sum(LOST) as LOST
+from PLAYERS pl, MATCHES me
+where me.PLAYERNO= pl.PLAYERNO
+group by NAME;
+
+/* With new joins */
+
+select NAME, sum(WON) as WON, sum(LOST) as LOST
+from MATCHES me inner join PLAYERS P
+    on me.PLAYERNO = P.PLAYERNO
+group by NAME;
+
+/* FIXME: WON > LOST */
+----
+
+== Abfrage
+
+PLAYERNO, NAME und Strafensumme für jeden Mannschaftsspieler. Hat eine Spieler
+noch keine Strafe erhalten, so soll er trotzdem ausgegeben werden. Die Sortierung soll
+nach der Höhe der Strafe aufsteigend erfolgen
+
+[source, sql]
+----
+select pl.PLAYERNO, NAME, nvl(sum(AMOUNT), 0) as PENALTIES
+from PLAYERS pl left join PENALTIES pe
+    on pl.PLAYERNO = pe.PLAYERNO
+where LEAGUENO is not null
+group by NAME, pl.PLAYERNO
+order by 3 nulls first;
+/* NVL can be removed */
+----
+
+== Abfrage
+
+In welcher Stadt arbeitet der Mitarbeiter Allen?
+
+[source, sql]
+----
+select LOC
+from EMP E left join DEPT D
+    on E.DEPTNO = D.DEPTNO
+where ENAME like 'ALLEN';
+----
+
+== Abfrage
+
+Gesucht sind alle Mitarbeiter, die mehr verdienen als ihr Vorgesetzter
+
+[source, sql]
+----
+select E.ENAME as EMPNAME, E.SAL + nvl(E.COMM, 0) as EMPSAL,
+       R.ENAME as VNAME, R.SAL + nvl(R.COMM, 0) as VSAL
+from EMP E inner join EMP R on R.EMPNO = E.MGR
+where E.SAL + nvl(E.COMM, 0) > R.SAL + nvl(R.COMM, 0);
+----
+
+== Abfrage
+
+Ausgabe der Anzahl der Anstellungen in jedem Jahr
+
+[source,sql]
+----
+select TO_CHAR(HIREDATE, 'yyyy') as YEAR, count(*) as PEOPLE_HIRED
+from EMP
+group by TO_CHAR(HIREDATE, 'yyyy');
+----
+
+== Abfrage
+
+Ausgabe aller Mitarbeiter, die einen Job haben wie ein Mitarbeiter aus CHICAGO
+
+[source, sql]
+----
+select EMPNO, ENAME, JOB, LOC
+from EMP inner join DEPT D
+    on D.DEPTNO = EMP.DEPTNO
+where JOB in(
+    select *
+    from (
+        select distinct JOB
+        from EMP inner join DEPT D
+            on D.DEPTNO = EMP.DEPTNO
+        where LOC like 'CHICAGO'
+        order by dbms_random.value)
+    where ROWNUM = 1);
+----
+
+.Solution from the teacher
+[%collapsible]
+====
+
+[source, sql]
+----
+select ENAME, JOB, DEPTNO
+from EMP
+where JOB IN(
+    select a.job
+    from EMP a, DEPT b
+    where a.DEPTNO = b.DEPTNO and upper(LOC) = 'CHICAGO');
+----
+
+====

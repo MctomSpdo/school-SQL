@@ -1,0 +1,200 @@
+= Übung 10
+Mctom Spdo
+1.0.0, {docdate}: ITP
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:stylesheet: ../../css/dark.css
+
+== Abfrage
+
+Einfügen eines neuen Satzes in die PLAYERS Table (eigene Daten verwenden)
+
+[source,sql]
+----
+create SEQUENCE seq_deptno
+    start with 3;
+
+insert into PLAYERS
+    (PLAYERNO, NAME, INITIALS, YEAR_OF_BIRTH, SEX, YEAR_JOINED, STREET, HOUSENO, POSTCODE, TOWN, PHONENO, LEAGUENO)
+values
+       (seq_deptno.nextval, 'Spindler', 'T', 2005, 'M', 2010, 'Limesstraße', 12, 4060, 'Leonding', 123456789, null);
+
+commit;
+----
+
+== Abfrage
+
+Ändern des Wertes 'F' in der Spalte SEX auf 'W'
+
+[source,sql]
+----
+update PLAYERS
+set SEX = 'W'
+where SEX = 'F';
+
+commit;
+----
+
+== Abfrage
+
+Erhöhen aller Strafen, die über dem Durchschnitt liegen, um 20%
+
+[source,sql]
+----
+update PENALTIES
+set AMOUNT = AMOUNT * 1.2
+where AMOUNT > (select avg(AMOUNT) from PENALTIES);
+
+commit;
+----
+
+== Abfrage
+
+Der Spieler mit der Nummer 95 erhält die Adresse des Spielers mit der Nummer 6
+
+[source,sql]
+----
+update PLAYERS set
+    (STREET, HOUSENO, POSTCODE, TOWN) =
+    (select STREET, HOUSENO, POSTCODE, TOWN from PLAYERS where PLAYERNO = 6)
+where PLAYERNO = 95;
+----
+
+.Old Solution
+[%collapsible]
+====
+
+[source, sql]
+----
+update PLAYERS set
+STREET = (select STREET from PLAYERS where PLAYERNO = 6),
+HOUSENO = (select HOUSENO from PLAYERS where PLAYERNO = 6),
+POSTCODE = (select POSTCODE from PLAYERS where PLAYERNO = 6),
+TOWN = (select TOWN from PLAYERS where PLAYERNO = 6),
+PHONENO = (select PHONENO from PLAYERS where PLAYERNO = 6) where PLAYERNO = 95;
+----
+
+====
+
+== Abfrage
+
+Löschen aller Strafen des Spielers 44 aus 1980
+
+[source,sql]
+----
+delete from penalties
+where PLAYERNO = 44 and to_char(PEN_DATE, 'YYYY') = 1980;
+----
+
+== Abfrage
+
+Änderungen aus 1.-5. fixieren
+
+[source,sql]
+----
+commit;
+----
+
+== Abfrage
+
+Löschen aller Strafen derjenigen Spieler, die mindestens einmal in einem Team der zweiten Division gespielt haben
+
+[source,sql]
+----
+delete from PENALTIES
+where PLAYERNO in
+      (select PLAYERNO
+      from PLAYERS
+          inner join TEAMS using (PLAYERNO)
+      where DIVISION = 'second');
+----
+
+.Teacher
+[%collapsible]
+====
+
+[source, sql]
+----
+delete PENALTIES
+where PLAYERNO in
+      (select PLAYERNO
+      from MATCHES
+      where TEAMNO =
+            (select TEAMNO
+            from TEAMS
+            where DIVISION = 'second'));
+----
+
+====
+
+.Statisch
+[%collapsible]
+====
+
+[source, sql]
+----
+delete PENALTIES
+where PLAYERNO in (
+    select PLAYERNO
+    from MATCHES
+    where TEAMNO = 2);
+----
+
+====
+
+== Abfrage
+
+Löschen aus 7. Rückgängig machen
+
+[source,sql]
+----
+rollback;
+----
+
+== Abfrage
+
+Alle Gehälter, die kleiner als 80% des Abteilungsdurchschnittsgehalts betragen, werden auf 80% des Abteilungsdurchschnittsgehalts gesetzt
+
+[source,sql]
+----
+update EMP e1
+set SAL =
+    (select (avg(SAL) * 0.8)
+    from EMP e2
+    where e2.DEPTNO = e1.DEPTNO)
+where sal < (
+    select (avg(SAL) * 0.8)
+    from EMP e3
+    where e3.DEPTNO = e1.DEPTNO);
+----
+
+== Abfrage
+
+Löschen aller Angestellten, die schon länger als 35 Jahre in der Firma sind
+
+[source,sql]
+----
+delete from EMP
+where (to_char(sysdate, 'YYYY') - to_char(HIREDATE, 'YYYY')) > 35;
+----
+
+== Abfrage
+
+Erstellen einer Nummernfolge mit den Werten 50, 60, 70, 80, ...
+
+[source,sql]
+----
+create SEQUENCE SEQ_DEPTNO
+start with 50 increment by 10 nomaxvalue nocache;
+----
+
+== Abfrage
+
+Einfügen eines neuen Satzes in die Tabelle DEPT mit DEPTNO entsprechend der Nummernfolge aus 11., DNAME 'HTL' und LOC 'LEONDING'
+
+[source,sql]
+----
+insert into dept
+values (SEQ_DEPTNO.nextval, 'HTL', 'LEONDING');
+----

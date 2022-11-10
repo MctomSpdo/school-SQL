@@ -1,0 +1,123 @@
+= Übung 7
+Mctom Spdo
+1.0.0, {docdate}: ITP
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:stylesheet: ../../css/dark.css
+
+== Abfrage
+
+Ausgabe der Spielernamen, die sowohl für das Team 1 als auch für das Team 2 gespielt
+haben
+
+[source, sql]
+----
+select * from TEAMS;
+
+select p.PLAYERNO as PLAYERNO, NAME, INITIALS, YEAR_OF_BIRTH, SEX
+from PLAYERS p
+    full outer join TEAMS t
+        on t.PLAYERNO = p.PLAYERNO
+where p.PLAYERNO is null;
+----
+
+== Abfrage
+
+NAME und INITIALS der Spieler, die 1980 keine Strafe erhalten haben
+
+[source, sql]
+----
+select pl.PLAYERNO as PLAYERNO, NAME, INITIALS, SEX, YEAR_JOINED
+from PENALTIES pe
+    right join PLAYERS pl o
+    n pe.PLAYERNO = pl.PLAYERNO
+where pe.PLAYERNO is null;
+----
+
+== Abfrage
+
+Ausgabe der Spieler, der mindestens eine Strafe über $80 erhalten haben
+
+[source, sql]
+----
+select PL.PLAYERNO as PLAYERNO, NAME, INITIALS, YEAR_OF_BIRTH, SEX, YEAR_JOINED, PEN_DATE, AMOUNT
+from PLAYERS PL
+    inner join PENALTIES PE
+        on pl.PLAYERNO = PE.PLAYERNO
+where pe.AMOUNT > 80;
+----
+
+== Abfrage
+
+Ausgabe der Spieler, bei denen jede Strafe über $80 lag
+
+[source, sql]
+----
+
+select *
+from PLAYERS pe inner join (
+    select PLAYERNO NR, MINAMOUNT
+    from (select PLAYERNO, min(AMOUNT) as MINAMOUNT
+    from PENALTIES
+    group by PLAYERNO)
+    where MINAMOUNT > 80)
+    on pe.PLAYERNO = NR;
+----
+
+== Abfrage
+
+Gesucht sind alle Mitarbeiter, deren Gehalt höher ist als das Durchschnittsgehalt ihrer Abteilung
+
+[source, sql]
+----
+select ENAME, AVGSAL, SAL, DEPTNO, JOB, HIREDATE
+from (
+    select EMP.DEPTNO as DEPARTNR, round(avg(SAL), 2) as AVGSAL
+    from EMP left join DEPT D
+        on EMP.DEPTNO = D.DEPTNO
+    group by EMP.DEPTNO)
+    inner join EMP
+        on EMP.DEPTNO = DEPARTNR
+where EMP.SAL > AVGSAL;
+----
+
+== Abfrage
+
+Ermittlung aller Abteilungen, die mindestens einen Mitarbeiter haben
+
+[source, sql]
+----
+select * from DEPT
+    inner join (
+        select distinct DEPTNO as DEPART
+        from EMP where DEPTNO is not null)
+        on DEPART = DEPTNO;
+----
+
+== Abfrage
+
+Ausgabe aller Abteilungen, die mindestens einen Mitarbeiter aufweisen, der über 1000,- verdient
+
+[source, sql]
+----
+select * from DEPT
+    inner join (
+        select distinct DEPTNO as NUM
+        from EMP
+        where DEPTNO is not null and SAL > 1000)
+        on DEPTNO = NUM;
+----
+
+== Abfrage
+Ausgabe aller Abteilungen, in der jeder Mitarbeiter mindestens 1000,- verdient
+
+[source, sql]
+----
+select * from DEPT left join (
+    select distinct DEPTNO as NUM
+    from EMP
+    where SAL < 1000)
+    on DEPTNO = NUM
+where NUM is null;
+----

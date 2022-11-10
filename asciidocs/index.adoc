@@ -3,7 +3,7 @@ Mctom Spdo
 1.0.0, {docdate}: INSY
 ifndef::imagesdir[:imagesdir: images]
 :icons: font
-:sectnums:    // Nummerierung der Überschriften / section numbering
+:sectnums:
 :toc: left
 :stylesheet: ./css/dark.css
 
@@ -11,24 +11,7 @@ ifndef::imagesdir[:imagesdir: images]
 
 === Übungen
 
-=== Main
-
-link:../uebungen/04/Uebung_4[Übung 4] +
-link:../uebungen/05/Uebung_5[Übung 5] +
-link:../uebungen/06/uebung_6[Übung 6] +
-link:../uebungen/07/uebung_7[Übung 7] +
-link:../uebungen/07/uebung_7[Übung 7] +
-link:../uebungen/10/uebung_10[Übung 10] +
-link:../uebungen/12/uebung_12.html[Übung 12] +
-link:../uebungen/13/uebung_13.html[Übung 13]
-
-=== Shop
-
-link:../uebungen/shop/shop.html[Übung shop]
-
-=== Versicherung
-
-link:../uebungen/versicherung/versicherung.html[Übung Versicherungen]
+link:exercises/exercises.html[Exercise]
 
 == Semesterstoff
 
@@ -1047,19 +1030,19 @@ Syntax:
 
 === FK (Foreign Key)
 
-image:abb_47.png[]
+image:abb47.png[]
 
 On Delete Cascade, so werden die Sätze mit dem entsprechenden Fremdschlüsselwert automatisch mitgelöscht.
 
 DML -> Data Manipulation Language (update, update, delete)
 
-image::abb_48.png[]
+image::abb48.png[]
 
 Tables in tennis-tables.sql.
 
 === CHECK
 
-image::abb_49.png[]
+image::abb49.png[]
 
 Bsp:
 
@@ -1184,11 +1167,6 @@ delete IT190228.EMP;
 ----
 
 == PL/SQL
-
-link:../docs/PLSQL-Skript.pdf[PLSQL Script]
-
-link:../uebungen/PLSQL/00/plsql_00.html[PLSQL Übung 0] +
-link:../uebungen/PLSQL/01/plsql_01.html[PLSQL Übung 1]
 
 === Functions
 
