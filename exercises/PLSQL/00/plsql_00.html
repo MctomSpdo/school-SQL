@@ -129,12 +129,17 @@ a {
   color: #008800 !important;
 }
 
-.k:contains("select"), .k:contains("create"), .k:contains("update"), .k:contains("replace"), .k:contains("beginn") {
+.k:contains("select"), .k:contains("create"), .k:contains("update"), .k:contains("replace"), .k:contains("beginn"),
+.k:contains("delete"), .k:contains("alter"), .k:contains("drop") {
   color: #BB0066 !important;
 }
 
-.k:contains("return") {
+.k:contains("return"), .k:cotains("primary"), .k:contains("foreign"), .k:contains("cascade") {
   color: #008888 !important;
+}
+
+.k:contains("key"), .k:contains("constraint"), .k:contains("table") {
+  color: #333399 !important;
 }
 
 .mi {
@@ -143,6 +148,10 @@ a {
 
 .nb {
   color: #00AA88 !important;
+}
+
+.o {
+  color: var(--white);
 }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -488,7 +497,7 @@ Ergänze feh- lende Rahmenbedingungen und teste die Funktionsweise.</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2022-11-10 14:16:59 UTC
+Last updated 2022-11-10 14:32:27 UTC
 </div>
 </div>
 </body>
