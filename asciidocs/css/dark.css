@@ -140,5 +140,5 @@ a {
 }
 
 .o {
-  color: var(--white);
+  color: var(--white) !important;
 }
