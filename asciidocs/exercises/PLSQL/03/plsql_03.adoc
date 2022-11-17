@@ -83,13 +83,29 @@ begin
                 v_output := v_output || 'I';
                 p_input := p_input - 1;
             else
-                DBMS_OUTPUT.PUT_LINE('test');
+                DBMS_OUTPUT.PUT_LINE('');
         end case;
     end loop;
-    dbms_output.put_line('Program completed');
     return v_output;
 end;
 /
 
 select ROMAN_NUMBERS(999) from dual;
+----
+
+.With random numbers
+[source, sql]
+----
+declare
+    v_number pls_integer;
+    v_roman varchar(255);
+begin
+    for i in 1..20
+    loop
+        select DBMS_RANDOM.VALUE(1, 3999) num into v_number from dual;
+        DBMS_OUTPUT.PUT_LINE('arabic number: ' || v_number);
+        select ROMAN_NUMBERS(v_number) num into v_roman from dual;
+        DBMS_OUTPUT.PUT_LINE('roman number: ' || v_roman);
+    end loop;
+end;
 ----
