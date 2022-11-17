@@ -463,6 +463,9 @@ DBMS_RANDOM.VALUE(1, 3999); // 3999 = Max. Wert der RN-Option</p>
             <span class="k">when</span> <span class="n">p_input</span> <span class="o">&gt;=</span> <span class="mi">50</span> <span class="k">then</span>
                 <span class="n">v_output</span> <span class="p">:</span><span class="o">=</span> <span class="n">v_output</span> <span class="o">||</span> <span class="s1">'L'</span><span class="p">;</span>
                 <span class="n">p_input</span> <span class="p">:</span><span class="o">=</span> <span class="n">p_input</span> <span class="o">-</span> <span class="mi">50</span><span class="p">;</span>
+            <span class="k">when</span> <span class="n">p_input</span> <span class="o">&gt;=</span> <span class="mi">40</span> <span class="k">then</span>
+                <span class="n">v_output</span> <span class="p">:</span><span class="o">=</span> <span class="n">v_output</span> <span class="o">||</span> <span class="s1">'XL'</span><span class="p">;</span>
+                <span class="n">p_input</span> <span class="p">:</span><span class="o">=</span> <span class="n">p_input</span> <span class="o">-</span> <span class="mi">40</span><span class="p">;</span>
             <span class="k">when</span> <span class="n">p_input</span> <span class="o">&gt;=</span> <span class="mi">10</span> <span class="k">then</span>
                 <span class="n">v_output</span> <span class="p">:</span><span class="o">=</span> <span class="n">v_output</span> <span class="o">||</span> <span class="s1">'X'</span><span class="p">;</span>
                 <span class="n">p_input</span> <span class="p">:</span><span class="o">=</span> <span class="n">p_input</span> <span class="o">-</span> <span class="mi">10</span><span class="p">;</span>
@@ -486,7 +489,7 @@ DBMS_RANDOM.VALUE(1, 3999); // 3999 = Max. Wert der RN-Option</p>
 <span class="k">end</span><span class="p">;</span>
 <span class="o">/</span>
 
-<span class="k">select</span> <span class="n">ROMAN_NUMBERS</span><span class="p">(</span><span class="mi">999</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span></code></pre>
+<span class="k">select</span> <span class="n">ROMAN_NUMBERS</span><span class="p">(</span><span class="mi">41</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -512,7 +515,7 @@ DBMS_RANDOM.VALUE(1, 3999); // 3999 = Max. Wert der RN-Option</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2022-11-17 08:29:54 UTC
+Last updated 2022-11-17 08:32:29 UTC
 </div>
 </div>
 </body>
