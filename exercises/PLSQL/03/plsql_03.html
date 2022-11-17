@@ -479,15 +479,31 @@ DBMS_RANDOM.VALUE(1, 3999); // 3999 = Max. Wert der RN-Option</p>
                 <span class="n">v_output</span> <span class="p">:</span><span class="o">=</span> <span class="n">v_output</span> <span class="o">||</span> <span class="s1">'I'</span><span class="p">;</span>
                 <span class="n">p_input</span> <span class="p">:</span><span class="o">=</span> <span class="n">p_input</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
             <span class="k">else</span>
-                <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'test'</span><span class="p">);</span>
+                <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">''</span><span class="p">);</span>
         <span class="k">end</span> <span class="k">case</span><span class="p">;</span>
     <span class="k">end</span> <span class="n">loop</span><span class="p">;</span>
-    <span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span><span class="p">(</span><span class="s1">'Program completed'</span><span class="p">);</span>
     <span class="k">return</span> <span class="n">v_output</span><span class="p">;</span>
 <span class="k">end</span><span class="p">;</span>
 <span class="o">/</span>
 
 <span class="k">select</span> <span class="n">ROMAN_NUMBERS</span><span class="p">(</span><span class="mi">999</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">With random numbers</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">declare</span>
+    <span class="n">v_number</span> <span class="n">pls_integer</span><span class="p">;</span>
+    <span class="n">v_roman</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">);</span>
+<span class="k">begin</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="p">..</span><span class="mi">20</span>
+    <span class="n">loop</span>
+        <span class="k">select</span> <span class="n">DBMS_RANDOM</span><span class="p">.</span><span class="n">VALUE</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3999</span><span class="p">)</span> <span class="n">num</span> <span class="k">into</span> <span class="n">v_number</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+        <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'arabic number: '</span> <span class="o">||</span> <span class="n">v_number</span><span class="p">);</span>
+        <span class="k">select</span> <span class="n">ROMAN_NUMBERS</span><span class="p">(</span><span class="n">v_number</span><span class="p">)</span> <span class="n">num</span> <span class="k">into</span> <span class="n">v_roman</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+        <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'roman number: '</span> <span class="o">||</span> <span class="n">v_roman</span><span class="p">);</span>
+    <span class="k">end</span> <span class="n">loop</span><span class="p">;</span>
+<span class="k">end</span><span class="p">;</span></code></pre>
 </div>
 </div>
 </div>
@@ -496,7 +512,7 @@ DBMS_RANDOM.VALUE(1, 3999); // 3999 = Max. Wert der RN-Option</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2022-11-17 08:10:13 UTC
+Last updated 2022-11-17 08:26:18 UTC
 </div>
 </div>
 </body>
