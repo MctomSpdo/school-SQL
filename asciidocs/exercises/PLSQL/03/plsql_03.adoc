@@ -94,6 +94,8 @@ end;
 /
 
 select ROMAN_NUMBERS(41) from dual;
+
+select to_char(1, 'fmRN') from dual;
 ----
 
 .With random numbers
@@ -110,5 +112,28 @@ begin
         select ROMAN_NUMBERS(v_number) num into v_roman from dual;
         DBMS_OUTPUT.PUT_LINE('roman number: ' || v_roman);
     end loop;
+end;
+----
+
+.Test function
+[source, sql]
+----
+declare
+    v_number pls_integer;
+    v_roman_solution varchar(255);
+    v_roman varchar(255);
+    v_loops pls_integer;
+begin
+    v_loops := 500;
+    for i in 1..v_loops
+    loop
+        select DBMS_RANDOM.VALUE(1, 3999) num into v_number from dual;
+        select to_char(v_number, 'fmRN') roman into v_roman_solution from dual;
+        if v_roman not like v_roman_solution then
+            DBMS_OUTPUT.PUT_LINE('found error');
+            DBMS_OUTPUT.PUT_LINE('exprected: ' || v_roman_solution || ' got: ' || v_number);
+        end if;
+    end loop;
+    DBMS_OUTPUT.PUT_LINE('Checked ' || v_loops || ' random test results');
 end;
 ----
