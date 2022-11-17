@@ -43,7 +43,7 @@ as
     p_input number;
 begin
     p_input := enter;
-    while (p_input > 1)
+    while (p_input >= 1)
     loop
         case
             when p_input >= 1000 then
