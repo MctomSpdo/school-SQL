@@ -40,7 +40,7 @@ create or replace function ROMAN_NUMBERS(enter in number)
     return varchar
 as
     v_output varchar(200);
-    p_input number;
+    p_input pls_integer;
 begin
     p_input := enter;
     while (p_input >= 1)
