@@ -489,7 +489,9 @@ DBMS_RANDOM.VALUE(1, 3999); // 3999 = Max. Wert der RN-Option</p>
 <span class="k">end</span><span class="p">;</span>
 <span class="o">/</span>
 
-<span class="k">select</span> <span class="n">ROMAN_NUMBERS</span><span class="p">(</span><span class="mi">41</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span></code></pre>
+<span class="k">select</span> <span class="n">ROMAN_NUMBERS</span><span class="p">(</span><span class="mi">41</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+
+<span class="k">select</span> <span class="n">to_char</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'fmRN'</span><span class="p">)</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -509,13 +511,36 @@ DBMS_RANDOM.VALUE(1, 3999); // 3999 = Max. Wert der RN-Option</p>
 <span class="k">end</span><span class="p">;</span></code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title">Test function</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">declare</span>
+    <span class="n">v_number</span> <span class="n">pls_integer</span><span class="p">;</span>
+    <span class="n">v_roman_solution</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">);</span>
+    <span class="n">v_roman</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">);</span>
+    <span class="n">v_loops</span> <span class="n">pls_integer</span><span class="p">;</span>
+<span class="k">begin</span>
+    <span class="n">v_loops</span> <span class="p">:</span><span class="o">=</span> <span class="mi">500</span><span class="p">;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="p">..</span><span class="n">v_loops</span>
+    <span class="n">loop</span>
+        <span class="k">select</span> <span class="n">DBMS_RANDOM</span><span class="p">.</span><span class="n">VALUE</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3999</span><span class="p">)</span> <span class="n">num</span> <span class="k">into</span> <span class="n">v_number</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+        <span class="k">select</span> <span class="n">to_char</span><span class="p">(</span><span class="n">v_number</span><span class="p">,</span> <span class="s1">'fmRN'</span><span class="p">)</span> <span class="n">roman</span> <span class="k">into</span> <span class="n">v_roman_solution</span> <span class="k">from</span> <span class="n">dual</span><span class="p">;</span>
+        <span class="n">if</span> <span class="n">v_roman</span> <span class="k">not</span> <span class="k">like</span> <span class="n">v_roman_solution</span> <span class="k">then</span>
+            <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'found error'</span><span class="p">);</span>
+            <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'exprected: '</span> <span class="o">||</span> <span class="n">v_roman_solution</span> <span class="o">||</span> <span class="s1">' got: '</span> <span class="o">||</span> <span class="n">v_number</span><span class="p">);</span>
+        <span class="k">end</span> <span class="n">if</span><span class="p">;</span>
+    <span class="k">end</span> <span class="n">loop</span><span class="p">;</span>
+    <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'Checked '</span> <span class="o">||</span> <span class="n">v_loops</span> <span class="o">||</span> <span class="s1">' random test results'</span><span class="p">);</span>
+<span class="k">end</span><span class="p">;</span></code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2022-11-17 08:32:29 UTC
+Last updated 2022-11-17 08:47:19 UTC
 </div>
 </div>
 </body>
