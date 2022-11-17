@@ -67,6 +67,9 @@ begin
             when p_input >= 50 then
                 v_output := v_output || 'L';
                 p_input := p_input - 50;
+            when p_input >= 40 then
+                v_output := v_output || 'XL';
+                p_input := p_input - 40;
             when p_input >= 10 then
                 v_output := v_output || 'X';
                 p_input := p_input - 10;
@@ -90,7 +93,7 @@ begin
 end;
 /
 
-select ROMAN_NUMBERS(999) from dual;
+select ROMAN_NUMBERS(41) from dual;
 ----
 
 .With random numbers
