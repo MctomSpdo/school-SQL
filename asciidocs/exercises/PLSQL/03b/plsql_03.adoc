@@ -1,0 +1,139 @@
+= PLSQL Übung 3
+Mctom Spdo
+1.0.0, {docdate}: ITP
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../../../css/dark.css
+
+link:PLSQL-Übung-03.pdf[Angabe]
+
+== Exercise
+
+Create a Stored Procedure NEW_SAL with two parameter (empno and new_sal).
+The purpose of this procedure is to update the attribute sal in the table.
+The update is allowed only between 9:00 AM and 5.00 PM.
+
+When you run the test block, you will receive the message
+Salary Updated.
+You are doing this lesson at night, else you will receive the message
+Try again tomorrow morning.
+
+[source, sql]
+----
+create or replace procedure NEW_SAL_TWO(p_empno in EMP.EMPNO%type, p_new_sal in EMP.SAL%type)
+as
+    v_current_time date;
+    v_min_time date;
+    v_max_time date;
+begin
+    -- check the given time:
+    select sysdate, (trunc(sysdate) + 9/24), (trunc(sysdate) + 17/24) into v_current_time, v_min_time, v_max_time from dual;
+
+    if (v_current_time not between v_min_time and v_max_time) then
+        DBMS_OUTPUT.PUT_LINE('Try again tomorrow morning');
+        return;
+    end if;
+
+    -- if time is right, continue here:
+    update emp t set t.SAL = p_new_sal where t.EMPNO = p_empno;
+    DBMS_OUTPUT.PUT_LINE('Salary Updated');
+end;
+/
+
+begin
+    NEW_SAL_TWO(1, 200);
+    commit;
+end;
+/
+----
+
+== Exercise
+
+Erstelle eine Stored Procedure SAL_BEST mit folgenden Parametern:
+Eingabeparameter: ANZAHL
+
+Die ersten ANZAHL Mitarbeiter mit dem höchsten Gehalt sollen in die Tabelle
+BEST_SAL eingetragen werden. Vorher soll die Prozedur eventuell noch vorhan-
+dene Sätze aus der Tabelle BEST_SAL löschen.
+
+Die Tabelle BEST_SAL soll außerhalb der Prozedur mit den Spalten ENAME und
+SAL erstellt werden.
+
+Teste die Prozedur.
+
+.Create table
+[source, sql]
+----
+create table BEST_SAL as select * from EMP where 1 = 0;
+----
+
+.Procedure
+[source, sql]
+----
+create or replace procedure SAL_BEST(p_anzahl in number)
+as
+
+begin
+    -- werte löschen
+    delete BEST_SAL;
+    -- neue werte einfügen
+    insert into BEST_SAL select * from (select * from EMP order by SAL desc) where ROWNUM <= 5;
+end;
+/
+
+begin
+    SAL_BEST(20);
+    commit;
+end;
+/
+----
+
+== Exercise
+
+Erstelle eine Stored Procedure TABSTRUCT mit folgenden Parametern: +
+Eingabeparameter: TABNAME +
+Zum übergebenen Tabellennamen soll die Tabellenstruktur ermittelt und ausge-
+geben werden.
+Die Ausgabe sollte folgendes Aussehen haben (z.B. für DEPT):
+
+* DEPTNO NUMBER(2) NOT NULL +
+* DNAME VARCHAR2(14) NULL +
+* LOC VARCHAR2(13) NULL
+
+Teste die Prozedur.
+
+[source, sql]
+----
+create or replace procedure TABSTRUCT(p_tabname in varchar)
+as
+    cursor curs is SELECT COLUMN_NAME,
+                          DATA_TYPE,
+                          DATA_PRECISION,
+                          replace(replace(NULLABLE, 'N', 'NOT NULL'), 'Y', 'NULL')  as nullable
+                   FROM ALL_TAB_COLUMNS
+                   WHERE TABLE_NAME = 'DEPT' and OWNER = (select user from dual);
+    v_data_pres number;
+    v_output varchar(100);
+begin
+    FOR rec in curs
+    loop
+        v_data_pres := rec.DATA_PRECISION;
+        if v_data_pres is null then
+            v_output := '';
+        else
+            v_output := ' (' || rec.DATA_PRECISION || ')';
+        end if;
+
+        DBMS_OUTPUT.PUT_LINE(rpad(rec.COLUMN_NAME, 10, ' ') || rpad((rec.DATA_TYPE || v_output), 15, ' ')  || rec.nullable);
+
+    end loop;
+end;
+/
+
+begin
+    TABSTRUCT('DEPT');
+end;
+/
+----
