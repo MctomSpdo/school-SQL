@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.18">
+<meta name="author" content="Mctom Spdo">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>PLSQL Übung 4</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+:root{
+--maincolor:#282c34;
+--primarycolor:#f39c12;
+--secondarycolor:#03a9f4;
+--tertiarycolor:#4db6ac;
+--sidebarbackground:#21252b;
+--linkcolor:#f44336;
+--linkcoloralternate:#ff9800;
+--white:#FFFFFF;
+}
+
+/* custom added styles */
+.listingblock > .content > pre{
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+/* Text styles */
+body{font-family: "Noto Sans",sans-serif;background-color: var(--maincolor);color:var(--white);}
+
+h1{color:var(--primarycolor) !important;font-family:"Noto Sans",sans-serif;}
+h2,h3,h4,h5,h6{color:var(--secondarycolor) !important;font-family:"Noto Sans",sans-serif;}
+.title{color:var(--white) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Noto Sans",sans-serif ! important}
+#toc.toc2 a:link{color:var(--linkcolor);}
+blockquote{color:var(--tertiarycolor) !important}
+.quoteblock{color:var(--white)}
+code{color:var(--linkcoloralternate);background-color: var(--sidebarbackground) !important}
+
+
+/* Table styles */
+th{background-color: var(--maincolor);color:var(--white) !important;}
+td{background-color: var(--maincolor);color: var(--linkcoloralternate) !important}
+
+
+#toc.toc2{background-color:var(--sidebarbackground);}
+#toctitle{color:var(--white);}
+
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  table {
+    width: 55vw!important;
+    font-size: 3vw;
+  }
+}
+
+.exampleblock > .content {
+  background-color: var(--maincolor);
+}
+
+a {
+  color: var(--secondarycolor);
+}
+
+.admonitionblock td.icon .icon-tip::before {
+  text-shadow: none;
+  color: var(--white);
+}
+.admonitionblock td.icon .icon-note::before {
+  color: var(--tertiarycolor);
+}
+.admonitionblock td.icon .icon-important::before {
+  color: var(--linkcolor);
+}
+/*.admonitionblock td.icon .icon-caution::before {
+  color: var(--linkcoloralternate);
+}*/
+.admonitionblock td.icon .icon-warning::before {
+  color: var(--primarycolor);
+}
+
+#preamble > .sectionbody > .paragraph:first-of-type p {
+  color: var(--white);
+}
+
+.quoteblock blockquote::before {
+  color: var(--primarycolor);
+}
+.quoteblock .attribution cite, .verseblock .attribution cite {
+  color: var(--white);
+}
+.verseblock pre {
+  color: var(--white);
+}
+.quoteblock blockquote, .quoteblock blockquote p {
+  color: var(--white);
+}
+
+.sidebarblock {
+  background: var(--sidebarbackground);
+}
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+#header .details {
+  color: var(--white);
+}
+#header .details span.email a {
+  color: var(--linkcoloralternate);
+}
+
+/* in code style fixes */
+
+.k {
+  color: #008800 !important;
+}
+
+.k:contains("select"), .k:contains("create"), .k:contains("update"), .k:contains("replace"), .k:contains("beginn"),
+.k:contains("delete"), .k:contains("alter"), .k:contains("drop") {
+  color: #BB0066 !important;
+}
+
+.k:contains("return"), .k:cotains("primary"), .k:contains("foreign"), .k:contains("cascade") {
+  color: #008888 !important;
+}
+
+.k:contains("key"), .k:contains("constraint"), .k:contains("table") {
+  color: #333399 !important;
+}
+
+.mi {
+  color: #0202D2 !important;
+}
+
+.nb {
+  color: #00AA88 !important;
+}
+
+.o {
+  color: var(--white) !important;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge .cm {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cp {
+  color: #999999;
+  font-weight: bold;
+}
+pre.rouge .c1 {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cs {
+  color: #999999;
+  font-weight: bold;
+  font-style: italic;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cpf {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+pre.rouge .gd {
+  color: #000000;
+  background-color: #ffdddd;
+}
+pre.rouge .ge {
+  color: #000000;
+  font-style: italic;
+}
+pre.rouge .gr {
+  color: #aa0000;
+}
+pre.rouge .gh {
+  color: #999999;
+}
+pre.rouge .gi {
+  color: #000000;
+  background-color: #ddffdd;
+}
+pre.rouge .go {
+  color: #888888;
+}
+pre.rouge .gp {
+  color: #555555;
+}
+pre.rouge .gs {
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #aaaaaa;
+}
+pre.rouge .gt {
+  color: #aa0000;
+}
+pre.rouge .kc {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kd {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kn {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kp {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kr {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kt {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .k, pre.rouge .kv {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .mf {
+  color: #009999;
+}
+pre.rouge .mh {
+  color: #009999;
+}
+pre.rouge .il {
+  color: #009999;
+}
+pre.rouge .mi {
+  color: #009999;
+}
+pre.rouge .mo {
+  color: #009999;
+}
+pre.rouge .m, pre.rouge .mb, pre.rouge .mx {
+  color: #009999;
+}
+pre.rouge .sa {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .sb {
+  color: #d14;
+}
+pre.rouge .sc {
+  color: #d14;
+}
+pre.rouge .sd {
+  color: #d14;
+}
+pre.rouge .s2 {
+  color: #d14;
+}
+pre.rouge .se {
+  color: #d14;
+}
+pre.rouge .sh {
+  color: #d14;
+}
+pre.rouge .si {
+  color: #d14;
+}
+pre.rouge .sx {
+  color: #d14;
+}
+pre.rouge .sr {
+  color: #009926;
+}
+pre.rouge .s1 {
+  color: #d14;
+}
+pre.rouge .ss {
+  color: #990073;
+}
+pre.rouge .s, pre.rouge .dl {
+  color: #d14;
+}
+pre.rouge .na {
+  color: #008080;
+}
+pre.rouge .bp {
+  color: #999999;
+}
+pre.rouge .nb {
+  color: #0086B3;
+}
+pre.rouge .nc {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .no {
+  color: #008080;
+}
+pre.rouge .nd {
+  color: #3c5d5d;
+  font-weight: bold;
+}
+pre.rouge .ni {
+  color: #800080;
+}
+pre.rouge .ne {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nl {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nn {
+  color: #555555;
+}
+pre.rouge .nt {
+  color: #000080;
+}
+pre.rouge .vc {
+  color: #008080;
+}
+pre.rouge .vg {
+  color: #008080;
+}
+pre.rouge .vi {
+  color: #008080;
+}
+pre.rouge .nv, pre.rouge .vm {
+  color: #008080;
+}
+pre.rouge .ow {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .o {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .w {
+  color: #bbbbbb;
+}
+pre.rouge {
+  background-color: #f8f8f8;
+}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>PLSQL Übung 4</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2022-12-01</span>
+<br><span id="revremark">ITP</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_exercise">1. Exercise</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="PLSQL-Übung-03.pdf">Angabe</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exercise"><a class="anchor" href="#_exercise"></a>1. Exercise</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Erstelle eine Prozedur in einem anonymen Block, welche sämtliche Datenbankobjekte des aktuellen Schemas, welche in der Data-Dictionary-View CAT angeführt sind, löscht.</p>
+</div>
+<details>
+<summary class="title">Hinweis 1</summary>
+<div class="content">
+<div class="paragraph">
+<p>Hinweis 1: Lese zunächst die einzelnen Zeilen der View CAT aus und erstelle ein
+entsprechendes SQL-Statement in einem String. Anschließend führe
+das SQL-Statement mittels Native Dynamic SQL aus.</p>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Hinweis 2</summary>
+<div class="content">
+<div class="paragraph">
+<p>Hinweis 2: Achte beim löschen der Tabellen, auf Beschränkungen durch vorhan-
+dene Foreign-Key-Constraints.</p>
+</div>
+</div>
+</details>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+if  you want to restore the tables later, execute the statement down below
+</td>
+</tr>
+</table>
+</div>
+<details>
+<summary class="title">For restoring later</summary>
+<div class="content">
+<div class="paragraph">
+<p>This will delete the current recycle-bin, so we can restore the tables later. (otherwise a lot of before dropped tables will be restored too)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="n">purge</span> <span class="n">recyclebin</span></code></pre>
+</div>
+</div>
+</div>
+</details>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">or</span> <span class="k">replace</span> <span class="k">procedure</span> <span class="n">DELETEALL</span>
+<span class="k">as</span>
+    <span class="k">table_name</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">);</span>
+    <span class="k">cursor</span> <span class="n">tables</span> <span class="k">is</span>
+        <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">CAT</span> <span class="k">where</span> <span class="n">TABLE_TYPE</span> <span class="o">=</span> <span class="s1">'TABLE'</span> <span class="k">and</span> <span class="k">TABLE_NAME</span> <span class="k">not</span> <span class="k">like</span> <span class="s1">'BIN%'</span><span class="p">;</span>
+    <span class="n">tableName</span> <span class="n">CAT</span><span class="p">.</span><span class="k">TABLE_NAME</span><span class="o">%</span><span class="k">TYPE</span><span class="p">;</span>
+    <span class="n">tableType</span> <span class="n">CAT</span><span class="p">.</span><span class="n">TABLE_TYPE</span><span class="o">%</span><span class="k">TYPE</span><span class="p">;</span>
+    <span class="n">sql_stmt</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+    <span class="n">v_amount</span> <span class="n">number</span><span class="p">;</span>
+<span class="k">begin</span>
+    <span class="k">open</span> <span class="n">tables</span><span class="p">;</span>
+    <span class="n">loop</span>
+        <span class="n">loop</span>
+            <span class="k">begin</span>
+                <span class="k">fetch</span> <span class="n">tables</span> <span class="k">into</span> <span class="n">tableName</span><span class="p">,</span> <span class="n">tableType</span><span class="p">;</span>
+                <span class="n">exit</span> <span class="k">when</span> <span class="n">tables</span><span class="o">%</span><span class="n">notfound</span><span class="p">;</span>
+
+                <span class="n">sql_stmt</span> <span class="p">:</span><span class="o">=</span> <span class="s1">'DROP TABLE '</span> <span class="o">||</span> <span class="n">tableName</span><span class="p">;</span>
+                <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="n">sql_stmt</span><span class="p">);</span>
+                <span class="k">execute</span> <span class="k">immediate</span> <span class="n">sql_stmt</span><span class="p">;</span>
+            <span class="n">EXCEPTION</span>
+                <span class="k">when</span> <span class="n">others</span>
+                    <span class="k">then</span> <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'delete failed'</span><span class="p">);</span>
+            <span class="k">end</span><span class="p">;</span>
+        <span class="k">end</span> <span class="n">loop</span><span class="p">;</span>
+        <span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">into</span> <span class="n">v_amount</span> <span class="k">from</span> <span class="n">CAT</span> <span class="k">where</span> <span class="n">TABLE_TYPE</span> <span class="o">=</span> <span class="s1">'TABLE'</span> <span class="k">and</span> <span class="k">TABLE_NAME</span> <span class="k">not</span> <span class="k">like</span> <span class="s1">'BIN%'</span><span class="p">;</span>
+        <span class="n">exit</span> <span class="k">when</span> <span class="n">v_amount</span> <span class="k">like</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">end</span> <span class="n">loop</span><span class="p">;</span>
+    <span class="k">close</span> <span class="n">tables</span><span class="p">;</span>
+<span class="k">end</span><span class="p">;</span>
+<span class="o">/</span>
+<span class="k">begin</span>
+    <span class="n">DELETEALL</span><span class="p">();</span>
+<span class="k">end</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now all tables should be deleted, you can double-check this tho:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">CAT</span> <span class="k">where</span> <span class="n">TABLE_TYPE</span> <span class="o">=</span> <span class="s1">'TABLE'</span> <span class="k">and</span> <span class="k">TABLE_NAME</span> <span class="k">not</span> <span class="k">like</span> <span class="s1">'BIN$%'</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<details>
+<summary class="title">Restore your deleted tables</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">or</span> <span class="k">replace</span> <span class="k">procedure</span> <span class="n">RESTORE_TABLES</span>
+<span class="k">as</span>
+    <span class="k">cursor</span> <span class="n">entities</span> <span class="k">is</span>
+        <span class="k">select</span> <span class="n">ORIGINAL_NAME</span> <span class="k">from</span> <span class="n">RECYCLEBIN</span><span class="p">;</span>
+    <span class="n">v_name</span> <span class="n">RECYCLEBIN</span><span class="p">.</span><span class="n">ORIGINAL_NAME</span><span class="o">%</span><span class="k">type</span><span class="p">;</span>
+    <span class="n">v_sql</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">);</span>
+<span class="k">begin</span>
+    <span class="k">open</span> <span class="n">entities</span><span class="p">;</span>
+    <span class="n">loop</span>
+        <span class="k">begin</span>
+            <span class="k">fetch</span> <span class="n">entities</span> <span class="k">into</span> <span class="n">v_name</span><span class="p">;</span>
+            <span class="n">exit</span> <span class="k">when</span> <span class="n">entities</span><span class="o">%</span><span class="n">notfound</span><span class="p">;</span>
+
+            <span class="n">v_sql</span> <span class="p">:</span><span class="o">=</span> <span class="s1">'flashback table '</span> <span class="o">||</span> <span class="n">v_name</span> <span class="o">||</span> <span class="s1">' to before drop'</span><span class="p">;</span>
+
+            <span class="k">execute</span> <span class="k">immediate</span> <span class="n">v_sql</span><span class="p">;</span>
+        <span class="n">EXCEPTION</span>
+            <span class="k">when</span> <span class="n">others</span> <span class="k">then</span>
+                <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'restoring table '</span> <span class="o">||</span> <span class="n">v_name</span> <span class="o">||</span> <span class="s1">' failed'</span><span class="p">);</span>
+        <span class="k">end</span><span class="p">;</span>
+    <span class="k">end</span> <span class="n">loop</span><span class="p">;</span>
+    <span class="k">close</span> <span class="n">entities</span><span class="p">;</span>
+<span class="k">end</span><span class="p">;</span>
+<span class="o">/</span>
+<span class="k">begin</span>
+    <span class="n">RESTORE_TABLES</span><span class="p">();</span>
+<span class="k">end</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>after this, your tables should be restored:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">CAT</span> <span class="k">where</span> <span class="n">TABLE_TYPE</span> <span class="o">=</span> <span class="s1">'TABLE'</span> <span class="k">and</span> <span class="k">TABLE_NAME</span> <span class="k">not</span> <span class="k">like</span> <span class="s1">'BIN$%'</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>you might consider committing, I am currently not sure if restore does commit automatically</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">commit</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</details>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2022-12-01 10:45:36 UTC
+</div>
+</div>
+</body>
+</html>
