@@ -1176,3 +1176,31 @@ delete IT190228.EMP;
 
 image::plsq-stored-function-syntax.png[]
 
+== CAT & Recycle Bin
+
+Der Catalog (CAT) kann aus der Datenbank ausgelesen werden
+
+[source, sql]
+----
+select * from CAT;
+----
+
+Hierbei sind Tabellen BIN... gelöschte Tabellen, also so ein art Mülleimer
+
+Dieser kann wie folgt gelöscht werden:
+
+[source,sql]
+----
+purge recyclebin
+----
+
+Mehr Informationen in den https://docs.oracle.com/cd/B19306_01/server.102/b14200/statements_9018.htm[Oracle Docs^]
+
+[source, sql]
+----
+drop table BEST_SAL;
+
+flashback table BEST_SAL to before drop;
+
+select * from BEST_SAL;
+----

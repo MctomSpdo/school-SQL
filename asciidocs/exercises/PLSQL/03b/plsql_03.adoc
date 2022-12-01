@@ -137,3 +137,19 @@ begin
 end;
 /
 ----
+
+== Exercise
+
+Erstelle eine Stored Procedure TABCONS mit folgenden Parametern:
+Eingabeparameter: +
+TABNAME +
+Zum übergebenen Tabellennamen soll die Constraints dieser Tabelle ermittelt +
+und ausgegeben werden. +
+Die Ausgabe sollte folgendes Aussehen haben (z.B. für EMP):
+
+image:angabe.png[]
+
+[source, sql]
+----
+select * from ALL_TAB_COLUMNS where OWNER = user and TABLE_NAME = 'EMP';
+----
