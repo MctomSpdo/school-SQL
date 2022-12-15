@@ -1204,3 +1204,23 @@ flashback table BEST_SAL to before drop;
 
 select * from BEST_SAL;
 ----
+
+== Trigger
+
+[source, sql]
+----
+create or replace trigger AUDIT_SAL
+    after update of SAL
+    on EMP
+    for each row
+BEGIN
+INSERT INTO emp_audit VALUES (user, sysdate, :old.sal, :new.sal, :new.empno);
+END;
+/
+----
+
+.Disable trigger afterwards
+[source, sql]
+----
+alter trigger AUDIT_SAL disable;
+----
