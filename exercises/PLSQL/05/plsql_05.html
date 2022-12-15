@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.18">
+<meta name="author" content="Mctom Spdo">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>PLSQL Übung 5</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+:root{
+--maincolor:#282c34;
+--primarycolor:#f39c12;
+--secondarycolor:#03a9f4;
+--tertiarycolor:#4db6ac;
+--sidebarbackground:#21252b;
+--linkcolor:#f44336;
+--linkcoloralternate:#ff9800;
+--white:#FFFFFF;
+}
+
+/* custom added styles */
+.listingblock > .content > pre{
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+/* Text styles */
+body{font-family: "Noto Sans",sans-serif;background-color: var(--maincolor);color:var(--white);}
+
+h1{color:var(--primarycolor) !important;font-family:"Noto Sans",sans-serif;}
+h2,h3,h4,h5,h6{color:var(--secondarycolor) !important;font-family:"Noto Sans",sans-serif;}
+.title{color:var(--white) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Noto Sans",sans-serif ! important}
+#toc.toc2 a:link{color:var(--linkcolor);}
+blockquote{color:var(--tertiarycolor) !important}
+.quoteblock{color:var(--white)}
+code{color:var(--linkcoloralternate);background-color: var(--sidebarbackground) !important}
+
+
+/* Table styles */
+th{background-color: var(--maincolor);color:var(--white) !important;}
+td{background-color: var(--maincolor);color: var(--linkcoloralternate) !important}
+
+
+#toc.toc2{background-color:var(--sidebarbackground);}
+#toctitle{color:var(--white);}
+
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  table {
+    width: 55vw!important;
+    font-size: 3vw;
+  }
+}
+
+.exampleblock > .content {
+  background-color: var(--maincolor);
+}
+
+a {
+  color: var(--secondarycolor);
+}
+
+.admonitionblock td.icon .icon-tip::before {
+  text-shadow: none;
+  color: var(--white);
+}
+.admonitionblock td.icon .icon-note::before {
+  color: var(--tertiarycolor);
+}
+.admonitionblock td.icon .icon-important::before {
+  color: var(--linkcolor);
+}
+/*.admonitionblock td.icon .icon-caution::before {
+  color: var(--linkcoloralternate);
+}*/
+.admonitionblock td.icon .icon-warning::before {
+  color: var(--primarycolor);
+}
+
+#preamble > .sectionbody > .paragraph:first-of-type p {
+  color: var(--white);
+}
+
+.quoteblock blockquote::before {
+  color: var(--primarycolor);
+}
+.quoteblock .attribution cite, .verseblock .attribution cite {
+  color: var(--white);
+}
+.verseblock pre {
+  color: var(--white);
+}
+.quoteblock blockquote, .quoteblock blockquote p {
+  color: var(--white);
+}
+
+.sidebarblock {
+  background: var(--sidebarbackground);
+}
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+#header .details {
+  color: var(--white);
+}
+#header .details span.email a {
+  color: var(--linkcoloralternate);
+}
+
+/* in code style fixes */
+
+.k {
+  color: #008800 !important;
+}
+
+.k:contains("select"), .k:contains("create"), .k:contains("update"), .k:contains("replace"), .k:contains("beginn"),
+.k:contains("delete"), .k:contains("alter"), .k:contains("drop") {
+  color: #BB0066 !important;
+}
+
+.k:contains("return"), .k:cotains("primary"), .k:contains("foreign"), .k:contains("cascade") {
+  color: #008888 !important;
+}
+
+.k:contains("key"), .k:contains("constraint"), .k:contains("table") {
+  color: #333399 !important;
+}
+
+.mi {
+  color: #0202D2 !important;
+}
+
+.nb {
+  color: #00AA88 !important;
+}
+
+.o {
+  color: var(--white) !important;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge .cm {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cp {
+  color: #999999;
+  font-weight: bold;
+}
+pre.rouge .c1 {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cs {
+  color: #999999;
+  font-weight: bold;
+  font-style: italic;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cpf {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+pre.rouge .gd {
+  color: #000000;
+  background-color: #ffdddd;
+}
+pre.rouge .ge {
+  color: #000000;
+  font-style: italic;
+}
+pre.rouge .gr {
+  color: #aa0000;
+}
+pre.rouge .gh {
+  color: #999999;
+}
+pre.rouge .gi {
+  color: #000000;
+  background-color: #ddffdd;
+}
+pre.rouge .go {
+  color: #888888;
+}
+pre.rouge .gp {
+  color: #555555;
+}
+pre.rouge .gs {
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #aaaaaa;
+}
+pre.rouge .gt {
+  color: #aa0000;
+}
+pre.rouge .kc {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kd {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kn {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kp {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kr {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kt {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .k, pre.rouge .kv {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .mf {
+  color: #009999;
+}
+pre.rouge .mh {
+  color: #009999;
+}
+pre.rouge .il {
+  color: #009999;
+}
+pre.rouge .mi {
+  color: #009999;
+}
+pre.rouge .mo {
+  color: #009999;
+}
+pre.rouge .m, pre.rouge .mb, pre.rouge .mx {
+  color: #009999;
+}
+pre.rouge .sa {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .sb {
+  color: #d14;
+}
+pre.rouge .sc {
+  color: #d14;
+}
+pre.rouge .sd {
+  color: #d14;
+}
+pre.rouge .s2 {
+  color: #d14;
+}
+pre.rouge .se {
+  color: #d14;
+}
+pre.rouge .sh {
+  color: #d14;
+}
+pre.rouge .si {
+  color: #d14;
+}
+pre.rouge .sx {
+  color: #d14;
+}
+pre.rouge .sr {
+  color: #009926;
+}
+pre.rouge .s1 {
+  color: #d14;
+}
+pre.rouge .ss {
+  color: #990073;
+}
+pre.rouge .s, pre.rouge .dl {
+  color: #d14;
+}
+pre.rouge .na {
+  color: #008080;
+}
+pre.rouge .bp {
+  color: #999999;
+}
+pre.rouge .nb {
+  color: #0086B3;
+}
+pre.rouge .nc {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .no {
+  color: #008080;
+}
+pre.rouge .nd {
+  color: #3c5d5d;
+  font-weight: bold;
+}
+pre.rouge .ni {
+  color: #800080;
+}
+pre.rouge .ne {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nl {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nn {
+  color: #555555;
+}
+pre.rouge .nt {
+  color: #000080;
+}
+pre.rouge .vc {
+  color: #008080;
+}
+pre.rouge .vg {
+  color: #008080;
+}
+pre.rouge .vi {
+  color: #008080;
+}
+pre.rouge .nv, pre.rouge .vm {
+  color: #008080;
+}
+pre.rouge .ow {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .o {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .w {
+  color: #bbbbbb;
+}
+pre.rouge {
+  background-color: #f8f8f8;
+}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>PLSQL Übung 5</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2022-12-15</span>
+<br><span id="revremark">ITP</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_exercise">1. Exercise</a></li>
+<li><a href="#_exercise_2">2. Exercise</a></li>
+<li><a href="#_exercise_3">3. Exercise</a></li>
+<li><a href="#_exercise_4">4. Exercise</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="PLSQL-Übung-05.pdf">Angabe</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exercise"><a class="anchor" href="#_exercise"></a>1. Exercise</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Bank duldet keine Kontoüberziehung, sondern erzeugt bei negativen Kontostän- den (Tabelle account) einen Kredit:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>setze den Kontostand auf 0</p>
+</li>
+<li>
+<p>erzeuge einen Kredit in der entsprechenden Höhe (Tabelle loan)</p>
+</li>
+<li>
+<p>Kreditnummer ist Kontonummer</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Beispiel, wie das Ergebnis ausschauen soll:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">delete</span> <span class="k">from</span> <span class="n">account</span><span class="p">;</span>
+<span class="k">delete</span> <span class="k">from</span> <span class="n">loan</span><span class="p">;</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">account</span> <span class="k">values</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">'Tumfart'</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>
+<span class="k">update</span> <span class="n">account</span> <span class="k">set</span> <span class="n">balance</span><span class="o">=-</span><span class="mi">100</span> <span class="k">where</span> <span class="n">account_number</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">account</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Account_Number</th>
+<th class="tableblock halign-left valign-top">Account_Name</th>
+<th class="tableblock halign-left valign-top">Balance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tumfart</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">loan</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">LOAN_NUMBER</th>
+<th class="tableblock halign-left valign-top">AMOUNT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-80</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exercise_2"><a class="anchor" href="#_exercise_2"></a>2. Exercise</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Erstelle einen Database Trigger, der überprüft, dass eine Gehaltsänderung nicht über die Grenzen der aktuellen Gehaltsstufe (Tabelle SALGRADE) gehen kann.
+Ausgenommen sind die MANAGER und der PRESIDENT.
+Teste den Code.</p>
+</div>
+<details>
+<summary class="title">Salgrade Inserts</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">SALGRADE</span> <span class="p">(</span>
+ <span class="n">GRADE</span>               <span class="n">NUMBER</span><span class="p">,</span>
+ <span class="n">LOSAL</span>               <span class="n">NUMBER</span><span class="p">,</span>
+ <span class="n">HISAL</span>               <span class="n">NUMBER</span><span class="p">);</span>
+
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">SALGRADE</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">700</span><span class="p">,</span><span class="mi">1200</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">SALGRADE</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1201</span><span class="p">,</span><span class="mi">1400</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">SALGRADE</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1401</span><span class="p">,</span><span class="mi">2000</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">SALGRADE</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2001</span><span class="p">,</span><span class="mi">3000</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">SALGRADE</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3001</span><span class="p">,</span><span class="mi">9999</span><span class="p">);</span></code></pre>
+</div>
+</div>
+</div>
+</details>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">or</span> <span class="k">replace</span> <span class="k">trigger</span> <span class="n">check_sal</span>
+    <span class="k">before</span> <span class="k">update</span> <span class="k">of</span> <span class="n">sal</span> <span class="k">on</span> <span class="n">emp</span>
+    <span class="k">for</span> <span class="k">each</span> <span class="k">row</span>
+    <span class="k">when</span> <span class="p">(</span><span class="k">OLD</span><span class="p">.</span><span class="n">JOB</span> <span class="k">not</span> <span class="k">in</span> <span class="p">(</span><span class="s1">'Manager'</span><span class="p">,</span> <span class="s1">'President'</span><span class="p">))</span>
+<span class="k">declare</span>
+    <span class="n">v_losal</span> <span class="n">SALGRADE</span><span class="p">.</span><span class="n">LOSAL</span><span class="o">%</span><span class="k">type</span><span class="p">;</span>
+    <span class="n">v_hisal</span> <span class="n">SALGRADE</span><span class="p">.</span><span class="n">HISAL</span><span class="o">%</span><span class="k">type</span><span class="p">;</span>
+<span class="k">begin</span>
+    <span class="c1">-- get data</span>
+    <span class="k">select</span> <span class="n">HISAL</span><span class="p">,</span> <span class="n">LOSAL</span>
+    <span class="k">into</span> <span class="n">v_hisal</span><span class="p">,</span> <span class="n">v_losal</span>
+    <span class="k">from</span> <span class="n">SALGRADE</span>
+        <span class="k">where</span> <span class="p">:</span><span class="k">old</span><span class="p">.</span><span class="n">SAL</span> <span class="k">between</span> <span class="n">LOSAL</span> <span class="k">and</span> <span class="n">HISAL</span><span class="p">;</span>
+
+    <span class="n">if</span><span class="p">(:</span><span class="k">new</span><span class="p">.</span><span class="n">SAL</span> <span class="o">&gt;</span> <span class="n">v_hisal</span><span class="p">)</span> <span class="k">then</span>
+        <span class="n">raise_application_error</span><span class="p">(</span>
+            <span class="o">-</span><span class="mi">20000</span><span class="p">,</span>
+            <span class="s1">'Cannot update to a higher Salary grade! (limit: '</span> <span class="o">||</span> <span class="n">v_hisal</span> <span class="o">||</span> <span class="s1">')'</span>
+        <span class="p">);</span>
+    <span class="n">elsif</span> <span class="p">(:</span><span class="k">new</span><span class="p">.</span><span class="n">SAL</span> <span class="o">&lt;</span> <span class="n">v_losal</span><span class="p">)</span> <span class="k">then</span>
+        <span class="n">raise_application_error</span><span class="p">(</span>
+            <span class="o">-</span><span class="mi">20000</span><span class="p">,</span>
+            <span class="s1">'Cannot update to a lower Salary grade! (limit: '</span> <span class="o">||</span> <span class="n">v_losal</span> <span class="o">||</span> <span class="s1">', employee: '</span> <span class="o">||</span> <span class="p">:</span><span class="k">new</span><span class="p">.</span><span class="n">EMPNO</span> <span class="o">||</span> <span class="s1">'/'</span> <span class="o">||</span> <span class="p">:</span><span class="k">new</span><span class="p">.</span><span class="n">ENAME</span> <span class="o">||</span> <span class="s1">')'</span>
+        <span class="p">);</span>
+    <span class="k">end</span> <span class="n">if</span><span class="p">;</span>
+<span class="k">end</span><span class="p">;</span>
+<span class="o">/</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Disable the trigger</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">alter</span> <span class="k">trigger</span> <span class="n">check_sal</span> <span class="n">disable</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exercise_3"><a class="anchor" href="#_exercise_3"></a>3. Exercise</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Erstelle einen Database Trigger, der überprüft, dass pro Monat nur 2 Neueinstellungen durchgeführt werden können.
+Teste den Code.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">or</span> <span class="k">replace</span> <span class="k">trigger</span> <span class="n">checkNewEmployment</span>
+    <span class="k">before</span> <span class="k">insert</span> <span class="k">on</span> <span class="n">EMP</span>
+    <span class="k">for</span> <span class="k">each</span> <span class="k">row</span>
+<span class="k">declare</span>
+    <span class="n">v_count</span> <span class="n">number</span><span class="p">;</span>
+    <span class="n">v_max</span> <span class="n">number</span> <span class="p">:</span><span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="k">begin</span>
+    <span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">into</span> <span class="n">v_count</span>
+    <span class="k">from</span> <span class="n">EMP</span>
+        <span class="k">where</span> <span class="n">months_between</span><span class="p">(</span><span class="n">SYSDATE</span><span class="p">,</span> <span class="n">HIREDATE</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">;</span>
+
+    <span class="n">if</span> <span class="p">(</span><span class="n">v_count</span> <span class="o">&gt;=</span> <span class="n">v_max</span><span class="p">)</span> <span class="k">then</span>
+        <span class="n">raise_application_error</span><span class="p">(</span>
+            <span class="o">-</span><span class="mi">20000</span><span class="p">,</span>
+            <span class="s1">'There cannot be more then'</span> <span class="o">||</span> <span class="n">v_max</span> <span class="o">||</span> <span class="s1">'monthly new hired persons!'</span>
+        <span class="p">);</span>
+    <span class="k">end</span> <span class="n">if</span><span class="p">;</span>
+<span class="k">end</span><span class="p">;</span>
+<span class="o">/</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Disable the trigger</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">alter</span> <span class="k">trigger</span> <span class="n">checkNewEmployment</span> <span class="n">disable</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exercise_4"><a class="anchor" href="#_exercise_4"></a>4. Exercise</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Erstelle einen Database Trigger, der überprüft, dass eine Gehaltserhöhung nicht mehr als 10% betragen darf.
+Ausgenommen davon ist der PRESIDENT.
+Teste den Code.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">or</span> <span class="k">replace</span> <span class="k">trigger</span> <span class="n">checkSalaryUpdate</span>
+    <span class="k">before</span> <span class="k">update</span> <span class="k">of</span> <span class="n">SAL</span> <span class="k">on</span> <span class="n">EMP</span>
+    <span class="k">for</span> <span class="k">each</span> <span class="k">row</span>
+    <span class="k">when</span> <span class="p">(</span><span class="k">OLD</span><span class="p">.</span><span class="n">JOB</span> <span class="k">not</span> <span class="k">in</span> <span class="p">(</span><span class="s1">'PRESIDENT'</span><span class="p">))</span>
+<span class="k">begin</span>
+    <span class="n">if</span><span class="p">(((:</span><span class="k">new</span><span class="p">.</span><span class="n">SAL</span> <span class="o">/</span> <span class="p">:</span><span class="k">old</span><span class="p">.</span><span class="n">SAL</span><span class="p">)</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="p">)</span> <span class="k">then</span>
+        <span class="n">raise_application_error</span><span class="p">(</span>
+            <span class="o">-</span><span class="mi">20000</span><span class="p">,</span>
+            <span class="s1">'Salary update cannot be over 10%!'</span>
+        <span class="p">);</span>
+    <span class="k">end</span> <span class="n">if</span><span class="p">;</span>
+<span class="k">end</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Disable the trigger</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">alter</span> <span class="k">trigger</span> <span class="n">CHECKSALARYUPDATE</span> <span class="n">disable</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2022-12-15 10:45:56 UTC
+</div>
+</div>
+</body>
+</html>

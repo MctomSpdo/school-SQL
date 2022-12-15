@@ -377,7 +377,7 @@ pre.rouge {
 <div class="details">
 <span id="author" class="author">Mctom Spdo</span><br>
 <span id="revnumber">version 1.0.0,</span>
-<span id="revdate">2022-12-01</span>
+<span id="revdate">2022-12-15</span>
 <br><span id="revremark">INSY</span>
 </div>
 <div id="toc" class="toc2">
@@ -474,6 +474,7 @@ pre.rouge {
 </ul>
 </li>
 <li><a href="#_cat_recycle_bin">19. CAT &amp; Recycle Bin</a></li>
+<li><a href="#_trigger">20. Trigger</a></li>
 </ul>
 </div>
 </div>
@@ -2292,11 +2293,34 @@ UNIQUE (column_name1 [,column_name2,....]),</pre>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_trigger"><a class="anchor" href="#_trigger"></a>20. Trigger</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">or</span> <span class="k">replace</span> <span class="k">trigger</span> <span class="n">AUDIT_SAL</span>
+    <span class="k">after</span> <span class="k">update</span> <span class="k">of</span> <span class="n">SAL</span>
+    <span class="k">on</span> <span class="n">EMP</span>
+    <span class="k">for</span> <span class="k">each</span> <span class="k">row</span>
+<span class="k">BEGIN</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">emp_audit</span> <span class="k">VALUES</span> <span class="p">(</span><span class="k">user</span><span class="p">,</span> <span class="n">sysdate</span><span class="p">,</span> <span class="p">:</span><span class="k">old</span><span class="p">.</span><span class="n">sal</span><span class="p">,</span> <span class="p">:</span><span class="k">new</span><span class="p">.</span><span class="n">sal</span><span class="p">,</span> <span class="p">:</span><span class="k">new</span><span class="p">.</span><span class="n">empno</span><span class="p">);</span>
+<span class="k">END</span><span class="p">;</span>
+<span class="o">/</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Disable trigger afterwards</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">alter</span> <span class="k">trigger</span> <span class="n">AUDIT_SAL</span> <span class="n">disable</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2022-12-01 10:46:44 UTC
+Last updated 2022-12-15 10:45:56 UTC
 </div>
 </div>
 </body>
