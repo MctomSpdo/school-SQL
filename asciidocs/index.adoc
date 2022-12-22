@@ -1224,3 +1224,8 @@ END;
 ----
 alter trigger AUDIT_SAL disable;
 ----
+
+== 2. Test
+
+* Packages kommen nicht
+* Übung Wawi ist gut vergleichbar was zum Test kommt, (allerdings ohne Package)
