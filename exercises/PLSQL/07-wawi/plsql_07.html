@@ -7,7 +7,7 @@
 <meta name="generator" content="Asciidoctor 2.0.18">
 <meta name="author" content="Mctom Spdo">
 <link rel="icon" type="image/png" href="themes/favicon.png">
-<title>PLSQL Übung 0</title>
+<title>PLSQL Übung 6</title>
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
 
@@ -373,7 +373,7 @@ pre.rouge {
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>PLSQL Übung 0</h1>
+<h1>PLSQL Übung 6</h1>
 <div class="details">
 <span id="author" class="author">Mctom Spdo</span><br>
 <span id="revnumber">version 1.0.0,</span>
@@ -383,9 +383,10 @@ pre.rouge {
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_aufgabe">1. Aufgabe</a></li>
-<li><a href="#_aufgabe_2">2. Aufgabe</a></li>
-<li><a href="#_aufgabe_3">3. Aufgabe</a></li>
+<li><a href="#_artikel">1. Artikel</a></li>
+<li><a href="#_kunde">2. Kunde</a></li>
+<li><a href="#_preisliste">3. Preisliste</a></li>
+<li><a href="#_rechnung">4. Rechnung</a></li>
 </ul>
 </div>
 </div>
@@ -393,103 +394,125 @@ pre.rouge {
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="ADAT_PLSQL-Übung-00.pdf">Angabe</a></p>
+<p><a href="PLSQL-Übung-07-wawi.pdf" class="bare">PLSQL-Übung-07-wawi.pdf</a></p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_aufgabe"><a class="anchor" href="#_aufgabe"></a>1. Aufgabe</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>Erstelle dein erstes PL/SQL Programm welches <code>'Hello World !'</code> ausgibt.</p>
+<p>Es ist eine Warenwirtschaftssystemappliaktion zu erstellen.<br>
+Führe in SQL*Plus zunächst das Skript WAWI.SQL aus. Erstelle anschließend ein
+Package WAWI_PACK, welches vier Unterprogramme beinhaltet:</p>
 </div>
-<div class="listingblock">
+<div class="imageblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">begin</span>
-<span class="n">dbms_output</span><span class="p">.</span><span class="n">put_line</span> <span class="p">(</span><span class="s1">'Hello World !'</span><span class="p">);</span>
-<span class="k">end</span><span class="p">;</span></code></pre>
+<img src="../../../images/erd.png" alt="erd">
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_aufgabe_2"><a class="anchor" href="#_aufgabe_2"></a>2. Aufgabe</h2>
+<h2 id="_artikel"><a class="anchor" href="#_artikel"></a>1. Artikel</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Erstelle ein PL/SQL Programm, welches aus der Tabelle emp den Namen für die Personalnummer 7369 liest und ausgibt</p>
+<p>Ein neuer Artikel ist einzufügen bzw. zu ändern.<br>
+<strong>Parameter:</strong> Bezeichnung, Artikelgruppenbezeichnung, Preis.<br>
+<strong>Rückgabe:</strong> neu angelegte ArtikelID. (fortlaufend)<br>
+Existiert dieser Artikel bereits (Bezeichnung) ist dieser zu ändern.</p>
 </div>
 <div class="listingblock">
+<div class="title">Create Procedure for primary key</div>
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">ENAME</span> <span class="k">from</span> <span class="n">EMP</span> <span class="k">where</span> <span class="n">EMPNO</span> <span class="o">=</span> <span class="mi">7369</span><span class="p">;</span>
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="n">sequence</span> <span class="n">PK_WAWI_ARTIKEL</span> <span class="k">start</span> <span class="k">with</span> <span class="mi">23</span><span class="p">;</span>
 
-<span class="k">declare</span>
-    <span class="n">personalnummer</span> <span class="n">number</span> <span class="p">:</span><span class="o">=</span> <span class="mi">7369</span><span class="p">;</span>
-    <span class="n">name</span>  <span class="nb">varchar</span><span class="p">(</span><span class="mi">250</span><span class="p">);</span>
+<span class="k">drop</span> <span class="n">sequence</span> <span class="n">PK_WAWI_ARTIKEL</span><span class="p">;</span>
+
+<span class="k">select</span> <span class="n">PK_WAWI_ARTIKEL</span><span class="p">.</span><span class="n">nextval</span> <span class="k">from</span> <span class="n">DUAL</span><span class="p">;</span>
+
+
+
+<span class="k">commit</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">or</span> <span class="k">replace</span> <span class="k">function</span> <span class="n">wawiAddArticle</span> <span class="p">(</span>
+    <span class="n">p_bezeichnung</span> <span class="k">in</span> <span class="n">WAWI_ARTIKEL</span><span class="p">.</span><span class="n">BEZEICHNUNG</span><span class="o">%</span><span class="k">type</span><span class="p">,</span>
+    <span class="n">p_artikelGruppenBezeichnung</span> <span class="k">in</span> <span class="n">WAWI_ARTIKEL_GRUPPE</span><span class="p">.</span><span class="n">BEZEICHNUNG</span><span class="o">%</span><span class="k">type</span><span class="p">,</span>
+    <span class="n">p_preis</span> <span class="k">in</span> <span class="n">number</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">WAWI_ARTIKEL</span><span class="p">.</span><span class="n">ARTIKELID</span><span class="o">%</span><span class="k">type</span>
+<span class="k">as</span>
+    <span class="n">counter</span> <span class="nb">integer</span><span class="p">;</span>
 <span class="k">begin</span>
-    <span class="k">select</span> <span class="n">ENAME</span> <span class="k">into</span> <span class="n">name</span> <span class="k">from</span> <span class="n">EMP</span> <span class="k">where</span> <span class="n">EMPNO</span> <span class="o">=</span> <span class="n">personalnummer</span><span class="p">;</span>
-    <span class="n">dbms_output</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
-<span class="k">end</span><span class="p">;</span></code></pre>
+    <span class="k">insert</span> <span class="k">into</span> <span class="n">WAWI_ARTIKEL</span>
+    <span class="p">(</span><span class="n">ARTIKELID</span><span class="p">,</span> <span class="n">ARTIKELGRUPPEID</span><span class="p">,</span> <span class="n">BEZEICHNUNG</span><span class="p">,</span> <span class="n">PREIS</span><span class="p">)</span>
+    <span class="k">values</span> <span class="p">(</span>
+        <span class="n">PK_WAWI_ARTIKEL</span><span class="p">.</span><span class="n">nextval</span><span class="p">,</span>
+        <span class="p">(</span><span class="k">select</span> <span class="n">ARTIKELGRUPPEID</span>
+         <span class="k">from</span> <span class="n">WAWI_ARTIKEL_GRUPPE</span>
+         <span class="k">where</span> <span class="k">upper</span><span class="p">(</span><span class="n">BEZEICHNUNG</span><span class="p">)</span> <span class="k">like</span> <span class="k">upper</span><span class="p">(</span><span class="n">p_artikelGruppenBezeichnung</span><span class="p">)),</span>
+        <span class="n">p_bezeichnung</span><span class="p">,</span>
+        <span class="n">p_preis</span>
+    <span class="p">);</span>
+
+    <span class="k">return</span> <span class="n">PK_WAWI_ARTIKEL</span><span class="p">.</span><span class="n">currval</span><span class="p">;</span>
+<span class="k">end</span> <span class="n">wawiAddArticle</span><span class="p">;</span>
+<span class="o">/</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">wawiAddArticle</span><span class="p">(</span><span class="s1">'test'</span><span class="p">,</span> <span class="s1">'eisen'</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="k">from</span> <span class="n">DUAL</span><span class="p">;</span></code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_aufgabe_3"><a class="anchor" href="#_aufgabe_3"></a>3. Aufgabe</h2>
+<h2 id="_kunde"><a class="anchor" href="#_kunde"></a>2. Kunde</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Schreibe das PL/SQL Programm von Seite 1 ab (Verkauf von Tennis-Rackets wird nur dann zugelassen, wenn genügende Anzahl vorrätig ist).
-Ergänze feh- lende Rahmenbedingungen und teste die Funktionsweise.</p>
-</div>
-<details>
-<summary class="title">Angabe</summary>
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">DEMO_TENNIS</span><span class="p">.</span><span class="n">players</span><span class="p">;</span>
-
-<span class="k">DECLARE</span>
-    <span class="n">qty_on_hand</span> <span class="n">NUMBER</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">-- lokale Variable</span>
-<span class="k">BEGIN</span>
-    <span class="k">SELECT</span> <span class="n">quantity</span> <span class="k">INTO</span> <span class="n">qty_on_hand</span> <span class="k">FROM</span> <span class="n">inventory</span>
-    <span class="k">WHERE</span> <span class="n">product</span> <span class="o">=</span> <span class="s1">'TENNIS RACKET'</span>
-    <span class="k">FOR</span> <span class="k">UPDATE</span> <span class="k">OF</span> <span class="n">quantity</span><span class="p">;</span>
-    <span class="c1">-- Verzweigung</span>
-    <span class="n">IF</span> <span class="n">qty_on_hand</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">THEN</span> <span class="c1">-- check quantity</span>
-        <span class="k">UPDATE</span> <span class="n">inventory</span> <span class="k">SET</span> <span class="n">quantity</span> <span class="o">=</span> <span class="n">quantity</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="k">WHERE</span> <span class="n">product</span> <span class="o">=</span> <span class="s1">'TENNIS RACKET'</span><span class="p">;</span>
-        <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">purchase_record</span>
-        <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'Tennis racket purchased'</span><span class="p">,</span> <span class="n">SYSDATE</span><span class="p">);</span>
-    <span class="k">ELSE</span>
-        <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">purchase_record</span>
-        <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'Out of tennis rackets'</span><span class="p">,</span> <span class="n">SYSDATE</span><span class="p">);</span>
-    <span class="k">END</span> <span class="n">IF</span><span class="p">;</span>
-    <span class="k">COMMIT</span><span class="p">;</span>
-<span class="k">END</span><span class="p">;</span></code></pre>
+<p>Ein neuer Kunde ist einzufügen bzw. zu ändern.<br>
+<strong>Parameter:</strong> Kundengruppenbezeichnung, VName, NName, Adresse.<br>
+<strong>Rückgabe:</strong> neu angelegte KundenID. (fortlaufend)<br>
+Existiert dieser Kunde bereits (VName, NName) ist dieser zu ändern.</p>
 </div>
 </div>
 </div>
-</details>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">DECLARE</span>
-    <span class="n">qty_on_hand</span> <span class="n">NUMBER</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">-- lokale Variable</span>
-<span class="k">BEGIN</span>
-    <span class="k">SELECT</span> <span class="n">quantity</span> <span class="k">INTO</span> <span class="n">qty_on_hand</span> <span class="k">FROM</span> <span class="n">inventory</span>
-    <span class="k">WHERE</span> <span class="n">product</span> <span class="o">=</span> <span class="s1">'TENNIS RACKET'</span>
-    <span class="k">FOR</span> <span class="k">UPDATE</span> <span class="k">OF</span> <span class="n">quantity</span><span class="p">;</span>
-    <span class="c1">-- Verzweigung</span>
-    <span class="n">IF</span> <span class="n">qty_on_hand</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">THEN</span> <span class="c1">-- check quantity</span>
-        <span class="k">UPDATE</span> <span class="n">inventory</span> <span class="k">SET</span> <span class="n">quantity</span> <span class="o">=</span> <span class="n">quantity</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="k">WHERE</span> <span class="n">product</span> <span class="o">=</span> <span class="s1">'TENNIS RACKET'</span><span class="p">;</span>
-        <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">purchase_record</span>
-        <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'Tennis racket purchased'</span><span class="p">,</span> <span class="n">SYSDATE</span><span class="p">);</span>
-    <span class="k">ELSE</span>
-        <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">purchase_record</span>
-        <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'Out of tennis rackets'</span><span class="p">,</span> <span class="n">SYSDATE</span><span class="p">);</span>
-    <span class="k">END</span> <span class="n">IF</span><span class="p">;</span>
-    <span class="k">COMMIT</span><span class="p">;</span>
-<span class="k">END</span><span class="p">;</span></code></pre>
+<div class="sect1">
+<h2 id="_preisliste"><a class="anchor" href="#_preisliste"></a>3. Preisliste</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ein neuer Rabatt ist einzufügen bzw. zu ändern.<br>
+<strong>Parameter:</strong> Kundengruppenbezeichnung, Artikelgruppenbezeichnung.<br>
+<strong>Rückgabe:</strong> keiner<br>
+Existiert dieser Rabattsatz bereits ist dieser zu ändern.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_rechnung"><a class="anchor" href="#_rechnung"></a>4. Rechnung</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Gibt sämtliche Rechnungen eines Kunden aus.<br>
+<strong>Parameter:</strong> KundenID.<br>
+<strong>Rückgabe:</strong> keiner<br>
+Dabei wird zunächst eine Zeile mit den Daten des Rechnungskopfes (rechnungs-
+kopfID, VName, NName, Kundengruppenbezeichnung) ausgegeben und daran die
+einzelnen Positionen der Rechnung angefügt. (RechnungskopfID, Rechnungspositi-
+onsID, ArtikelID, Menge, Artikelgruppenbezeichnung, Rabatt, Preis je Artikel, Summe=(Menge * Preis)-Rabatt).
+Jede Rechnung erhält eine Summenzeile.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha">
+<li>
+<p>Entscheide, ob Funktionen oder Prozeduren zu erstellen sind.</p>
+</li>
+<li>
+<p>Erstelle anschließend ein Skript, welches die Unterprogramme mit mehreren
+Testfällen testet (z.B. unnamed block).</p>
+</li>
+<li>
+<p>Fehler sollen abgefangen werden und sprechende Fehlermeldungen ausge-
+geben werden.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
