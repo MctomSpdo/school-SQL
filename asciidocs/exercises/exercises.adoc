@@ -35,4 +35,4 @@ Other exercises:
 * link:PLSQL/03/plsql_03.html[PLSQL 3]
 * link:PLSQL/03b/plsql_03.html[PLSQL 3b]
 * link:PLSQL/04/plsql_04.html[PLSQL 4]
-* link:PLSQL/05/plsql_05.adoc[PLSQL 5]
+* link:PLSQL/05/plsql_05.html[PLSQL 5]
