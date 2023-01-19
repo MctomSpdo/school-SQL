@@ -377,7 +377,7 @@ pre.rouge {
 <div class="details">
 <span id="author" class="author">Mctom Spdo</span><br>
 <span id="revnumber">version 1.0.0,</span>
-<span id="revdate">2023-01-08</span>
+<span id="revdate">2023-01-19</span>
 <br><span id="revremark">INSY</span>
 </div>
 <div id="toc" class="toc2">
@@ -443,10 +443,10 @@ pre.rouge {
 <li><a href="#_einfügen">13.1. Einfügen</a></li>
 <li><a href="#_ändern">13.2. Ändern</a></li>
 <li><a href="#_löschen">13.3. Löschen</a></li>
-<li><a href="#_nummernfolgen_sequenzen">13.4. Nummernfolgen (Sequenzen)</a></li>
+<li><a href="#_nummerfolgen_sequenzen">13.4. Nummerfolgen (Sequenzen)</a></li>
 </ul>
 </li>
-<li><a href="#_constraints_integrity_rules">14. Constraints (Integrity Rules)</a>
+<li><a href="#_integrity_rules_constraints">14. Integrity Rules (Constraints)</a>
 <ul class="sectlevel2">
 <li><a href="#_not_null">14.1. NOT NULL</a></li>
 <li><a href="#_pk_primarykey">14.2. PK (PrimaryKey)</a></li>
@@ -456,26 +456,17 @@ pre.rouge {
 <li><a href="#_löschen_von_constraints">14.6. Löschen von Constraints</a></li>
 </ul>
 </li>
-<li><a href="#_index_2">15. Index</a>
+<li><a href="#_teststoff">15. TestStoff</a>
 <ul class="sectlevel2">
-<li><a href="#_views">15.1. Views</a></li>
+<li><a href="#_testbesprechung">15.1. Testbesprechung</a></li>
 </ul>
 </li>
-<li><a href="#_new_password">16. New Password</a></li>
-<li><a href="#_rechte_auf_der_datenbank">17. Rechte auf der Datenbank</a>
+<li><a href="#_index_2">16. Index</a>
 <ul class="sectlevel2">
-<li><a href="#_grant">17.1. Grant</a></li>
+<li><a href="#_views">16.1. Views</a></li>
 </ul>
 </li>
-<li><a href="#_plsql">18. PL/SQL</a>
-<ul class="sectlevel2">
-<li><a href="#_functions_2">18.1. Functions</a></li>
-<li><a href="#_stored_functions">18.2. stored Functions</a></li>
-</ul>
-</li>
-<li><a href="#_cat_recycle_bin">19. CAT &amp; Recycle Bin</a></li>
-<li><a href="#_trigger">20. Trigger</a></li>
-<li><a href="#_2_test">21. 2. Test</a></li>
+<li><a href="#_2_exam">17. 2. Exam</a></li>
 </ul>
 </div>
 </div>
@@ -563,10 +554,16 @@ pre.rouge {
 </li>
 </ul>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">alter</span> <span class="k">session</span> <span class="k">set</span> <span class="n">nls_date_format</span> <span class="o">=</span> <span class="s1">'DD-MON-YYYY HH24:MI:SS'</span><span class="p">;</span></code></pre>
-</div>
+<div class="paragraph">
+<p><a href="../uebungen/01/uebung_1.html">Übung 1 a</a><br>
+<a href="../uebungen/01_01/uebung_1.html">Übung 1b</a><br>
+<a href="../uebungen/04/Uebung_4">Übung 4</a><br>
+<a href="../uebungen/05/Uebung_5">Übung 5</a><br>
+<a href="../uebungen/06/uebung_6">Übung 6</a><br>
+<a href="../school-SQL/uebungen/07/uebung_7">Übung 7</a><br>
+<a href="../school-SQL/uebungen/10/uebung_10">Übung 10</a><br>
+<a href="../uebungen/12/uebung_12.html">Übung 12</a><br>
+<a href="../uebungen/13/uebung_13.html">Übung 13</a></p>
 </div>
 <div class="ulist">
 <ul>
@@ -1244,7 +1241,7 @@ For example groups the players by town:</p>
 </div>
 </div>
 <div class="paragraph">
-<p><a href="../uebungen/05/Uebung_5.html">Übung 5</a></p>
+<p><a href="https://mctomspdo.github.io/school-SQL/uebungen/05/Uebung_5.html">Übung 5</a></p>
 </div>
 </div>
 </div>
@@ -1272,11 +1269,11 @@ This is why we have to check that the Players and the penalties have the same Pl
 </div>
 </div>
 <div class="paragraph">
-<p>The most used Join-type is the Equijoin (Natural Join).<br></p>
+<p>The most used Jointype is the Equijoin (Natural Join).<br></p>
 </div>
 <div class="paragraph">
 <p>Join Types:
-<a href="../docs/Join_NEU.pdf">Join_NEU.pdf</a></p>
+<a href="https://mctomspdo.github.io/school-SQL/docs/Join_NEU.pdf">Join_NEU.pdf</a></p>
 </div>
 <div class="sect2">
 <h3 id="_natural_join"><a class="anchor" href="#_natural_join"></a>10.1. Natural Join</h3>
@@ -1345,7 +1342,7 @@ This is why we have to check that the Players and the penalties have the same Pl
 </div>
 </div>
 <div class="paragraph">
-<p>The outcome should be 14 lines long, since the BIGBOSS does <strong>not</strong> have a DeptNo.</p>
+<p>The outcome should be 14 lines long, since the BIGBOSS does not have a DeptNo.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1512,7 +1509,7 @@ Das Datumsformat für die Session kann jederzeit geändert werden, mithilfe folg
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">alter</span> <span class="k">session</span> <span class="k">set</span> <span class="n">nls_date_format</span> <span class="o">=</span> <span class="s1">'DD-MM-YYYY HH24:MI:SS'</span><span class="p">;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">alter</span> <span class="k">session</span> <span class="k">set</span> <span class="n">nls_date_format</span> <span class="o">=</span> <span class="s1">'DD-MON-YYYY HH24:MI:SS'</span><span class="p">;</span></code></pre>
 </div>
 </div>
 </div>
@@ -1580,7 +1577,7 @@ Das Datumsformat für die Session kann jederzeit geändert werden, mithilfe folg
 </div>
 </div>
 <div class="paragraph">
-<p>Skalarfunktionen: LPAD</p>
+<p>Skalarfunktion: LPAD</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1614,7 +1611,7 @@ Das Datumsformat für die Session kann jederzeit geändert werden, mithilfe folg
 <div class="sect3">
 <h4 id="_masseninsert"><a class="anchor" href="#_masseninsert"></a>13.1.1. Masseninsert:</h4>
 <div class="paragraph">
-<p>Mithilfe eines Masseninserts, kann man eine Kopie von der Tabelle anlegen, darauf arbeiten, und dann einen massen-insert machen, auf die Originaltabelle speichern.</p>
+<p>Mithilfe eines Masseninserts, kann man eine Kopie von der Tabelle anlegen, darauf arbeiten, und dann einen masseninsert machen, auf die Originaltablle speichern.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1670,7 +1667,7 @@ Where verwenden, sonst werden alle Zeilen geändert!
 </div>
 </div>
 <div class="paragraph">
-<p>3: Alle Preise über ATS 60,- um 10 % herabsetzen</p>
+<p>3: Alle Preise über ATS 60,- um 10% herabsetzen</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1680,7 +1677,7 @@ Where verwenden, sonst werden alle Zeilen geändert!
 </div>
 </div>
 <div class="paragraph">
-<p>4: Alle Preise unter dem Durchschnitt um 20 % erhöhen.</p>
+<p>4: Alle Preise unter dem Durchschnitt um 20% erhöhen.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1733,7 +1730,7 @@ Where verwenden, sonst werden alle Zeilen geändert!
 </div>
 </div>
 <div class="sect2">
-<h3 id="_nummernfolgen_sequenzen"><a class="anchor" href="#_nummernfolgen_sequenzen"></a>13.4. Nummernfolgen (Sequenzen)</h3>
+<h3 id="_nummerfolgen_sequenzen"><a class="anchor" href="#_nummerfolgen_sequenzen"></a>13.4. Nummerfolgen (Sequenzen)</h3>
 <div class="paragraph">
 <p>Verwendet für PrimaryKey (künstlichen Schlüssen)</p>
 </div>
@@ -1852,10 +1849,10 @@ Sequenzen, User, usw stehen im Datadictionary
 </div>
 </div>
 <div class="sect1">
-<h2 id="_constraints_integrity_rules"><a class="anchor" href="#_constraints_integrity_rules"></a>14. Constraints (Integrity Rules)</h2>
+<h2 id="_integrity_rules_constraints"><a class="anchor" href="#_integrity_rules_constraints"></a>14. Integrity Rules (Constraints)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>erzwingen von Regeln</p>
+<p>erzwingen Regeln</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -2018,7 +2015,7 @@ UNIQUE (column_name1 [,column_name2,....]),</pre>
 <div class="sect2">
 <h3 id="_fk_foreign_key"><a class="anchor" href="#_fk_foreign_key"></a>14.4. FK (Foreign Key)</h3>
 <div class="paragraph">
-<p><span class="image"><img src="images/abb47.png" alt="abb47"></span></p>
+<p><span class="image"><img src="images/abb_47.png" alt="abb 47"></span></p>
 </div>
 <div class="paragraph">
 <p>On Delete Cascade, so werden die Sätze mit dem entsprechenden Fremdschlüsselwert automatisch mitgelöscht.</p>
@@ -2028,7 +2025,7 @@ UNIQUE (column_name1 [,column_name2,....]),</pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/abb48.png" alt="abb48">
+<img src="images/abb_48.png" alt="abb 48">
 </div>
 </div>
 <div class="paragraph">
@@ -2039,7 +2036,7 @@ UNIQUE (column_name1 [,column_name2,....]),</pre>
 <h3 id="_check"><a class="anchor" href="#_check"></a>14.5. CHECK</h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/abb49.png" alt="abb49">
+<img src="images/abb_49.png" alt="abb 49">
 </div>
 </div>
 <div class="paragraph">
@@ -2066,7 +2063,171 @@ UNIQUE (column_name1 [,column_name2,....]),</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_index_2"><a class="anchor" href="#_index_2"></a>15. Index</h2>
+<h2 id="_teststoff"><a class="anchor" href="#_teststoff"></a>15. TestStoff</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>ERD + RM</p>
+</li>
+<li>
+<p>Create tables vom ERD (mit primary and foreign keys)</p>
+</li>
+<li>
+<p>select statement</p>
+</li>
+<li>
+<p>insert</p>
+</li>
+<li>
+<p>update</p>
+</li>
+<li>
+<p>alter</p>
+</li>
+<li>
+<p>delete</p>
+</li>
+<li>
+<p>drop</p>
+</li>
+<li>
+<p>Sequenzes</p>
+</li>
+<li>
+<p>Constraints (Primary key, foreign key)</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_testbesprechung"><a class="anchor" href="#_testbesprechung"></a>15.1. Testbesprechung</h3>
+<div class="paragraph">
+<p>&#8594; SQL Developer (Verbindungsdaten auswendig lernen)
+&#8594; script zum Einspielen</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Befehlt für Anzeigen von Tables:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">cat</span>
+<span class="cm">/* oder */</span>
+<span class="k">select</span> <span class="k">table_name</span> <span class="k">from</span> <span class="n">user_tables</span></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Date format abändern:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">alter</span> <span class="k">session</span> <span class="k">set</span> <span class="n">nls_date_format</span> <span class="o">=</span> <span class="s1">'DD-MON-YYYY HH24:MI:SS'</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>distinct anwenden können</p>
+</li>
+<li>
+<p>group by</p>
+</li>
+<li>
+<p>joins!!!</p>
+</li>
+<li>
+<p>concat &#8594; ||</p>
+</li>
+<li>
+<p>like</p>
+</li>
+<li>
+<p>to_date</p>
+</li>
+<li>
+<p>substr</p>
+</li>
+<li>
+<p>trim</p>
+</li>
+<li>
+<p>upper, lower</p>
+</li>
+<li>
+<p>nvl</p>
+</li>
+<li>
+<p>to_char</p>
+</li>
+<li>
+<p>to_date</p>
+</li>
+<li>
+<p>order by</p>
+</li>
+<li>
+<p>case:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">SELECT</span> <span class="n">cust_last_name</span><span class="p">,</span>
+   <span class="k">CASE</span> <span class="n">credit_limit</span> <span class="k">WHEN</span> <span class="mi">100</span> <span class="k">THEN</span> <span class="s1">'Low'</span>
+   <span class="k">WHEN</span> <span class="mi">5000</span> <span class="k">THEN</span> <span class="s1">'High'</span>
+   <span class="k">ELSE</span> <span class="s1">'Medium'</span> <span class="k">END</span>
+   <span class="k">FROM</span> <span class="n">customers</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>connect by (kommt nicht)</p>
+</li>
+<li>
+<p>intersect (kommt nicht)</p>
+</li>
+<li>
+<p>minus (kommt nicht)</p>
+</li>
+<li>
+<p>sequences</p>
+</li>
+<li>
+<p>subselect</p>
+</li>
+<li>
+<p>update</p>
+</li>
+<li>
+<p>insert</p>
+</li>
+<li>
+<p>delete</p>
+</li>
+<li>
+<p>drop</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Die Tendenz auf dem Test liegt eher auf den select statements</p>
+</div>
+<div class="paragraph">
+<p>Es gibt wieder die outputs</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_index_2"><a class="anchor" href="#_index_2"></a>16. Index</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Ein Index ist ein Attributwert + Adresse (Inhaltsverzeichnis)</p>
@@ -2133,7 +2294,7 @@ UNIQUE (column_name1 [,column_name2,....]),</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_views"><a class="anchor" href="#_views"></a>15.1. Views</h3>
+<h3 id="_views"><a class="anchor" href="#_views"></a>16.1. Views</h3>
 <div class="paragraph">
 <p>Eine logische oder virtuelle Tabelle, die auf einer Tabelle oder einer anderen View basiert. (gleicht einem Fenster)</p>
 </div>
@@ -2185,148 +2346,18 @@ UNIQUE (column_name1 [,column_name2,....]),</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_new_password"><a class="anchor" href="#_new_password"></a>16. New Password</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">GRANT</span> <span class="k">CONNECT</span>
-<span class="k">TO</span> <span class="k">system</span>
-<span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="n">neupw</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>oder</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">ALTER</span> <span class="k">USER</span> <span class="k">system</span>
-<span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="n">neupwd</span></code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_rechte_auf_der_datenbank"><a class="anchor" href="#_rechte_auf_der_datenbank"></a>17. Rechte auf der Datenbank</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_grant"><a class="anchor" href="#_grant"></a>17.1. Grant</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">GRANT</span> <span class="n">system_Privelege</span> <span class="p">[,</span> <span class="n">system_privelege</span><span class="p">....]</span>
-<span class="k">TO</span> <span class="k">user</span> <span class="p">[,</span> <span class="k">user</span><span class="p">...]</span></code></pre>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_grant_rights_to_another_user"><a class="anchor" href="#_grant_rights_to_another_user"></a>17.1.1. Grant rights to another user</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">grant</span> <span class="k">all</span> <span class="k">on</span> <span class="n">EMP</span> <span class="k">to</span> <span class="n">IT190228</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>select tables from other user:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">IT190228</span><span class="p">.</span><span class="n">EMP</span><span class="p">;</span>
-
-<span class="k">delete</span> <span class="n">IT190228</span><span class="p">.</span><span class="n">EMP</span><span class="p">;</span>
-    <span class="k">rollback</span><span class="p">;</span></code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_plsql"><a class="anchor" href="#_plsql"></a>18. PL/SQL</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_functions_2"><a class="anchor" href="#_functions_2"></a>18.1. Functions</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_stored_functions"><a class="anchor" href="#_stored_functions"></a>18.2. stored Functions</h3>
-<div class="sect3">
-<h4 id="_syntax"><a class="anchor" href="#_syntax"></a>18.2.1. Syntax</h4>
-<div class="imageblock">
-<div class="content">
-<img src="images/plsq-stored-function-syntax.png" alt="plsq stored function syntax">
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_cat_recycle_bin"><a class="anchor" href="#_cat_recycle_bin"></a>19. CAT &amp; Recycle Bin</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Der Catalog (CAT) kann aus der Datenbank ausgelesen werden</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">CAT</span><span class="p">;</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Hierbei sind Tabellen BIN&#8230;&#8203; gelöschte Tabellen, also so ein art Mülleimer</p>
-</div>
-<div class="paragraph">
-<p>Dieser kann wie folgt gelöscht werden:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="n">purge</span> <span class="n">recyclebin</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Mehr Informationen in den <a href="https://docs.oracle.com/cd/B19306_01/server.102/b14200/statements_9018.htm" target="_blank" rel="noopener">Oracle Docs</a></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">drop</span> <span class="k">table</span> <span class="n">BEST_SAL</span><span class="p">;</span>
-
-<span class="n">flashback</span> <span class="k">table</span> <span class="n">BEST_SAL</span> <span class="k">to</span> <span class="k">before</span> <span class="k">drop</span><span class="p">;</span>
-
-<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">BEST_SAL</span><span class="p">;</span></code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_trigger"><a class="anchor" href="#_trigger"></a>20. Trigger</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">or</span> <span class="k">replace</span> <span class="k">trigger</span> <span class="n">AUDIT_SAL</span>
-    <span class="k">after</span> <span class="k">update</span> <span class="k">of</span> <span class="n">SAL</span>
-    <span class="k">on</span> <span class="n">EMP</span>
-    <span class="k">for</span> <span class="k">each</span> <span class="k">row</span>
-<span class="k">BEGIN</span>
-<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">emp_audit</span> <span class="k">VALUES</span> <span class="p">(</span><span class="k">user</span><span class="p">,</span> <span class="n">sysdate</span><span class="p">,</span> <span class="p">:</span><span class="k">old</span><span class="p">.</span><span class="n">sal</span><span class="p">,</span> <span class="p">:</span><span class="k">new</span><span class="p">.</span><span class="n">sal</span><span class="p">,</span> <span class="p">:</span><span class="k">new</span><span class="p">.</span><span class="n">empno</span><span class="p">);</span>
-<span class="k">END</span><span class="p">;</span>
-<span class="o">/</span></code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Disable trigger afterwards</div>
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">alter</span> <span class="k">trigger</span> <span class="n">AUDIT_SAL</span> <span class="n">disable</span><span class="p">;</span></code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_2_test"><a class="anchor" href="#_2_test"></a>21. 2. Test</h2>
+<h2 id="_2_exam"><a class="anchor" href="#_2_exam"></a>17. 2. Exam</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>Packages kommen nicht</p>
+<p>create statement</p>
 </li>
 <li>
-<p>Übung Wawi ist gut vergleichbar was zum Test kommt, (allerdings ohne Package)</p>
+<p>insert statement</p>
+</li>
+<li>
+<p>update statement</p>
 </li>
 </ul>
 </div>
@@ -2336,7 +2367,7 @@ UNIQUE (column_name1 [,column_name2,....]),</pre>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2023-01-08 18:41:32 UTC
+Last updated 2023-01-19 09:33:45 UTC
 </div>
 </div>
 </body>
