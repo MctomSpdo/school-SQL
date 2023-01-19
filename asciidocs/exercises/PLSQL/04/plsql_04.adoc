@@ -1,0 +1,138 @@
+= PLSQL Übung 4
+Mctom Spdo
+1.0.0, {docdate}: ITP
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../../../css/dark.css
+
+link:PLSQL-Übung-03.pdf[Angabe]
+
+== Exercise
+
+Erstelle eine Prozedur in einem anonymen Block, welche sämtliche Datenbankobjekte des aktuellen Schemas, welche in der Data-Dictionary-View CAT angeführt sind, löscht.
+
+.Hinweis 1
+[%collapsible]
+====
+Hinweis 1: Lese zunächst die einzelnen Zeilen der View CAT aus und erstelle ein
+entsprechendes SQL-Statement in einem String. Anschließend führe
+das SQL-Statement mittels Native Dynamic SQL aus.
+====
+
+.Hinweis 2
+[%collapsible]
+====
+Hinweis 2: Achte beim löschen der Tabellen, auf Beschränkungen durch vorhan-
+dene Foreign-Key-Constraints.
+====
+
+IMPORTANT: if  you want to restore the tables later, execute the statement down below
+
+.For restoring later
+[%collapsible]
+====
+
+This will delete the current recycle-bin, so we can restore the tables later. (otherwise a lot of before dropped tables will be restored too)
+
+[source, sql]
+----
+purge recyclebin
+----
+====
+
+[source, sql]
+----
+create or replace procedure DELETEALL
+as
+    table_name varchar(255);
+    cursor tables is
+        select * from CAT where TABLE_TYPE = 'TABLE' and TABLE_NAME not like 'BIN%';
+    tableName CAT.TABLE_NAME%TYPE;
+    tableType CAT.TABLE_TYPE%TYPE;
+    sql_stmt varchar(100);
+    v_amount number;
+begin
+    open tables;
+    loop
+        loop
+            begin
+                fetch tables into tableName, tableType;
+                exit when tables%notfound;
+
+                sql_stmt := 'DROP TABLE ' || tableName;
+                DBMS_OUTPUT.PUT_LINE(sql_stmt);
+                execute immediate sql_stmt;
+            EXCEPTION
+                when others
+                    then DBMS_OUTPUT.PUT_LINE('delete failed');
+            end;
+        end loop;
+        select count(*) into v_amount from CAT where TABLE_TYPE = 'TABLE' and TABLE_NAME not like 'BIN%';
+        exit when v_amount like 0;
+    end loop;
+    close tables;
+end;
+/
+begin
+    DELETEALL();
+end;
+----
+
+Now all tables should be deleted, you can double-check this tho:
+
+[source, sql]
+----
+select * from CAT where TABLE_TYPE = 'TABLE' and TABLE_NAME not like 'BIN$%';
+----
+
+.Restore your deleted tables
+[%collapsible]
+====
+
+[source, sql]
+----
+create or replace procedure RESTORE_TABLES
+as
+    cursor entities is
+        select ORIGINAL_NAME from RECYCLEBIN;
+    v_name RECYCLEBIN.ORIGINAL_NAME%type;
+    v_sql varchar(255);
+begin
+    open entities;
+    loop
+        begin
+            fetch entities into v_name;
+            exit when entities%notfound;
+
+            v_sql := 'flashback table ' || v_name || ' to before drop';
+
+            execute immediate v_sql;
+        EXCEPTION
+            when others then
+                DBMS_OUTPUT.PUT_LINE('restoring table ' || v_name || ' failed');
+        end;
+    end loop;
+    close entities;
+end;
+/
+begin
+    RESTORE_TABLES();
+end;
+----
+
+after this, your tables should be restored:
+
+[source, sql]
+----
+select * from CAT where TABLE_TYPE = 'TABLE' and TABLE_NAME not like 'BIN$%';
+----
+
+you might consider committing, I am currently not sure if restore does commit automatically
+
+[source, sql]
+----
+commit;
+----
+====

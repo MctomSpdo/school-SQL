@@ -1,0 +1,174 @@
+= PLSQL Übung 5
+Mctom Spdo
+1.0.0, {docdate}: ITP
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../../../css/dark.css
+
+link:PLSQL-Übung-05.pdf[Angabe]
+
+== Exercise
+
+Bank duldet keine Kontoüberziehung, sondern erzeugt bei negativen Kontostän- den (Tabelle account) einen Kredit:
+
+* setze den Kontostand auf 0
+* erzeuge einen Kredit in der entsprechenden Höhe (Tabelle loan)
+* Kreditnummer ist Kontonummer
+
+**Beispiel, wie das Ergebnis ausschauen soll:**
+
+[source,sql]
+----
+delete from account;
+delete from loan;
+insert into account values(1,'Tumfart',20);
+update account set balance=-100 where account_number=1;
+select * from account;
+----
+
+|===
+|Account_Number|Account_Name|Balance
+
+|1
+|Tumfart
+|0
+
+|===
+
+[source,sql]
+----
+select * from loan;
+----
+
+|===
+|LOAN_NUMBER |AMOUNT
+
+|1
+|-80
+|===
+
+== Exercise
+
+Erstelle einen Database Trigger, der überprüft, dass eine Gehaltsänderung nicht über die Grenzen der aktuellen Gehaltsstufe (Tabelle SALGRADE) gehen kann.
+Ausgenommen sind die MANAGER und der PRESIDENT.
+Teste den Code.
+
+.Salgrade Inserts
+[%collapsible]
+====
+
+[source,sql]
+----
+CREATE TABLE SALGRADE (
+ GRADE               NUMBER,
+ LOSAL               NUMBER,
+ HISAL               NUMBER);
+
+INSERT INTO SALGRADE VALUES (1,700,1200);
+INSERT INTO SALGRADE VALUES (2,1201,1400);
+INSERT INTO SALGRADE VALUES (3,1401,2000);
+INSERT INTO SALGRADE VALUES (4,2001,3000);
+INSERT INTO SALGRADE VALUES (5,3001,9999);
+----
+====
+
+[source,sql]
+----
+create or replace trigger check_sal
+    before update of sal on emp
+    for each row
+    when (OLD.JOB not in ('Manager', 'President'))
+declare
+    v_losal SALGRADE.LOSAL%type;
+    v_hisal SALGRADE.HISAL%type;
+begin
+    -- get data
+    select HISAL, LOSAL
+    into v_hisal, v_losal
+    from SALGRADE
+        where :old.SAL between LOSAL and HISAL;
+
+    if(:new.SAL > v_hisal) then
+        raise_application_error(
+            -20000,
+            'Cannot update to a higher Salary grade! (limit: ' || v_hisal || ')'
+        );
+    elsif (:new.SAL < v_losal) then
+        raise_application_error(
+            -20000,
+            'Cannot update to a lower Salary grade! (limit: ' || v_losal || ', employee: ' || :new.EMPNO || '/' || :new.ENAME || ')'
+        );
+    end if;
+end;
+/
+----
+
+.Disable the trigger
+[source, sql]
+----
+alter trigger check_sal disable;
+----
+
+== Exercise
+
+Erstelle einen Database Trigger, der überprüft, dass pro Monat nur 2 Neueinstellungen durchgeführt werden können.
+Teste den Code.
+
+[source, sql]
+----
+create or replace trigger checkNewEmployment
+    before insert on EMP
+    for each row
+declare
+    v_count number;
+    v_max number := 2;
+begin
+    select count(*) into v_count
+    from EMP
+        where months_between(SYSDATE, HIREDATE) <= 1;
+
+    if (v_count >= v_max) then
+        raise_application_error(
+            -20000,
+            'There cannot be more then' || v_max || 'monthly new hired persons!'
+        );
+    end if;
+end;
+/
+----
+
+.Disable the trigger
+[source, sql]
+----
+alter trigger checkNewEmployment disable;
+----
+
+== Exercise
+
+Erstelle einen Database Trigger, der überprüft, dass eine Gehaltserhöhung nicht mehr als 10% betragen darf.
+Ausgenommen davon ist der PRESIDENT.
+Teste den Code.
+
+[source, sql]
+----
+create or replace trigger checkSalaryUpdate
+    before update of SAL on EMP
+    for each row
+    when (OLD.JOB not in ('PRESIDENT'))
+begin
+    if(((:new.SAL / :old.SAL) -1) > 0.1) then
+        raise_application_error(
+            -20000,
+            'Salary update cannot be over 10%!'
+        );
+    end if;
+end;
+----
+
+.Disable the trigger
+[source, sql]
+----
+alter trigger CHECKSALARYUPDATE disable;
+----

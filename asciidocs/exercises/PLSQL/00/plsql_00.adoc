@@ -1,0 +1,96 @@
+= PLSQL Übung 0
+Mctom Spdo
+1.0.0, {docdate}: ITP
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../../../css/dark.css
+
+link:ADAT_PLSQL-Übung-00.pdf[Angabe]
+
+== Aufgabe
+
+Erstelle dein erstes PL/SQL Programm welches `'Hello World !'` ausgibt.
+
+[source,sql]
+----
+begin
+dbms_output.put_line ('Hello World !');
+end;
+----
+
+== Aufgabe
+
+Erstelle ein PL/SQL Programm, welches aus der Tabelle emp den Namen für die Personalnummer 7369 liest und ausgibt
+
+[source,sql]
+----
+
+select ENAME from EMP where EMPNO = 7369;
+
+declare
+    personalnummer number := 7369;
+    name  varchar(250);
+begin
+    select ENAME into name from EMP where EMPNO = personalnummer;
+    dbms_output.PUT_LINE(name);
+end;
+----
+
+== Aufgabe
+
+Schreibe das PL/SQL Programm von Seite 1 ab (Verkauf von Tennis-Rackets wird nur dann zugelassen, wenn genügende Anzahl vorrätig ist).
+Ergänze feh- lende Rahmenbedingungen und teste die Funktionsweise.
+
+.Angabe
+[%collapsible%]
+====
+
+[source,sql]
+----
+select * from DEMO_TENNIS.players;
+
+DECLARE
+    qty_on_hand NUMBER(5); -- lokale Variable
+BEGIN
+    SELECT quantity INTO qty_on_hand FROM inventory
+    WHERE product = 'TENNIS RACKET'
+    FOR UPDATE OF quantity;
+    -- Verzweigung
+    IF qty_on_hand > 0 THEN -- check quantity
+        UPDATE inventory SET quantity = quantity - 1
+        WHERE product = 'TENNIS RACKET';
+        INSERT INTO purchase_record
+        VALUES ('Tennis racket purchased', SYSDATE);
+    ELSE
+        INSERT INTO purchase_record
+        VALUES ('Out of tennis rackets', SYSDATE);
+    END IF;
+    COMMIT;
+END;
+----
+
+====
+
+[source,sql]
+----
+DECLARE
+    qty_on_hand NUMBER(5); -- lokale Variable
+BEGIN
+    SELECT quantity INTO qty_on_hand FROM inventory
+    WHERE product = 'TENNIS RACKET'
+    FOR UPDATE OF quantity;
+    -- Verzweigung
+    IF qty_on_hand > 0 THEN -- check quantity
+        UPDATE inventory SET quantity = quantity - 1
+        WHERE product = 'TENNIS RACKET';
+        INSERT INTO purchase_record
+        VALUES ('Tennis racket purchased', SYSDATE);
+    ELSE
+        INSERT INTO purchase_record
+        VALUES ('Out of tennis rackets', SYSDATE);
+    END IF;
+    COMMIT;
+END;
+----

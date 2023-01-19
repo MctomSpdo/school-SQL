@@ -1,0 +1,100 @@
+= PLSQL Übung 6
+Mctom Spdo
+1.0.0, {docdate}: ITP
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../../../css/dark.css
+
+link:PLSQL-Übung-07-wawi.pdf[]
+
+Es ist eine Warenwirtschaftssystemappliaktion zu erstellen. +
+Führe in SQL*Plus zunächst das Skript WAWI.SQL aus. Erstelle anschließend ein
+Package WAWI_PACK, welches vier Unterprogramme beinhaltet:
+
+image::erd.png[]
+
+== Artikel
+
+Ein neuer Artikel ist einzufügen bzw. zu ändern. +
+**Parameter:** Bezeichnung, Artikelgruppenbezeichnung, Preis. +
+**Rückgabe:** neu angelegte ArtikelID. (fortlaufend) +
+Existiert dieser Artikel bereits (Bezeichnung) ist dieser zu ändern.
+
+.Create Procedure for primary key
+[source, sql]
+----
+create sequence PK_WAWI_ARTIKEL start with 23;
+
+drop sequence PK_WAWI_ARTIKEL;
+
+select PK_WAWI_ARTIKEL.nextval from DUAL;
+
+
+
+commit;
+----
+
+[source, sql]
+----
+create or replace function wawiAddArticle (
+    p_bezeichnung in WAWI_ARTIKEL.BEZEICHNUNG%type,
+    p_artikelGruppenBezeichnung in WAWI_ARTIKEL_GRUPPE.BEZEICHNUNG%type,
+    p_preis in number)
+    return WAWI_ARTIKEL.ARTIKELID%type
+as
+    counter integer;
+begin
+    insert into WAWI_ARTIKEL
+    (ARTIKELID, ARTIKELGRUPPEID, BEZEICHNUNG, PREIS)
+    values (
+        PK_WAWI_ARTIKEL.nextval,
+        (select ARTIKELGRUPPEID
+         from WAWI_ARTIKEL_GRUPPE
+         where upper(BEZEICHNUNG) like upper(p_artikelGruppenBezeichnung)),
+        p_bezeichnung,
+        p_preis
+    );
+
+    return PK_WAWI_ARTIKEL.currval;
+end wawiAddArticle;
+/
+
+----
+
+[source, sql]
+----
+select wawiAddArticle('test', 'eisen', 10) from DUAL;
+----
+
+== Kunde
+
+Ein neuer Kunde ist einzufügen bzw. zu ändern. +
+**Parameter:** Kundengruppenbezeichnung, VName, NName, Adresse. +
+**Rückgabe:** neu angelegte KundenID. (fortlaufend) +
+Existiert dieser Kunde bereits (VName, NName) ist dieser zu ändern.
+
+== Preisliste
+
+Ein neuer Rabatt ist einzufügen bzw. zu ändern. +
+**Parameter:** Kundengruppenbezeichnung, Artikelgruppenbezeichnung. +
+**Rückgabe:** keiner +
+Existiert dieser Rabattsatz bereits ist dieser zu ändern.
+
+== Rechnung
+
+Gibt sämtliche Rechnungen eines Kunden aus. +
+**Parameter:** KundenID. +
+**Rückgabe:** keiner +
+Dabei wird zunächst eine Zeile mit den Daten des Rechnungskopfes (rechnungs-
+kopfID, VName, NName, Kundengruppenbezeichnung) ausgegeben und daran die
+einzelnen Positionen der Rechnung angefügt. (RechnungskopfID, Rechnungspositi-
+onsID, ArtikelID, Menge, Artikelgruppenbezeichnung, Rabatt, Preis je Artikel, Summe=(Menge * Preis)-Rabatt).
+Jede Rechnung erhält eine Summenzeile.
+
+a. Entscheide, ob Funktionen oder Prozeduren zu erstellen sind.
+b. Erstelle anschließend ein Skript, welches die Unterprogramme mit mehreren
+Testfällen testet (z.B. unnamed block).
+c. Fehler sollen abgefangen werden und sprechende Fehlermeldungen ausge-
+geben werden.

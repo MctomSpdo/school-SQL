@@ -1,0 +1,218 @@
+= PLSQL Übung 2
+Mctom Spdo
+1.0.0, {docdate}: ITP
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../../../css/dark.css
+
+link:PLSQL-Übung-02.pdf[Angabe]
+
+== Aufgabe
+
+Erstelle eine Stored Function EMPCOUNT mit folgenden Parametern:
+Eingabeparameter: DEPTNO
+Zur DEPTNO soll die Anzahl der Angestellten ermittelt und zurückgegeben wer-
+den. Teste die Funktion.
+
+.Function
+[source, sql]
+----
+create or replace function EMPCOUNT(
+    DEPTNO in DEPT.DEPTNO%type)
+    return integer
+as
+    counter integer;
+begin
+    select count(*) into counter from EMP where DEPTNO = 10;
+    return counter;
+end EMPCOUNT;
+----
+
+.Execute
+[source, sql]
+----
+select EMPCOUNT(10) from dual;
+----
+
+== Aufgabe
+
+Erstelle eine Stored Procedure EMPNAME mit folgenden Parametern: Eingabeparameter: +
+
+* EMPNO
+* CODE (1 oder 2)
+
+Zur EMPNO soll ENAME ermittelt und als Parameter werden.
+Zusätzlich werden in Abhängigkeit vom Code folgende Werte ermittelt und ebenfalls als Parameter zurückgegeben:
+
+* wenn CODE 1, dann SAL+COMM,
+* wenn CODE 2, dann nur SAL.
+
+Falls die Prozedur den Angestellten nicht finden kann, soll für ENAME 'Unbekannt' und für das Gehalt NULL ausgegeben werden.
+Teste die Prozedur, indem Sie aus einem unnamed block aufgerufen wird.
+
+.Procedure
+[source, sql]
+----
+create or replace procedure EMPNAME(
+    empnom in EMP.EMPNO%type,
+    code in number)
+is
+    ename EMP.ENAME%type;
+    money number;
+begin
+    select E.ENAME into ename from EMP E where EMPNO = empnom;
+
+    if code = 1 then
+        select nvl(E.SAL, 0) + nvl(E.COMM, 0) into money from EMP E where EMPNO = empnom;
+    elsif code = 2 then
+        select nvl(E.SAL, 0) into money from EMP E where EMPNO = empnom;
+    end if;
+
+    dbms_output.put_line('ENAME: ' || nvl(ename, 'Unbekannt'));
+    dbms_output.put_line('MONEY: ' || nvl(to_char(money), 'NULL'));
+
+exception
+    when NO_DATA_FOUND then
+        dbms_output.put_line('ENAME: Unbekannt');
+        dbms_output.put_line('MONEY: NULL');
+    when OTHERS then
+        dbms_output.put_line('UNKNOWN ERROR');
+end EMPNAME;
+/
+----
+
+.Get random valid EMPNO
+[%collapsible]
+====
+[source, sql]
+----
+select * from (
+    select EMPNO
+    from EMP
+    order by dbms_random.random())
+where rownum = 1;
+----
+====
+
+.Execute
+[source, sql]
+----
+begin
+    EMPNAME(7934, 0);
+end;
+----
+
+.Teachers Solution
+[%collapsible]
+====
+
+[source, sql]
+----
+create or replace procedure EMPNAME_SOLUTION(p_empno in EMP.EMPNO%TYPE, code in number)
+as
+    save_ename EMP.ENAME%TYPE;
+    save_sal EMP.SAL%TYPE;
+    save_comm EMP.COMM%TYPE;
+begin
+    select ENAME, nvl(SAL, 0), nvl(COMM, 0) into save_ename, save_sal, save_comm from EMP E where E.EMPNO = p_empno;
+    DBMS_OUTPUT.PUT_LINE('Employee Name: ' || save_ename);
+
+    if code = 1 then
+        DBMS_OUTPUT.PUT_LINE('Mit Provision' || (save_sal + save_comm));
+    else
+        DBMS_OUTPUT.PUT_LINE('Ohne Provision' || save_sal);
+    end if;
+exception
+    when NO_DATA_FOUND then
+        DBMS_OUTPUT.PUT_LINE('Unbekannt: Null');
+end;
+/
+
+begin
+    EMPNAME_SOLUTION(7934, 0);
+end;
+----
+
+====
+
+== Aufgabe
+
+Erstelle eine Stored Function SAL_COMM mit folgenden Parametern:
+Eingabeparameter: EMPNO +
+Zur EMPNO soll das Verhältnis zwischen SAL und COMM (Wert SAL/COMM) be-
+rechnet und folgender String zurückgeliefert werden: 'Verhältnis: ...'.
+Hat ein Angestellter keine Provision, so soll 'Keine Provision!' zurückgeliefert wer-
+den (Verwende dazu die eingebaute Exception ZERO_DIVIDE). +
+Teste die Funktion.
+
+.Function
+[source, sql]
+----
+create or replace function EMP_SAL_COMM(
+    empnom in EMP.EMPNO%type)
+    return varchar
+as
+    difference number;
+    sal EMP.SAL%type;
+    comm EMP.SAL%type;
+begin
+    select nvl(E.SAL, 0), nvl(E.COMM, 0) into sal, comm from EMP E where E.EMPNO = empnom;
+    difference := sal / comm;
+    return 'Verhältnis: ' || difference;
+exception
+    -- when there is no comm, or comm is 0:
+    when zero_divide then
+        return 'Keine Provision!';
+end;
+----
+
+.Execute
+[source, sql]
+----
+select EMP_SAL_COMM(7876) from dual;
+----
+
+.Teachers solution
+[%collapsible]
+====
+
+[source, sql]
+----
+create or replace function EMP_SAL_COMM_SOLUTION(empno in EMP.EMPNO%TYPE)
+    return varchar
+as
+    save_verhaeltnis number;
+begin
+    select nvl(sal, 0) / nvl(comm, 0) into save_verhaeltnis from emp e where e.EMPNO = EMP_SAL_COMM_SOLUTION.empno;
+
+    return 'Verhältnis' || save_verhaeltnis;
+exception
+    when ZERO_DIVIDE then
+        return 'Keine Provision';
+end;
+/
+
+select EMP_SAL_COMM_SOLUTION(7876) from dual;
+----
+
+====
+
+== Aufgabe
+
+The purpose of the procedure sell is to accept the paint_id parameter passed and update the stock on hand quantity by the qty value parameter. If there is insufficient stock then we need to produce an error message. +
+Before we get started with the procedure we need to quickly create the table  (paints) that our Procedure will update. +
+The desc(ription) of our table should be.
+
+.Procedure
+[source, sql]
+----
+-- data source unknown
+----
+
+.Execute
+[source, sql]
+----
+
+----

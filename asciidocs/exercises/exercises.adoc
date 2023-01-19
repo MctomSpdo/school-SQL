@@ -1,0 +1,38 @@
+= Lecture Notes INSY
+Mctom Spdo
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../css/dark.css
+
+== SQL Exercises
+
+Normal exercises:
+
+* link:04/exercise-4.html[Exercise 4]
+* link:05/exercise-5.html[Exercise 5]
+* link:06/exercise-6.html[Exercise 6]
+* link:07/exercise-6.html[Exercise 7]
+* Exercise 8 (Not yet finished)
+* link:10/exercise-10.html[Exercise 10]
+* Exercise 11 (Not yet finished)
+* link:12/exercise-12.html[Exercise 12]
+* link:13/exercise-13.html[Exercise 13]
+
+Other exercises:
+
+* link:versicherung/versicherung.html[Versicherung]
+* link:shop/shop.html[Shop]
+* link:adat_06/adat-06.html[Adat 06]
+
+== PLSQL Exercises
+
+* link:PLSQL/00/plsql_00.html[PLSQL 0]
+* link:PLSQL/01/plsql_01.html[PLSQL 1]
+* link:PLSQL/02/plsql_02.html[PLSQL 2]
+* link:PLSQL/03/plsql_03.html[PLSQL 3]
+* link:PLSQL/03b/plsql_03.html[PLSQL 3b]
+* link:PLSQL/04/plsql_04.html[PLSQL 4]
+* link:PLSQL/05/plsql_05.html[PLSQL 5]

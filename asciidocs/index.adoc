@@ -13,7 +13,46 @@ ifndef::imagesdir[:imagesdir: images]
 
 === Übungen
 
-=== Main
+link:exercises/exercises.html[Exercise]
+
+== Semesterstoff
+
+=== Semester 2
+
+.Exam 3
+[%collapsible]
+====
+
+* ERD + RM
+* Create tables vom ERD (mit primary and foreign keys)
+* select statement
+* insert
+* update
+* alter
+* delete
+* drop
+* Sequences
+* Constraints (Primary key, foreign key)
+
+====
+
+.Exam 4
+[%collapsible]
+====
+
+-> SQL Developer (Verbindungsdaten auswendig lernen)
+-> script zum Einspielen
+
+* Befehlt für Anzeigen von Tables:
+
+[source, sql]
+----
+select * from cat
+/* oder */
+select table_name from user_tables
+----
+
+* Date format abändern:
 
 link:../uebungen/01/uebung_1.html[Übung 1 a] +
 link:../uebungen/01_01/uebung_1.html[Übung 1b] +
@@ -25,9 +64,68 @@ link:../school-SQL/uebungen/10/uebung_10[Übung 10] +
 link:../uebungen/12/uebung_12.html[Übung 12] +
 link:../uebungen/13/uebung_13.html[Übung 13]
 
-=== Shop
+* distinct anwenden können
+* group by
+* joins!!!
+* concat -> ||
+* like
+* to_date
+* substr
+* trim
+* upper, lower
+* nvl
+* to_char
+* to_date
+* order by
+* case:
 
-https://mctomspdo.github.io/school-SQL/uebungen/shop/shop[Übung shop]
+[source, sql]
+----
+SELECT cust_last_name,
+   CASE credit_limit WHEN 100 THEN 'Low'
+   WHEN 5000 THEN 'High'
+   ELSE 'Medium' END
+   FROM customers;
+----
+
+* connect by (kommt nicht)
+* intersect (kommt nicht)
+* minus (kommt nicht)
+* sequences
+* subselect
+* update
+* insert
+* delete
+* drop
+
+Die Tendenz auf dem Test liegt eher auf den select statements
+
+Es gibt wieder die outputs
+
+====
+
+=== Semester 3
+
+* wiederholung SQL
+* PLSQL
+* APEX
+* JPA (OR Mapper)
+* Mongo
+* R [?]
+
+.Exam 1
+[%collapsible]
+====
+
+* create statement
+* insert statement
+* update statement
+
+====
+
+
+
+
 
 == Tables
 
