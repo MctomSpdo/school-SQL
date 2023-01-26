@@ -1,0 +1,22 @@
+= Übung 1
+Mctom Spdo
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:toc: left
+:stylesheet: ../../asciidocs/css/dark.css
+
+== Specification
+
+image::specification.jpg[]
+
+== Solution
+
+[plantuml]
+----
+include::solution.puml[]
+----
+
+Mitglied (*Mitgliedsnummer*, Vorname, Nachname) +
+Strafbeträge (*StrafNr*, __MitgliedsNr__, Betrag) +
+Einzahlung (*Einzahlungsnummer*, __MitgliedsNr__, Datum)

@@ -2,8 +2,10 @@
 Mctom Spdo
 1.0.0, {docdate}: INSY
 ifndef::imagesdir[:imagesdir: images]
+//:toc-placement!:  // prevents the generation of the doc at this position, so it can be printed afterwards
+:sourcedir: ../src/main/java
 :icons: font
-:sectnums:
+:sectnums:    // Nummerierung der Überschriften / section numbering
 :toc: left
 :stylesheet: ./css/dark.css
 
@@ -52,10 +54,15 @@ select table_name from user_tables
 
 * Date format abändern:
 
-[source, sql]
-----
-alter session set nls_date_format = 'DD-MON-YYYY HH24:MI:SS';
-----
+link:../uebungen/01/uebung_1.html[Übung 1 a] +
+link:../uebungen/01_01/uebung_1.html[Übung 1b] +
+link:../uebungen/04/Uebung_4[Übung 4] +
+link:../uebungen/05/Uebung_5[Übung 5] +
+link:../uebungen/06/uebung_6[Übung 6] +
+link:../school-SQL/uebungen/07/uebung_7[Übung 7] +
+link:../school-SQL/uebungen/10/uebung_10[Übung 10] +
+link:../uebungen/12/uebung_12.html[Übung 12] +
+link:../uebungen/13/uebung_13.html[Übung 13]
 
 * distinct anwenden können
 * group by
@@ -482,7 +489,7 @@ group by to_char(PEN_DATE, 'yyyy')
 order by 1;
 ----
 
-link:../uebungen/05/Uebung_5.html[Übung 5]
+https://mctomspdo.github.io/school-SQL/uebungen/05/Uebung_5.html[Übung 5]
 
 == JOIN
 
@@ -504,11 +511,11 @@ where pl.PLAYERNO = pe.PLAYERNO
 group by pl.NAME, pl.PLAYERNO;
 ----
 
-The most used Join-type is the Equijoin (Natural Join). +
+The most used Jointype is the Equijoin (Natural Join). +
 // Der am häufigsten verwendete Jointyp ist der Equijoin (Vergleichsoperator = )
 
 Join Types:
-link:../docs/Join_NEU.pdf[Join_NEU.pdf]
+https://mctomspdo.github.io/school-SQL/docs/Join_NEU.pdf[Join_NEU.pdf]
 
 === Natural Join
 
@@ -567,7 +574,7 @@ from EMP e inner join DEPT d
     on e.DEPTNO = d.DEPTNO;
 ----
 
-The outcome should be 14 lines long, since the BIGBOSS does *not* have a DeptNo.
+The outcome should be 14 lines long, since the BIGBOSS does not have a DeptNo.
 
 ==== left join + null
 
@@ -698,7 +705,7 @@ Dies änder das Datum nur für die aktuelle Session
 
 [source,sql]
 ----
-alter session set nls_date_format = 'DD-MM-YYYY HH24:MI:SS';
+alter session set nls_date_format = 'DD-MON-YYYY HH24:MI:SS';
 ----
 
 == Parts
@@ -762,7 +769,7 @@ connect by prior SUB = SUPER
 start with SUPER = 'P3';
 ----
 
-Skalarfunktionen: LPAD
+Skalarfunktion: LPAD
 
 [source,sql]
 ----
@@ -784,7 +791,7 @@ image::inserts.png[]
 
 ==== Masseninsert:
 
-Mithilfe eines Masseninserts, kann man eine Kopie von der Tabelle anlegen, darauf arbeiten, und dann einen massen-insert machen, auf die Originaltabelle speichern.
+Mithilfe eines Masseninserts, kann man eine Kopie von der Tabelle anlegen, darauf arbeiten, und dann einen masseninsert machen, auf die Originaltablle speichern.
 
 image::abb33.png[]
 
@@ -819,7 +826,7 @@ set PRICE = PRICE * 1.1
 where upper(SUB) = 'P5';
 ----
 
-3: Alle Preise über ATS 60,- um 10 % herabsetzen
+3: Alle Preise über ATS 60,- um 10% herabsetzen
 
 [source,sql]
 ----
@@ -828,7 +835,7 @@ set PRICE = PRICE * 0.9
 where PRICE > 60;
 ----
 
-4: Alle Preise unter dem Durchschnitt um 20 % erhöhen.
+4: Alle Preise unter dem Durchschnitt um 20% erhöhen.
 
 [source,sql]
 ----
@@ -860,7 +867,7 @@ Löschbefehlte:
 
 Aufgabe SQL 7 (15.03.2022, UNION, MINUS, INTERSECT, SUBSELECT, JOIN)
 
-=== Nummernfolgen (Sequenzen)
+=== Nummerfolgen (Sequenzen)
 
 Verwendet für PrimaryKey (künstlichen Schlüssen)
 
@@ -943,9 +950,9 @@ select * from DBA_SEQUENCES; --nur Datenbankadministrator
 
 Dies kann nur ein Datenbankadministrator (DBA) ausführen.
 
-== Constraints (Integrity Rules)
+== Integrity Rules (Constraints)
 
-erzwingen von Regeln
+erzwingen Regeln
 
 [options=header]
 |===
@@ -1030,19 +1037,19 @@ Syntax:
 
 === FK (Foreign Key)
 
-image:abb47.png[]
+image:abb_47.png[]
 
 On Delete Cascade, so werden die Sätze mit dem entsprechenden Fremdschlüsselwert automatisch mitgelöscht.
 
 DML -> Data Manipulation Language (update, update, delete)
 
-image::abb48.png[]
+image::abb_48.png[]
 
 Tables in tennis-tables.sql.
 
 === CHECK
 
-image::abb49.png[]
+image::abb_49.png[]
 
 Bsp:
 
@@ -1061,6 +1068,78 @@ DATE_OF_BIRTH date check(year_of_birth <= year_joined),
 ----
 alter table TABLE_NAME drop constraint CONSTRAINT_NAME;
 ----
+
+== TestStoff
+
+* ERD + RM
+* Create tables vom ERD (mit primary and foreign keys)
+* select statement
+* insert
+* update
+* alter
+* delete
+* drop
+* Sequenzes
+* Constraints (Primary key, foreign key)
+
+=== Testbesprechung
+
+-> SQL Developer (Verbindungsdaten auswendig lernen)
+-> script zum Einspielen
+
+* Befehlt für Anzeigen von Tables:
+
+[source, sql]
+----
+select * from cat
+/* oder */
+select table_name from user_tables
+----
+
+* Date format abändern:
+
+[source, sql]
+----
+alter session set nls_date_format = 'DD-MON-YYYY HH24:MI:SS';
+----
+
+* distinct anwenden können
+* group by
+* joins!!!
+* concat -> ||
+* like
+* to_date
+* substr
+* trim
+* upper, lower
+* nvl
+* to_char
+* to_date
+* order by
+* case:
+
+[source, sql]
+----
+SELECT cust_last_name,
+   CASE credit_limit WHEN 100 THEN 'Low'
+   WHEN 5000 THEN 'High'
+   ELSE 'Medium' END
+   FROM customers;
+----
+
+* connect by (kommt nicht)
+* intersect (kommt nicht)
+* minus (kommt nicht)
+* sequences
+* subselect
+* update
+* insert
+* delete
+* drop
+
+Die Tendenz auf dem Test liegt eher auf den select statements
+
+Es gibt wieder die outputs
 
 == Index
 
@@ -1122,110 +1201,8 @@ Example:
 
 image::abb56.png[]
 
-== New Password
+== 2. Exam
 
-[source, sql]
-----
-GRANT CONNECT
-TO system
-IDENTIFIED BY neupw
-----
-
-oder
-
-[source, sql]
-----
-ALTER USER system
-IDENTIFIED BY neupwd
-----
-
-== Rechte auf der Datenbank
-
-=== Grant
-
-[source, sql]
-----
-GRANT system_Privelege [, system_privelege....]
-TO user [, user...]
-----
-
-==== Grant rights to another user
-
-[source, sql]
-----
-grant all on EMP to IT190228
-----
-
-select tables from other user:
-
-[source, sql]
-----
-select * from IT190228.EMP;
-
-delete IT190228.EMP;
-    rollback;
-----
-
-== PL/SQL
-
-=== Functions
-
-=== stored Functions
-
-==== Syntax
-
-image::plsq-stored-function-syntax.png[]
-
-== CAT & Recycle Bin
-
-Der Catalog (CAT) kann aus der Datenbank ausgelesen werden
-
-[source, sql]
-----
-select * from CAT;
-----
-
-Hierbei sind Tabellen BIN... gelöschte Tabellen, also so ein art Mülleimer
-
-Dieser kann wie folgt gelöscht werden:
-
-[source,sql]
-----
-purge recyclebin
-----
-
-Mehr Informationen in den https://docs.oracle.com/cd/B19306_01/server.102/b14200/statements_9018.htm[Oracle Docs^]
-
-[source, sql]
-----
-drop table BEST_SAL;
-
-flashback table BEST_SAL to before drop;
-
-select * from BEST_SAL;
-----
-
-== Trigger
-
-[source, sql]
-----
-create or replace trigger AUDIT_SAL
-    after update of SAL
-    on EMP
-    for each row
-BEGIN
-INSERT INTO emp_audit VALUES (user, sysdate, :old.sal, :new.sal, :new.empno);
-END;
-/
-----
-
-.Disable trigger afterwards
-[source, sql]
-----
-alter trigger AUDIT_SAL disable;
-----
-
-== 2. Test
-
-* Packages kommen nicht
-* Übung Wawi ist gut vergleichbar was zum Test kommt, (allerdings ohne Package)
+* create statement
+* insert statement
+* update statement

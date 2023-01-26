@@ -1,0 +1,75 @@
+= Übung 1
+Mctom Spdo
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:toc: left
+:sectnums:
+//:stylesheet: ../../asciidocs/css/dark.css
+
+== Create tables
+
+image::01.png['', 700]
+
+[source, sql]
+----
+create table PERSONEN (
+    PERSONEN_ID number(4) not null,
+    NNAME varchar(25),
+    VNAME varchar(20)
+)
+----
+
+== Add Values
+
+image::02.png['', 700]
+
+[source, sql]
+----
+insert into PERSONEN values (1, 'Mustermann', 'Max');
+insert into PERSONEN values (2, 'Musterfrau', 'Mimi');
+insert into PERSONEN values (3, 'Mustermann', 'Matthias');
+
+insert into PERSONEN values (99999, 'Musterfrau', 'Maria')
+----
+
+== Alter Table
+
+image::03.png[]
+
+[source, sql]
+----
+//TODO: add content
+----
+
+== Delete Column
+
+image:04.png[]
+
+[source, sql]
+----
+//TODO: add content
+----
+
+== Delete table
+
+image::05.png[]
+
+[source, sql]
+----
+drop table PERSONEN;
+----
+
+== Tennisclub
+
+image::06.png[]
+
+[source, sql]
+----
+include::tennis-tables.sql[]
+----
+
+[source, sql]
+----
+include::tennis-insert.sql[]
+----

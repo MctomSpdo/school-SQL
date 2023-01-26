@@ -1,0 +1,24 @@
+@startuml
+
+!theme plain
+skinparam backgroundColor transparent
+skinparam shadowing false
+
+left to right direction
+
+class Mitglied {
+
+}
+
+class Einzahlung {
+
+}
+
+class Strafbeträge {
+
+}
+
+Mitglied "1" -- "*" Einzahlung
+Mitglied "0..1" -- Strafbeträge
+
+@enduml
