@@ -17,9 +17,9 @@ link:exercises/exercises.html[Exercise]
 
 == scripts
 
-link:docs/folien-sql.pdf[sql-basics]
-link:docs/Join_NEU.pdf[sql-join]
-link:docs/PLSQL-Skript.pdf[plsql-script]
+link:docs/folien-sql.pdf[sql-basics] +
+link:docs/Join_NEU.pdf[sql-join] +
+link:docs/PLSQL-Skript.pdf[plsql-script] +
 
 == student-hub
 
