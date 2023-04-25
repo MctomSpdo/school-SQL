@@ -9,7 +9,7 @@ ifndef::imagesdir[:imagesdir: images]
 
 == Script
 
-link:script.adoc[SQL Lecture script]
+link:script.html[SQL Lecture script]
 
 == Übungen
 
@@ -17,5 +17,5 @@ link:exercises/exercises.html[Exercise]
 
 == student-hub
 
-link:student-info.adoc[student-hub]
+link:student-info.html[student-hub]
 
