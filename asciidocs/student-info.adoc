@@ -1,0 +1,122 @@
+= Student Hub
+Mctom Spdo
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ./css/dark.css
+
+== Semesterstoff
+
+=== Semester 2
+
+.Exam 3
+[%collapsible]
+====
+
+* ERD + RM
+* Create tables vom ERD (mit primary and foreign keys)
+* select statement
+* insert
+* update
+* alter
+* delete
+* drop
+* Sequences
+* Constraints (Primary key, foreign key)
+
+====
+
+.Exam 4
+[%collapsible]
+====
+
+-> SQL Developer (Verbindungsdaten auswendig lernen)
+-> script zum Einspielen
+
+* Befehlt für Anzeigen von Tables:
+
+[source, sql]
+----
+select * from cat
+/* oder */
+select table_name from user_tables
+----
+
+* Date format abändern:
+
+link:../uebungen/01/uebung_1.html[Übung 1 a] +
+link:../uebungen/01_01/uebung_1.html[Übung 1b] +
+link:../uebungen/04/Uebung_4[Übung 4] +
+link:../uebungen/05/Uebung_5[Übung 5] +
+link:../uebungen/06/uebung_6[Übung 6] +
+link:../school-SQL/uebungen/07/uebung_7[Übung 7] +
+link:../school-SQL/uebungen/10/uebung_10[Übung 10] +
+link:../uebungen/12/uebung_12.html[Übung 12] +
+link:../uebungen/13/uebung_13.html[Übung 13]
+
+* distinct anwenden können
+* group by
+* joins!!!
+* concat -> ||
+* like
+* to_date
+* substr
+* trim
+* upper, lower
+* nvl
+* to_char
+* to_date
+* order by
+* case:
+
+[source, sql]
+----
+SELECT cust_last_name,
+   CASE credit_limit WHEN 100 THEN 'Low'
+   WHEN 5000 THEN 'High'
+   ELSE 'Medium' END
+   FROM customers;
+----
+
+* connect by (kommt nicht)
+* intersect (kommt nicht)
+* minus (kommt nicht)
+* sequences
+* subselect
+* update
+* insert
+* delete
+* drop
+
+Die Tendenz auf dem Test liegt eher auf den select statements
+
+Es gibt wieder die outputs
+
+====
+
+=== Semester 3
+
+* wiederholung SQL
+* PLSQL
+* APEX
+* JPA (OR Mapper)
+* Mongo
+* R [?]
+
+.Exam 1
+[%collapsible]
+====
+
+* create statement
+* insert statement
+* update statement
+
+====
+
+== Exam 2
+
+* create statement
+* insert statement
+* update statement
