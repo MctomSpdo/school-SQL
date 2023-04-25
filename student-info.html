@@ -7,7 +7,7 @@
 <meta name="generator" content="Asciidoctor 2.0.18">
 <meta name="author" content="Mctom Spdo">
 <link rel="icon" type="image/png" href="themes/favicon.png">
-<title>PLSQL Übung 6</title>
+<title>Student Hub</title>
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
 
@@ -272,146 +272,265 @@ pre.rouge .gs {
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>PLSQL Übung 6</h1>
+<h1>Student Hub</h1>
 <div class="details">
 <span id="author" class="author">Mctom Spdo</span><br>
 <span id="revnumber">version 1.0.0,</span>
 <span id="revdate">2023-04-25</span>
-<br><span id="revremark">ITP</span>
+<br><span id="revremark">INSY</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_artikel">1. Artikel</a></li>
-<li><a href="#_kunde">2. Kunde</a></li>
-<li><a href="#_preisliste">3. Preisliste</a></li>
-<li><a href="#_rechnung">4. Rechnung</a></li>
+<li><a href="#_semesterstoff">1. Semesterstoff</a>
+<ul class="sectlevel2">
+<li><a href="#_semester_2">1.1. Semester 2</a></li>
+<li><a href="#_semester_3">1.2. Semester 3</a></li>
+</ul>
+</li>
+<li><a href="#_exam_2">2. Exam 2</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="PLSQL-Übung-07-wawi.pdf" class="bare">PLSQL-Übung-07-wawi.pdf</a></p>
-</div>
-<div class="paragraph">
-<p>Es ist eine Warenwirtschaftssystemappliaktion zu erstellen.<br>
-Führe in SQL*Plus zunächst das Skript WAWI.SQL aus. Erstelle anschließend ein
-Package WAWI_PACK, welches vier Unterprogramme beinhaltet:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../../../images/erd.png" alt="erd">
-</div>
-</div>
-</div>
-</div>
 <div class="sect1">
-<h2 id="_artikel"><a class="anchor" href="#_artikel"></a>1. Artikel</h2>
+<h2 id="_semesterstoff"><a class="anchor" href="#_semesterstoff"></a>1. Semesterstoff</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_semester_2"><a class="anchor" href="#_semester_2"></a>1.1. Semester 2</h3>
+<details>
+<summary class="title">Exam 3</summary>
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>ERD + RM</p>
+</li>
+<li>
+<p>Create tables vom ERD (mit primary and foreign keys)</p>
+</li>
+<li>
+<p>select statement</p>
+</li>
+<li>
+<p>insert</p>
+</li>
+<li>
+<p>update</p>
+</li>
+<li>
+<p>alter</p>
+</li>
+<li>
+<p>delete</p>
+</li>
+<li>
+<p>drop</p>
+</li>
+<li>
+<p>Sequences</p>
+</li>
+<li>
+<p>Constraints (Primary key, foreign key)</p>
+</li>
+</ul>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Exam 4</summary>
+<div class="content">
 <div class="paragraph">
-<p>Ein neuer Artikel ist einzufügen bzw. zu ändern.<br>
-<strong>Parameter:</strong> Bezeichnung, Artikelgruppenbezeichnung, Preis.<br>
-<strong>Rückgabe:</strong> neu angelegte ArtikelID. (fortlaufend)<br>
-Existiert dieser Artikel bereits (Bezeichnung) ist dieser zu ändern.</p>
+<p>&#8594; SQL Developer (Verbindungsdaten auswendig lernen)
+&#8594; script zum Einspielen</p>
 </div>
-<div class="listingblock">
-<div class="title">Create Procedure for primary key</div>
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="n">sequence</span> <span class="n">PK_WAWI_ARTIKEL</span> <span class="k">start</span> <span class="k">with</span> <span class="mi">23</span><span class="p">;</span>
-
-<span class="k">drop</span> <span class="n">sequence</span> <span class="n">PK_WAWI_ARTIKEL</span><span class="p">;</span>
-
-<span class="k">select</span> <span class="n">PK_WAWI_ARTIKEL</span><span class="p">.</span><span class="n">nextval</span> <span class="k">from</span> <span class="n">DUAL</span><span class="p">;</span>
-
-
-
-<span class="k">commit</span><span class="p">;</span></code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">or</span> <span class="k">replace</span> <span class="k">function</span> <span class="n">wawiAddArticle</span> <span class="p">(</span>
-    <span class="n">p_bezeichnung</span> <span class="k">in</span> <span class="n">WAWI_ARTIKEL</span><span class="p">.</span><span class="n">BEZEICHNUNG</span><span class="o">%</span><span class="k">type</span><span class="p">,</span>
-    <span class="n">p_artikelGruppenBezeichnung</span> <span class="k">in</span> <span class="n">WAWI_ARTIKEL_GRUPPE</span><span class="p">.</span><span class="n">BEZEICHNUNG</span><span class="o">%</span><span class="k">type</span><span class="p">,</span>
-    <span class="n">p_preis</span> <span class="k">in</span> <span class="n">number</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">WAWI_ARTIKEL</span><span class="p">.</span><span class="n">ARTIKELID</span><span class="o">%</span><span class="k">type</span>
-<span class="k">as</span>
-    <span class="n">counter</span> <span class="nb">integer</span><span class="p">;</span>
-<span class="k">begin</span>
-    <span class="k">insert</span> <span class="k">into</span> <span class="n">WAWI_ARTIKEL</span>
-    <span class="p">(</span><span class="n">ARTIKELID</span><span class="p">,</span> <span class="n">ARTIKELGRUPPEID</span><span class="p">,</span> <span class="n">BEZEICHNUNG</span><span class="p">,</span> <span class="n">PREIS</span><span class="p">)</span>
-    <span class="k">values</span> <span class="p">(</span>
-        <span class="n">PK_WAWI_ARTIKEL</span><span class="p">.</span><span class="n">nextval</span><span class="p">,</span>
-        <span class="p">(</span><span class="k">select</span> <span class="n">ARTIKELGRUPPEID</span>
-         <span class="k">from</span> <span class="n">WAWI_ARTIKEL_GRUPPE</span>
-         <span class="k">where</span> <span class="k">upper</span><span class="p">(</span><span class="n">BEZEICHNUNG</span><span class="p">)</span> <span class="k">like</span> <span class="k">upper</span><span class="p">(</span><span class="n">p_artikelGruppenBezeichnung</span><span class="p">)),</span>
-        <span class="n">p_bezeichnung</span><span class="p">,</span>
-        <span class="n">p_preis</span>
-    <span class="p">);</span>
-
-    <span class="k">return</span> <span class="n">PK_WAWI_ARTIKEL</span><span class="p">.</span><span class="n">currval</span><span class="p">;</span>
-<span class="k">end</span> <span class="n">wawiAddArticle</span><span class="p">;</span>
-<span class="o">/</span></code></pre>
-</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Befehlt für Anzeigen von Tables:</p>
+</li>
+</ul>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">wawiAddArticle</span><span class="p">(</span><span class="s1">'test'</span><span class="p">,</span> <span class="s1">'eisen'</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="k">from</span> <span class="n">DUAL</span><span class="p">;</span></code></pre>
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">cat</span>
+<span class="cm">/* oder */</span>
+<span class="k">select</span> <span class="k">table_name</span> <span class="k">from</span> <span class="n">user_tables</span></code></pre>
 </div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Date format abändern:</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="../uebungen/01/uebung_1.html">Übung 1 a</a><br>
+<a href="../uebungen/01_01/uebung_1.html">Übung 1b</a><br>
+<a href="../uebungen/04/Uebung_4">Übung 4</a><br>
+<a href="../uebungen/05/Uebung_5">Übung 5</a><br>
+<a href="../uebungen/06/uebung_6">Übung 6</a><br>
+<a href="../school-SQL/uebungen/07/uebung_7">Übung 7</a><br>
+<a href="../school-SQL/uebungen/10/uebung_10">Übung 10</a><br>
+<a href="../uebungen/12/uebung_12.html">Übung 12</a><br>
+<a href="../uebungen/13/uebung_13.html">Übung 13</a></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>distinct anwenden können</p>
+</li>
+<li>
+<p>group by</p>
+</li>
+<li>
+<p>joins!!!</p>
+</li>
+<li>
+<p>concat &#8594; ||</p>
+</li>
+<li>
+<p>like</p>
+</li>
+<li>
+<p>to_date</p>
+</li>
+<li>
+<p>substr</p>
+</li>
+<li>
+<p>trim</p>
+</li>
+<li>
+<p>upper, lower</p>
+</li>
+<li>
+<p>nvl</p>
+</li>
+<li>
+<p>to_char</p>
+</li>
+<li>
+<p>to_date</p>
+</li>
+<li>
+<p>order by</p>
+</li>
+<li>
+<p>case:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">SELECT</span> <span class="n">cust_last_name</span><span class="p">,</span>
+   <span class="k">CASE</span> <span class="n">credit_limit</span> <span class="k">WHEN</span> <span class="mi">100</span> <span class="k">THEN</span> <span class="s1">'Low'</span>
+   <span class="k">WHEN</span> <span class="mi">5000</span> <span class="k">THEN</span> <span class="s1">'High'</span>
+   <span class="k">ELSE</span> <span class="s1">'Medium'</span> <span class="k">END</span>
+   <span class="k">FROM</span> <span class="n">customers</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>connect by (kommt nicht)</p>
+</li>
+<li>
+<p>intersect (kommt nicht)</p>
+</li>
+<li>
+<p>minus (kommt nicht)</p>
+</li>
+<li>
+<p>sequences</p>
+</li>
+<li>
+<p>subselect</p>
+</li>
+<li>
+<p>update</p>
+</li>
+<li>
+<p>insert</p>
+</li>
+<li>
+<p>delete</p>
+</li>
+<li>
+<p>drop</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Die Tendenz auf dem Test liegt eher auf den select statements</p>
+</div>
+<div class="paragraph">
+<p>Es gibt wieder die outputs</p>
+</div>
+</div>
+</details>
+</div>
+<div class="sect2">
+<h3 id="_semester_3"><a class="anchor" href="#_semester_3"></a>1.2. Semester 3</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>wiederholung SQL</p>
+</li>
+<li>
+<p>PLSQL</p>
+</li>
+<li>
+<p>APEX</p>
+</li>
+<li>
+<p>JPA (OR Mapper)</p>
+</li>
+<li>
+<p>Mongo</p>
+</li>
+<li>
+<p>R [?]</p>
+</li>
+</ul>
+</div>
+<details>
+<summary class="title">Exam 1</summary>
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>create statement</p>
+</li>
+<li>
+<p>insert statement</p>
+</li>
+<li>
+<p>update statement</p>
+</li>
+</ul>
+</div>
+</div>
+</details>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_kunde"><a class="anchor" href="#_kunde"></a>2. Kunde</h2>
+<h2 id="_exam_2"><a class="anchor" href="#_exam_2"></a>2. Exam 2</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Ein neuer Kunde ist einzufügen bzw. zu ändern.<br>
-<strong>Parameter:</strong> Kundengruppenbezeichnung, VName, NName, Adresse.<br>
-<strong>Rückgabe:</strong> neu angelegte KundenID. (fortlaufend)<br>
-Existiert dieser Kunde bereits (VName, NName) ist dieser zu ändern.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_preisliste"><a class="anchor" href="#_preisliste"></a>3. Preisliste</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Ein neuer Rabatt ist einzufügen bzw. zu ändern.<br>
-<strong>Parameter:</strong> Kundengruppenbezeichnung, Artikelgruppenbezeichnung.<br>
-<strong>Rückgabe:</strong> keiner<br>
-Existiert dieser Rabattsatz bereits ist dieser zu ändern.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_rechnung"><a class="anchor" href="#_rechnung"></a>4. Rechnung</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Gibt sämtliche Rechnungen eines Kunden aus.<br>
-<strong>Parameter:</strong> KundenID.<br>
-<strong>Rückgabe:</strong> keiner<br>
-Dabei wird zunächst eine Zeile mit den Daten des Rechnungskopfes (rechnungs-
-kopfID, VName, NName, Kundengruppenbezeichnung) ausgegeben und daran die
-einzelnen Positionen der Rechnung angefügt. (RechnungskopfID, Rechnungspositi-
-onsID, ArtikelID, Menge, Artikelgruppenbezeichnung, Rabatt, Preis je Artikel, Summe=(Menge * Preis)-Rabatt).
-Jede Rechnung erhält eine Summenzeile.</p>
-</div>
-<div class="olist loweralpha">
-<ol class="loweralpha">
+<div class="ulist">
+<ul>
 <li>
-<p>Entscheide, ob Funktionen oder Prozeduren zu erstellen sind.</p>
+<p>create statement</p>
 </li>
 <li>
-<p>Erstelle anschließend ein Skript, welches die Unterprogramme mit mehreren
-Testfällen testet (z.B. unnamed block).</p>
+<p>insert statement</p>
 </li>
 <li>
-<p>Fehler sollen abgefangen werden und sprechende Fehlermeldungen ausge-
-geben werden.</p>
+<p>update statement</p>
 </li>
-</ol>
+</ul>
 </div>
 </div>
 </div>
