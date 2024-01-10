@@ -1,0 +1,49 @@
+= SQL
+Mctom Spdo
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../../css/dark.css
+
+== Aufbau SQL Statements
+
+[source,sql]
+----
+SELECT...
+FROM ....
+[WHERE ....]
+[CONNECT BY ....]
+[GROUP BY ....]
+    [HAVING ....]
+[ORDER BY ....]
+----
+
+=== Joins
+
+https://www.w3schools.com/sql/sql_join.asp[W3Schools]
+
+image::https://www.w3schools.com/sql/img_inner_join.png[]
+
+image::https://www.w3schools.com/sql/img_left_join.png[]
+
+image::https://www.w3schools.com/sql/img_right_join.png[]
+
+image::https://www.w3schools.com/sql/img_full_outer_join.png[]
+
+== Kopieren einer Tablle
+
+Dies kann erzielt werden, indem Inserts und Selects gemeinsam kombiniert werden.
+
+
+
+
+
+
+
+
+
+
+
+

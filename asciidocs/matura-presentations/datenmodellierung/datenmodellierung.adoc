@@ -1,0 +1,86 @@
+= Datenmodellierung
+Mctom Spdo
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../../css/dark.css
+
+// Mona Angerer, 10.01.2024
+
+== Definition
+
+Prozess der Darstellungen von Informationen und Beziehungen zwischen Daten in einer organisierten Struktur
+
+Grundlage für die Konstruktion von Datenbanken
+
+Hilft, komplexte Informationen in leicht verständlichen Form zu organisieren
+
+Daten werden effizient gespeichert
+
+=== Gut durchdachte Datenmodellierung:
+
+* strukturierte Speicherung
+* Vermeidung von Redundanz
+* Integritaet der Daten
+* Flexibilitaet und Skalierbarkeit
+
+=== Die 3 Stadien der Datenmodellierung
+
+* Konzeptionelles Modell
+* Logisches Modell
+* Physisches Modell
+
+relationelle DBs
+
+* Oracle
+* Microsoft SQL Server
+* Postgres SQL
+* Derby
+* MariaDB
+* MySQL
+* SqlLite
+
+=== Normalisierung
+
+* Redundanz minimieren
+* Integritaet der Daten
+* Verhindert Anomalien
+
+Erste, zweite und dritte Normalform ist auswendig zu koennen.
+
+==== Erste Normalform
+
+Alle Elemente sind Atomar
+
+Alle Werte in einer Spalte koennen nicht weiter unterteil werden
+
+==== Zweite Normalform
+
+Nicht-Schluesselattribute voll funktional
+
+==== Dritte Normalform
+
+Transititv
+
+Keine Abhaengingkeiten von nicht-Schlüsselattributen
+
+
+=== Überlappungen von Entitätsgruppen
+
+=== Sub- und Supertyp-Beziehungen
+
+== Lebenszyklus einer Entität
+
+=== Erstellen
+
+* Singular
+* Keine Abkürzungen
+* Konsistent
+* Keine Synonyme
+* Keine Homonyme
+
+
+
+
