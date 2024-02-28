@@ -1,0 +1,127 @@
+= SQL
+Just Elias, Thomas Spindler
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../../css/dark.css
+
+Erlaubt es, kleinere Programme direkt auf der Datenbank laufen zu lassen
+
+[cols=2]
+|===
+|Trigger
+|Ereignis gesteuert
+
+|Functions
+|Aufruf gesteuert
+
+|Procedures
+|Aufruf gesteuert
+
+|Job
+|Zeit gesteuert
+|===
+
+
+== PLSQL Blocks
+
+=== Anonymer Block
+
+[source,sql]
+----
+DELCARE
+    -- Deklarationsblock
+BEGIN
+    -- Ausführungsblock
+    exception
+    -- Ausnahmeverarbeitung
+END;
+----
+
+=== Lokale Procedure / Funktion
+
+Benannter SQL Block, der im SQL aufgerufen werden kann
+
+[source,sql]
+----
+DECLARE FUNCTION square(var_num NUMBER)
+    RETURN NUMBER IS
+
+    BEGIN
+        RETURN var_num * var_num
+END square;
+----
+
+.Aufrufen der Funktion
+[source,sql]
+----
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(square(3))
+END
+----
+
+=== Stored Procedure / Function
+
+----
+CREATE OR REPLACE PROCEDURE
+    World(P_name in VARCHAR2) IS
+    BEGIN
+----
+
+== Function VS Procedure / Packages
+
+Funktion hat einen Rückgabewert
+Procedure nicht
+
+Packages können dafür verwendet werden, um Daten und Module abzukapseln, und diese dadurch einfach zu verwenden sind
+
+
+== Deklaration
+
+Hier können Konstanten angelegt werden
+
+Deklaration mithilfe von Typen:
+
+v_name dept%ROWTYPE
+
+select into
+
+== Verzweigungen
+
+== CASE Statement
+
+* mit und ohne Selector
+
+== While loop
+
+== For loop
+
+== Cursor
+
+* Mithilfe von Cursors können mehrere rows von Daten abgerufen werden
+
+* Parameter
+* Bulkconnect
+* Cursor Attribute
+
+For update = sperren der Zeile für abändern der Daten
+
+XLock & Shared lock
+
+update = Xlock (hart)
+Shared lock (weich)
+
+Cursor Variablen
+
+* Dyamisch
+
+== Exception
+
+* Unnamed Exceptions
+* Named Exceptions
+
+
+
+

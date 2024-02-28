@@ -1,0 +1,118 @@
+= DCL & DDL
+Mctom Spdo, Paul Horner
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ./css/dark.css
+
+== Definition
+
+DDL = **D**ata **D**efinition **L**anguage
+
+DCL = **D**ata **C**ontrol **L**anguage
+
+== DDL
+
+* CREATE TABLE
+* ALTER TABLE
+* LÖSCHEN
+** DELETE
+** DROP
+*** Cascade = Foreign keys
+** TRUNCATE
+* ALTER TABLE
+** ADD
+** MODIFY
+** DROP
+
+
+[source,sql]
+----
+ALTER TABE Clerks
+    ADD (Email VARCHAR2(50));
+----
+
+Aufpassen auf Constraints
+
+varchar(50) -> varchar(60) = kein Problem
+varchar(50) -> varchar(20) = kann ein Problem sein
+
+Datentyp abändern oft komplizierter
+
+== DCL
+
+Verwaltet Rechte auf DB
+
+* GRANT
+* REVOKE
+
+=== Rollen
+
+Mithilfe von Rollen können z.B. schreib & leserechte verwaltet werden
+
+* CREATE
+* GRANT ... ON .. TO ..
+
+.Rechte einer Rolle einteilen & Rolle an User geben
+[source,sql]
+----
+GRANT SELECT, INSERT, UPDATE ON clerks TO lesen_schreiben;
+
+GRANT lesen_schreiben TO sepp;
+----
+
+Bei guten Rechten aufpassen: Weitergabe von Rechten ist möglich!
+
+ADMIN option?
+
+== Datenbankobjekte
+
+=== VIEW
+
+** Wie eine Tabelle
+** Zugriff auf gewisse Daten kann gewährt werden
+
+Ein Insert auf eine View ist an sich möglich, allerdings, nur wenn diese keine Joins, etc. verwendet
+
+Mithilfe einer View können select statements vereinfacht werden
+
+Wenn select statements so kompliziert werden, sodass man diese nicht mehr schreiben kann
+
+Die Performance von Views ist sehr schlecht
+
+=== INDEX
+
+Index -> Inhaltsverzeichnis
+
+Ein Index kann die Performance verbessern
+
+Das DatenbankManagementSystem macht eigenen Indexe, um Performance zu optimieren. Primary keys bekommen immer einen Index.
+
+[source,sql]
+----
+CREATE INDEX ind_name
+ON table_name (column1, .. columnN)
+----
+
+=== Constraints
+
+* Primary key
+** Unique & Not null
+** Kann mit einer Sequence fortlaufen gemacht werden
+* Foreign key
+* Unique
+** Kein Wert doppelt
+* Not null
+** Nicht null
+* Check
+** Eigenen Constraints
+*** Datum nicht in Zukunft
+*** Alter nicht > 120 und nicht negativ
+
+=== Datenbankoptimierung
+
+Index kann bei Performance helfen
+
+durch wenig joins in select statements

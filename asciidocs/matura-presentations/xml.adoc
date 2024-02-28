@@ -1,0 +1,112 @@
+= XML
+Thaller David, Thomas Spindler
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../../css/dark.css
+
+Extensible Markup Language
+
+Eine Textbasierte Sprache, um Daten zu speichern und darzustellen.
+
+Vorteile:
+
+* Einfach
+* Human Readable
+* Erweiterbar
+
+JSON hat XML größteils abgelöst
+
+gibt allerdings noch viele verwendungen von XML:
+
+----
+pom.xml
+javafx
+Soup / Rest
+----
+
+== DTD
+
+Document Type Definition
+
+* Beziehungen von Objekten in Dokumenten
+* Validierung von XML
+
+DTD = Beschreibungssprache für Aufbaus von XML
+
+Heute abgelöst durch XML Schemas, welche dasselbe Ziel haben.
+
+== XML Schema
+
+Schema, welches die Struktur eines XML Dokuments definiert
+
+* Leistungsfähiger als DTD
+* unterstützt Datentypen
+* XML Syntax
+* sichere Datenkommunikation
+
+== XML SQL Utility
+
+XSU
+
+Datenbanken <--> XML Dokument
+
+In Oracle gibt es einen eigenen Typus für XML Daten.
+
+
+=== XSL und XSLT
+
+Extensible Styling Language
+
+Mithilfe von XSLT können XML Daten auf einer Website dargestellt werden
+
+Vorteil: HTML und Transformation muss nur einmal passieren, danach muss nur die XML geupdated werden
+
+=== SVG
+
+Scalable Vector Graphics
+
+* Beliebig Skalierbar
+* Animationen
+* Basiert auf XML
+
+== DOM
+
+Document Object Model
+
+* Baumstruktur
+* XML-Parser
+* erlaubt flexiblen und einfachen Zugriff
+* wird im Arbeitsspeicher abgelegt
+* relativ hoher RAM bedarf
+
+== SAX
+
+Simple API For XML
+
+* XML Parser
+* Schneller als DOM
+* Dokumente werden linear abgearbeitet -> Keinen beliebigen Zugriff
+* effizientes bearbeiten von XML Dokumenten
+* vor allem für einmalige Lesevorgänge
+
+== XERCCES
+
+* XML-Dokumente erstellen und verarbeiten
+* Unterstützt Parsen
+* Struktur und Regeln überprüfen
+
+== AJAX
+
+* HTTP-Request Objekte
+* Javascript
+
+
+
+
+
+
+
+
