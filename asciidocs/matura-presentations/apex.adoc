@@ -1,0 +1,10 @@
+= Apex
+Lydia Reiter, Thomas Spindler
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../../css/dark.css
+
+

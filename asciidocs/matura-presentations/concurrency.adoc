@@ -1,0 +1,101 @@
+= Concurrency
+Klose Peter, Thomas Spindler
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../../css/dark.css
+
+== Logical Unit of Work
+
+* Logisch zusammenhängende Sequenz von Operationen
+* Führt von einer konsitenten Zustand zum nächsten
+* LUW - Ansammlung mehrere transaktionen
+
+=== Transaction
+
+Logical Unit of Work
+
+**A**tomiciy (ganz oder nicht) +
+**C**onsistency (Konsistenz o.a. Integritätserhaltung) +
+**I**solation (Nutzer eindruck alleine auf DB) +
+**D**urability (Dauerhaftigkeit/Persistent)
+
+Beispiel:
+
+[source,sql]
+----
+exec sql update Konto set Saldo = Saldo - Betrag where KontoNr = KontoQuelle
+----
+
+[source,sql]
+----
+exec sql update Konto set Saldo = Saldo + Betrag where KontoNr = KontoZiel
+----
+
+Starten einer Transaktion?
+
+== Concurrency
+
+Mehre User greifen auf dieselben Daten zu
+
+=== Datenanomalien
+
+* Verlorenes Update (Lost Update)
+** Gleichzeitiges Lesen eines Wertes von 2 Prozessen
+* Schreib-Lese-Konflikt (Dirty Read)
+* Nicht bestätigte Abhängigkeit (Uncommitted Dependency)
+* Inkonsitente Analyse (Inconsistent Analysis)
+* Phtanomproblem (Inconsistent Read)
+** Insert oder delete während des Lesevorganges
+
+=== Locking
+
+Sperren von Tabellen
+
+Arten von Locking:
+
+* Pessimistisch
+** Sperrt alles as gebraucht wird
+** "For update"
+* Optimistisch
+** ES wird schon nichts passieren
+** Vergleich kurz vor Update ob Werte geändert worden sind
+
+Locks:
+
+* Exclusive Lock (X Lock)
+* Shared Lock (S Lock)
+
+Problem: Deadlock
+
+Sperrtypen:
+
+* Two Phase Locking
+** Alle Benötigten Resourcen werden gesperrt
+** Wird wieder freigegegben falls nicht moeglich
+* Transaktion-Scheduling
+** 2 Prozesse unterschiedliche Daten => gleichzeitig
+* Zeitmarkerverfahren
+** Arbeiten mit den Transaktionsstartzeitpunkt
+** Wait-Die
+** Wound-Wait
+* Timeout
+** Nach einer gewissen Dauer wird die Transaktion neu gestartet
+
+=== Hierarchisches Sperren
+
+Sperren einzelner Zeilen, Tables, DBs, ....
+
+
+lock table TABLE in row share mode
+
+lock table TBALE in row exclusive mode
+
+== Bleh
+
+select -> keine Sperre +
+insert/update/delete -> write lock / row exclusive +
+select ... for update -> read lock / row share +
+commit/rollback -> freigeben aller locks
