@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.21">
+<meta name="author" content="Just Elias, Thomas Spindler">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>SQL</title>
+<style>
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge, pre.rouge .w {
+  color: #24292f;
+  background-color: #f6f8fa;
+}
+pre.rouge .k, pre.rouge .kd, pre.rouge .kn, pre.rouge .kp, pre.rouge .kr, pre.rouge .kt, pre.rouge .kv {
+  color: #cf222e;
+}
+pre.rouge .gr {
+  color: #f6f8fa;
+}
+pre.rouge .gd {
+  color: #82071e;
+  background-color: #ffebe9;
+}
+pre.rouge .nb {
+  color: #953800;
+}
+pre.rouge .nc {
+  color: #953800;
+}
+pre.rouge .no {
+  color: #953800;
+}
+pre.rouge .nn {
+  color: #953800;
+}
+pre.rouge .sr {
+  color: #116329;
+}
+pre.rouge .na {
+  color: #116329;
+}
+pre.rouge .nt {
+  color: #116329;
+}
+pre.rouge .gi {
+  color: #116329;
+  background-color: #dafbe1;
+}
+pre.rouge .kc {
+  color: #0550ae;
+}
+pre.rouge .l, pre.rouge .ld, pre.rouge .m, pre.rouge .mb, pre.rouge .mf, pre.rouge .mh, pre.rouge .mi, pre.rouge .il, pre.rouge .mo, pre.rouge .mx {
+  color: #0550ae;
+}
+pre.rouge .sb {
+  color: #0550ae;
+}
+pre.rouge .bp {
+  color: #0550ae;
+}
+pre.rouge .ne {
+  color: #0550ae;
+}
+pre.rouge .nl {
+  color: #0550ae;
+}
+pre.rouge .py {
+  color: #0550ae;
+}
+pre.rouge .nv, pre.rouge .vc, pre.rouge .vg, pre.rouge .vi, pre.rouge .vm {
+  color: #0550ae;
+}
+pre.rouge .o, pre.rouge .ow {
+  color: #0550ae;
+}
+pre.rouge .gh {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .s, pre.rouge .sa, pre.rouge .sc, pre.rouge .dl, pre.rouge .sd, pre.rouge .s2, pre.rouge .se, pre.rouge .sh, pre.rouge .sx, pre.rouge .s1, pre.rouge .ss {
+  color: #0a3069;
+}
+pre.rouge .nd {
+  color: #8250df;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #8250df;
+}
+pre.rouge .err {
+  color: #f6f8fa;
+  background-color: #82071e;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cm, pre.rouge .cp, pre.rouge .cpf, pre.rouge .c1, pre.rouge .cs {
+  color: #6e7781;
+}
+pre.rouge .gl {
+  color: #6e7781;
+}
+pre.rouge .gt {
+  color: #6e7781;
+}
+pre.rouge .ni {
+  color: #24292f;
+}
+pre.rouge .si {
+  color: #24292f;
+}
+pre.rouge .ge {
+  color: #24292f;
+  font-style: italic;
+}
+pre.rouge .gs {
+  color: #24292f;
+  font-weight: bold;
+}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>SQL</h1>
+<div class="details">
+<span id="author" class="author">Just Elias, Thomas Spindler</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2024-02-29</span>
+<br><span id="revremark">INSY</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_plsql_blocks">1. PLSQL Blocks</a>
+<ul class="sectlevel2">
+<li><a href="#_anonymer_block">1.1. Anonymer Block</a></li>
+<li><a href="#_lokale_procedure_funktion">1.2. Lokale Procedure / Funktion</a></li>
+<li><a href="#_stored_procedure_function">1.3. Stored Procedure / Function</a></li>
+</ul>
+</li>
+<li><a href="#_function_vs_procedure_packages">2. Function VS Procedure / Packages</a></li>
+<li><a href="#_deklaration">3. Deklaration</a></li>
+<li><a href="#_verzweigungen">4. Verzweigungen</a></li>
+<li><a href="#_case_statement">5. CASE Statement</a></li>
+<li><a href="#_while_loop">6. While loop</a></li>
+<li><a href="#_for_loop">7. For loop</a></li>
+<li><a href="#_cursor">8. Cursor</a></li>
+<li><a href="#_exception">9. Exception</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Erlaubt es, kleinere Programme direkt auf der Datenbank laufen zu lassen</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Trigger</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ereignis gesteuert</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Functions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aufruf gesteuert</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Procedures</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aufruf gesteuert</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Job</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Zeit gesteuert</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_plsql_blocks"><a class="anchor" href="#_plsql_blocks"></a>1. PLSQL Blocks</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_anonymer_block"><a class="anchor" href="#_anonymer_block"></a>1.1. Anonymer Block</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="n">DELCARE</span>
+    <span class="c1">-- Deklarationsblock</span>
+<span class="k">BEGIN</span>
+    <span class="c1">-- Ausführungsblock</span>
+    <span class="n">exception</span>
+    <span class="c1">-- Ausnahmeverarbeitung</span>
+<span class="k">END</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_lokale_procedure_funktion"><a class="anchor" href="#_lokale_procedure_funktion"></a>1.2. Lokale Procedure / Funktion</h3>
+<div class="paragraph">
+<p>Benannter SQL Block, der im SQL aufgerufen werden kann</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">DECLARE</span> <span class="k">FUNCTION</span> <span class="n">square</span><span class="p">(</span><span class="n">var_num</span> <span class="n">NUMBER</span><span class="p">)</span>
+    <span class="k">RETURN</span> <span class="n">NUMBER</span> <span class="k">IS</span>
+
+    <span class="k">BEGIN</span>
+        <span class="k">RETURN</span> <span class="n">var_num</span> <span class="o">*</span> <span class="n">var_num</span>
+<span class="k">END</span> <span class="n">square</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Aufrufen der Funktion</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">BEGIN</span>
+    <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="n">square</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="k">END</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_stored_procedure_function"><a class="anchor" href="#_stored_procedure_function"></a>1.3. Stored Procedure / Function</h3>
+<div class="listingblock">
+<div class="content">
+<pre>CREATE OR REPLACE PROCEDURE
+    World(P_name in VARCHAR2) IS
+    BEGIN</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_function_vs_procedure_packages"><a class="anchor" href="#_function_vs_procedure_packages"></a>2. Function VS Procedure / Packages</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Funktion hat einen Rückgabewert
+Procedure nicht</p>
+</div>
+<div class="paragraph">
+<p>Packages können dafür verwendet werden, um Daten und Module abzukapseln, und diese dadurch einfach zu verwenden sind</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deklaration"><a class="anchor" href="#_deklaration"></a>3. Deklaration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hier können Konstanten angelegt werden</p>
+</div>
+<div class="paragraph">
+<p>Deklaration mithilfe von Typen:</p>
+</div>
+<div class="paragraph">
+<p>v_name dept%ROWTYPE</p>
+</div>
+<div class="paragraph">
+<p>select into</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_verzweigungen"><a class="anchor" href="#_verzweigungen"></a>4. Verzweigungen</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_case_statement"><a class="anchor" href="#_case_statement"></a>5. CASE Statement</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>mit und ohne Selector</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_while_loop"><a class="anchor" href="#_while_loop"></a>6. While loop</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_for_loop"><a class="anchor" href="#_for_loop"></a>7. For loop</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cursor"><a class="anchor" href="#_cursor"></a>8. Cursor</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Mithilfe von Cursors können mehrere rows von Daten abgerufen werden</p>
+</li>
+<li>
+<p>Parameter</p>
+</li>
+<li>
+<p>Bulkconnect</p>
+</li>
+<li>
+<p>Cursor Attribute</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For update = sperren der Zeile für abändern der Daten</p>
+</div>
+<div class="paragraph">
+<p>XLock &amp; Shared lock</p>
+</div>
+<div class="paragraph">
+<p>update = Xlock (hart)
+Shared lock (weich)</p>
+</div>
+<div class="paragraph">
+<p>Cursor Variablen</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Dyamisch</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exception"><a class="anchor" href="#_exception"></a>9. Exception</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Unnamed Exceptions</p>
+</li>
+<li>
+<p>Named Exceptions</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2024-02-29 12:19:52 UTC
+</div>
+</div>
+</body>
+</html>

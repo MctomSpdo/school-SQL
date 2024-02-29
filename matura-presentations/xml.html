@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.21">
+<meta name="author" content="Thaller David, Thomas Spindler">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>XML</title>
+<style>
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>XML</h1>
+<div class="details">
+<span id="author" class="author">Thaller David, Thomas Spindler</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2024-02-29</span>
+<br><span id="revremark">INSY</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_dtd">1. DTD</a></li>
+<li><a href="#_xml_schema">2. XML Schema</a></li>
+<li><a href="#_xml_sql_utility">3. XML SQL Utility</a>
+<ul class="sectlevel2">
+<li><a href="#_xsl_und_xslt">3.1. XSL und XSLT</a></li>
+<li><a href="#_svg">3.2. SVG</a></li>
+</ul>
+</li>
+<li><a href="#_dom">4. DOM</a></li>
+<li><a href="#_sax">5. SAX</a></li>
+<li><a href="#_xercces">6. XERCCES</a></li>
+<li><a href="#_ajax">7. AJAX</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Extensible Markup Language</p>
+</div>
+<div class="paragraph">
+<p>Eine Textbasierte Sprache, um Daten zu speichern und darzustellen.</p>
+</div>
+<div class="paragraph">
+<p>Vorteile:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Einfach</p>
+</li>
+<li>
+<p>Human Readable</p>
+</li>
+<li>
+<p>Erweiterbar</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>JSON hat XML größteils abgelöst</p>
+</div>
+<div class="paragraph">
+<p>gibt allerdings noch viele verwendungen von XML:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>pom.xml
+javafx
+Soup / Rest</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dtd"><a class="anchor" href="#_dtd"></a>1. DTD</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Document Type Definition</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Beziehungen von Objekten in Dokumenten</p>
+</li>
+<li>
+<p>Validierung von XML</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>DTD = Beschreibungssprache für Aufbaus von XML</p>
+</div>
+<div class="paragraph">
+<p>Heute abgelöst durch XML Schemas, welche dasselbe Ziel haben.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_xml_schema"><a class="anchor" href="#_xml_schema"></a>2. XML Schema</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Schema, welches die Struktur eines XML Dokuments definiert</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Leistungsfähiger als DTD</p>
+</li>
+<li>
+<p>unterstützt Datentypen</p>
+</li>
+<li>
+<p>XML Syntax</p>
+</li>
+<li>
+<p>sichere Datenkommunikation</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_xml_sql_utility"><a class="anchor" href="#_xml_sql_utility"></a>3. XML SQL Utility</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>XSU</p>
+</div>
+<div class="paragraph">
+<p>Datenbanken &#8592;&#8594; XML Dokument</p>
+</div>
+<div class="paragraph">
+<p>In Oracle gibt es einen eigenen Typus für XML Daten.</p>
+</div>
+<div class="sect2">
+<h3 id="_xsl_und_xslt"><a class="anchor" href="#_xsl_und_xslt"></a>3.1. XSL und XSLT</h3>
+<div class="paragraph">
+<p>Extensible Styling Language</p>
+</div>
+<div class="paragraph">
+<p>Mithilfe von XSLT können XML Daten auf einer Website dargestellt werden</p>
+</div>
+<div class="paragraph">
+<p>Vorteil: HTML und Transformation muss nur einmal passieren, danach muss nur die XML geupdated werden</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_svg"><a class="anchor" href="#_svg"></a>3.2. SVG</h3>
+<div class="paragraph">
+<p>Scalable Vector Graphics</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Beliebig Skalierbar</p>
+</li>
+<li>
+<p>Animationen</p>
+</li>
+<li>
+<p>Basiert auf XML</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dom"><a class="anchor" href="#_dom"></a>4. DOM</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Document Object Model</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Baumstruktur</p>
+</li>
+<li>
+<p>XML-Parser</p>
+</li>
+<li>
+<p>erlaubt flexiblen und einfachen Zugriff</p>
+</li>
+<li>
+<p>wird im Arbeitsspeicher abgelegt</p>
+</li>
+<li>
+<p>relativ hoher RAM bedarf</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sax"><a class="anchor" href="#_sax"></a>5. SAX</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Simple API For XML</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>XML Parser</p>
+</li>
+<li>
+<p>Schneller als DOM</p>
+</li>
+<li>
+<p>Dokumente werden linear abgearbeitet &#8594; Keinen beliebigen Zugriff</p>
+</li>
+<li>
+<p>effizientes bearbeiten von XML Dokumenten</p>
+</li>
+<li>
+<p>vor allem für einmalige Lesevorgänge</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_xercces"><a class="anchor" href="#_xercces"></a>6. XERCCES</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>XML-Dokumente erstellen und verarbeiten</p>
+</li>
+<li>
+<p>Unterstützt Parsen</p>
+</li>
+<li>
+<p>Struktur und Regeln überprüfen</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ajax"><a class="anchor" href="#_ajax"></a>7. AJAX</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>HTTP-Request Objekte</p>
+</li>
+<li>
+<p>Javascript</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2024-02-29 12:19:52 UTC
+</div>
+</div>
+</body>
+</html>
