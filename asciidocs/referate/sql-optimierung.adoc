@@ -1,0 +1,135 @@
+
+
+== Indices
+
+* Für schneller abfragen
+* 2 Arten
+** BTREE
+*** Balanced Tree
+*** bei guter Selektivität von werten
+
+
+INFO: Selektivität: Nur wenig Möglichkeiten für einen Wert
+
+ERKLÄRUNG BALANCED TREE
+
+=== BTREE Index
+
+==== SQL Syntaxbeispiele
+
+Performance dont'ts
+
+* Vermeiden von upper, like, ...
+* Keine Concatinierungen
+* Ungleich Operator
+
+
+WHERE SAL <> 0
+
+
+WHERE SAL < 0
+
+Vermeiden von von UPPER, LIKE, ....
+
+Keine Concatinierungen
+
+Ungleich Operator
+
+=== Bitmapped Index
+
+* Werte mit niedriger Selektivität
+* beruecksichten Null
+* Gut fuer ungleich
+* gut fuer count
+* probleme bei Locks
+
+== Optimizer
+
+Die Pläne für die Execution werden abgeändert, um möglichst effizient zu sein.
+
+* Die gesammte Ausführungzeit ist wichitg
+
+Full Table scans vermeiden
+
+Index Scan: Es wird ein Index verwendet
+
+Datenmenge > 15% -> Ful scan empfohlen
+
+=== Cost Based Optimizer
+
+* Kann SQL Queries umschreiben
+* Statistiken über tables sind im Data dictionary gespeichert
+
+==== Analyze Befehl
+
+ANALYZE TABLE EMP COMPUTE STATISTICS FOR ALL COLUMNS
+
+R COUNT
+
+Optimizer verenden JOINS, um die Queries verwenden
+
+nicht in unseren SQL Statements
+
+* Sort-Merge Joins
+* Hashed Joins
+* Nested Loop
+* Star Joins
+
+===== Nested Loop
+
+2 verschachtelte Vorschleifen
+
+gut bei kleinen Datenmengen
+
+===== Star Joins
+
+Eine große Tabelle wird mit mindestens 2 kleineren Tabellen gejoint
+
+===== Sort Merge Join
+
+* Tabellen werden beim Join sortiert
+* Where Klauseln werden beim Full-Table-Scan evaluiert
+* Die kleinere Tabelle soll zuerst gelesen werden
+* Diese sind für große Datenmengen geeignet
+
+===== Hash Join
+
+* große Datenmenge
+* schneller als Sort-Merge Join
+* mithilfe von Hashmaps
+
+=== Hints
+
+Kommentare für den Optimizer, die in Queries eingebaut werden kann.
+Der Optimizer kann diese hints ignorieren, muss dies allerdings nicht
+
+Bei hints muss immer ein Explain Plan ausgeführt werden, um zu schauen ob der Hint berücksichtigt wird.
+
+== Explain Plan
+
+Dieser zeigt, was die Datenbank im hintergrund macht, um das gegebene Statement auszuführen.
+
+Es werden die Kosten auf der CPU angezeigt, für die einzelnen Schritte im Statement
+
+
+== Tips:
+
+Bei Subqueries:
+
+* Minus verwenden
+* outer joins
+* (not) exists
+* not in
+
+normale Queries:
+
+* Not vermeiden
+
+
+Aliases können hilfreich bei Performance sind
+
+
+
+
+
+

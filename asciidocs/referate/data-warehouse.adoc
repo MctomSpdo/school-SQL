@@ -1,0 +1,76 @@
+= Data Warehouse
+Moritz Eder
+
+== Was ist ein Datawarehouse?
+
+Zentrale Datenbank, die Daten aus verschiedenen Quellen sammelt, speichert und für Analysen verwendet
+
+Durch Verlaufsdata -> Single source of truth
+
+* OLTP - Online Transaction Processing
+** Echtzeit Verarbeiten
+** Online-Shop
+* OLAP - Online Analytical Processing
+** Datenanalysen
+** Data Mining
+*** Nicht Zeitkritisch, koennen lange Laufzeiten haben
+
+== Aufbau Datawarehouse
+
+* Relationale Datenbank
+* ETL
+** Extract Transfer Load
+* Analysen, reporting data mining
+* Tools um Daten zu visualisieren
+
+== Schemata
+
+=== Star-Schema
+
+In der Mitte gibt es eine einzige Tabelle, die auf andere zeigt
+
+* Vereinfachbarkeit für Abfragen
+* bessere Leisstung
+* Denormalisiert
+
+=== Snowflake Schema
+
+Aufgebaut wie eine Schneeflocke
+
+* Komplexe und normalisierte Struktur
+* Wenig Redundanz und erhöhte Speichereffizienz
+* Ideal für große Datenmenge
+
+Faktentabelle = Tabelle in der Mitte +
+Dimensionstabellen = Tabellen des Sternes +
+Unterdimensionen = Tabellen von Snowflake
+
+=== OLAP
+
+Tabellenstruktur wird zur Würfelstruktur
+Zwei Hauptmodelle:
+    - ROLAP (relational)
+    - MOLAP (multidimensional)
+
+* Rolap
+** beruhen auf standisierten Datenbanksysteme
+* MOLAP
+** Spezielle, eigene Datenbanken
+
+n Dimensionen = 2^n Unteranfragen
+
+CUBE Operator
+
+== Vorteile Datawarehouse
+
+* Themenorientiert
+* Integriert
+** In unterschiedliche Quellen
+* Zeitorientiert
+* Unveränderlich
+** Daten in einem Data Warehouse verändern sich nicht mehr
+** Es können Daten dazukommen
+
+
+
+
