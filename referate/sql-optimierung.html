@@ -5,9 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.21">
-<meta name="author" content="Mctom Spdo">
 <link rel="icon" type="image/png" href="themes/favicon.png">
-<title>Übung 1</title>
+<title>Indices</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,248 +435,306 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-pre.rouge table td { padding: 5px; }
-pre.rouge table pre { margin: 0; }
-pre.rouge, pre.rouge .w {
-  color: #24292f;
-  background-color: #f6f8fa;
-}
-pre.rouge .k, pre.rouge .kd, pre.rouge .kn, pre.rouge .kp, pre.rouge .kr, pre.rouge .kt, pre.rouge .kv {
-  color: #cf222e;
-}
-pre.rouge .gr {
-  color: #f6f8fa;
-}
-pre.rouge .gd {
-  color: #82071e;
-  background-color: #ffebe9;
-}
-pre.rouge .nb {
-  color: #953800;
-}
-pre.rouge .nc {
-  color: #953800;
-}
-pre.rouge .no {
-  color: #953800;
-}
-pre.rouge .nn {
-  color: #953800;
-}
-pre.rouge .sr {
-  color: #116329;
-}
-pre.rouge .na {
-  color: #116329;
-}
-pre.rouge .nt {
-  color: #116329;
-}
-pre.rouge .gi {
-  color: #116329;
-  background-color: #dafbe1;
-}
-pre.rouge .kc {
-  color: #0550ae;
-}
-pre.rouge .l, pre.rouge .ld, pre.rouge .m, pre.rouge .mb, pre.rouge .mf, pre.rouge .mh, pre.rouge .mi, pre.rouge .il, pre.rouge .mo, pre.rouge .mx {
-  color: #0550ae;
-}
-pre.rouge .sb {
-  color: #0550ae;
-}
-pre.rouge .bp {
-  color: #0550ae;
-}
-pre.rouge .ne {
-  color: #0550ae;
-}
-pre.rouge .nl {
-  color: #0550ae;
-}
-pre.rouge .py {
-  color: #0550ae;
-}
-pre.rouge .nv, pre.rouge .vc, pre.rouge .vg, pre.rouge .vi, pre.rouge .vm {
-  color: #0550ae;
-}
-pre.rouge .o, pre.rouge .ow {
-  color: #0550ae;
-}
-pre.rouge .gh {
-  color: #0550ae;
-  font-weight: bold;
-}
-pre.rouge .gu {
-  color: #0550ae;
-  font-weight: bold;
-}
-pre.rouge .s, pre.rouge .sa, pre.rouge .sc, pre.rouge .dl, pre.rouge .sd, pre.rouge .s2, pre.rouge .se, pre.rouge .sh, pre.rouge .sx, pre.rouge .s1, pre.rouge .ss {
-  color: #0a3069;
-}
-pre.rouge .nd {
-  color: #8250df;
-}
-pre.rouge .nf, pre.rouge .fm {
-  color: #8250df;
-}
-pre.rouge .err {
-  color: #f6f8fa;
-  background-color: #82071e;
-}
-pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cm, pre.rouge .cp, pre.rouge .cpf, pre.rouge .c1, pre.rouge .cs {
-  color: #6e7781;
-}
-pre.rouge .gl {
-  color: #6e7781;
-}
-pre.rouge .gt {
-  color: #6e7781;
-}
-pre.rouge .ni {
-  color: #24292f;
-}
-pre.rouge .si {
-  color: #24292f;
-}
-pre.rouge .ge {
-  color: #24292f;
-  font-style: italic;
-}
-pre.rouge .gs {
-  color: #24292f;
-  font-weight: bold;
-}
-</style>
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Übung 1</h1>
-<div class="details">
-<span id="author" class="author">Mctom Spdo</span><br>
-<span id="revnumber">version 1.0.0,</span>
-<span id="revdate">2024-03-13</span>
-<br><span id="revremark">INSY</span>
-</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_create_tables">1. Create tables</a></li>
-<li><a href="#_add_values">2. Add Values</a></li>
-<li><a href="#_alter_table">3. Alter Table</a></li>
-<li><a href="#_delete_column">4. Delete Column</a></li>
-<li><a href="#_delete_table">5. Delete table</a></li>
-<li><a href="#_tennisclub">6. Tennisclub</a></li>
+<li><a href="#_indices">1. Indices</a>
+<ul class="sectlevel2">
+<li><a href="#_btree_index">1.1. BTREE Index</a></li>
+<li><a href="#_bitmapped_index">1.2. Bitmapped Index</a></li>
+</ul>
+</li>
+<li><a href="#_optimizer">2. Optimizer</a>
+<ul class="sectlevel2">
+<li><a href="#_cost_based_optimizer">2.1. Cost Based Optimizer</a></li>
+<li><a href="#_hints">2.2. Hints</a></li>
+</ul>
+</li>
+<li><a href="#_explain_plan">3. Explain Plan</a></li>
+<li><a href="#_tips">4. Tips:</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_create_tables"><a class="anchor" href="#_create_tables"></a>1. Create tables</h2>
+<h2 id="_indices"><a class="anchor" href="#_indices"></a>1. Indices</h2>
 <div class="sectionbody">
-<div class="imageblock">
-<div class="content">
-<img src="../../images/01.png" alt="" width="700">
+<div class="ulist">
+<ul>
+<li>
+<p>Für schneller abfragen</p>
+</li>
+<li>
+<p>2 Arten</p>
+<div class="ulist">
+<ul>
+<li>
+<p>BTREE</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Balanced Tree</p>
+</li>
+<li>
+<p>bei guter Selektivität von werten</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>INFO: Selektivität: Nur wenig Möglichkeiten für einen Wert</p>
+</div>
+<div class="paragraph">
+<p>ERKLÄRUNG BALANCED TREE</p>
+</div>
+<div class="sect2">
+<h3 id="_btree_index"><a class="anchor" href="#_btree_index"></a>1.1. BTREE Index</h3>
+<div class="sect3">
+<h4 id="_sql_syntaxbeispiele"><a class="anchor" href="#_sql_syntaxbeispiele"></a>1.1.1. SQL Syntaxbeispiele</h4>
+<div class="paragraph">
+<p>Performance dont&#8217;ts</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Vermeiden von upper, like, &#8230;&#8203;</p>
+</li>
+<li>
+<p>Keine Concatinierungen</p>
+</li>
+<li>
+<p>Ungleich Operator</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>WHERE SAL &lt;&gt; 0</p>
+</div>
+<div class="paragraph">
+<p>WHERE SAL &lt; 0</p>
+</div>
+<div class="paragraph">
+<p>Vermeiden von von UPPER, LIKE, &#8230;&#8203;.</p>
+</div>
+<div class="paragraph">
+<p>Keine Concatinierungen</p>
+</div>
+<div class="paragraph">
+<p>Ungleich Operator</p>
 </div>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">table</span> <span class="n">PERSONEN</span> <span class="p">(</span>
-    <span class="n">PERSONEN_ID</span> <span class="n">number</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
-    <span class="n">NNAME</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">25</span><span class="p">),</span>
-    <span class="n">VNAME</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-<span class="p">)</span></code></pre>
+</div>
+<div class="sect2">
+<h3 id="_bitmapped_index"><a class="anchor" href="#_bitmapped_index"></a>1.2. Bitmapped Index</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Werte mit niedriger Selektivität</p>
+</li>
+<li>
+<p>beruecksichten Null</p>
+</li>
+<li>
+<p>Gut fuer ungleich</p>
+</li>
+<li>
+<p>gut fuer count</p>
+</li>
+<li>
+<p>probleme bei Locks</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_add_values"><a class="anchor" href="#_add_values"></a>2. Add Values</h2>
-<div class="sectionbody">
-<div class="imageblock">
-<div class="content">
-<img src="../../images/02.png" alt="" width="700">
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">insert</span> <span class="k">into</span> <span class="n">PERSONEN</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'Mustermann'</span><span class="p">,</span> <span class="s1">'Max'</span><span class="p">);</span>
-<span class="k">insert</span> <span class="k">into</span> <span class="n">PERSONEN</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">'Musterfrau'</span><span class="p">,</span> <span class="s1">'Mimi'</span><span class="p">);</span>
-<span class="k">insert</span> <span class="k">into</span> <span class="n">PERSONEN</span> <span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">'Mustermann'</span><span class="p">,</span> <span class="s1">'Matthias'</span><span class="p">);</span>
-
-<span class="k">insert</span> <span class="k">into</span> <span class="n">PERSONEN</span> <span class="k">values</span> <span class="p">(</span><span class="mi">99999</span><span class="p">,</span> <span class="s1">'Musterfrau'</span><span class="p">,</span> <span class="s1">'Maria'</span><span class="p">)</span></code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_alter_table"><a class="anchor" href="#_alter_table"></a>3. Alter Table</h2>
-<div class="sectionbody">
-<div class="imageblock">
-<div class="content">
-<img src="../../images/03.png" alt="03">
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="o">//</span><span class="n">TODO</span><span class="p">:</span> <span class="k">add</span> <span class="n">content</span></code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_delete_column"><a class="anchor" href="#_delete_column"></a>4. Delete Column</h2>
+<h2 id="_optimizer"><a class="anchor" href="#_optimizer"></a>2. Optimizer</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image"><img src="../../images/04.png" alt="04"></span></p>
+<p>Die Pläne für die Execution werden abgeändert, um möglichst effizient zu sein.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="o">//</span><span class="n">TODO</span><span class="p">:</span> <span class="k">add</span> <span class="n">content</span></code></pre>
+<div class="ulist">
+<ul>
+<li>
+<p>Die gesammte Ausführungzeit ist wichitg</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Full Table scans vermeiden</p>
+</div>
+<div class="paragraph">
+<p>Index Scan: Es wird ein Index verwendet</p>
+</div>
+<div class="paragraph">
+<p>Datenmenge &gt; 15% &#8594; Ful scan empfohlen</p>
+</div>
+<div class="sect2">
+<h3 id="_cost_based_optimizer"><a class="anchor" href="#_cost_based_optimizer"></a>2.1. Cost Based Optimizer</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Kann SQL Queries umschreiben</p>
+</li>
+<li>
+<p>Statistiken über tables sind im Data dictionary gespeichert</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_analyze_befehl"><a class="anchor" href="#_analyze_befehl"></a>2.1.1. Analyze Befehl</h4>
+<div class="paragraph">
+<p>ANALYZE TABLE EMP COMPUTE STATISTICS FOR ALL COLUMNS</p>
+</div>
+<div class="paragraph">
+<p>R COUNT</p>
+</div>
+<div class="paragraph">
+<p>Optimizer verenden JOINS, um die Queries verwenden</p>
+</div>
+<div class="paragraph">
+<p>nicht in unseren SQL Statements</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Sort-Merge Joins</p>
+</li>
+<li>
+<p>Hashed Joins</p>
+</li>
+<li>
+<p>Nested Loop</p>
+</li>
+<li>
+<p>Star Joins</p>
+</li>
+</ul>
+</div>
+<div class="sect4">
+<h5 id="_nested_loop"><a class="anchor" href="#_nested_loop"></a>Nested Loop</h5>
+<div class="paragraph">
+<p>2 verschachtelte Vorschleifen</p>
+</div>
+<div class="paragraph">
+<p>gut bei kleinen Datenmengen</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_star_joins"><a class="anchor" href="#_star_joins"></a>Star Joins</h5>
+<div class="paragraph">
+<p>Eine große Tabelle wird mit mindestens 2 kleineren Tabellen gejoint</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_sort_merge_join"><a class="anchor" href="#_sort_merge_join"></a>Sort Merge Join</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Tabellen werden beim Join sortiert</p>
+</li>
+<li>
+<p>Where Klauseln werden beim Full-Table-Scan evaluiert</p>
+</li>
+<li>
+<p>Die kleinere Tabelle soll zuerst gelesen werden</p>
+</li>
+<li>
+<p>Diese sind für große Datenmengen geeignet</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_hash_join"><a class="anchor" href="#_hash_join"></a>Hash Join</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>große Datenmenge</p>
+</li>
+<li>
+<p>schneller als Sort-Merge Join</p>
+</li>
+<li>
+<p>mithilfe von Hashmaps</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hints"><a class="anchor" href="#_hints"></a>2.2. Hints</h3>
+<div class="paragraph">
+<p>Kommentare für den Optimizer, die in Queries eingebaut werden kann.
+Der Optimizer kann diese hints ignorieren, muss dies allerdings nicht</p>
+</div>
+<div class="paragraph">
+<p>Bei hints muss immer ein Explain Plan ausgeführt werden, um zu schauen ob der Hint berücksichtigt wird.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_delete_table"><a class="anchor" href="#_delete_table"></a>5. Delete table</h2>
+<h2 id="_explain_plan"><a class="anchor" href="#_explain_plan"></a>3. Explain Plan</h2>
 <div class="sectionbody">
-<div class="imageblock">
-<div class="content">
-<img src="../../images/05.png" alt="05">
+<div class="paragraph">
+<p>Dieser zeigt, was die Datenbank im hintergrund macht, um das gegebene Statement auszuführen.</p>
 </div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">drop</span> <span class="k">table</span> <span class="n">PERSONEN</span><span class="p">;</span></code></pre>
-</div>
+<div class="paragraph">
+<p>Es werden die Kosten auf der CPU angezeigt, für die einzelnen Schritte im Statement</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_tennisclub"><a class="anchor" href="#_tennisclub"></a>6. Tennisclub</h2>
+<h2 id="_tips"><a class="anchor" href="#_tips"></a>4. Tips:</h2>
 <div class="sectionbody">
-<div class="imageblock">
-<div class="content">
-<img src="../../images/06.png" alt="06">
+<div class="paragraph">
+<p>Bei Subqueries:</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>Minus verwenden</p>
+</li>
+<li>
+<p>outer joins</p>
+</li>
+<li>
+<p>(not) exists</p>
+</li>
+<li>
+<p>not in</p>
+</li>
+</ul>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="n">Unresolved</span> <span class="n">directive</span> <span class="k">in</span> <span class="n">uebung_1</span><span class="p">.</span><span class="n">adoc</span> <span class="o">-</span> <span class="n">include</span><span class="p">::</span><span class="n">tennis</span><span class="o">-</span><span class="n">tables</span><span class="p">.</span><span class="k">sql</span><span class="p">[]</span></code></pre>
+<div class="paragraph">
+<p>normale Queries:</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>Not vermeiden</p>
+</li>
+</ul>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="n">Unresolved</span> <span class="n">directive</span> <span class="k">in</span> <span class="n">uebung_1</span><span class="p">.</span><span class="n">adoc</span> <span class="o">-</span> <span class="n">include</span><span class="p">::</span><span class="n">tennis</span><span class="o">-</span><span class="k">insert</span><span class="p">.</span><span class="k">sql</span><span class="p">[]</span></code></pre>
-</div>
+<div class="paragraph">
+<p>Aliases können hilfreich bei Performance sind</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 1.0.0<br>
 Last updated 2024-03-13 10:53:36 UTC
 </div>
 </div>

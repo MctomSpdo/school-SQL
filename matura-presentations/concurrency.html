@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.21">
+<meta name="author" content="Klose Peter, Thomas Spindler">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>Concurrency</title>
+<style>
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge, pre.rouge .w {
+  color: #24292f;
+  background-color: #f6f8fa;
+}
+pre.rouge .k, pre.rouge .kd, pre.rouge .kn, pre.rouge .kp, pre.rouge .kr, pre.rouge .kt, pre.rouge .kv {
+  color: #cf222e;
+}
+pre.rouge .gr {
+  color: #f6f8fa;
+}
+pre.rouge .gd {
+  color: #82071e;
+  background-color: #ffebe9;
+}
+pre.rouge .nb {
+  color: #953800;
+}
+pre.rouge .nc {
+  color: #953800;
+}
+pre.rouge .no {
+  color: #953800;
+}
+pre.rouge .nn {
+  color: #953800;
+}
+pre.rouge .sr {
+  color: #116329;
+}
+pre.rouge .na {
+  color: #116329;
+}
+pre.rouge .nt {
+  color: #116329;
+}
+pre.rouge .gi {
+  color: #116329;
+  background-color: #dafbe1;
+}
+pre.rouge .kc {
+  color: #0550ae;
+}
+pre.rouge .l, pre.rouge .ld, pre.rouge .m, pre.rouge .mb, pre.rouge .mf, pre.rouge .mh, pre.rouge .mi, pre.rouge .il, pre.rouge .mo, pre.rouge .mx {
+  color: #0550ae;
+}
+pre.rouge .sb {
+  color: #0550ae;
+}
+pre.rouge .bp {
+  color: #0550ae;
+}
+pre.rouge .ne {
+  color: #0550ae;
+}
+pre.rouge .nl {
+  color: #0550ae;
+}
+pre.rouge .py {
+  color: #0550ae;
+}
+pre.rouge .nv, pre.rouge .vc, pre.rouge .vg, pre.rouge .vi, pre.rouge .vm {
+  color: #0550ae;
+}
+pre.rouge .o, pre.rouge .ow {
+  color: #0550ae;
+}
+pre.rouge .gh {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .s, pre.rouge .sa, pre.rouge .sc, pre.rouge .dl, pre.rouge .sd, pre.rouge .s2, pre.rouge .se, pre.rouge .sh, pre.rouge .sx, pre.rouge .s1, pre.rouge .ss {
+  color: #0a3069;
+}
+pre.rouge .nd {
+  color: #8250df;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #8250df;
+}
+pre.rouge .err {
+  color: #f6f8fa;
+  background-color: #82071e;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cm, pre.rouge .cp, pre.rouge .cpf, pre.rouge .c1, pre.rouge .cs {
+  color: #6e7781;
+}
+pre.rouge .gl {
+  color: #6e7781;
+}
+pre.rouge .gt {
+  color: #6e7781;
+}
+pre.rouge .ni {
+  color: #24292f;
+}
+pre.rouge .si {
+  color: #24292f;
+}
+pre.rouge .ge {
+  color: #24292f;
+  font-style: italic;
+}
+pre.rouge .gs {
+  color: #24292f;
+  font-weight: bold;
+}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Concurrency</h1>
+<div class="details">
+<span id="author" class="author">Klose Peter, Thomas Spindler</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2024-03-13</span>
+<br><span id="revremark">INSY</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_logical_unit_of_work">1. Logical Unit of Work</a>
+<ul class="sectlevel2">
+<li><a href="#_transaction">1.1. Transaction</a></li>
+</ul>
+</li>
+<li><a href="#_concurrency">2. Concurrency</a>
+<ul class="sectlevel2">
+<li><a href="#_datenanomalien">2.1. Datenanomalien</a></li>
+<li><a href="#_locking">2.2. Locking</a></li>
+<li><a href="#_hierarchisches_sperren">2.3. Hierarchisches Sperren</a></li>
+</ul>
+</li>
+<li><a href="#_bleh">3. Bleh</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_logical_unit_of_work"><a class="anchor" href="#_logical_unit_of_work"></a>1. Logical Unit of Work</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Logisch zusammenhängende Sequenz von Operationen</p>
+</li>
+<li>
+<p>Führt von einer konsitenten Zustand zum nächsten</p>
+</li>
+<li>
+<p>LUW - Ansammlung mehrere transaktionen</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_transaction"><a class="anchor" href="#_transaction"></a>1.1. Transaction</h3>
+<div class="paragraph">
+<p>Logical Unit of Work</p>
+</div>
+<div class="paragraph">
+<p><strong>A</strong>tomiciy (ganz oder nicht)<br>
+<strong>C</strong>onsistency (Konsistenz o.a. Integritätserhaltung)<br>
+<strong>I</strong>solation (Nutzer eindruck alleine auf DB)<br>
+<strong>D</strong>urability (Dauerhaftigkeit/Persistent)</p>
+</div>
+<div class="paragraph">
+<p>Beispiel:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">exec</span> <span class="k">sql</span> <span class="k">update</span> <span class="n">Konto</span> <span class="k">set</span> <span class="n">Saldo</span> <span class="o">=</span> <span class="n">Saldo</span> <span class="o">-</span> <span class="n">Betrag</span> <span class="k">where</span> <span class="n">KontoNr</span> <span class="o">=</span> <span class="n">KontoQuelle</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">exec</span> <span class="k">sql</span> <span class="k">update</span> <span class="n">Konto</span> <span class="k">set</span> <span class="n">Saldo</span> <span class="o">=</span> <span class="n">Saldo</span> <span class="o">+</span> <span class="n">Betrag</span> <span class="k">where</span> <span class="n">KontoNr</span> <span class="o">=</span> <span class="n">KontoZiel</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Starten einer Transaktion?</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_concurrency"><a class="anchor" href="#_concurrency"></a>2. Concurrency</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Mehre User greifen auf dieselben Daten zu</p>
+</div>
+<div class="sect2">
+<h3 id="_datenanomalien"><a class="anchor" href="#_datenanomalien"></a>2.1. Datenanomalien</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Verlorenes Update (Lost Update)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Gleichzeitiges Lesen eines Wertes von 2 Prozessen</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Schreib-Lese-Konflikt (Dirty Read)</p>
+</li>
+<li>
+<p>Nicht bestätigte Abhängigkeit (Uncommitted Dependency)</p>
+</li>
+<li>
+<p>Inkonsitente Analyse (Inconsistent Analysis)</p>
+</li>
+<li>
+<p>Phtanomproblem (Inconsistent Read)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Insert oder delete während des Lesevorganges</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_locking"><a class="anchor" href="#_locking"></a>2.2. Locking</h3>
+<div class="paragraph">
+<p>Sperren von Tabellen</p>
+</div>
+<div class="paragraph">
+<p>Arten von Locking:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Pessimistisch</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Sperrt alles as gebraucht wird</p>
+</li>
+<li>
+<p>"For update"</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Optimistisch</p>
+<div class="ulist">
+<ul>
+<li>
+<p>ES wird schon nichts passieren</p>
+</li>
+<li>
+<p>Vergleich kurz vor Update ob Werte geändert worden sind</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Locks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Exclusive Lock (X Lock)</p>
+</li>
+<li>
+<p>Shared Lock (S Lock)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Problem: Deadlock</p>
+</div>
+<div class="paragraph">
+<p>Sperrtypen:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Two Phase Locking</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Alle Benötigten Resourcen werden gesperrt</p>
+</li>
+<li>
+<p>Wird wieder freigegegben falls nicht moeglich</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Transaktion-Scheduling</p>
+<div class="ulist">
+<ul>
+<li>
+<p>2 Prozesse unterschiedliche Daten &#8658; gleichzeitig</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Zeitmarkerverfahren</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Arbeiten mit den Transaktionsstartzeitpunkt</p>
+</li>
+<li>
+<p>Wait-Die</p>
+</li>
+<li>
+<p>Wound-Wait</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Timeout</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Nach einer gewissen Dauer wird die Transaktion neu gestartet</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hierarchisches_sperren"><a class="anchor" href="#_hierarchisches_sperren"></a>2.3. Hierarchisches Sperren</h3>
+<div class="paragraph">
+<p>Sperren einzelner Zeilen, Tables, DBs, &#8230;&#8203;.</p>
+</div>
+<div class="paragraph">
+<p>lock table TABLE in row share mode</p>
+</div>
+<div class="paragraph">
+<p>lock table TBALE in row exclusive mode</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bleh"><a class="anchor" href="#_bleh"></a>3. Bleh</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>select &#8594; keine Sperre<br>
+insert/update/delete &#8594; write lock / row exclusive<br>
+select &#8230;&#8203; for update &#8594; read lock / row share<br>
+commit/rollback &#8594; freigeben aller locks</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2024-03-13 10:53:36 UTC
+</div>
+</div>
+</body>
+</html>
