@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.22">
+<meta name="author" content="Mctom Spdo, Paul Horner">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>JPA</title>
+<style>
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge, pre.rouge .w {
+  color: #24292f;
+  background-color: #f6f8fa;
+}
+pre.rouge .k, pre.rouge .kd, pre.rouge .kn, pre.rouge .kp, pre.rouge .kr, pre.rouge .kt, pre.rouge .kv {
+  color: #cf222e;
+}
+pre.rouge .gr {
+  color: #f6f8fa;
+}
+pre.rouge .gd {
+  color: #82071e;
+  background-color: #ffebe9;
+}
+pre.rouge .nb {
+  color: #953800;
+}
+pre.rouge .nc {
+  color: #953800;
+}
+pre.rouge .no {
+  color: #953800;
+}
+pre.rouge .nn {
+  color: #953800;
+}
+pre.rouge .sr {
+  color: #116329;
+}
+pre.rouge .na {
+  color: #116329;
+}
+pre.rouge .nt {
+  color: #116329;
+}
+pre.rouge .gi {
+  color: #116329;
+  background-color: #dafbe1;
+}
+pre.rouge .kc {
+  color: #0550ae;
+}
+pre.rouge .l, pre.rouge .ld, pre.rouge .m, pre.rouge .mb, pre.rouge .mf, pre.rouge .mh, pre.rouge .mi, pre.rouge .il, pre.rouge .mo, pre.rouge .mx {
+  color: #0550ae;
+}
+pre.rouge .sb {
+  color: #0550ae;
+}
+pre.rouge .bp {
+  color: #0550ae;
+}
+pre.rouge .ne {
+  color: #0550ae;
+}
+pre.rouge .nl {
+  color: #0550ae;
+}
+pre.rouge .py {
+  color: #0550ae;
+}
+pre.rouge .nv, pre.rouge .vc, pre.rouge .vg, pre.rouge .vi, pre.rouge .vm {
+  color: #0550ae;
+}
+pre.rouge .o, pre.rouge .ow {
+  color: #0550ae;
+}
+pre.rouge .gh {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .s, pre.rouge .sa, pre.rouge .sc, pre.rouge .dl, pre.rouge .sd, pre.rouge .s2, pre.rouge .se, pre.rouge .sh, pre.rouge .sx, pre.rouge .s1, pre.rouge .ss {
+  color: #0a3069;
+}
+pre.rouge .nd {
+  color: #8250df;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #8250df;
+}
+pre.rouge .err {
+  color: #f6f8fa;
+  background-color: #82071e;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cm, pre.rouge .cp, pre.rouge .cpf, pre.rouge .c1, pre.rouge .cs {
+  color: #6e7781;
+}
+pre.rouge .gl {
+  color: #6e7781;
+}
+pre.rouge .gt {
+  color: #6e7781;
+}
+pre.rouge .ni {
+  color: #24292f;
+}
+pre.rouge .si {
+  color: #24292f;
+}
+pre.rouge .ge {
+  color: #24292f;
+  font-style: italic;
+}
+pre.rouge .gs {
+  color: #24292f;
+  font-weight: bold;
+}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>JPA</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo, Paul Horner</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2024-05-22</span>
+<br><span id="revremark">INSY</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_persitance_types">1. Persitance Types</a></li>
+<li><a href="#_konfiguration">2. Konfiguration</a></li>
+<li><a href="#_jpa_entity">3. JPA Entity</a>
+<ul class="sectlevel2">
+<li><a href="#_basic">3.1. @Basic:</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>JPA = Java Persistance API</p>
+</div>
+<div class="paragraph">
+<p>ist ein OR</p>
+</div>
+<div class="paragraph">
+<p>OR = Object Relational Mapper</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_persitance_types"><a class="anchor" href="#_persitance_types"></a>1. Persitance Types</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Classes</p>
+</li>
+<li>
+<p>Multi Values</p>
+</li>
+<li>
+<p>Enumerations and Serializable</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_konfiguration"><a class="anchor" href="#_konfiguration"></a>2. Konfiguration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>früher: XML Dateien
+heutzutage: Quarkus</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jpa_entity"><a class="anchor" href="#_jpa_entity"></a>3. JPA Entity</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"JPA_CAR"</span><span class="o">)</span>
+<span class="nd">@Entity</span>
+<span class="nd">@TableGenerator</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"idtab"</span><span class="o">,</span> <span class="n">initialValue</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span> <span class="n">allocationSize</span> <span class="o">=</span> <span class="mi">10</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Car</span> <span class="o">{</span>
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="nc">GenerationType</span><span class="o">.</span><span class="na">TABLE</span><span class="o">,</span> <span class="n">generator</span> <span class="o">=</span> <span class="s">"idtab"</span><span class="o">)</span>
+    <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>GenerationStrategy</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Indentity</p>
+<div class="ulist">
+<ul>
+<li>
+<p>fortlaufender PK</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Auto</p>
+<div class="ulist">
+<ul>
+<li>
+<p>bestes für DB</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_basic"><a class="anchor" href="#_basic"></a>3.1. @Basic:</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>fetchtype</p>
+<div class="ulist">
+<ul>
+<li>
+<p>eager</p>
+</li>
+<li>
+<p>lazy</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2024-05-22 10:01:44 UTC
+</div>
+</div>
+</body>
+</html>

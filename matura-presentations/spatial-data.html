@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.22">
+<meta name="author" content="Mctom Spdo, Lukas Lummersdorfer">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>Spatial</title>
+<style>
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Spatial</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo, Lukas Lummersdorfer</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2024-05-22</span>
+<br><span id="revremark">INSY</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_geodatenbank">1. Geodatenbank</a>
+<ul class="sectlevel2">
+<li><a href="#_datentypen">1.1. Datentypen</a></li>
+<li><a href="#_indexing_spatial_data">1.2. Indexing Spatial Data</a></li>
+<li><a href="#_beziehungen_zwischen_boxen">1.3. Beziehungen zwischen Boxen</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Was ist GIS</p>
+</div>
+<div class="paragraph">
+<p>INFO: GIS = Geographisches Informations System</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_geodatenbank"><a class="anchor" href="#_geodatenbank"></a>1. Geodatenbank</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Geodatenbanken haben zusätzliche Datentypen für räumliche Daten</p>
+</div>
+<div class="paragraph">
+<p>Oracle hat die Oracle Spatial Database für Geodaten</p>
+</div>
+<div class="sect2">
+<h3 id="_datentypen"><a class="anchor" href="#_datentypen"></a>1.1. Datentypen</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Point</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Coordinatenpunkt</p>
+</li>
+<li>
+<p>An Coordinaten x befindet sich eine Schule, etc.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Line</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Straßen, Flüsse</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Polygon</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Seen, Gemeinden, Bezirke, Häuser, etc.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_indexing_spatial_data"><a class="anchor" href="#_indexing_spatial_data"></a>1.2. Indexing Spatial Data</h3>
+<div class="paragraph">
+<p>R-Tree Indexing</p>
+</div>
+<div class="paragraph">
+<p>Spezielle Queries für Standortdaten, mithilfe von R-Trees</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>        (Box 1)
+     /      |       \
+(Box 2)   (Box 4)   (Box 3)</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_beziehungen_zwischen_boxen"><a class="anchor" href="#_beziehungen_zwischen_boxen"></a>1.3. Beziehungen zwischen Boxen</h3>
+<div class="paragraph">
+<p>Folien Beziehungen</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2024-05-22 10:01:44 UTC
+</div>
+</div>
+</body>
+</html>

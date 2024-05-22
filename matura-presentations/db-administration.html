@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.22">
+<meta name="author" content="Mctom Spdo, Hager Sebastian">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>JPA</title>
+<style>
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>JPA</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo, Hager Sebastian</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2024-05-22</span>
+<br><span id="revremark">INSY</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_db_struktur">1. DB Struktur</a>
+<ul class="sectlevel2">
+<li><a href="#_pga">1.1. PGA</a></li>
+<li><a href="#_sga">1.2. SGA</a></li>
+<li><a href="#_speicherorganistation">1.3. Speicherorganistation</a></li>
+<li><a href="#_db_files">1.4. DB Files</a></li>
+<li><a href="#_redo_log_files">1.5. Redo Log Files</a></li>
+<li><a href="#_control_files">1.6. Control Files</a></li>
+<li><a href="#_archive_modus">1.7. Archive Modus</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Oracle Enterprise Manager ist eine grafische Administrationsoberfläche für Oracle DB.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_db_struktur"><a class="anchor" href="#_db_struktur"></a>1. DB Struktur</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_pga"><a class="anchor" href="#_pga"></a>1.1. PGA</h3>
+<div class="paragraph">
+<p>Program Global Area</p>
+</div>
+<div class="paragraph">
+<p>Private SQ Area
+Session memory
+SQL - Work - Area</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sga"><a class="anchor" href="#_sga"></a>1.2. SGA</h3>
+<div class="paragraph">
+<p>System global Area</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Shared Pool</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Library cache</p>
+</li>
+<li>
+<p>Data dictionary cache</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Database Buffer Cache</p>
+</li>
+<li>
+<p>Redo Log Buffer</p>
+</li>
+<li>
+<p>Java Pool (optional)</p>
+</li>
+<li>
+<p>Large Pool (optional)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_speicherorganistation"><a class="anchor" href="#_speicherorganistation"></a>1.3. Speicherorganistation</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>LRU (Least Recent Used)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>längsten nicht verwendetn</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>MRU (Most Recently Used)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>bevorzugt zuletzt verwendete</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_db_files"><a class="anchor" href="#_db_files"></a>1.4. DB Files</h3>
+<div class="paragraph">
+<p>Speicherorte für tatsächliche Daten
+verschiedene Arten von Daten
+Informationen von Manipulation von Daten
+zentraler Bestandteil der Datenbankstruktur</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_redo_log_files"><a class="anchor" href="#_redo_log_files"></a>1.5. Redo Log Files</h3>
+<div class="paragraph">
+<p>Protokolldateien
+aufzeichnungen von jeglichen Änderungen
+Daten Recovery
+Datenbank-Backups und -Replikationen</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_control_files"><a class="anchor" href="#_control_files"></a>1.6. Control Files</h3>
+<div class="paragraph">
+<p>kleine binäre Daten
+enthalten wichtige Metadaten</p>
+</div>
+<div class="paragraph">
+<p>informationen über Protokoll Sequenznummern der Redo-Logs</p>
+</div>
+<div class="paragraph">
+<p>Information über Nutzer, Datenbanken, etc.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_archive_modus"><a class="anchor" href="#_archive_modus"></a>1.7. Archive Modus</h3>
+<div class="paragraph">
+<p>Vollständige Wiederherstellbarkeit</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2024-05-22 10:01:44 UTC
+</div>
+</div>
+</body>
+</html>

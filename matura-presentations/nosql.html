@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.22">
+<meta name="author" content="Mctom Spdo, Goldmann Pascal">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>NoSQL</title>
+<style>
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>NoSQL</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo, Goldmann Pascal</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2024-05-22</span>
+<br><span id="revremark">INSY</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_no_sql_vs_relational">1. NO SQL vs Relational</a></li>
+<li><a href="#_allgemeine_fakten">2. Allgemeine Fakten</a></li>
+<li><a href="#_bsp_fuer_nosql">3. Bsp fuer NoSQL</a>
+<ul class="sectlevel2">
+<li><a href="#_key_value_stores">3.1. Key-Value-Stores</a></li>
+<li><a href="#_graphen">3.2. Graphen</a></li>
+<li><a href="#_spaltenorientiert">3.3. Spaltenorientiert</a></li>
+<li><a href="#_zeitreihen">3.4. Zeitreihen</a></li>
+<li><a href="#_dokumentenorientere_db">3.5. Dokumentenorientere DB:</a></li>
+</ul>
+</li>
+<li><a href="#_konsistenz">4. Konsistenz</a>
+<ul class="sectlevel2">
+<li><a href="#_cap_theorem">4.1. CAP Theorem</a></li>
+<li><a href="#_acid">4.2. ACID</a></li>
+</ul>
+</li>
+<li><a href="#_mongodb">5. MongoDB</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Für besonders große Datensätze</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_no_sql_vs_relational"><a class="anchor" href="#_no_sql_vs_relational"></a>1. NO SQL vs Relational</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Relational Beziehungen | Key-Value-Stores / Graphdatenbanken</p>
+</div>
+<div class="paragraph">
+<p>ACID vs andere Arten</p>
+</div>
+<div class="paragraph">
+<p>bessere horizontale Skalierung bei NoSQL</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_allgemeine_fakten"><a class="anchor" href="#_allgemeine_fakten"></a>2. Allgemeine Fakten</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Schema-frei
+Horizontale Skalierbarkeit
+Performance: oft besser als bei Relational</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bsp_fuer_nosql"><a class="anchor" href="#_bsp_fuer_nosql"></a>3. Bsp fuer NoSQL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Dokumentenorientierte: Mongo
+KeyValueStores: Redis
+Graph: Neo4j
+Spaltenorientiert: Cassandra
+Zeitreihen Datenbanken: InfluxDB</p>
+</div>
+<div class="sect2">
+<h3 id="_key_value_stores"><a class="anchor" href="#_key_value_stores"></a>3.1. Key-Value-Stores</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Key</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Value</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>City</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>New York City</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>State</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>New York</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Country</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>USA</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Schlüssel muss eindeutig sein</p>
+</div>
+<div class="paragraph">
+<p>z.B Reddis</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_graphen"><a class="anchor" href="#_graphen"></a>3.2. Graphen</h3>
+<div class="paragraph">
+<p>Knoten und Kanten
+oft fuer Social Media</p>
+</div>
+<div class="paragraph">
+<p>Bsp: neo4J</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_spaltenorientiert"><a class="anchor" href="#_spaltenorientiert"></a>3.3. Spaltenorientiert</h3>
+<div class="paragraph">
+<p>Daten werden in Spalten und nicht Zeilen gespeichert
+Big Data Anwendungen</p>
+</div>
+<div class="paragraph">
+<p>Bsp: Casandra</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_zeitreihen"><a class="anchor" href="#_zeitreihen"></a>3.4. Zeitreihen</h3>
+<div class="paragraph">
+<p>wichtig fuer IOT</p>
+</div>
+<div class="paragraph">
+<p>Bsp: influxDB</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dokumentenorientere_db"><a class="anchor" href="#_dokumentenorientere_db"></a>3.5. Dokumentenorientere DB:</h3>
+<div class="paragraph">
+<p>Daten in Form von Dokumenten, oft JSON Format</p>
+</div>
+<div class="paragraph">
+<p>Bsp: MongoDB</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_konsistenz"><a class="anchor" href="#_konsistenz"></a>4. Konsistenz</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_cap_theorem"><a class="anchor" href="#_cap_theorem"></a>4.1. CAP Theorem</h3>
+<div class="paragraph">
+<p>In einem System ist es unmöglich 3 Zustände zu haben:</p>
+</div>
+<div class="paragraph">
+<p>Constitency
+Avaliability
+Partition Tolerance</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_acid"><a class="anchor" href="#_acid"></a>4.2. ACID</h3>
+<div class="paragraph">
+<p>Atomic, Isolated, Consitent, Durable</p>
+</div>
+<div class="paragraph">
+<p>Atomic: Operation ganz oder nicht
+Consitent: Immer konsistenter Zustand
+Isolated: Eine TA kann die Daten einer anderen TA nicht sehen
+Durable: Änderungen werden gespeichert, auch wenn ein Systemausfall auftritt</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mongodb"><a class="anchor" href="#_mongodb"></a>5. MongoDB</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Tabelle &#8594; Collection<br>
+Datensatz / Row &#8594; JSON</p>
+</div>
+<div class="paragraph">
+<p>db.restaurant.insertOne({JSON})</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2024-05-22 10:01:44 UTC
+</div>
+</div>
+</body>
+</html>
