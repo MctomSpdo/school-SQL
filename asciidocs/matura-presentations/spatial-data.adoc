@@ -1,0 +1,48 @@
+= Spatial
+Mctom Spdo, Lukas Lummersdorfer
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ./css/dark.css
+
+Was ist GIS
+
+INFO: GIS = Geographisches Informations System
+
+== Geodatenbank
+
+Geodatenbanken haben zusätzliche Datentypen für räumliche Daten
+
+Oracle hat die Oracle Spatial Database für Geodaten
+
+=== Datentypen
+
+* Point
+** Coordinatenpunkt
+** An Coordinaten x befindet sich eine Schule, etc.
+* Line
+** Straßen, Flüsse
+* Polygon
+** Seen, Gemeinden, Bezirke, Häuser, etc.
+
+=== Indexing Spatial Data
+
+R-Tree Indexing
+
+Spezielle Queries für Standortdaten, mithilfe von R-Trees
+
+----
+        (Box 1)
+     /      |       \
+(Box 2)   (Box 4)   (Box 3)
+----
+
+
+=== Beziehungen zwischen Boxen
+
+Folien Beziehungen
+
+
+

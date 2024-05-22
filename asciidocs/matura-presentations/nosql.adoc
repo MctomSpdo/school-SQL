@@ -1,0 +1,112 @@
+= NoSQL
+Mctom Spdo, Goldmann Pascal
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ./css/dark.css
+
+Für besonders große Datensätze
+
+== NO SQL vs Relational
+
+Relational Beziehungen | Key-Value-Stores / Graphdatenbanken
+
+ACID vs andere Arten
+
+bessere horizontale Skalierung bei NoSQL
+
+== Allgemeine Fakten
+
+Schema-frei
+Horizontale Skalierbarkeit
+Performance: oft besser als bei Relational
+
+== Bsp fuer NoSQL
+
+Dokumentenorientierte: Mongo
+KeyValueStores: Redis
+Graph: Neo4j
+Spaltenorientiert: Cassandra
+Zeitreihen Datenbanken: InfluxDB
+
+=== Key-Value-Stores
+
+[cols="a,a"]
+|====
+|Key
+|Value
+
+|City
+|New York City
+
+|State
+|New York
+
+|Country
+|USA
+
+|====
+
+Schlüssel muss eindeutig sein
+
+z.B Reddis
+
+=== Graphen
+
+Knoten und Kanten
+oft fuer Social Media
+
+Bsp: neo4J
+
+=== Spaltenorientiert
+
+Daten werden in Spalten und nicht Zeilen gespeichert
+Big Data Anwendungen
+
+Bsp: Casandra
+
+=== Zeitreihen
+
+wichtig fuer IOT
+
+Bsp: influxDB
+
+=== Dokumentenorientere DB:
+
+Daten in Form von Dokumenten, oft JSON Format
+
+Bsp: MongoDB
+
+== Konsistenz
+
+=== CAP Theorem
+
+In einem System ist es unmöglich 3 Zustände zu haben:
+
+Constitency
+Avaliability
+Partition Tolerance
+
+=== ACID
+
+Atomic, Isolated, Consitent, Durable
+
+Atomic: Operation ganz oder nicht
+Consitent: Immer konsistenter Zustand
+Isolated: Eine TA kann die Daten einer anderen TA nicht sehen
+Durable: Änderungen werden gespeichert, auch wenn ein Systemausfall auftritt
+
+== MongoDB
+
+Tabelle -> Collection +
+Datensatz / Row -> JSON
+
+db.restaurant.insertOne({JSON})
+
+
+
+
+
+

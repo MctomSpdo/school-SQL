@@ -1,0 +1,68 @@
+= JPA
+Mctom Spdo, Hager Sebastian
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ./css/dark.css
+
+Oracle Enterprise Manager ist eine grafische Administrationsoberfläche für Oracle DB.
+
+== DB Struktur
+
+=== PGA
+
+Program Global Area
+
+Private SQ Area
+Session memory
+SQL - Work - Area
+
+=== SGA
+
+System global Area
+
+* Shared Pool
+** Library cache
+** Data dictionary cache
+* Database Buffer Cache
+* Redo Log Buffer
+* Java Pool (optional)
+* Large Pool (optional)
+
+=== Speicherorganistation
+
+* LRU (Least Recent Used)
+** längsten nicht verwendetn
+* MRU (Most Recently Used)
+** bevorzugt zuletzt verwendete
+
+
+=== DB Files
+
+Speicherorte für tatsächliche Daten
+verschiedene Arten von Daten
+Informationen von Manipulation von Daten
+zentraler Bestandteil der Datenbankstruktur
+
+=== Redo Log Files
+
+Protokolldateien
+aufzeichnungen von jeglichen Änderungen
+Daten Recovery
+Datenbank-Backups und -Replikationen
+
+=== Control Files
+
+kleine binäre Daten
+enthalten wichtige Metadaten
+
+informationen über Protokoll Sequenznummern der Redo-Logs
+
+Information über Nutzer, Datenbanken, etc.
+
+=== Archive Modus
+
+Vollständige Wiederherstellbarkeit
+

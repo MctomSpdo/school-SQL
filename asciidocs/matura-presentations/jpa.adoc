@@ -1,0 +1,59 @@
+= JPA
+Mctom Spdo, Paul Horner
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ./css/dark.css
+
+JPA = Java Persistance API
+
+ist ein OR
+
+OR = Object Relational Mapper
+
+== Persitance Types
+
+
+* Classes
+* Multi Values
+* Enumerations and Serializable
+
+== Konfiguration
+
+früher: XML Dateien
+heutzutage: Quarkus
+
+== JPA Entity
+
+[source,java]
+----
+
+@Table(name = "JPA_CAR")
+@Entity
+@TableGenerator(name = "idtab", initialValue = 0, allocationSize = 10)
+public class Car {
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "idtab")
+    Long id;
+
+    String name;
+}
+
+----
+
+GenerationStrategy
+
+* Indentity
+** fortlaufender PK
+* Auto
+** bestes für DB
+
+=== @Basic:
+
+* fetchtype
+** eager
+** lazy
+
+
