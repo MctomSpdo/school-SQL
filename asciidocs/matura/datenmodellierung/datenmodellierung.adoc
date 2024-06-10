@@ -1,0 +1,767 @@
+= Datenmodellierung
+Mctom Spdo
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../../css/dark.css
+
+== Definition
+
+Die Datenmodellierung ist der Prozess der **Darstellung von Informationen und Beziehungen zwischen Daten** in einer organisierten Struktur.
+
+Hierbei ist das Modellieren der Daten die Grundlage für die Konstruktion einer Datenbank. Es hilft dabei, komplexe Informationen in leicht verständliche Form zu organisieren.
+
+== Grundlagen der Datenmodellierung
+
+=== Entitäten
+
+Eine Entität ist ein eindeutig definierbares Objekt in der Wirklichkeit.
+
+z.B: Schüler
+
+=== Attribute
+
+Attribute beschreiben Merkmale oder Eigenschaften einer Entität.
+
+Beispiel:
+
+für die Entität Schüler lassen sich folgende Attribute bestimmen:
+
+* Schüler_ID
+* Nachname
+* Vorname
+* usw.
+
+=== Beziehungen
+
+Eine Beziehung assoziiert wechselseitig zwei (oder mehrere) Entitäten. Assoziation bedeutet, dass eine
+Entität eine andere Entität kennt und mit ihr in Wechselwirkung steht
+
+==== Kardinalität von Beziehungen
+
+Die Kardinalität einer Beziehung gibt an, wie viele Entitäten der einen Entitätsmenge einer beliebigen
+Entität der anderen Entitätsmenge zugeordnet sein können.
+
+===== 1-1 Beziehung
+
+auch: 1 zu 1 Beziehung
+
+Eine Klasse hat einen Klassenleiter
+
+[plantuml, beziehung-1-1]
+----
+@startuml
+include::../../css/dark.puml[]
+
+left to right direction
+
+Klassenleiter "1"--"1" Klasse
+
+@enduml
+----
+
+===== 1-n Beziehung
+
+Eine Klasse hat **keinen, einen oder mehrere** Schüler
+
+[plantuml, beziehung-1-n]
+----
+@startuml
+include::../../css/dark.puml[]
+
+left to right direction
+
+Schüler "*"--"1" Klasse
+
+@enduml
+----
+
+Eine Klasse hat **einen oder mehrere** Schüler
+
+[plantuml, beziehung-1-n-1]
+----
+@startuml
+include::../../css/dark.puml[]
+
+left to right direction
+
+Schüler "1..*"--"1" Klasse
+
+@enduml
+----
+
+===== n-m Beziehung
+
+Ein Lehrer unterrichtet in mehreren Klassen.
+Mehrere Klassen werden von mehreren Lehrern unterrichtet
+
+[plantuml, beziehung-n-m]
+----
+@startuml
+include::../../css/dark.puml[]
+
+left to right direction
+
+Lehrer "*"--"*" Klasse
+
+@enduml
+----
+
+Hierbei wird allerdings auf Datenbanklevel eine Assoziationstabelle verwendet:
+
+.Assoziationstabelle
+[plantuml, assoziationstabelle-1]
+----
+@startuml
+include::../../css/dark.puml[]
+
+left to right direction
+
+Lehrer "1"--"*" Unterricht
+Unterricht "*"--"1" Klasse
+
+@enduml
+----
+
+.Assoziationstabelle mögliche UML Darstellung
+[plantuml, assoziationstabelle]
+----
+@startuml
+include::../../css/dark.puml[]
+
+left to right direction
+
+Lehrer "*"--"*" Klasse
+(Lehrer, Klasse) .. Unterricht
+
+@enduml
+----
+
+==== Parallele Beziehungen
+
+Flug von einem Flughafen zu einem anderen:
+
+[plantuml, parallell]
+----
+@startuml
+include::../../css/dark.puml[]
+left to right direction
+
+class flight {
+    flight_nr
+}
+
+class airport {
+    name,
+    4d_code
+    3d_code
+}
+
+flight --- airport : from
+flight --- airport : to
+
+@enduml
+----
+
+==== Rekursive Beziehungen
+
+Jeder Manager ist ein Mitarbeiter, aber jeder Mitarbeiter sollte einen Manager haben
+
+[plantuml, recursive]
+----
+@startuml
+include::../../css/dark.puml[]
+skinparam linetype ortho
+left to right direction
+
+class employee
+
+employee "1"---"*" employee : Manager
+
+@enduml
+----
+
+== Notationen
+
+IMPORTANT: Es muss immer eine Notation verwendet werden, denn es darf nicht nur ein Stich sein.
+
+=== UML
+
+[plantuml,uml-notation]
+----
+@startuml
+include::../../css/dark.puml[]
+
+left to right direction
+
+A0 --"1" B0 : one
+
+A1 --"*" B1 : many
+
+A2 --"0..1" B2 : zero or one
+
+A3 --"1..*" B3 : one or many
+
+A4 --"0..*" B4 : zero or many
+
+A0 -right[hidden]- A1
+A1 -right[hidden]- A2
+A2 -right[hidden]- A3
+A3 -right[hidden]- A4
+
+@enduml
+----
+
+=== Krähenfuß
+
+image::krähenfuß-img.png[]
+
+=== M - C Notation
+
+[plantuml,m-c]
+----
+@startuml
+include::../../css/dark.puml[]
+
+left to right direction
+
+A0 --"c" B0 : one
+
+A1 --"mc" B1 : many
+
+A2 --"1" B2 : zero or one
+
+A3 --"m" B3 : one or many
+
+A4 --"mc" B4 : zero or many
+
+A0 -right[hidden]- A1
+A1 -right[hidden]- A2
+A2 -right[hidden]- A3
+A3 -right[hidden]- A4
+
+@enduml
+----
+
+== Relationales Modell (RM)
+
+.UML Modell
+[plantuml, relationales-modell]
+----
+@startuml
+include::../../css/dark.puml[]
+
+left to right direction
+
+class department {
+    a_id(PK)
+    --
+    name
+}
+
+class employee {
+    svnr(PK)
+    --
+    name
+    salary
+    hiredate
+}
+
+department "1"--"*" employee
+
+@enduml
+----
+
+department([underline]#a_id#, name) +
+employee([underline]#svnr#, [underline]#d# e [underline]#p# t, name, salary, hiredate)
+
+INFO: Bei "dept" muss die Linie strichliert werden (ohne Leerzeichen)!
+
+
+== Wichtige Punkte bei der Datenmodellierung
+
+=== Gut durchdachte Datenmodellierung
+
+* strukturierte Speicherung der Daten
+* Vermeidung von Redundanz
+* Integrität der Daten
+* Flexibilität und Skalierbarkeit
+
+=== Die 3 Stadien der Datenmodellierung
+
+==== Konzeptionelles Modell:
+
+[plantuml, puml-konzeptionelles-modell]
+----
+@startuml
+include::../../css/dark.puml[]
+
+left to right direction
+
+department -- employee
+employee -- bill
+customer -- bill
+bill -- product
+
+@enduml
+----
+
+==== Logisches Modell:
+
+[plantuml, puml-logisches-modell]
+----
+@startuml
+include::../../css/dark.puml[]
+
+left to right direction
+
+class department {
+    a_id(PK)
+    --
+    name
+}
+
+class employee {
+    svnr(PK)
+    --
+    name
+    salary
+    hiredate
+}
+
+class customer {
+    k_id(PK)
+    --
+    username
+    name
+    email
+    account_creation_date
+}
+
+class bill {
+    id(PK)
+    --
+    creation_date
+    status
+}
+
+class product {
+    w_id(PK)
+    --
+    name
+    beschreibung
+}
+
+department "1"--"*" employee
+employee "1"--"*" bill
+customer "1"--"*" bill
+bill "*"--"*" product
+
+@enduml
+----
+
+==== Physisches Modell:
+
+Eigentliche Implementierung in der gegebenen Datenbank (Abbildung der Tabellenstruktur wie auf der DB)
+
+Dieses Modell wird verwendet, um Besonderheiten einer Implementierung nachvollziehen zu können.
+Je besser man diese Versteht, desto weniger Komplikationen können bei der Umsetzung geschehen.
+(link:https://www.erwin.com/de-de/solutions/data-modeling/physical.aspx[Quelle])
+
+[plantuml, puml-physisches-modell]
+----
+@startuml
+include::../../css/dark.puml[]
+
+left to right direction
+
+class department {
+    a_id(PK)
+    --
+    name
+}
+
+class employee {
+    svnr(PK)
+    ..
+    abteilung (FK)
+    --
+    name
+    salary
+    hiredate
+}
+
+class customer {
+    k_id(PK)
+    --
+    username
+    name
+    email
+    account_creation_date
+}
+
+class bill {
+    id(PK)
+    ..
+    created_by(FK)
+    addressed_to(FK)
+    --
+    creation_date
+    status
+}
+
+class product {
+    w_id(PK)
+    --
+    name
+    beschreibung
+}
+
+class bill_product {
+    wr_id(PK)
+    ..
+    bill(FK)
+    product(FK)
+    --
+    price
+}
+
+department "1"--"*" employee
+employee "1"--"*" bill
+customer "1"--"*" bill
+bill "1"--"*" bill_product
+bill_product "*"--"1" product
+
+@enduml
+----
+
+== Normalisierung
+
+Ziele der Normalisierung:
+
+* Redundanz minimieren
+* Integrität der Daten
+* Verhindert Anomalien
+
+Deswegen ist es wichtig diese im Schlaf zu können.
+Denn dadurch könne dieses Beispiel einträten:
+====
+Frau Maier heiratet und nimmt den Namen ihres Mannes an. Dadurch muss in der Datenbank der Name an mehreren Stellen geändert werden, wenn man sich nicht an die Normalisierungen hält.
+====
+
+Hierbei gibt es mehrere Normalformen:
+
+=== Erste Normalform
+
+.Tumfart Kurzfasssung
+[%collapsible]
+====
+Atomar
+====
+
+Eine Relation befindet sich in erster Normalform, wenn alle Attribute nur einfache Attributwerte aufweisen. =>
+Alle Attribute sind Atomar +
+
+Hierbei muss jedes Attribut in die kleinste mögliche Einheit umgewandelt werden:
+
+Adresse => Straßenname, Hausnummer, Postleitzahl, Stadt
+
+Bsp:
+
+[cols="a,a,a,a,a,a,a,a"]
+|===
+
+|SchülerNr
+|Name
+|Vorname
+|Klasse
+|Klassenlehrer
+|Fach
+|FachLehrer
+|Zeit in h
+
+|1
+|Jürgens
+|Ina
+|11a
+|Lempel
+|Tanz
+|Reiter
+|1.5
+
+|2
+|Schmidt
+|Tom
+|12a
+|Breier
+|Chor
+|Stütz
+|3.8
+
+|===
+
+Hierbei nimmt die Redundanz zu, wenn z.B. die Klasse, der Klassenlehrer oder das Fach gleich ist. +
+Wenn nun sich z.B. der Name des Lehrers ändert, muss dieser in vielen einträgen aktualisiert werden.
+
+=== Zweite Normalform
+
+.Tumfart Kurzfasssung
+[%collapsible]
+====
+ nicht Schlüsselattribute nicht funktional
+====
+
+Eine Relation befindet sich in zweiten Normalform, wenn
+
+1. Diese sich nicht in der 1. Normalform befindet
+2. jedes Nicht-Schlüssel-Attribut vom Primärschlüssel voll funktional abhängig ist.
+
+Schritte zur herstellung der 2. Normalform:
+
+1. Primärschlüssel der gegebenen Relation festlegen, falls dieser nur aus einem Attribut besteht, so liegt bereits 2. NF vor.
+2. Untersuchung, ob aus Teilschlüsselattributen bereits weitere Attribute folgen. Falls nicht, liegt bereits die 2. NF vor. Falls Abhängigkeiten gefunden werden, dann
+3. Neue Relation bilden, die das Teilschlüsselattribut und alle von diesem abhängigen Nichtschlüsselattribute enthalten. Das Teilschlüsselattribut wird in der neuen Relation der Primärschlüssel.
+4. Löschen der ausgelagerten Nichtschlüsselattribute in der Ausgangsrelation.
+5. Vorgang ab 2. wiederholen, bis alle Nichtschlüsselattribute vom gesamten Schlüssel funktional abhängig sind.
+
+Beispiel:
+
+Aus dem Fach lässt sich bereits eindeutig auf einen Namen dieses schließen. +
+Aus der Schülernummer lässt sich eindeutig auf Name, Vorname, Klasse und Klassenlehrer schließen.
+
+Somit sind zwei neue Relationsschemas Fach und Schüler zu erzeugen und das verbleibende Schema Fach so zu überarbeiten, dass die Attribute Beschreibung, Name, Vorname, Klasse und Klassenlehrer gelöscht werden
+
+[plantuml, puml-normalform-2]
+----
+@startuml
+include::../../css/dark.puml[]
+
+left to right direction
+
+class Fach {
+    fachNr.
+    FachLehrer
+}
+
+class Schüler {
+    schülerNr.
+    Vorname
+    Nachname
+    Klasse
+    KlassenLehrer
+}
+
+class Fachübersicht {
+    SchülerNr.
+    fachNr.
+    Zeit
+}
+
+Schüler -[hidden]-> Fach
+Fach -[hidden]-> Fachübersicht
+
+@enduml
+----
+
+=== Dritte Normalform
+
+.Tumfart Kurzfasssung
+[%collapsible]
+====
+ nicht Schlüsselattribute nicht funktional
+====
+
+Eine Relation befindet sich in 3. Normalform, wenn:
+
+* sie in der zweiten Normalform ist und
+* jedes Nichtschlüsselattribute nicht transitiv vom Primärschlüssel abhängig ist, d.h. aus keinem Nichtschlüsselattribut folgt ein anderes Nichtschlüsselattribut.
+
+Regel zum Prüfen der zweiten Bedingung: Wenn aus einem Nichtschlüsselattribut ein anderes Nichtschlüsselattribut folgt, dann liegt keine 3. Normalform vor!
+
+Schrittfolge zur Herstellung der dritten Normalform:
+
+1. Untersuchung, ob aus Nichtschlüsselattributen andere Nichtschlüsselattribute folgen. Falls nicht, liegt bereits die 3. NF vor. Falls Abhängigkeiten gefunden werden, dann
+2. Neue Relation bilden, die das Nichtschlüsselattribut (wird nun Primärschlüssel der neuen Relation) und die von ihm abhängigen Attribute enthält.
+3. Löschen der ausgelagerten Nichtschlüsselattribute mit Ausnahme des Attributes, das in der neuen Relation Primärschlüssel ist.
+4. Vorgang ab 2. wiederholen, bis keine Abhängigkeiten mehr bestehen
+
+.3. Normalform
+[plantuml, puml-normalform-3]
+----
+@startuml
+include::../../css/dark.puml[]
+
+left to right direction
+
+class Fach {
+    fachNr.
+    LehrerNr.
+}
+
+class Schüler {
+    schülerNr.
+    Vorname
+    Nachname
+    Klasse
+}
+
+class Fachübersicht {
+    SchülerNr.
+    fachNr.
+    Zeit
+}
+
+class Klasse {
+    Klasse
+    LehrerNr.
+}
+
+class Lehrer {
+    LehrerNr.
+    Name
+}
+
+Schüler "*"-[hidden]-"*" Fach
+Fach "*"-[hidden]-"1" Lehrer
+Schüler "*"-[hidden]-"1" Klasse
+Klasse "*"-[hidden]-"1" Lehrer
+
+@enduml
+----
+
+.Modell mit Relationen in 3. Normalform
+[plantuml, puml-normalform-3-relations]
+----
+@startuml
+include::../../css/dark.puml[]
+
+left to right direction
+
+class Fach {
+    fachNr.
+    LehrerNr.
+}
+
+class Schüler {
+    schülerNr.
+    Vorname
+    Nachname
+    Klasse
+}
+
+class Fachübersicht {
+    SchülerNr.
+    fachNr.
+    Zeit
+}
+
+class Klasse {
+    Klasse
+    LehrerNr.
+}
+
+class Lehrer {
+    LehrerNr.
+    Name
+}
+
+Schüler "*"--"*" Fach
+(Schüler, Fach) .. Fachübersicht
+Fach "*"--"1" Lehrer
+Schüler "*"--"1" Klasse
+Klasse "*"--"1" Lehrer
+
+@enduml
+----
+
+== Namensvergebung von Entitäten
+
+* Im Singular
+* keine Abkürzungen
+* Konsistent
+* keine Synonyme
+* keine Homonyme
+
+== Relationale Datenbanken
+
+* Oracle DB
+* Microsoft SQL Server
+* PostgresSQL
+* Derby DB
+* Maria DB
+* MySQL
+* SqlLite
+
+== Lebenszyklus von Entitäten
+
+TODO
+
+== Fragen von Tumfart
+
+.Was passiert, wenn man eine Redundanz hat?
+[%collapsible]
+====
+Anomalie
+====
+
+.Welche Datenbanken gibt es?
+[%collapsible]
+====
+ Relational, NoSQL
+====
+
+.Gibt es verschiedene Hersteller?
+[%collapsible]
+====
+Oracle, SQL Server, Maria DB, MySQL, SQL Light
+
+**Relationale Datenbanken**
+
+* Oracle DB
+* Microsoft SQL Server
+* PostgresSQL
+* Derby DB
+* Maria DB
+* MySQL
+* SqlLite
+
+**NoSQL Datenbanken**
+
+* Mongo DB
+* Redis
+* Apache Cassandra
+* Neo4j
+
+====
+
+.Welche Notationen gibt es?
+[%collapsible]
+====
+MC, UML, Krähenfuß
+====
+
+.Wer verwendet die Krähenfuß-Notation?
+[%collapsible]
+====
+Oracle
+====
+
+.Wie heißt das Tool für die Datenmodellierung?
+[%collapsible]
+====
+Data Modeller
+====
+
+.Wann löst man eine Aggregationstabelle?
+[%collapsible]
+====
+Im ERD (Entity Relationship Diagramm) oder RM (Relationen Modell)
+====
+
+.Was macht man im Relationen Modell?
+[%collapsible]
+====
+Man definiert die Attribute und die PK (Primary Key) und die FK (Forign Keys)
+====

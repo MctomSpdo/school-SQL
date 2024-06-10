@@ -9,7 +9,11 @@ ifndef::imagesdir[:imagesdir: images]
 
 == Grundlagen der Datenbanktechnologien
 
+* link:datenmodellierung/datenmodellierung.html[Datenmodellierung]
+
 == Konzeptionelles Modell
+
+* link:datenmodellierung/datenmodellierung.html[Datenmodellierung]
 
 == SQL Data Retrieval und DML
 
@@ -19,9 +23,7 @@ ifndef::imagesdir[:imagesdir: images]
 
 == Semistrukturierte Daten und prozedurale Erweiterungen
 
-=== XML
-
-link:xml/xml.html[Zusammenfassung]
+* link:xml/xml.html[XML]
 
 == Spezielle DB Themen
 

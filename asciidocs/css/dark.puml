@@ -1,0 +1,5 @@
+!theme plain
+skinparam backgroundColor transparent
+skinparam ArrowFontColor white
+skinparam ArrowThickness 3
+skinparam ArrowColor white
