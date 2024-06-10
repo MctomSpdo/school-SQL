@@ -5,8 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="author" content="Thomas Spindler">
 <link rel="icon" type="image/png" href="themes/favicon.png">
-<title>Indices</title>
+<title>Matura Index</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -438,297 +439,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
+<h1>Matura Index</h1>
+<div class="details">
+<span id="author" class="author">Thomas Spindler</span><br>
+</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_indices">1. Indices</a>
-<ul class="sectlevel2">
-<li><a href="#_btree_index">1.1. BTREE Index</a></li>
-<li><a href="#_bitmapped_index">1.2. Bitmapped Index</a></li>
-</ul>
-</li>
-<li><a href="#_optimizer">2. Optimizer</a>
-<ul class="sectlevel2">
-<li><a href="#_cost_based_optimizer">2.1. Cost Based Optimizer</a></li>
-<li><a href="#_hints">2.2. Hints</a></li>
-</ul>
-</li>
-<li><a href="#_explain_plan">3. Explain Plan</a></li>
-<li><a href="#_tips">4. Tips:</a></li>
+<li><a href="#_xml">1. XML</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_indices"><a class="anchor" href="#_indices"></a>1. Indices</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Für schneller abfragen</p>
-</li>
-<li>
-<p>2 Arten</p>
-<div class="ulist">
-<ul>
-<li>
-<p>BTREE</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Balanced Tree</p>
-</li>
-<li>
-<p>bei guter Selektivität von werten</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>INFO: Selektivität: Nur wenig Möglichkeiten für einen Wert</p>
-</div>
-<div class="paragraph">
-<p>ERKLÄRUNG BALANCED TREE</p>
-</div>
-<div class="sect2">
-<h3 id="_btree_index"><a class="anchor" href="#_btree_index"></a>1.1. BTREE Index</h3>
-<div class="sect3">
-<h4 id="_sql_syntaxbeispiele"><a class="anchor" href="#_sql_syntaxbeispiele"></a>1.1.1. SQL Syntaxbeispiele</h4>
-<div class="paragraph">
-<p>Performance dont&#8217;ts</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Vermeiden von upper, like, &#8230;&#8203;</p>
-</li>
-<li>
-<p>Keine Concatinierungen</p>
-</li>
-<li>
-<p>Ungleich Operator</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>WHERE SAL &lt;&gt; 0</p>
-</div>
-<div class="paragraph">
-<p>WHERE SAL &lt; 0</p>
-</div>
-<div class="paragraph">
-<p>Vermeiden von von UPPER, LIKE, &#8230;&#8203;.</p>
-</div>
-<div class="paragraph">
-<p>Keine Concatinierungen</p>
-</div>
-<div class="paragraph">
-<p>Ungleich Operator</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_bitmapped_index"><a class="anchor" href="#_bitmapped_index"></a>1.2. Bitmapped Index</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Werte mit niedriger Selektivität</p>
-</li>
-<li>
-<p>beruecksichten Null</p>
-</li>
-<li>
-<p>Gut fuer ungleich</p>
-</li>
-<li>
-<p>gut fuer count</p>
-</li>
-<li>
-<p>probleme bei Locks</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_optimizer"><a class="anchor" href="#_optimizer"></a>2. Optimizer</h2>
+<h2 id="_xml"><a class="anchor" href="#_xml"></a>1. XML</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Die Pläne für die Execution werden abgeändert, um möglichst effizient zu sein.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Die gesammte Ausführungzeit ist wichitg</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Full Table scans vermeiden</p>
-</div>
-<div class="paragraph">
-<p>Index Scan: Es wird ein Index verwendet</p>
-</div>
-<div class="paragraph">
-<p>Datenmenge &gt; 15% &#8594; Ful scan empfohlen</p>
-</div>
-<div class="sect2">
-<h3 id="_cost_based_optimizer"><a class="anchor" href="#_cost_based_optimizer"></a>2.1. Cost Based Optimizer</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Kann SQL Queries umschreiben</p>
-</li>
-<li>
-<p>Statistiken über tables sind im Data dictionary gespeichert</p>
-</li>
-</ul>
-</div>
-<div class="sect3">
-<h4 id="_analyze_befehl"><a class="anchor" href="#_analyze_befehl"></a>2.1.1. Analyze Befehl</h4>
-<div class="paragraph">
-<p>ANALYZE TABLE EMP COMPUTE STATISTICS FOR ALL COLUMNS</p>
-</div>
-<div class="paragraph">
-<p>R COUNT</p>
-</div>
-<div class="paragraph">
-<p>Optimizer verenden JOINS, um die Queries verwenden</p>
-</div>
-<div class="paragraph">
-<p>nicht in unseren SQL Statements</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Sort-Merge Joins</p>
-</li>
-<li>
-<p>Hashed Joins</p>
-</li>
-<li>
-<p>Nested Loop</p>
-</li>
-<li>
-<p>Star Joins</p>
-</li>
-</ul>
-</div>
-<div class="sect4">
-<h5 id="_nested_loop"><a class="anchor" href="#_nested_loop"></a>Nested Loop</h5>
-<div class="paragraph">
-<p>2 verschachtelte Vorschleifen</p>
-</div>
-<div class="paragraph">
-<p>gut bei kleinen Datenmengen</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_star_joins"><a class="anchor" href="#_star_joins"></a>Star Joins</h5>
-<div class="paragraph">
-<p>Eine große Tabelle wird mit mindestens 2 kleineren Tabellen gejoint</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_sort_merge_join"><a class="anchor" href="#_sort_merge_join"></a>Sort Merge Join</h5>
-<div class="ulist">
-<ul>
-<li>
-<p>Tabellen werden beim Join sortiert</p>
-</li>
-<li>
-<p>Where Klauseln werden beim Full-Table-Scan evaluiert</p>
-</li>
-<li>
-<p>Die kleinere Tabelle soll zuerst gelesen werden</p>
-</li>
-<li>
-<p>Diese sind für große Datenmengen geeignet</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_hash_join"><a class="anchor" href="#_hash_join"></a>Hash Join</h5>
-<div class="ulist">
-<ul>
-<li>
-<p>große Datenmenge</p>
-</li>
-<li>
-<p>schneller als Sort-Merge Join</p>
-</li>
-<li>
-<p>mithilfe von Hashmaps</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_hints"><a class="anchor" href="#_hints"></a>2.2. Hints</h3>
-<div class="paragraph">
-<p>Kommentare für den Optimizer, die in Queries eingebaut werden kann.
-Der Optimizer kann diese hints ignorieren, muss dies allerdings nicht</p>
-</div>
-<div class="paragraph">
-<p>Bei hints muss immer ein Explain Plan ausgeführt werden, um zu schauen ob der Hint berücksichtigt wird.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_explain_plan"><a class="anchor" href="#_explain_plan"></a>3. Explain Plan</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Dieser zeigt, was die Datenbank im hintergrund macht, um das gegebene Statement auszuführen.</p>
-</div>
-<div class="paragraph">
-<p>Es werden die Kosten auf der CPU angezeigt, für die einzelnen Schritte im Statement</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_tips"><a class="anchor" href="#_tips"></a>4. Tips:</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Bei Subqueries:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Minus verwenden</p>
-</li>
-<li>
-<p>outer joins</p>
-</li>
-<li>
-<p>(not) exists</p>
-</li>
-<li>
-<p>not in</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>normale Queries:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Not vermeiden</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Aliases können hilfreich bei Performance sind</p>
+<p><a href="xml/xml.html">Zusammenfassung</a></p>
 </div>
 </div>
 </div>

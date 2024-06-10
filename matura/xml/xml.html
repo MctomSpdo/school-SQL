@@ -5,8 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="author" content="Thomas Spindler">
 <link rel="icon" type="image/png" href="themes/favicon.png">
-<title>Indices</title>
+<title>XML</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -435,300 +436,533 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge, pre.rouge .w {
+  color: #24292f;
+  background-color: #f6f8fa;
+}
+pre.rouge .k, pre.rouge .kd, pre.rouge .kn, pre.rouge .kp, pre.rouge .kr, pre.rouge .kt, pre.rouge .kv {
+  color: #cf222e;
+}
+pre.rouge .gr {
+  color: #f6f8fa;
+}
+pre.rouge .gd {
+  color: #82071e;
+  background-color: #ffebe9;
+}
+pre.rouge .nb {
+  color: #953800;
+}
+pre.rouge .nc {
+  color: #953800;
+}
+pre.rouge .no {
+  color: #953800;
+}
+pre.rouge .nn {
+  color: #953800;
+}
+pre.rouge .sr {
+  color: #116329;
+}
+pre.rouge .na {
+  color: #116329;
+}
+pre.rouge .nt {
+  color: #116329;
+}
+pre.rouge .gi {
+  color: #116329;
+  background-color: #dafbe1;
+}
+pre.rouge .kc {
+  color: #0550ae;
+}
+pre.rouge .l, pre.rouge .ld, pre.rouge .m, pre.rouge .mb, pre.rouge .mf, pre.rouge .mh, pre.rouge .mi, pre.rouge .il, pre.rouge .mo, pre.rouge .mx {
+  color: #0550ae;
+}
+pre.rouge .sb {
+  color: #0550ae;
+}
+pre.rouge .bp {
+  color: #0550ae;
+}
+pre.rouge .ne {
+  color: #0550ae;
+}
+pre.rouge .nl {
+  color: #0550ae;
+}
+pre.rouge .py {
+  color: #0550ae;
+}
+pre.rouge .nv, pre.rouge .vc, pre.rouge .vg, pre.rouge .vi, pre.rouge .vm {
+  color: #0550ae;
+}
+pre.rouge .o, pre.rouge .ow {
+  color: #0550ae;
+}
+pre.rouge .gh {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .s, pre.rouge .sa, pre.rouge .sc, pre.rouge .dl, pre.rouge .sd, pre.rouge .s2, pre.rouge .se, pre.rouge .sh, pre.rouge .sx, pre.rouge .s1, pre.rouge .ss {
+  color: #0a3069;
+}
+pre.rouge .nd {
+  color: #8250df;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #8250df;
+}
+pre.rouge .err {
+  color: #f6f8fa;
+  background-color: #82071e;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cm, pre.rouge .cp, pre.rouge .cpf, pre.rouge .c1, pre.rouge .cs {
+  color: #6e7781;
+}
+pre.rouge .gl {
+  color: #6e7781;
+}
+pre.rouge .gt {
+  color: #6e7781;
+}
+pre.rouge .ni {
+  color: #24292f;
+}
+pre.rouge .si {
+  color: #24292f;
+}
+pre.rouge .ge {
+  color: #24292f;
+  font-style: italic;
+}
+pre.rouge .gs {
+  color: #24292f;
+  font-weight: bold;
+}
+</style>
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
+<h1>XML</h1>
+<div class="details">
+<span id="author" class="author">Thomas Spindler</span><br>
+</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_indices">1. Indices</a>
+<li><a href="#_grundlagen">1. Grundlagen</a>
 <ul class="sectlevel2">
-<li><a href="#_btree_index">1.1. BTREE Index</a></li>
-<li><a href="#_bitmapped_index">1.2. Bitmapped Index</a></li>
+<li><a href="#_sgml">1.1. SGML</a></li>
+<li><a href="#_einsatzgebiete">1.2. Einsatzgebiete</a></li>
+<li><a href="#_struktur_von_xml">1.3. Struktur von XML</a></li>
 </ul>
 </li>
-<li><a href="#_optimizer">2. Optimizer</a>
+<li><a href="#_vorteile_von_xml">2. Vorteile von XML</a></li>
+<li><a href="#_xml_schnittstellen">3. XML - Schnittstellen</a>
 <ul class="sectlevel2">
-<li><a href="#_cost_based_optimizer">2.1. Cost Based Optimizer</a></li>
-<li><a href="#_hints">2.2. Hints</a></li>
+<li><a href="#_sax">3.1. SAX</a></li>
+<li><a href="#_dom">3.2. DOM</a></li>
 </ul>
 </li>
-<li><a href="#_explain_plan">3. Explain Plan</a></li>
-<li><a href="#_tips">4. Tips:</a></li>
+<li><a href="#_xml_prozessoren_beispiele">4. XML-Prozessoren (Beispiele)</a>
+<ul class="sectlevel2">
+<li><a href="#_xerces">4.1. Xerces</a></li>
+<li><a href="#_msxml_parser">4.2. MSXML Parser</a></li>
+</ul>
+</li>
+<li><a href="#_validierung_von_xml">5. Validierung von XML</a>
+<ul class="sectlevel2">
+<li><a href="#_dtd">5.1. DTD</a></li>
+<li><a href="#_xml_schema">5.2. XML Schema</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="_indices"><a class="anchor" href="#_indices"></a>1. Indices</h2>
+<div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>Links zu Unterlagen des Lehrers / Quellen:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Für schneller abfragen</p>
+<p><a href="folien-xml.pdf">folien-xml</a></p>
 </li>
 <li>
-<p>2 Arten</p>
-<div class="ulist">
-<ul>
-<li>
-<p>BTREE</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Balanced Tree</p>
+<p><a href="SAX-DOM.pdf">Sax &amp; Dom</a></p>
 </li>
 <li>
-<p>bei guter Selektivität von werten</p>
+<p><a href="xml.pdf">handout xml</a></p>
 </li>
 </ul>
 </div>
-</li>
-</ul>
 </div>
-</li>
-</ul>
+</div>
+<div class="sect1">
+<h2 id="_grundlagen"><a class="anchor" href="#_grundlagen"></a>1. Grundlagen</h2>
+<div class="sectionbody">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+XML = Extensible Markup Language
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>INFO: Selektivität: Nur wenig Möglichkeiten für einen Wert</p>
-</div>
-<div class="paragraph">
-<p>ERKLÄRUNG BALANCED TREE</p>
+<p>Ist eine strukturierte Sprache, um Daten und Datenstrukturen abzuspeichern.<br>
+HTML basiert auf demselben Grundprinzip wie XML.</p>
 </div>
 <div class="sect2">
-<h3 id="_btree_index"><a class="anchor" href="#_btree_index"></a>1.1. BTREE Index</h3>
+<h3 id="_sgml"><a class="anchor" href="#_sgml"></a>1.1. SGML</h3>
+<div class="paragraph">
+<p><strong>SGML</strong> ist die Muttersprache für heutzutage Anwendungen wie HTML und XML.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/xml-hierachy.png" alt="xml hierachy" width="178" height="169">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_einsatzgebiete"><a class="anchor" href="#_einsatzgebiete"></a>1.2. Einsatzgebiete</h3>
 <div class="sect3">
-<h4 id="_sql_syntaxbeispiele"><a class="anchor" href="#_sql_syntaxbeispiele"></a>1.1.1. SQL Syntaxbeispiele</h4>
+<h4 id="_internet"><a class="anchor" href="#_internet"></a>1.2.1. Internet</h4>
 <div class="paragraph">
-<p>Performance dont&#8217;ts</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Vermeiden von upper, like, &#8230;&#8203;</p>
-</li>
-<li>
-<p>Keine Concatinierungen</p>
-</li>
-<li>
-<p>Ungleich Operator</p>
-</li>
-</ul>
+<p>In den Anfangszeiten des Internets wurde XML verwendet, um REST-Schnittstellen zu betreieben, und daten zu übertragen</p>
 </div>
 <div class="paragraph">
-<p>WHERE SAL &lt;&gt; 0</p>
+<p>Heutzutage hat <strong>JSON</strong> diese Rolle im Internet übernommen.<br>
+Aufgrund backwards compatability unterstützen aber selbst moderne Browser weiterhin XML</p>
 </div>
-<div class="paragraph">
-<p>WHERE SAL &lt; 0</p>
-</div>
-<div class="paragraph">
-<p>Vermeiden von von UPPER, LIKE, &#8230;&#8203;.</p>
-</div>
-<div class="paragraph">
-<p>Keine Concatinierungen</p>
-</div>
-<div class="paragraph">
-<p>Ungleich Operator</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_bitmapped_index"><a class="anchor" href="#_bitmapped_index"></a>1.2. Bitmapped Index</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Werte mit niedriger Selektivität</p>
-</li>
-<li>
-<p>beruecksichten Null</p>
-</li>
-<li>
-<p>Gut fuer ungleich</p>
-</li>
-<li>
-<p>gut fuer count</p>
-</li>
-<li>
-<p>probleme bei Locks</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_optimizer"><a class="anchor" href="#_optimizer"></a>2. Optimizer</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Die Pläne für die Execution werden abgeändert, um möglichst effizient zu sein.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Die gesammte Ausführungzeit ist wichitg</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Full Table scans vermeiden</p>
-</div>
-<div class="paragraph">
-<p>Index Scan: Es wird ein Index verwendet</p>
-</div>
-<div class="paragraph">
-<p>Datenmenge &gt; 15% &#8594; Ful scan empfohlen</p>
-</div>
-<div class="sect2">
-<h3 id="_cost_based_optimizer"><a class="anchor" href="#_cost_based_optimizer"></a>2.1. Cost Based Optimizer</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Kann SQL Queries umschreiben</p>
-</li>
-<li>
-<p>Statistiken über tables sind im Data dictionary gespeichert</p>
-</li>
-</ul>
 </div>
 <div class="sect3">
-<h4 id="_analyze_befehl"><a class="anchor" href="#_analyze_befehl"></a>2.1.1. Analyze Befehl</h4>
+<h4 id="_maven"><a class="anchor" href="#_maven"></a>1.2.2. Maven</h4>
 <div class="paragraph">
-<p>ANALYZE TABLE EMP COMPUTE STATISTICS FOR ALL COLUMNS</p>
+<p>Maven verwendet seit ewigkeiten XML für die Konfiguration, wie aber auch für die sogenannte pom.xml, welche in jedem Maven Projekt eine wichtige Rolle für die Konfiguration von Depedencies, Plugins, und weiteres bietet.</p>
 </div>
-<div class="paragraph">
-<p>R COUNT</p>
 </div>
-<div class="paragraph">
-<p>Optimizer verenden JOINS, um die Queries verwenden</p>
-</div>
-<div class="paragraph">
-<p>nicht in unseren SQL Statements</p>
-</div>
+<div class="sect3">
+<h4 id="_weitere_xml_sprachen"><a class="anchor" href="#_weitere_xml_sprachen"></a>1.2.3. Weitere XML Sprachen</h4>
 <div class="ulist">
 <ul>
 <li>
-<p>Sort-Merge Joins</p>
+<p>XHMTL (XML HTML)</p>
 </li>
 <li>
-<p>Hashed Joins</p>
+<p>SVG (Scalable Vector Graphics)</p>
 </li>
 <li>
-<p>Nested Loop</p>
-</li>
-<li>
-<p>Star Joins</p>
+<p>MathML (Mathe Formeln)</p>
 </li>
 </ul>
-</div>
-<div class="sect4">
-<h5 id="_nested_loop"><a class="anchor" href="#_nested_loop"></a>Nested Loop</h5>
-<div class="paragraph">
-<p>2 verschachtelte Vorschleifen</p>
-</div>
-<div class="paragraph">
-<p>gut bei kleinen Datenmengen</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_star_joins"><a class="anchor" href="#_star_joins"></a>Star Joins</h5>
-<div class="paragraph">
-<p>Eine große Tabelle wird mit mindestens 2 kleineren Tabellen gejoint</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_sort_merge_join"><a class="anchor" href="#_sort_merge_join"></a>Sort Merge Join</h5>
-<div class="ulist">
-<ul>
-<li>
-<p>Tabellen werden beim Join sortiert</p>
-</li>
-<li>
-<p>Where Klauseln werden beim Full-Table-Scan evaluiert</p>
-</li>
-<li>
-<p>Die kleinere Tabelle soll zuerst gelesen werden</p>
-</li>
-<li>
-<p>Diese sind für große Datenmengen geeignet</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_hash_join"><a class="anchor" href="#_hash_join"></a>Hash Join</h5>
-<div class="ulist">
-<ul>
-<li>
-<p>große Datenmenge</p>
-</li>
-<li>
-<p>schneller als Sort-Merge Join</p>
-</li>
-<li>
-<p>mithilfe von Hashmaps</p>
-</li>
-</ul>
-</div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_hints"><a class="anchor" href="#_hints"></a>2.2. Hints</h3>
-<div class="paragraph">
-<p>Kommentare für den Optimizer, die in Queries eingebaut werden kann.
-Der Optimizer kann diese hints ignorieren, muss dies allerdings nicht</p>
+<h3 id="_struktur_von_xml"><a class="anchor" href="#_struktur_von_xml"></a>1.3. Struktur von XML</h3>
+<div class="listingblock">
+<div class="title">Beispiel XML (Premiere Pro rendering presets)</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="xml"><span class="nt">&lt;PremiereData</span> <span class="na">Version=</span><span class="s">"3"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Key</span> <span class="na">Version=</span><span class="s">"1"</span> <span class="na">Index=</span><span class="s">"0"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;DirectoryPath&gt;</span>/presets/<span class="nt">&lt;/DirectoryPath&gt;</span>
+        <span class="nt">&lt;Key</span> <span class="na">Version=</span><span class="s">"3"</span> <span class="na">Index=</span><span class="s">"0"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;PresetModifiedTime&gt;</span>20230207T173300.529816<span class="nt">&lt;/PresetModifiedTime&gt;</span>
+            <span class="nt">&lt;PresetFileType&gt;</span>1211250228<span class="nt">&lt;/PresetFileType&gt;</span>
+            <span class="nt">&lt;PresetClassID&gt;</span>1313424203<span class="nt">&lt;/PresetClassID&gt;</span>
+            <span class="nt">&lt;PresetPath&gt;</span>/presets/<span class="nt">&lt;/PresetPath&gt;</span>
+            <span class="nt">&lt;PresetName&gt;</span>Gemeinde<span class="nt">&lt;/PresetName&gt;</span>
+            <span class="nt">&lt;PresetID&gt;</span>3740cd45-4da5-46ac-9006-741865229db7<span class="nt">&lt;/PresetID&gt;</span>
+            <span class="nt">&lt;FolderDisplayPath&gt;</span>User Presets <span class="err">&amp;</span> Groups<span class="nt">&lt;/FolderDisplayPath&gt;</span>
+            <span class="nt">&lt;IngestPreset&gt;</span>false<span class="nt">&lt;/IngestPreset&gt;</span>
+        <span class="nt">&lt;/Key&gt;</span>
+        <span class="nt">&lt;Key</span> <span class="na">Version=</span><span class="s">"3"</span> <span class="na">Index=</span><span class="s">"1"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;PresetModifiedTime&gt;</span>20221122T195107.744243<span class="nt">&lt;/PresetModifiedTime&gt;</span>
+            <span class="nt">&lt;PresetFileType&gt;</span>1211250228<span class="nt">&lt;/PresetFileType&gt;</span>
+            <span class="nt">&lt;PresetClassID&gt;</span>1313424203<span class="nt">&lt;/PresetClassID&gt;</span>
+            <span class="nt">&lt;PresetPath&gt;</span>/presets/<span class="nt">&lt;/PresetPath&gt;</span>
+            <span class="nt">&lt;PresetName&gt;</span>School 720p low No Audio<span class="nt">&lt;/PresetName&gt;</span>
+            <span class="nt">&lt;PresetID&gt;</span>aaec6bcc-015b-4e9c-80c3-554512f0d2c6<span class="nt">&lt;/PresetID&gt;</span>
+            <span class="nt">&lt;FolderDisplayPath&gt;</span>User Presets <span class="err">&amp;</span> Groups<span class="nt">&lt;/FolderDisplayPath&gt;</span>
+            <span class="nt">&lt;IngestPreset&gt;</span>false<span class="nt">&lt;/IngestPreset&gt;</span>
+        <span class="nt">&lt;/Key&gt;</span>
+        <span class="nt">&lt;Key</span> <span class="na">Version=</span><span class="s">"3"</span> <span class="na">Index=</span><span class="s">"2"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;PresetModifiedTime&gt;</span>20221122T193829.687985<span class="nt">&lt;/PresetModifiedTime&gt;</span>
+            <span class="nt">&lt;PresetFileType&gt;</span>1211250228<span class="nt">&lt;/PresetFileType&gt;</span>
+            <span class="nt">&lt;PresetClassID&gt;</span>1313424203<span class="nt">&lt;/PresetClassID&gt;</span>
+            <span class="nt">&lt;PresetPath&gt;</span>/presets/<span class="nt">&lt;/PresetPath&gt;</span>
+            <span class="nt">&lt;PresetName&gt;</span>School 720p low<span class="nt">&lt;/PresetName&gt;</span>
+            <span class="nt">&lt;PresetID&gt;</span>7d913976-df8e-4704-930f-d70c00e70902<span class="nt">&lt;/PresetID&gt;</span>
+            <span class="nt">&lt;FolderDisplayPath&gt;</span>User Presets <span class="err">&amp;</span> Groups<span class="nt">&lt;/FolderDisplayPath&gt;</span>
+            <span class="nt">&lt;IngestPreset&gt;</span>false<span class="nt">&lt;/IngestPreset&gt;</span>
+            <span class="nt">&lt;/Key&gt;</span>
+        <span class="nt">&lt;/Key&gt;</span>
+<span class="nt">&lt;/PremiereData&gt;</span></code></pre>
 </div>
-<div class="paragraph">
-<p>Bei hints muss immer ein Explain Plan ausgeführt werden, um zu schauen ob der Hint berücksichtigt wird.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_explain_plan"><a class="anchor" href="#_explain_plan"></a>3. Explain Plan</h2>
+<h2 id="_vorteile_von_xml"><a class="anchor" href="#_vorteile_von_xml"></a>2. Vorteile von XML</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Dieser zeigt, was die Datenbank im hintergrund macht, um das gegebene Statement auszuführen.</p>
-</div>
-<div class="paragraph">
-<p>Es werden die Kosten auf der CPU angezeigt, für die einzelnen Schritte im Statement</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Human readable</p>
+</li>
+<li>
+<p>Format der Daten wird beibehalten</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_tips"><a class="anchor" href="#_tips"></a>4. Tips:</h2>
+<h2 id="_xml_schnittstellen"><a class="anchor" href="#_xml_schnittstellen"></a>3. XML - Schnittstellen</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_sax"><a class="anchor" href="#_sax"></a>3.1. SAX</h3>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+SAX = Simple API for XML
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
-<p>Bei Subqueries:</p>
+<p>SAX ist eine API, um einzelne Datenwerten von XML Dateien zu erhalten.<br>
+Hierbei wird das Dokument sequenziell (von oben nach unten) eingelesen.
+Bereits während des Leseprozesses kann eine Applikation über einzelne Bestandteile des XML Dokumentes informiert werden.</p>
+</div>
+<div class="paragraph">
+<p>SAX eignet sich besonders gut für große XML Dokumenten, bei denen nur wenige Daten benötigt werden.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dom"><a class="anchor" href="#_dom"></a>3.2. DOM</h3>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+DOM = Document Object Model
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>DOM ist eine standardisierte API für die Erstellung und Manipulation eines XML Information Sets.<br>
+Hierbei wird das XML Dokument eingelesen, und in Entities im Hauptspeicher abgespeichert (parsing).<br>
+Sollten nun Änderungen am Dokument vorgenommen werden, kann dieses ebenfalls wieder gespeichert werden (serialisieren).</p>
+</div>
+<div class="paragraph">
+<p>DOM eignet sich besonders gut für kleiner XML Dokumenten, auf die oft Zugriffe erfolgen.
+Ebenfalls ist es eine einfache Methode, XML Dokumente zu bearbeiten oder zu speichern.
+Für einzelne Abfragen ist SAX besser geeignet.<br>
+Ebenfalls kann es bei großen XML-Dokumenten vorkommen, dass der Hauptspeicher nicht ausreichend für das gesamte Dokument ist. Eine Lösung für dies ist, dass nur einzelne Teile einer XML-Datei in einem DOM angelegt werden.</p>
+</div>
+<div class="paragraph">
+<p>Moderne Webbrowser parsen ein HTML Dokument in eine DOM, da diese sehr klein sind (wenige Megabyte), allerdings konstanten Zugriff auf dieser erforderlich ist.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_xml_prozessoren_beispiele"><a class="anchor" href="#_xml_prozessoren_beispiele"></a>4. XML-Prozessoren (Beispiele)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_xerces"><a class="anchor" href="#_xerces"></a>4.1. Xerces</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Im Rahmen des Apache-Projektes entstanden.</p>
+</li>
+<li>
+<p>Validierende Parser für Java und C++</p>
+</li>
+<li>
+<p>DOM Level 1 &amp; 2, wie auch SAX</p>
+</li>
+<li>
+<p>Unterstützung von XML Schemas und validierung</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_msxml_parser"><a class="anchor" href="#_msxml_parser"></a>4.2. MSXML Parser</h3>
+<div class="paragraph">
+<p>Microsoft XML Parser.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Minus verwenden</p>
+<p>DOM und SAX Prozessoren</p>
 </li>
 <li>
-<p>outer joins</p>
-</li>
-<li>
-<p>(not) exists</p>
-</li>
-<li>
-<p>not in</p>
+<p>überprüfung von Konformität und Schema</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>normale Queries:</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_validierung_von_xml"><a class="anchor" href="#_validierung_von_xml"></a>5. Validierung von XML</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_dtd"><a class="anchor" href="#_dtd"></a>5.1. DTD</h3>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+DTD = Document Type Definition
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In einer DTD werden Grundregeln für die Struktur eines Dokumentes festgelegt:</p>
+</div>
+<div class="listingblock">
+<div class="title">DTD Definition</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="dtd">&lt;!-- DTD-Definition Adressen --&gt;
+&lt;!ELEMENT address(vorname, name, strasse, plz, ort)&gt;
+&lt;!ELEMENT vorname #PCDATA&gt;
+&lt;!ELEMENT name #PCDATA&gt;
+&lt;!ELEMENT strasse #PCDATA&gt;
+&lt;!ELEMENT plz #PCDATA&gt;
+&lt;!ELEMENT ort #PCDATA&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">DTD in XML</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="xml"><span class="cp">&lt;?xml version="1.0" encoding="iso-8859-2" ?&gt;</span>
+<span class="cp">&lt;!DOCTYPE customers[
+    &lt;!ELEMENT customers (customer*)&gt;</span>
+        <span class="cp">&lt;!ELEMENT customer (name, address+)&gt;</span>
+            <span class="cp">&lt;!ELEMENT name (#PCDATA)&gt;</span>
+            <span class="cp">&lt;!ELEMENT address (street, city, state?, postal)&gt;</span>
+                <span class="cp">&lt;!ATTLIST address country NMTOKEN #REQUIRED&gt;</span> <i class="conum" data-value="1"></i><b>(1)</b>
+                <span class="cp">&lt;!ELEMENT street (#PCDATA)&gt;</span>
+                <span class="cp">&lt;!ELEMENT city (#PCDATA)&gt;</span>
+                <span class="cp">&lt;!ELEMENT state (#PCDATA)&gt;</span>
+                <span class="cp">&lt;!ELEMENT postal (#PCDATA)&gt;</span>
+]&gt;
+<span class="nt">&lt;customers&gt;</span>
+    <span class="nt">&lt;customer&gt;</span>
+        <span class="nt">&lt;name&gt;</span>Baeckerei Huber<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;address</span> <span class="na">country=</span><span class="s">" AT "</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;street&gt;</span>Landstrasse 63<span class="nt">&lt;/street&gt;</span>
+            <span class="nt">&lt;city&gt;</span>Linz<span class="nt">&lt;/city&gt;</span>
+            <span class="nt">&lt;postal&gt;</span>4020<span class="nt">&lt;/postal&gt;</span>
+        <span class="nt">&lt;/address&gt;</span>
+    <span class="nt">&lt;/customer&gt;</span>
+<span class="nt">&lt;customer&gt;</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Bei der Adresse muss ein Land angegeben sein!</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Die Struktur der XML-Datei dar nicht von der DTD abweichen, sonst ist die XML-Datei ungültig:</p>
+</div>
+<div class="paragraph">
+<p>Ein DTD kann auch in einem externen .DTD File gespeichert werden.</p>
+</div>
+<div class="sect3">
+<h4 id="_nachteile_von_dtd"><a class="anchor" href="#_nachteile_von_dtd"></a>5.1.1. Nachteile von DTD:</h4>
 <div class="ulist">
 <ul>
 <li>
-<p>Not vermeiden</p>
+<p>Eine weite Syntax für Entwickler</p>
+</li>
+<li>
+<p>Nicht erweiterbar</p>
+</li>
+<li>
+<p>schlechte Unterstützung von XML Namespaces</p>
+</li>
+<li>
+<p>schwache Unterstützung von Datentypen (numerisch?)</p>
+</li>
+<li>
+<p>geringe Möglichkeiten der exakten definition von Tags</p>
+</li>
+<li>
+<p>keine Erweiterbarkeit</p>
 </li>
 </ul>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_xml_schema"><a class="anchor" href="#_xml_schema"></a>5.2. XML Schema</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="xml"><span class="cp">&lt;?xml version="1.0" encoding="iso-8859-1"?&gt;</span> <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="nt">&lt;xsd:schema</span> <span class="na">xmlns:xsd=</span><span class="s">"http://www.w3.org/2001/XMLSchema"</span><span class="nt">&gt;</span> <i class="conum" data-value="2"></i><b>(2)</b>
+    <span class="nt">&lt;xsd:element</span> <span class="na">name=</span><span class="s">"Buch"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;xsd:complexType&gt;</span>
+            <span class="nt">&lt;xsd:sequence&gt;</span>
+                <span class="nt">&lt;xsd:element</span> <span class="na">name=</span><span class="s">"Titel"</span> <span class="na">type=</span><span class="s">"xsd:string"</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;xsd:element</span> <span class="na">name=</span><span class="s">"Inhalt"</span> <span class="na">type=</span><span class="s">"xsd:string"</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/xsd:sequence&gt;</span>
+        <span class="nt">&lt;/xsd:complexType&gt;</span>
+    <span class="nt">&lt;/xsd:element&gt;</span>
+<span class="nt">&lt;/xsd:schema&gt;</span></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Angabe der XML-Versionsnummer und des Encodings</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Angabe der Datenstrukturen innerhalb des XMLs</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
-<p>Aliases können hilfreich bei Performance sind</p>
+<p>20</p>
+</div>
 </div>
 </div>
 </div>
