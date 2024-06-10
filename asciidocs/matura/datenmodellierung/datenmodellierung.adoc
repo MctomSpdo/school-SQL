@@ -216,7 +216,7 @@ A3 -right[hidden]- A4
 
 === Krähenfuß
 
-image::krähenfuß-img.png[]
+image::./krähenfuss-img.png[]
 
 === M - C Notation
 
