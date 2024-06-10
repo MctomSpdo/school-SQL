@@ -1,8 +1,32 @@
 = Matura Index
-Thomas Spindler
+Mctom Spdo
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
 :sectnums:
+:toc: left
+:stylesheet: ../css/dark.css
 
-== XML
+== Grundlagen der Datenbanktechnologien
+
+== Konzeptionelles Modell
+
+== SQL Data Retrieval und DML
+
+== SQL DCL und DDL
+
+== Datenbankadministration und internes Modell
+
+== Semistrukturierte Daten und prozedurale Erweiterungen
+
+=== XML
 
 link:xml/xml.html[Zusammenfassung]
+
+== Spezielle DB Themen
+
+== Die "Multiuser - Eigenschaft" von Datenbanken und Concurrency
+
+
+
 

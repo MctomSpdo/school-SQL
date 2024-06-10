@@ -1,6 +1,11 @@
 = XML
-Thomas Spindler
+Mctom Spdo
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
 :sectnums:
+:toc: left
+:stylesheet: ../../css/dark.css
 
 Links zu Unterlagen des Lehrers / Quellen:
 
