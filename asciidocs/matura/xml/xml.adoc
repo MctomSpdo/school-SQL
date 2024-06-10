@@ -26,6 +26,7 @@ HTML basiert auf demselben Grundprinzip wie XML.
 
 [plantuml,xml-hierachy]
 ----
+include::../../css/dark.puml[]
 
 class SGML
 
