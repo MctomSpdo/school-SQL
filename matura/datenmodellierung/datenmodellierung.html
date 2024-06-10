@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="author" content="Mctom Spdo">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>Datenmodellierung</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+:root{
+--maincolor:#282c34;
+--primarycolor:#f39c12;
+--secondarycolor:#03a9f4;
+--tertiarycolor:#4db6ac;
+--sidebarbackground:#21252b;
+--linkcolor:#f44336;
+--linkcoloralternate:#ff9800;
+--white:#FFFFFF;
+}
+
+/* custom added styles */
+.listingblock > .content > pre{
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+/* Text styles */
+body{font-family: "Noto Sans",sans-serif;background-color: var(--maincolor);color:var(--white);}
+
+h1{color:var(--primarycolor) !important;font-family:"Noto Sans",sans-serif;}
+h2,h3,h4,h5,h6{color:var(--secondarycolor) !important;font-family:"Noto Sans",sans-serif;}
+.title{color:var(--white) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Noto Sans",sans-serif ! important}
+#toc.toc2 a:link{color:var(--linkcolor);}
+blockquote{color:var(--tertiarycolor) !important}
+.quoteblock{color:var(--white)}
+code{color:var(--linkcoloralternate);background-color: var(--sidebarbackground) !important}
+
+
+/* Table styles */
+th{background-color: var(--maincolor);color:var(--white) !important;}
+td{background-color: var(--maincolor);color: var(--linkcoloralternate) !important}
+
+
+#toc.toc2{background-color:var(--sidebarbackground);}
+#toctitle{color:var(--white);}
+
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  table {
+    width: 55vw!important;
+    font-size: 3vw;
+  }
+}
+
+.exampleblock > .content {
+  background-color: var(--maincolor);
+}
+
+a {
+  color: var(--secondarycolor);
+}
+
+.admonitionblock td.icon .icon-tip::before {
+  text-shadow: none;
+  color: var(--white);
+}
+.admonitionblock td.icon .icon-note::before {
+  color: var(--tertiarycolor);
+}
+.admonitionblock td.icon .icon-important::before {
+  color: var(--linkcolor);
+}
+/*.admonitionblock td.icon .icon-caution::before {
+  color: var(--linkcoloralternate);
+}*/
+.admonitionblock td.icon .icon-warning::before {
+  color: var(--primarycolor);
+}
+
+#preamble > .sectionbody > .paragraph:first-of-type p {
+  color: var(--white);
+}
+
+.quoteblock blockquote::before {
+  color: var(--primarycolor);
+}
+.quoteblock .attribution cite, .verseblock .attribution cite {
+  color: var(--white);
+}
+.verseblock pre {
+  color: var(--white);
+}
+.quoteblock blockquote, .quoteblock blockquote p {
+  color: var(--white);
+}
+
+.sidebarblock {
+  background: var(--sidebarbackground);
+}
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+#header .details {
+  color: var(--white);
+}
+#header .details span.email a {
+  color: var(--linkcoloralternate);
+}
+
+/* in code style fixes */
+
+.k {
+  color: #008800 !important;
+}
+
+.k:contains("select"), .k:contains("create"), .k:contains("update"), .k:contains("replace"), .k:contains("beginn"),
+.k:contains("delete"), .k:contains("alter"), .k:contains("drop") {
+  color: #BB0066 !important;
+}
+
+.k:contains("return"), .k:cotains("primary"), .k:contains("foreign"), .k:contains("cascade") {
+  color: #008888 !important;
+}
+
+.k:contains("key"), .k:contains("constraint"), .k:contains("table") {
+  color: #333399 !important;
+}
+
+.mi {
+  color: #0202D2 !important;
+}
+
+.nb {
+  color: #00AA88 !important;
+}
+
+.o {
+  color: var(--white) !important;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Datenmodellierung</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2024-06-10</span>
+<br><span id="revremark">INSY</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_definition">1. Definition</a></li>
+<li><a href="#_grundlagen_der_datenmodellierung">2. Grundlagen der Datenmodellierung</a>
+<ul class="sectlevel2">
+<li><a href="#_entitäten">2.1. Entitäten</a></li>
+<li><a href="#_attribute">2.2. Attribute</a></li>
+<li><a href="#_beziehungen">2.3. Beziehungen</a></li>
+</ul>
+</li>
+<li><a href="#_notationen">3. Notationen</a>
+<ul class="sectlevel2">
+<li><a href="#_uml">3.1. UML</a></li>
+<li><a href="#_krähenfuß">3.2. Krähenfuß</a></li>
+<li><a href="#_m_c_notation">3.3. M - C Notation</a></li>
+</ul>
+</li>
+<li><a href="#_relationales_modell_rm">4. Relationales Modell (RM)</a></li>
+<li><a href="#_wichtige_punkte_bei_der_datenmodellierung">5. Wichtige Punkte bei der Datenmodellierung</a>
+<ul class="sectlevel2">
+<li><a href="#_gut_durchdachte_datenmodellierung">5.1. Gut durchdachte Datenmodellierung</a></li>
+<li><a href="#_die_3_stadien_der_datenmodellierung">5.2. Die 3 Stadien der Datenmodellierung</a></li>
+</ul>
+</li>
+<li><a href="#_normalisierung">6. Normalisierung</a>
+<ul class="sectlevel2">
+<li><a href="#_erste_normalform">6.1. Erste Normalform</a></li>
+<li><a href="#_zweite_normalform">6.2. Zweite Normalform</a></li>
+<li><a href="#_dritte_normalform">6.3. Dritte Normalform</a></li>
+</ul>
+</li>
+<li><a href="#_namensvergebung_von_entitäten">7. Namensvergebung von Entitäten</a></li>
+<li><a href="#_relationale_datenbanken">8. Relationale Datenbanken</a></li>
+<li><a href="#_lebenszyklus_von_entitäten">9. Lebenszyklus von Entitäten</a></li>
+<li><a href="#_fragen_von_tumfart">10. Fragen von Tumfart</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_definition"><a class="anchor" href="#_definition"></a>1. Definition</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Die Datenmodellierung ist der Prozess der <strong>Darstellung von Informationen und Beziehungen zwischen Daten</strong> in einer organisierten Struktur.</p>
+</div>
+<div class="paragraph">
+<p>Hierbei ist das Modellieren der Daten die Grundlage für die Konstruktion einer Datenbank. Es hilft dabei, komplexe Informationen in leicht verständliche Form zu organisieren.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_grundlagen_der_datenmodellierung"><a class="anchor" href="#_grundlagen_der_datenmodellierung"></a>2. Grundlagen der Datenmodellierung</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_entitäten"><a class="anchor" href="#_entitäten"></a>2.1. Entitäten</h3>
+<div class="paragraph">
+<p>Eine Entität ist ein eindeutig definierbares Objekt in der Wirklichkeit.</p>
+</div>
+<div class="paragraph">
+<p>z.B: Schüler</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_attribute"><a class="anchor" href="#_attribute"></a>2.2. Attribute</h3>
+<div class="paragraph">
+<p>Attribute beschreiben Merkmale oder Eigenschaften einer Entität.</p>
+</div>
+<div class="paragraph">
+<p>Beispiel:</p>
+</div>
+<div class="paragraph">
+<p>für die Entität Schüler lassen sich folgende Attribute bestimmen:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Schüler_ID</p>
+</li>
+<li>
+<p>Nachname</p>
+</li>
+<li>
+<p>Vorname</p>
+</li>
+<li>
+<p>usw.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_beziehungen"><a class="anchor" href="#_beziehungen"></a>2.3. Beziehungen</h3>
+<div class="paragraph">
+<p>Eine Beziehung assoziiert wechselseitig zwei (oder mehrere) Entitäten. Assoziation bedeutet, dass eine
+Entität eine andere Entität kennt und mit ihr in Wechselwirkung steht</p>
+</div>
+<div class="sect3">
+<h4 id="_kardinalität_von_beziehungen"><a class="anchor" href="#_kardinalität_von_beziehungen"></a>2.3.1. Kardinalität von Beziehungen</h4>
+<div class="paragraph">
+<p>Die Kardinalität einer Beziehung gibt an, wie viele Entitäten der einen Entitätsmenge einer beliebigen
+Entität der anderen Entitätsmenge zugeordnet sein können.</p>
+</div>
+<div class="sect4">
+<h5 id="_1_1_beziehung"><a class="anchor" href="#_1_1_beziehung"></a>1-1 Beziehung</h5>
+<div class="paragraph">
+<p>auch: 1 zu 1 Beziehung</p>
+</div>
+<div class="paragraph">
+<p>Eine Klasse hat einen Klassenleiter</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/beziehung-1-1.png" alt="beziehung 1 1" width="267" height="62">
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_1_n_beziehung"><a class="anchor" href="#_1_n_beziehung"></a>1-n Beziehung</h5>
+<div class="paragraph">
+<p>Eine Klasse hat <strong>keinen, einen oder mehrere</strong> Schüler</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/beziehung-1-n.png" alt="beziehung 1 n" width="231" height="62">
+</div>
+</div>
+<div class="paragraph">
+<p>Eine Klasse hat <strong>einen oder mehrere</strong> Schüler</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/beziehung-1-n-1.png" alt="beziehung 1 n 1" width="231" height="62">
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_n_m_beziehung"><a class="anchor" href="#_n_m_beziehung"></a>n-m Beziehung</h5>
+<div class="paragraph">
+<p>Ein Lehrer unterrichtet in mehreren Klassen.
+Mehrere Klassen werden von mehreren Lehrern unterrichtet</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/beziehung-n-m.png" alt="beziehung n m" width="223" height="62">
+</div>
+</div>
+<div class="paragraph">
+<p>Hierbei wird allerdings auf Datenbanklevel eine Assoziationstabelle verwendet:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/assoziationstabelle-1.png" alt="assoziationstabelle 1" width="379" height="62">
+</div>
+<div class="title">Figure 1. Assoziationstabelle</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/assoziationstabelle.png" alt="assoziationstabelle" width="379" height="121">
+</div>
+<div class="title">Figure 2. Assoziationstabelle mögliche UML Darstellung</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_parallele_beziehungen"><a class="anchor" href="#_parallele_beziehungen"></a>2.3.2. Parallele Beziehungen</h4>
+<div class="paragraph">
+<p>Flug von einem Flughafen zu einem anderen:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/parallell.png" alt="parallell" width="310" height="110">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_rekursive_beziehungen"><a class="anchor" href="#_rekursive_beziehungen"></a>2.3.3. Rekursive Beziehungen</h4>
+<div class="paragraph">
+<p>Jeder Manager ist ein Mitarbeiter, aber jeder Mitarbeiter sollte einen Manager haben</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/recursive.png" alt="recursive" width="150" height="106">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_notationen"><a class="anchor" href="#_notationen"></a>3. Notationen</h2>
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Es muss immer eine Notation verwendet werden, denn es darf nicht nur ein Stich sein.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_uml"><a class="anchor" href="#_uml"></a>3.1. UML</h3>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/uml-notation.png" alt="uml notation" width="258" height="378">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_krähenfuß"><a class="anchor" href="#_krähenfuß"></a>3.2. Krähenfuß</h3>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/krähenfuß-img.png" alt="krähenfuß img">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_m_c_notation"><a class="anchor" href="#_m_c_notation"></a>3.3. M - C Notation</h3>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/m-c.png" alt="m c" width="258" height="378">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_relationales_modell_rm"><a class="anchor" href="#_relationales_modell_rm"></a>4. Relationales Modell (RM)</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="../../images/relationales-modell.png" alt="relationales modell" width="283" height="127">
+</div>
+<div class="title">Figure 3. UML Modell</div>
+</div>
+<div class="paragraph">
+<p>department(<span class="underline">a_id</span>, name)<br>
+employee(<span class="underline">svnr</span>, <span class="underline">d</span> e <span class="underline">p</span> t, name, salary, hiredate)</p>
+</div>
+<div class="paragraph">
+<p>INFO: Bei "dept" muss die Linie strichliert werden (ohne Leerzeichen)!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_wichtige_punkte_bei_der_datenmodellierung"><a class="anchor" href="#_wichtige_punkte_bei_der_datenmodellierung"></a>5. Wichtige Punkte bei der Datenmodellierung</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_gut_durchdachte_datenmodellierung"><a class="anchor" href="#_gut_durchdachte_datenmodellierung"></a>5.1. Gut durchdachte Datenmodellierung</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>strukturierte Speicherung der Daten</p>
+</li>
+<li>
+<p>Vermeidung von Redundanz</p>
+</li>
+<li>
+<p>Integrität der Daten</p>
+</li>
+<li>
+<p>Flexibilität und Skalierbarkeit</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_die_3_stadien_der_datenmodellierung"><a class="anchor" href="#_die_3_stadien_der_datenmodellierung"></a>5.2. Die 3 Stadien der Datenmodellierung</h3>
+<div class="sect3">
+<h4 id="_konzeptionelles_modell"><a class="anchor" href="#_konzeptionelles_modell"></a>5.2.1. Konzeptionelles Modell:</h4>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/puml-konzeptionelles-modell.png" alt="puml konzeptionelles modell" width="531" height="141">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_logisches_modell"><a class="anchor" href="#_logisches_modell"></a>5.2.2. Logisches Modell:</h4>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/puml-logisches-modell.png" alt="puml logisches modell" width="690" height="287">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_physisches_modell"><a class="anchor" href="#_physisches_modell"></a>5.2.3. Physisches Modell:</h4>
+<div class="paragraph">
+<p>Eigentliche Implementierung in der gegebenen Datenbank (Abbildung der Tabellenstruktur wie auf der DB)</p>
+</div>
+<div class="paragraph">
+<p>Dieses Modell wird verwendet, um Besonderheiten einer Implementierung nachvollziehen zu können.
+Je besser man diese Versteht, desto weniger Komplikationen können bei der Umsetzung geschehen.
+(<a href="https://www.erwin.com/de-de/solutions/data-modeling/physical.aspx">Quelle</a>)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/puml-physisches-modell.png" alt="puml physisches modell" width="885" height="311">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_normalisierung"><a class="anchor" href="#_normalisierung"></a>6. Normalisierung</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ziele der Normalisierung:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Redundanz minimieren</p>
+</li>
+<li>
+<p>Integrität der Daten</p>
+</li>
+<li>
+<p>Verhindert Anomalien</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Deswegen ist es wichtig diese im Schlaf zu können.
+Denn dadurch könne dieses Beispiel einträten:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Frau Maier heiratet und nimmt den Namen ihres Mannes an. Dadurch muss in der Datenbank der Name an mehreren Stellen geändert werden, wenn man sich nicht an die Normalisierungen hält.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Hierbei gibt es mehrere Normalformen:</p>
+</div>
+<div class="sect2">
+<h3 id="_erste_normalform"><a class="anchor" href="#_erste_normalform"></a>6.1. Erste Normalform</h3>
+<details>
+<summary class="title">Tumfart Kurzfasssung</summary>
+<div class="content">
+<div class="paragraph">
+<p>Atomar</p>
+</div>
+</div>
+</details>
+<div class="paragraph">
+<p>Eine Relation befindet sich in erster Normalform, wenn alle Attribute nur einfache Attributwerte aufweisen. &#8658;
+Alle Attribute sind Atomar<br></p>
+</div>
+<div class="paragraph">
+<p>Hierbei muss jedes Attribut in die kleinste mögliche Einheit umgewandelt werden:</p>
+</div>
+<div class="paragraph">
+<p>Adresse &#8658; Straßenname, Hausnummer, Postleitzahl, Stadt</p>
+</div>
+<div class="paragraph">
+<p>Bsp:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>SchülerNr</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Name</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Vorname</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Klasse</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Klassenlehrer</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Fach</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>FachLehrer</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Zeit in h</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>1</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Jürgens</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Ina</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>11a</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Lempel</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Tanz</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Reiter</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>1.5</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>2</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Schmidt</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Tom</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>12a</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Breier</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Chor</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Stütz</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>3.8</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Hierbei nimmt die Redundanz zu, wenn z.B. die Klasse, der Klassenlehrer oder das Fach gleich ist.<br>
+Wenn nun sich z.B. der Name des Lehrers ändert, muss dieser in vielen einträgen aktualisiert werden.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_zweite_normalform"><a class="anchor" href="#_zweite_normalform"></a>6.2. Zweite Normalform</h3>
+<details>
+<summary class="title">Tumfart Kurzfasssung</summary>
+<div class="content">
+<div class="literalblock">
+<div class="content">
+<pre>nicht Schlüsselattribute nicht funktional</pre>
+</div>
+</div>
+</div>
+</details>
+<div class="paragraph">
+<p>Eine Relation befindet sich in zweiten Normalform, wenn</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Diese sich nicht in der 1. Normalform befindet</p>
+</li>
+<li>
+<p>jedes Nicht-Schlüssel-Attribut vom Primärschlüssel voll funktional abhängig ist.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Schritte zur herstellung der 2. Normalform:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Primärschlüssel der gegebenen Relation festlegen, falls dieser nur aus einem Attribut besteht, so liegt bereits 2. NF vor.</p>
+</li>
+<li>
+<p>Untersuchung, ob aus Teilschlüsselattributen bereits weitere Attribute folgen. Falls nicht, liegt bereits die 2. NF vor. Falls Abhängigkeiten gefunden werden, dann</p>
+</li>
+<li>
+<p>Neue Relation bilden, die das Teilschlüsselattribut und alle von diesem abhängigen Nichtschlüsselattribute enthalten. Das Teilschlüsselattribut wird in der neuen Relation der Primärschlüssel.</p>
+</li>
+<li>
+<p>Löschen der ausgelagerten Nichtschlüsselattribute in der Ausgangsrelation.</p>
+</li>
+<li>
+<p>Vorgang ab 2. wiederholen, bis alle Nichtschlüsselattribute vom gesamten Schlüssel funktional abhängig sind.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Beispiel:</p>
+</div>
+<div class="paragraph">
+<p>Aus dem Fach lässt sich bereits eindeutig auf einen Namen dieses schließen.<br>
+Aus der Schülernummer lässt sich eindeutig auf Name, Vorname, Klasse und Klassenlehrer schließen.</p>
+</div>
+<div class="paragraph">
+<p>Somit sind zwei neue Relationsschemas Fach und Schüler zu erzeugen und das verbleibende Schema Fach so zu überarbeiten, dass die Attribute Beschreibung, Name, Vorname, Klasse und Klassenlehrer gelöscht werden</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/puml-normalform-2.png" alt="puml normalform 2" width="463" height="143">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dritte_normalform"><a class="anchor" href="#_dritte_normalform"></a>6.3. Dritte Normalform</h3>
+<details>
+<summary class="title">Tumfart Kurzfasssung</summary>
+<div class="content">
+<div class="literalblock">
+<div class="content">
+<pre>nicht Schlüsselattribute nicht funktional</pre>
+</div>
+</div>
+</div>
+</details>
+<div class="paragraph">
+<p>Eine Relation befindet sich in 3. Normalform, wenn:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>sie in der zweiten Normalform ist und</p>
+</li>
+<li>
+<p>jedes Nichtschlüsselattribute nicht transitiv vom Primärschlüssel abhängig ist, d.h. aus keinem Nichtschlüsselattribut folgt ein anderes Nichtschlüsselattribut.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Regel zum Prüfen der zweiten Bedingung: Wenn aus einem Nichtschlüsselattribut ein anderes Nichtschlüsselattribut folgt, dann liegt keine 3. Normalform vor!</p>
+</div>
+<div class="paragraph">
+<p>Schrittfolge zur Herstellung der dritten Normalform:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Untersuchung, ob aus Nichtschlüsselattributen andere Nichtschlüsselattribute folgen. Falls nicht, liegt bereits die 3. NF vor. Falls Abhängigkeiten gefunden werden, dann</p>
+</li>
+<li>
+<p>Neue Relation bilden, die das Nichtschlüsselattribut (wird nun Primärschlüssel der neuen Relation) und die von ihm abhängigen Attribute enthält.</p>
+</li>
+<li>
+<p>Löschen der ausgelagerten Nichtschlüsselattribute mit Ausnahme des Attributes, das in der neuen Relation Primärschlüssel ist.</p>
+</li>
+<li>
+<p>Vorgang ab 2. wiederholen, bis keine Abhängigkeiten mehr bestehen</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/puml-normalform-3.png" alt="puml normalform 3" width="414" height="294">
+</div>
+<div class="title">Figure 4. 3. Normalform</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/puml-normalform-3-relations.png" alt="puml normalform 3 relations" width="560" height="223">
+</div>
+<div class="title">Figure 5. Modell mit Relationen in 3. Normalform</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_namensvergebung_von_entitäten"><a class="anchor" href="#_namensvergebung_von_entitäten"></a>7. Namensvergebung von Entitäten</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Im Singular</p>
+</li>
+<li>
+<p>keine Abkürzungen</p>
+</li>
+<li>
+<p>Konsistent</p>
+</li>
+<li>
+<p>keine Synonyme</p>
+</li>
+<li>
+<p>keine Homonyme</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_relationale_datenbanken"><a class="anchor" href="#_relationale_datenbanken"></a>8. Relationale Datenbanken</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Oracle DB</p>
+</li>
+<li>
+<p>Microsoft SQL Server</p>
+</li>
+<li>
+<p>PostgresSQL</p>
+</li>
+<li>
+<p>Derby DB</p>
+</li>
+<li>
+<p>Maria DB</p>
+</li>
+<li>
+<p>MySQL</p>
+</li>
+<li>
+<p>SqlLite</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lebenszyklus_von_entitäten"><a class="anchor" href="#_lebenszyklus_von_entitäten"></a>9. Lebenszyklus von Entitäten</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_fragen_von_tumfart"><a class="anchor" href="#_fragen_von_tumfart"></a>10. Fragen von Tumfart</h2>
+<div class="sectionbody">
+<details>
+<summary class="title">Was passiert, wenn man eine Redundanz hat?</summary>
+<div class="content">
+<div class="paragraph">
+<p>Anomalie</p>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Welche Datenbanken gibt es?</summary>
+<div class="content">
+<div class="literalblock">
+<div class="content">
+<pre>Relational, NoSQL</pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Gibt es verschiedene Hersteller?</summary>
+<div class="content">
+<div class="paragraph">
+<p>Oracle, SQL Server, Maria DB, MySQL, SQL Light</p>
+</div>
+<div class="paragraph">
+<p><strong>Relationale Datenbanken</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Oracle DB</p>
+</li>
+<li>
+<p>Microsoft SQL Server</p>
+</li>
+<li>
+<p>PostgresSQL</p>
+</li>
+<li>
+<p>Derby DB</p>
+</li>
+<li>
+<p>Maria DB</p>
+</li>
+<li>
+<p>MySQL</p>
+</li>
+<li>
+<p>SqlLite</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>NoSQL Datenbanken</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Mongo DB</p>
+</li>
+<li>
+<p>Redis</p>
+</li>
+<li>
+<p>Apache Cassandra</p>
+</li>
+<li>
+<p>Neo4j</p>
+</li>
+</ul>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Welche Notationen gibt es?</summary>
+<div class="content">
+<div class="paragraph">
+<p>MC, UML, Krähenfuß</p>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Wer verwendet die Krähenfuß-Notation?</summary>
+<div class="content">
+<div class="paragraph">
+<p>Oracle</p>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Wie heißt das Tool für die Datenmodellierung?</summary>
+<div class="content">
+<div class="paragraph">
+<p>Data Modeller</p>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Wann löst man eine Aggregationstabelle?</summary>
+<div class="content">
+<div class="paragraph">
+<p>Im ERD (Entity Relationship Diagramm) oder RM (Relationen Modell)</p>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Was macht man im Relationen Modell?</summary>
+<div class="content">
+<div class="paragraph">
+<p>Man definiert die Attribute und die PK (Primary Key) und die FK (Forign Keys)</p>
+</div>
+</div>
+</details>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2024-06-10 18:07:04 UTC
+</div>
+</div>
+</body>
+</html>
