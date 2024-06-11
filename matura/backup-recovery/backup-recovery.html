@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="author" content="Mctom Spdo">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>Backup &amp; Recovery</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+:root{
+--maincolor:#282c34;
+--primarycolor:#f39c12;
+--secondarycolor:#03a9f4;
+--tertiarycolor:#4db6ac;
+--sidebarbackground:#21252b;
+--linkcolor:#f44336;
+--linkcoloralternate:#ff9800;
+--white:#FFFFFF;
+}
+
+/* custom added styles */
+.listingblock > .content > pre{
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+/* Text styles */
+body{font-family: "Noto Sans",sans-serif;background-color: var(--maincolor);color:var(--white);}
+
+h1{color:var(--primarycolor) !important;font-family:"Noto Sans",sans-serif;}
+h2,h3,h4,h5,h6{color:var(--secondarycolor) !important;font-family:"Noto Sans",sans-serif;}
+.title{color:var(--white) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Noto Sans",sans-serif ! important}
+#toc.toc2 a:link{color:var(--linkcolor);}
+blockquote{color:var(--tertiarycolor) !important}
+.quoteblock{color:var(--white)}
+code{color:var(--linkcoloralternate);background-color: var(--sidebarbackground) !important}
+
+
+/* Table styles */
+th{background-color: var(--maincolor);color:var(--white) !important;}
+td{background-color: var(--maincolor);color: var(--linkcoloralternate) !important}
+
+
+#toc.toc2{background-color:var(--sidebarbackground);}
+#toctitle{color:var(--white);}
+
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  table {
+    width: 55vw!important;
+    font-size: 3vw;
+  }
+}
+
+.exampleblock > .content {
+  background-color: var(--maincolor);
+}
+
+a {
+  color: var(--secondarycolor);
+}
+
+.admonitionblock td.icon .icon-tip::before {
+  text-shadow: none;
+  color: var(--white);
+}
+.admonitionblock td.icon .icon-note::before {
+  color: var(--tertiarycolor);
+}
+.admonitionblock td.icon .icon-important::before {
+  color: var(--linkcolor);
+}
+/*.admonitionblock td.icon .icon-caution::before {
+  color: var(--linkcoloralternate);
+}*/
+.admonitionblock td.icon .icon-warning::before {
+  color: var(--primarycolor);
+}
+
+#preamble > .sectionbody > .paragraph:first-of-type p {
+  color: var(--white);
+}
+
+.quoteblock blockquote::before {
+  color: var(--primarycolor);
+}
+.quoteblock .attribution cite, .verseblock .attribution cite {
+  color: var(--white);
+}
+.verseblock pre {
+  color: var(--white);
+}
+.quoteblock blockquote, .quoteblock blockquote p {
+  color: var(--white);
+}
+
+.sidebarblock {
+  background: var(--sidebarbackground);
+}
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+#header .details {
+  color: var(--white);
+}
+#header .details span.email a {
+  color: var(--linkcoloralternate);
+}
+
+/* in code style fixes */
+
+.k {
+  color: #008800 !important;
+}
+
+.k:contains("select"), .k:contains("create"), .k:contains("update"), .k:contains("replace"), .k:contains("beginn"),
+.k:contains("delete"), .k:contains("alter"), .k:contains("drop") {
+  color: #BB0066 !important;
+}
+
+.k:contains("return"), .k:cotains("primary"), .k:contains("foreign"), .k:contains("cascade") {
+  color: #008888 !important;
+}
+
+.k:contains("key"), .k:contains("constraint"), .k:contains("table") {
+  color: #333399 !important;
+}
+
+.mi {
+  color: #0202D2 !important;
+}
+
+.nb {
+  color: #00AA88 !important;
+}
+
+.o {
+  color: var(--white) !important;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Backup &amp; Recovery</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2024-06-11</span>
+<br><span id="revremark">INSY</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_arten_von_backups">1. Arten von Backups</a>
+<ul class="sectlevel2">
+<li><a href="#_physisches_backup">1.1. Physisches Backup</a></li>
+<li><a href="#_logisches_backup">1.2. Logisches Backup</a></li>
+</ul>
+</li>
+<li><a href="#_rman">2. RMAN</a></li>
+<li><a href="#_fehlerkategorien_in_der_oracle_db">3. Fehlerkategorien in der Oracle DB</a>
+<ul class="sectlevel2">
+<li><a href="#_statement_fehler">3.1. Statement Fehler</a></li>
+<li><a href="#_fehler_im_benutzerprozess">3.2. Fehler im Benutzerprozess</a></li>
+<li><a href="#_netzwerkfehler">3.3. Netzwerkfehler</a></li>
+<li><a href="#_userfehler">3.4. Userfehler</a></li>
+<li><a href="#_instanz_fehler">3.5. Instanz Fehler</a></li>
+<li><a href="#_datenträgerfehler">3.6. Datenträgerfehler</a></li>
+</ul>
+</li>
+<li><a href="#_checkpoints">4. Checkpoints</a></li>
+<li><a href="#_crash_recovery">5. Crash Recovery</a>
+<ul class="sectlevel2">
+<li><a href="#_auslöser_einer_crash_recovery">5.1. Auslöser einer Crash Recovery</a></li>
+<li><a href="#_vorgehensweise">5.2. Vorgehensweise</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_arten_von_backups"><a class="anchor" href="#_arten_von_backups"></a>1. Arten von Backups</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_physisches_backup"><a class="anchor" href="#_physisches_backup"></a>1.1. Physisches Backup</h3>
+<div class="paragraph">
+<p>Bei einem physischen Backup werden die Dateien, welche die Datenbank anlegt direkt kopiert.<br>
+Dieser Prozess kann entweder mit den jeweiligen Dateien passieren, die die aktuellen Daten und Zustände der DB beinhalten.</p>
+</div>
+<div class="sect3">
+<h4 id="_image_copies"><a class="anchor" href="#_image_copies"></a>1.1.1. Image Copies</h4>
+<div class="paragraph">
+<p>Hierbei werden die Dateien auf OS Level kopiert.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_logisches_backup"><a class="anchor" href="#_logisches_backup"></a>1.2. Logisches Backup</h3>
+<div class="paragraph">
+<p>Bei einem Logischen Backup werden einzelne oder auch mehrere Datenbankobjekte exportiert.<br>
+Hier können Tables, Sequences, etc. exportiert werden.
+Die hierbei entstandenen Daten werden komprimiert und in einem speziellen Format abgespeichert. (Backup Set)
+Dieses Format ist je nach Datenbank unterschiedlich.
+Im Falle von Oracle gibt es hierzu ein eigenen Program, welches sich um die Backups kümmert.
+Dieses heißt RMAN (Recovery Manager)</p>
+</div>
+<div class="paragraph">
+<p>Bei logischen Backups werden auch komplexere Backups unterstützt, wie etwa:</p>
+</div>
+<div class="sect3">
+<h4 id="_incremental_backups"><a class="anchor" href="#_incremental_backups"></a>1.2.1. Incremental Backups</h4>
+<div class="paragraph">
+<p>Hierbei werden nur die Änderungen seit dem letzten Backup gespeichert.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_block_media_recovery"><a class="anchor" href="#_block_media_recovery"></a>1.2.2. Block Media Recovery</h4>
+<div class="paragraph">
+<p>Wenn nur ein einzelner oder wenige Blöcke der Datenbank beschädigt sind, können diese einzeln wiederhergestellt werden.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_encrypted_backups"><a class="anchor" href="#_encrypted_backups"></a>1.2.3. Encrypted Backups</h4>
+<div class="paragraph">
+<p>Alle Arten von Logischen Backups können verschlüsselt werden</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_automated_database_duplication"><a class="anchor" href="#_automated_database_duplication"></a>1.2.4. Automated Database Duplication</h4>
+<div class="paragraph">
+<p>Änderungen werden vollautomatisch auf einer weiteren DB gespeichert.
+In der Cloud kann diese Technologie auch dafür verwendet werden, dass mehrere Datenbanken verwendet werden, um mehr Nutzer zu bedienen.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_rman"><a class="anchor" href="#_rman"></a>2. RMAN</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Oracle Recovery Manager kann verwendet werden, um logische Backups in der Datenbank zu erstellen.</p>
+</div>
+<div class="paragraph">
+<p>Hiermit können auch automatisiert backups erstellt werden, welche automatisch in gegeben Zeitpunkten stadtfinden.
+Mithilfe dieses Managers ist es möglich, alle Arten von Backups zu erstellen.
+Lange Zeit war dieser Manager nur als Programm verfügbar, allerdings mit der Cloud version von Oracle ist dieser ebenfalls als Webinterface verfügbar.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_fehlerkategorien_in_der_oracle_db"><a class="anchor" href="#_fehlerkategorien_in_der_oracle_db"></a>3. Fehlerkategorien in der Oracle DB</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Fehler, die in der Oracle DB auftreten, werden in verschiedene Kategorien unterteilt:</p>
+</div>
+<div class="sect2">
+<h3 id="_statement_fehler"><a class="anchor" href="#_statement_fehler"></a>3.1. Statement Fehler</h3>
+<div class="paragraph">
+<p>Dieser Fehler tritt auf, wenn ein ungültiges SQL Statement einen Fehler wirft.
+Diese sind rein durch den Benutzer verursacht.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_fehler_im_benutzerprozess"><a class="anchor" href="#_fehler_im_benutzerprozess"></a>3.2. Fehler im Benutzerprozess</h3>
+<div class="paragraph">
+<p>Diese Fehler treten auf, wenn ein Benutzer einen Fehler mit der Handhabung der Datenbank hat.
+Ein Beispiel hierfür ist, dass der Benutzer die falschen Anmeldedaten eingibt.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_netzwerkfehler"><a class="anchor" href="#_netzwerkfehler"></a>3.3. Netzwerkfehler</h3>
+<div class="paragraph">
+<p>Dieser Art von Fehler tritt auf, wenn die Netzwerkverbindung aus unbekannten Gründen abgebrochen wird.
+Dies kann an Hardwarefehlern legen, Ausfälle, oder einfach zu lange response times.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_userfehler"><a class="anchor" href="#_userfehler"></a>3.4. Userfehler</h3>
+<div class="paragraph">
+<p>Diese Art von Fehler tritt auf, wenn der User z.B die Verbindung verliert.
+Hierbei ist es wichtig zu unterscheiden zu Fehler im Benutzerprozess.
+Beim Fehler in Benutzerprozess muss der Benutzer einen Fehler machen.
+Hingegen ein Userfehler kann auftreten, auch wenn der Benutzer alles korrekt macht.<br>
+Ein Beispiel hierfür währe, dass der Client, den der Benutzer verwendet abstürzt und somit die DB Verbindung nicht schließt.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_instanz_fehler"><a class="anchor" href="#_instanz_fehler"></a>3.5. Instanz Fehler</h3>
+<div class="paragraph">
+<p>Die Oracle DB hat einen internen Fehler</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_datenträgerfehler"><a class="anchor" href="#_datenträgerfehler"></a>3.6. Datenträgerfehler</h3>
+<div class="paragraph">
+<p>Ein oder mehrere Festplatten auf der Oracle DB funktionieren nicht mehr.
+Dies führt dazu, dass nur Teile oder auch die gesamte Datenbank nicht mehr verfügbar ist.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_checkpoints"><a class="anchor" href="#_checkpoints"></a>4. Checkpoints</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Checkpoints werden in der Oracle DB verwendet, um von katastrophalen Fehlern so wenig wie möglich Daten zu verlieren.</p>
+</div>
+<div class="paragraph">
+<p>Änderungen werden von der Oracle DB nicht direkt gespeichert, sondern kommen zuerst in sogenannte Redo logs.
+Der Grund hierfür ist, dass das Speichern von Änderungen teuer ist, und viel Zeit in benötigt.</p>
+</div>
+<div class="paragraph">
+<p>In konfigurierbaren Zeitabständen legt die Oracle DB einen Checkpoint an.
+Im standartfall liegt dieses Zeitintervall bei 2 Minuten.
+Hierbei werden alle Änderungen in die DB geschrieben.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_crash_recovery"><a class="anchor" href="#_crash_recovery"></a>5. Crash Recovery</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_auslöser_einer_crash_recovery"><a class="anchor" href="#_auslöser_einer_crash_recovery"></a>5.1. Auslöser einer Crash Recovery</h3>
+<div class="paragraph">
+<p>Eine Crash Recovery wird immer dann ausgelöst, wenn die Datenbank abrupt beendet wird, und keine Zeit hatte, sich auszuschalten.
+Beispiele hierfür sind:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Stromausfälle</p>
+</li>
+<li>
+<p>Absturz der Datenbank</p>
+</li>
+<li>
+<p>Hardwaredefekte</p>
+</li>
+<li>
+<p>usw.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_vorgehensweise"><a class="anchor" href="#_vorgehensweise"></a>5.2. Vorgehensweise</h3>
+<div class="paragraph">
+<p>Bei einer Crash recovery wird als erstes festgestellt, dass die Data files nicht mehr synchronisiert sind.
+Es wird vom letzten Checkpoint aus ein "roll forward" gestartet.
+Diese Aktion ließt die Daten aus den redo logs aus, und speichert alle Änderungen auf dem aktuellen Datenset.
+Somit sind alle bis zum Ausfall verarbeiteten Statements wieder im aktuellen Datenset.
+Gleich daraufhin wird ein Rollback gestartet, um alle Transaktionen, die nicht abgeschlossen wurden, rückgängig zu machen.</p>
+</div>
+<div class="paragraph">
+<p>Dies führt dazu, dass vom letzten Checkpoint nur alle Daten, die in fertigen Transaktionen geändert wurden nun im aktuellen Datenset zur Verfügung stehen.
+Letztendlich wird ein neuer Checkpoint angelegt.
+Jetzt ist die Datenbank wieder einsatzbereit.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2024-06-11 16:44:58 UTC
+</div>
+</div>
+</body>
+</html>
