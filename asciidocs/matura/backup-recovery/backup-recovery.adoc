@@ -1,0 +1,129 @@
+= Backup & Recovery
+Mctom Spdo
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../../css/dark.css
+
+== Arten von Backups
+
+=== Physisches Backup
+
+Bei einem physischen Backup werden die Dateien, welche die Datenbank anlegt direkt kopiert. +
+Dieser Prozess kann entweder mit den jeweiligen Dateien passieren, die die aktuellen Daten und Zustände der DB beinhalten.
+
+==== Image Copies
+
+Hierbei werden die Dateien auf OS Level kopiert.
+
+=== Logisches Backup
+
+Bei einem Logischen Backup werden einzelne oder auch mehrere Datenbankobjekte exportiert. +
+Hier können Tables, Sequences, etc. exportiert werden.
+Die hierbei entstandenen Daten werden komprimiert und in einem speziellen Format abgespeichert. (Backup Set)
+Dieses Format ist je nach Datenbank unterschiedlich.
+Im Falle von Oracle gibt es hierzu ein eigenen Program, welches sich um die Backups kümmert.
+Dieses heißt RMAN (Recovery Manager)
+
+Bei logischen Backups werden auch komplexere Backups unterstützt, wie etwa:
+
+==== Incremental Backups
+
+Hierbei werden nur die Änderungen seit dem letzten Backup gespeichert.
+
+==== Block Media Recovery
+
+Wenn nur ein einzelner oder wenige Blöcke der Datenbank beschädigt sind, können diese einzeln wiederhergestellt werden.
+
+==== Encrypted Backups
+
+Alle Arten von Logischen Backups können verschlüsselt werden
+
+==== Automated Database Duplication
+
+Änderungen werden vollautomatisch auf einer weiteren DB gespeichert.
+In der Cloud kann diese Technologie auch dafür verwendet werden, dass mehrere Datenbanken verwendet werden, um mehr Nutzer zu bedienen.
+
+== RMAN
+
+Oracle Recovery Manager kann verwendet werden, um logische Backups in der Datenbank zu erstellen.
+
+Hiermit können auch automatisiert backups erstellt werden, welche automatisch in gegeben Zeitpunkten stadtfinden.
+Mithilfe dieses Managers ist es möglich, alle Arten von Backups zu erstellen.
+Lange Zeit war dieser Manager nur als Programm verfügbar, allerdings mit der Cloud version von Oracle ist dieser ebenfalls als Webinterface verfügbar.
+
+== Fehlerkategorien in der Oracle DB
+
+Fehler, die in der Oracle DB auftreten, werden in verschiedene Kategorien unterteilt:
+
+=== Statement Fehler
+
+Dieser Fehler tritt auf, wenn ein ungültiges SQL Statement einen Fehler wirft.
+Diese sind rein durch den Benutzer verursacht.
+
+=== Fehler im Benutzerprozess
+
+Diese Fehler treten auf, wenn ein Benutzer einen Fehler mit der Handhabung der Datenbank hat.
+Ein Beispiel hierfür ist, dass der Benutzer die falschen Anmeldedaten eingibt.
+
+=== Netzwerkfehler
+
+Dieser Art von Fehler tritt auf, wenn die Netzwerkverbindung aus unbekannten Gründen abgebrochen wird.
+Dies kann an Hardwarefehlern legen, Ausfälle, oder einfach zu lange response times.
+
+=== Userfehler
+
+Diese Art von Fehler tritt auf, wenn der User z.B die Verbindung verliert.
+Hierbei ist es wichtig zu unterscheiden zu Fehler im Benutzerprozess.
+Beim Fehler in Benutzerprozess muss der Benutzer einen Fehler machen.
+Hingegen ein Userfehler kann auftreten, auch wenn der Benutzer alles korrekt macht. +
+Ein Beispiel hierfür währe, dass der Client, den der Benutzer verwendet abstürzt und somit die DB Verbindung nicht schließt.
+
+=== Instanz Fehler
+
+Die Oracle DB hat einen internen Fehler
+
+=== Datenträgerfehler
+
+Ein oder mehrere Festplatten auf der Oracle DB funktionieren nicht mehr.
+Dies führt dazu, dass nur Teile oder auch die gesamte Datenbank nicht mehr verfügbar ist.
+
+== Checkpoints
+
+Checkpoints werden in der Oracle DB verwendet, um von katastrophalen Fehlern so wenig wie möglich Daten zu verlieren.
+
+Änderungen werden von der Oracle DB nicht direkt gespeichert, sondern kommen zuerst in sogenannte Redo logs.
+Der Grund hierfür ist, dass das Speichern von Änderungen teuer ist, und viel Zeit in benötigt.
+
+In konfigurierbaren Zeitabständen legt die Oracle DB einen Checkpoint an.
+Im standartfall liegt dieses Zeitintervall bei 2 Minuten.
+Hierbei werden alle Änderungen in die DB geschrieben.
+
+== Crash Recovery
+
+=== Auslöser einer Crash Recovery
+
+Eine Crash Recovery wird immer dann ausgelöst, wenn die Datenbank abrupt beendet wird, und keine Zeit hatte, sich auszuschalten.
+Beispiele hierfür sind:
+
+* Stromausfälle
+* Absturz der Datenbank
+* Hardwaredefekte
+* usw.
+
+=== Vorgehensweise
+
+Bei einer Crash recovery wird als erstes festgestellt, dass die Data files nicht mehr synchronisiert sind.
+Es wird vom letzten Checkpoint aus ein "roll forward" gestartet.
+Diese Aktion ließt die Daten aus den redo logs aus, und speichert alle Änderungen auf dem aktuellen Datenset.
+Somit sind alle bis zum Ausfall verarbeiteten Statements wieder im aktuellen Datenset.
+Gleich daraufhin wird ein Rollback gestartet, um alle Transaktionen, die nicht abgeschlossen wurden, rückgängig zu machen.
+
+Dies führt dazu, dass vom letzten Checkpoint nur alle Daten, die in fertigen Transaktionen geändert wurden nun im aktuellen Datenset zur Verfügung stehen.
+Letztendlich wird ein neuer Checkpoint angelegt.
+Jetzt ist die Datenbank wieder einsatzbereit.
+
+
+
