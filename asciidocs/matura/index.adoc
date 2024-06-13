@@ -33,6 +33,7 @@ ifndef::imagesdir[:imagesdir: images]
 
 == Die "Multiuser - Eigenschaft" von Datenbanken und Concurrency
 
+* link:concurrency/concurrency.html[Concurrency]
 
 
 
