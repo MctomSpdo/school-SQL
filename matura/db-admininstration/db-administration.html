@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="author" content="Mctom Spdo">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>DB Administration</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+:root{
+--maincolor:#282c34;
+--primarycolor:#f39c12;
+--secondarycolor:#03a9f4;
+--tertiarycolor:#4db6ac;
+--sidebarbackground:#21252b;
+--linkcolor:#f44336;
+--linkcoloralternate:#ff9800;
+--white:#FFFFFF;
+}
+
+/* custom added styles */
+.listingblock > .content > pre{
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+/* Text styles */
+body{font-family: "Noto Sans",sans-serif;background-color: var(--maincolor);color:var(--white);}
+
+h1{color:var(--primarycolor) !important;font-family:"Noto Sans",sans-serif;}
+h2,h3,h4,h5,h6{color:var(--secondarycolor) !important;font-family:"Noto Sans",sans-serif;}
+.title{color:var(--white) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Noto Sans",sans-serif ! important}
+#toc.toc2 a:link{color:var(--linkcolor);}
+blockquote{color:var(--tertiarycolor) !important}
+.quoteblock{color:var(--white)}
+code{color:var(--linkcoloralternate);background-color: var(--sidebarbackground) !important}
+
+
+/* Table styles */
+th{background-color: var(--maincolor);color:var(--white) !important;}
+td{background-color: var(--maincolor);color: var(--linkcoloralternate) !important}
+
+
+#toc.toc2{background-color:var(--sidebarbackground);}
+#toctitle{color:var(--white);}
+
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  table {
+    width: 55vw!important;
+    font-size: 3vw;
+  }
+}
+
+.exampleblock > .content {
+  background-color: var(--maincolor);
+}
+
+a {
+  color: var(--secondarycolor);
+}
+
+.admonitionblock td.icon .icon-tip::before {
+  text-shadow: none;
+  color: var(--white);
+}
+.admonitionblock td.icon .icon-note::before {
+  color: var(--tertiarycolor);
+}
+.admonitionblock td.icon .icon-important::before {
+  color: var(--linkcolor);
+}
+/*.admonitionblock td.icon .icon-caution::before {
+  color: var(--linkcoloralternate);
+}*/
+.admonitionblock td.icon .icon-warning::before {
+  color: var(--primarycolor);
+}
+
+#preamble > .sectionbody > .paragraph:first-of-type p {
+  color: var(--white);
+}
+
+.quoteblock blockquote::before {
+  color: var(--primarycolor);
+}
+.quoteblock .attribution cite, .verseblock .attribution cite {
+  color: var(--white);
+}
+.verseblock pre {
+  color: var(--white);
+}
+.quoteblock blockquote, .quoteblock blockquote p {
+  color: var(--white);
+}
+
+.sidebarblock {
+  background: var(--sidebarbackground);
+}
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+#header .details {
+  color: var(--white);
+}
+#header .details span.email a {
+  color: var(--linkcoloralternate);
+}
+
+/* in code style fixes */
+
+.k {
+  color: #008800 !important;
+}
+
+.k:contains("select"), .k:contains("create"), .k:contains("update"), .k:contains("replace"), .k:contains("beginn"),
+.k:contains("delete"), .k:contains("alter"), .k:contains("drop") {
+  color: #BB0066 !important;
+}
+
+.k:contains("return"), .k:cotains("primary"), .k:contains("foreign"), .k:contains("cascade") {
+  color: #008888 !important;
+}
+
+.k:contains("key"), .k:contains("constraint"), .k:contains("table") {
+  color: #333399 !important;
+}
+
+.mi {
+  color: #0202D2 !important;
+}
+
+.nb {
+  color: #00AA88 !important;
+}
+
+.o {
+  color: var(--white) !important;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>DB Administration</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2024-06-13</span>
+<br><span id="revremark">INSY</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_oracle_server_architecture">1. Oracle Server Architecture</a></li>
+<li><a href="#_connection_to_oracle_db">2. Connection to Oracle DB</a></li>
+<li><a href="#_oracle_db_memory_structures">3. Oracle DB Memory Structures</a>
+<ul class="sectlevel2">
+<li><a href="#_sga">3.1. SGA</a></li>
+<li><a href="#_pga">3.2. PGA</a></li>
+</ul>
+</li>
+<li><a href="#_database_buffer_cache">4. Database Buffer Cache</a>
+<ul class="sectlevel2">
+<li><a href="#_database_writer_process">4.1. Database Writer Process</a></li>
+</ul>
+</li>
+<li><a href="#_redo_log_buffer">5. Redo Log Buffer</a></li>
+<li><a href="#_shared_pool">6. Shared Pool</a>
+<ul class="sectlevel2">
+<li><a href="#_library_cache">6.1. Library Cache</a></li>
+<li><a href="#_data_dictionary">6.2. Data Dictionary</a></li>
+<li><a href="#_result_cache">6.3. Result cache</a></li>
+<li><a href="#_control_structures">6.4. Control Structures</a></li>
+</ul>
+</li>
+<li><a href="#_large_pool">7. Large Pool</a></li>
+<li><a href="#_java_pool_und_streams_pool">8. Java Pool und Streams Pool</a></li>
+<li><a href="#_verteilung_der_hintergrundprozesse">9. Verteilung der Hintergrundprozesse</a>
+<ul class="sectlevel2">
+<li><a href="#_dbwn_database_writer_process">9.1. DBWn (Database Writer process)</a></li>
+<li><a href="#_lgwr_log_writer_process">9.2. LGWR (Log writer process)</a></li>
+<li><a href="#_ckpt_checkpoint_process">9.3. CKPT (Checkpoint process)</a></li>
+<li><a href="#_smon_system_monitor_process">9.4. SMON (System Monitor process)</a></li>
+<li><a href="#_pmon_process_monitor_process">9.5. PMON (Process Monitor process)</a></li>
+<li><a href="#_rcbg_result_cache_recover_background_process">9.6. RCBG (Result cache recover background process)</a></li>
+<li><a href="#_cjq0_job_queue_procecss">9.7. CJQ0 (Job queue procecss)</a></li>
+</ul>
+</li>
+<li><a href="#_arcn_archiver_process">10. ARCn (Archiver Process)</a></li>
+<li><a href="#_qmnn_queue_monitor_process">11. QMNn (Queue monitor process)</a></li>
+<li><a href="#_mmon_manageabitity_monitoring_process">12. MMON (Manageabitity monitoring process)</a></li>
+<li><a href="#_wew_memory_manager_background_process">13. WEW (Memory manager background process)</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_oracle_server_architecture"><a class="anchor" href="#_oracle_server_architecture"></a>1. Oracle Server Architecture</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="../../images/server-architecture.png" alt="server architecture" width="812" height="233">
+</div>
+</div>
+<div class="paragraph">
+<p>Eine Oracle DB besteht aus einem Datenbankserver, und einer oder mehreren Datenbankinstanzen.
+Eine Instanz besteht aus mehreren Hintergrundprozessen.
+Jedes Mal, wenn eine Instanz gestartet, ein geteilter Memory Space in der SGA (System Global Area) angelegt.
+Die SGA beinhaltet Daten- und Kontrollinformationen für die einzelnen Datenbankinstanzen.<br>
+Die Hintergrundprozesse beinhalten Funktionen zur synchronisationen und überwachungsprozesse für die einzelnen Datenbankinstanzen.
+Diese laufen viel parallel, um die Performance der Datenbank zu optimieren.</p>
+</div>
+<div class="paragraph">
+<p>Die Datenbank besteht aus physischen und logischen Dateien, hierauf wird noch später eingegangen.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_connection_to_oracle_db"><a class="anchor" href="#_connection_to_oracle_db"></a>2. Connection to Oracle DB</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Jeder Nutzer, der sich mit der Oracle DB verbindet, bekommt einen eigenen Benutzerprozess.
+Der Code des jeweiligen Benutzers wird über sogenannte "client foreground processes" gehandhabt.
+Um SQL Statements der jeweiligen Benutzer auszuführen, wird ein sogenannter "server process" erstellt.</p>
+</div>
+<div class="paragraph">
+<p>Eine Connection is das Verbindungsstück zwischen Benutzer und Datenbank.
+Diese Prozesse können auf eigenen Servern laufen, um die Performance auf großen Datenbanken zu verbessern.</p>
+</div>
+<div class="paragraph">
+<p>Die Verbindung repräsentiert auch einen validen Login für die Datenbank.
+Wenn sich ein User mit der Datenbank verbindet, muss er einen validen Account und ein valides Passwort vorweisen.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_oracle_db_memory_structures"><a class="anchor" href="#_oracle_db_memory_structures"></a>3. Oracle DB Memory Structures</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="../../images/memory-strutures.png" alt="memory strutures" width="1332" height="359">
+</div>
+</div>
+<div class="paragraph">
+<p>Es gibt 2 grundlegende Prozesse, die mit einer Instanz verbunden werden:</p>
+</div>
+<div class="sect2">
+<h3 id="_sga"><a class="anchor" href="#_sga"></a>3.1. SGA</h3>
+<div class="paragraph">
+<p>SGA = System Global Area</p>
+</div>
+<div class="paragraph">
+<p>Die System Global Area wird von allen Server und Prozessen geteilt.
+Die SGA beinhaltet folgende Datenstrukturen:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Database buffer cache: speichert Blöcke als cache zwischen.</p>
+</li>
+<li>
+<p>Redo log buffer: speichert wiederherstellungsinformationen, bevor diese in die DB gespeichert werden.</p>
+</li>
+<li>
+<p>Shared pool: speichert verschiedenste Strukturen zwischen, die zwischen den Instanzen verwendet werden können</p>
+</li>
+<li>
+<p>Large Pool: optionale Verwendung für spezielle operation, wie etwa backup oder I/O server prozesse</p>
+</li>
+<li>
+<p>Java pool: Benutzt für session spezifischen Java code, oder Daten in der jvm</p>
+</li>
+<li>
+<p>Streams pool: Benutzt von Oracle Streams</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pga"><a class="anchor" href="#_pga"></a>3.2. PGA</h3>
+<div class="paragraph">
+<p>PGA = Programm global area</p>
+</div>
+<div class="paragraph">
+<p>Eine Speicherregion, welche Daten- und Kontrollinformationen für einen Server oder Hintergrundprozess.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_database_buffer_cache"><a class="anchor" href="#_database_buffer_cache"></a>4. Database Buffer Cache</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="../../images/database-buffer-cache.png" alt="database buffer cache" width="565" height="272">
+</div>
+</div>
+<div class="paragraph">
+<p>The Data Buffer Cache beinhaltet Blöcke, die gerade von der Datenbank gelesen wurden.
+Bevor also eine Abfragt von der Datenbank abgefragt wird, wird zuerst im Data Buffer cache nachgeschaut, ob diese Abfragte nicht bereits zwischengespeichert wurde.<br>
+Wenn die Daten nicht im Buffer cache gefunden wurden (cache miss),
+dann müssen diese zuerst in diesen kopiert werden, bevor der Prozess diese erhält. Dies führt dazu, dass alle Blöcke, die die Datenbank benötigt, immer im Buffer cache vorhanden sein müssen. (Bei größeren Abfragen werden die nicht mehr benötigten Blöcke aus dem Buffer cache gelöscht).</p>
+</div>
+<div class="paragraph">
+<p>Die Puffer werden von einem Prozess verwaltet.
+Die Puffer beinhalten eine Mischung aus zuletzt abgefragten Blöcken, wie auch Blöcke, die sehr oft verwendet werden.</p>
+</div>
+<div class="sect2">
+<h3 id="_database_writer_process"><a class="anchor" href="#_database_writer_process"></a>4.1. Database Writer Process</h3>
+<div class="paragraph">
+<p>DBW = Database writer (process)</p>
+</div>
+<div class="paragraph">
+<p>Die DBWn writer sind dafür zuständig, veränderte Blöcke (dirty blocks) aus dem Database Buffer cache in die einzelnen Dateien zu schreiben.
+Es gibt hier mehrere Prozesse, die namentlich nummeriert werden (DBW0, DBW1, &#8230;&#8203; DNWn)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_redo_log_buffer"><a class="anchor" href="#_redo_log_buffer"></a>5. Redo Log Buffer</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="../../images/redo-log-buffer.png" alt="redo log buffer" width="467" height="272">
+</div>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>LGWR = Log writer (process)</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Im Redo log buffer stehen Informationen zu Änderungen in der Datenbank.
+Dieser beinhaltet Informationen, die Datenänderungen auf der Datenbank rekonstruieren können.
+Folgende Statements verursachen Einträge im redo log:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>INSERT</p>
+</li>
+<li>
+<p>UPDATE</p>
+</li>
+<li>
+<p>DELETE</p>
+</li>
+<li>
+<p>CREATE</p>
+</li>
+<li>
+<p>ALTER</p>
+</li>
+<li>
+<p>DROP</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Redo Einträge werden verwendet, um die Datenbank im Falle eines Absturzes wieder zu starten.
+Die Redo Log buffers haben immer eine fix festgelegte Größe im SGA.
+Wird der Redo Log voll, oder nach einem konfigurierbaren Zeitintervall werden Checkpoints erstellt.
+Diese leeren den Redo log.</p>
+</div>
+<div class="paragraph">
+<p>Der Redo Log Writer schreibt die Redo Logs in die dafür vorgesehenen Redo log files.
+Dies passiert mit nur wenig caching, um im Falle von z.B eines Stromausfalles nur so wenig Information wie möglich zu verlieren.
+Wie viele dieser Log Writer es gibt, hängt ab von der Größe der Datenbank.
+Die Anzahl wird automatisch von der Datenbank verwaltet.
+Es muss allerdings immer mindestendes ein Redo Log writer vorhanden sein.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_shared_pool"><a class="anchor" href="#_shared_pool"></a>6. Shared Pool</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="../../images/shared-pool.png" alt="shared pool" width="498" height="267">
+</div>
+</div>
+<div class="paragraph">
+<p>Der Shared Pool ist Teil des SGA.
+Dieser beinhaltet folgende Strukturen:</p>
+</div>
+<div class="sect2">
+<h3 id="_library_cache"><a class="anchor" href="#_library_cache"></a>6.1. Library Cache</h3>
+<div class="paragraph">
+<p>Der Library Cache beinhaltet Teile von SQL Statements, welche mit anderen SQL Statements geteilt werden können (Sub-queries, etc.).
+Weiters enthält dieser PL/SQL Prozeduren und Packages.
+Zuletzt ist dieser auch dafür zuständig, Locks und Kontrollstrukturen zwischenzuspeichern.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_data_dictionary"><a class="anchor" href="#_data_dictionary"></a>6.2. Data Dictionary</h3>
+<div class="paragraph">
+<p>Das Data Dictionary ist eine Reihe von Tabellen, welche Referenzinformationen anderen Tabellen in der Datenbank halten.
+Das Data dictionary wird so oft von Oracle verwendet, dass es sogar 2 Teilbereiche des Arbeitsspeichers ihm zugeschrieben werden.</p>
+</div>
+<div class="paragraph">
+<p>Der erste dieser Teilbereiche heißt Data dictionary cache, oder auch row cache, der zweite ist der Library cache.
+Alle Prozesse in der Oracle Datenbank verwenden diese 2 Caches, um Data Dictionary Informationen zu erhalten.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_result_cache"><a class="anchor" href="#_result_cache"></a>6.3. Result cache</h3>
+<div class="paragraph">
+<p>Der Result cache beinhaltet SQL und PL/SQL caches.
+Im SQL cache werden SQL queries mit Ergebnis gespeichert.
+Im PL/SQL cache werden ergebnisse von PL/SQL funktionen und deren Eingabewerte gespeichert.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_control_structures"><a class="anchor" href="#_control_structures"></a>6.4. Control Structures</h3>
+<div class="paragraph">
+<p>Control Structures werden dazu verwendet, andere Strukturen zu sperren (locks).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_large_pool"><a class="anchor" href="#_large_pool"></a>7. Large Pool</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Der Large Pool erlaubt es, verschiedenste Daten, die nicht in die anderen Pool gehören, oder zu groß für die anderen Poll sind, zu speichern.</p>
+</div>
+<div class="paragraph">
+<p>Dieser beinhaltet:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Session speicher für shared server und Oracle XA interface</p>
+</li>
+<li>
+<p>Parallele Ausführungspuffer</p>
+</li>
+<li>
+<p>I/O Server Prozesse</p>
+</li>
+<li>
+<p>Backup &amp; Restore Prozesse</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Optionale Inhalte:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Parallele Ausführung</p>
+</li>
+<li>
+<p>Recovery Manager</p>
+</li>
+<li>
+<p>Shared server</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Der Pool wird aber großteils dafür verwendet, SQL &amp; PL/SQL Statements zu cachen.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_java_pool_und_streams_pool"><a class="anchor" href="#_java_pool_und_streams_pool"></a>8. Java Pool und Streams Pool</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Der Java Pool wird verwendet, um spezifischen Java Code für die Sessions und die dazugehörige JVM.</p>
+</div>
+<div class="paragraph">
+<p>Der Streaming-Pool wird vor allem verwendet um:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Gepufferte Queue Nachrichten zu speichern</p>
+</li>
+<li>
+<p>Arbeitsspeicher für Oracle Streaming Prozesse zu schaffen.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Genauere Details zu diesen würden den Rahmen sprengen.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_verteilung_der_hintergrundprozesse"><a class="anchor" href="#_verteilung_der_hintergrundprozesse"></a>9. Verteilung der Hintergrundprozesse</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="../../images/background-processes.png" alt="background processes" width="864" height="252">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dbwn_database_writer_process"><a class="anchor" href="#_dbwn_database_writer_process"></a>9.1. DBWn (Database Writer process)</h3>
+<div class="paragraph">
+<p>Der Database Writer prozess schreibt abgeänderte (dirty) Blöcke vom Database buffer in die jeweiligen Database files.
+Dies passiert Asynchron</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_lgwr_log_writer_process"><a class="anchor" href="#_lgwr_log_writer_process"></a>9.2. LGWR (Log writer process)</h3>
+<div class="paragraph">
+<p>Schreibt recovery Informationen vom log buffer zum log file auf der Festplatte</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ckpt_checkpoint_process"><a class="anchor" href="#_ckpt_checkpoint_process"></a>9.3. CKPT (Checkpoint process)</h3>
+<div class="paragraph">
+<p>Schreibt Checkpoint inforationen in die Control Dateien und in jeden data file header</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_smon_system_monitor_process"><a class="anchor" href="#_smon_system_monitor_process"></a>9.4. SMON (System Monitor process)</h3>
+<div class="paragraph">
+<p>Führt den Recovery Prozess bei Systemstart aus und löscht temporäre, unbenutze Segmente</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pmon_process_monitor_process"><a class="anchor" href="#_pmon_process_monitor_process"></a>9.5. PMON (Process Monitor process)</h3>
+<div class="paragraph">
+<p>Führt eine Prozess-Recovery durch, wenn ein Benutzerprozess fehlschlägt.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rcbg_result_cache_recover_background_process"><a class="anchor" href="#_rcbg_result_cache_recover_background_process"></a>9.6. RCBG (Result cache recover background process)</h3>
+<div class="paragraph">
+<p>Verwaltet den Result cache im shared pool</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cjq0_job_queue_procecss"><a class="anchor" href="#_cjq0_job_queue_procecss"></a>9.7. CJQ0 (Job queue procecss)</h3>
+<div class="paragraph">
+<p>Lasst Benutzerjobs durch den Scheduler laufen</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_arcn_archiver_process"><a class="anchor" href="#_arcn_archiver_process"></a>10. ARCn (Archiver Process)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kopiert redo logs auf einen gegebenen Dateipfad, nachdem eine neue Logdatei angefangen wurde.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_qmnn_queue_monitor_process"><a class="anchor" href="#_qmnn_queue_monitor_process"></a>11. QMNn (Queue monitor process)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Monitors the Oracle Streams message queues</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_mmon_manageabitity_monitoring_process"><a class="anchor" href="#_mmon_manageabitity_monitoring_process"></a>12. MMON (Manageabitity monitoring process)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Führt management Hintergrundtasks aus.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_wew_memory_manager_background_process"><a class="anchor" href="#_wew_memory_manager_background_process"></a>13. WEW (Memory manager background process)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Verwaltet SGA und PGA Arbeitsspeicher konfigurationen</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2024-06-13 13:54:11 UTC
+</div>
+</div>
+</body>
+</html>
