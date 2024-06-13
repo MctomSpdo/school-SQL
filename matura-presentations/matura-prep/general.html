@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
 <link rel="icon" type="image/png" href="themes/favicon.png">
-<title>Indices</title>
+<title>General Matura Information</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -438,297 +438,261 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
+<h1>General Matura Information</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_indices">1. Indices</a>
-<ul class="sectlevel2">
-<li><a href="#_btree_index">1.1. BTREE Index</a></li>
-<li><a href="#_bitmapped_index">1.2. Bitmapped Index</a></li>
-</ul>
-</li>
-<li><a href="#_optimizer">2. Optimizer</a>
-<ul class="sectlevel2">
-<li><a href="#_cost_based_optimizer">2.1. Cost Based Optimizer</a></li>
-<li><a href="#_hints">2.2. Hints</a></li>
-</ul>
-</li>
-<li><a href="#_explain_plan">3. Explain Plan</a></li>
-<li><a href="#_tips">4. Tips:</a></li>
+<li><a href="#_ablauf">1. Ablauf</a></li>
+<li><a href="#_themenpools">2. Themenpools</a></li>
+<li><a href="#_apex">3. Apex</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="_indices"><a class="anchor" href="#_indices"></a>1. Indices</h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>Für schneller abfragen</p>
+<p>Aus dem Kübel gezogen, 2 Töpfe</p>
 </li>
 <li>
-<p>2 Arten</p>
+<p>8 Töpfe Insgesamt</p>
+</li>
+<li>
+<p>6 - 8 Minuten Prüefungszeit</p>
+</li>
+<li>
+<p>"Ich kann mir ein notenbild machen" &#8594; aufhören</p>
 <div class="ulist">
 <ul>
 <li>
-<p>BTREE</p>
+<p>Mindestzeit die eingehalten muss</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Frage wiederholen</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Balanced Tree</p>
-</li>
-<li>
-<p>bei guter Selektivität von werten</p>
+<p>etwas zeitschinden</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>INFO: Selektivität: Nur wenig Möglichkeiten für einen Wert</p>
-</div>
-<div class="paragraph">
-<p>ERKLÄRUNG BALANCED TREE</p>
-</div>
-<div class="sect2">
-<h3 id="_btree_index"><a class="anchor" href="#_btree_index"></a>1.1. BTREE Index</h3>
-<div class="sect3">
-<h4 id="_sql_syntaxbeispiele"><a class="anchor" href="#_sql_syntaxbeispiele"></a>1.1.1. SQL Syntaxbeispiele</h4>
-<div class="paragraph">
-<p>Performance dont&#8217;ts</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Vermeiden von upper, like, &#8230;&#8203;</p>
-</li>
-<li>
-<p>Keine Concatinierungen</p>
-</li>
-<li>
-<p>Ungleich Operator</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>WHERE SAL &lt;&gt; 0</p>
-</div>
-<div class="paragraph">
-<p>WHERE SAL &lt; 0</p>
-</div>
-<div class="paragraph">
-<p>Vermeiden von von UPPER, LIKE, &#8230;&#8203;.</p>
-</div>
-<div class="paragraph">
-<p>Keine Concatinierungen</p>
-</div>
-<div class="paragraph">
-<p>Ungleich Operator</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_bitmapped_index"><a class="anchor" href="#_bitmapped_index"></a>1.2. Bitmapped Index</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Werte mit niedriger Selektivität</p>
-</li>
-<li>
-<p>beruecksichten Null</p>
-</li>
-<li>
-<p>Gut fuer ungleich</p>
-</li>
-<li>
-<p>gut fuer count</p>
-</li>
-<li>
-<p>probleme bei Locks</p>
-</li>
-</ul>
-</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_optimizer"><a class="anchor" href="#_optimizer"></a>2. Optimizer</h2>
+<h2 id="_ablauf"><a class="anchor" href="#_ablauf"></a>1. Ablauf</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Die Pläne für die Execution werden abgeändert, um möglichst effizient zu sein.</p>
+<p>Keine sachen mitbringen, leere Zettlen, Stift und Wörterbuch vorhanden</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Die gesammte Ausführungzeit ist wichitg</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Full Table scans vermeiden</p>
-</div>
-<div class="paragraph">
-<p>Index Scan: Es wird ein Index verwendet</p>
-</div>
-<div class="paragraph">
-<p>Datenmenge &gt; 15% &#8594; Ful scan empfohlen</p>
-</div>
-<div class="sect2">
-<h3 id="_cost_based_optimizer"><a class="anchor" href="#_cost_based_optimizer"></a>2.1. Cost Based Optimizer</h3>
+<p>Zum Erziehungsberechtigten</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Kann SQL Queries umschreiben</p>
+<p>Gegenstand sagen</p>
 </li>
 <li>
-<p>Statistiken über tables sind im Data dictionary gespeichert</p>
+<p>Karten ziehen</p>
+</li>
+<li>
+<p>Auf den Tisch legen (muss eingetragen worden)</p>
+</li>
+<li>
+<p>Entscheiden, welches Thema (zettel mit den Nummern liegt bei)</p>
 </li>
 </ul>
 </div>
-<div class="sect3">
-<h4 id="_analyze_befehl"><a class="anchor" href="#_analyze_befehl"></a>2.1.1. Analyze Befehl</h4>
-<div class="paragraph">
-<p>ANALYZE TABLE EMP COMPUTE STATISTICS FOR ALL COLUMNS</p>
-</div>
-<div class="paragraph">
-<p>R COUNT</p>
-</div>
-<div class="paragraph">
-<p>Optimizer verenden JOINS, um die Queries verwenden</p>
-</div>
-<div class="paragraph">
-<p>nicht in unseren SQL Statements</p>
-</div>
+</li>
+<li>
+<p>Vorbereitung</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Sort-Merge Joins</p>
+<p>Zum Platz gehen</p>
 </li>
 <li>
-<p>Hashed Joins</p>
+<p>Lehrer bringt Zettel mit Fragen / Thema</p>
 </li>
 <li>
-<p>Nested Loop</p>
+<p>Nicht auf den Zettel schreiben (wird für den nächsten Halbtag verwendet)</p>
 </li>
 <li>
-<p>Star Joins</p>
-</li>
-</ul>
-</div>
-<div class="sect4">
-<h5 id="_nested_loop"><a class="anchor" href="#_nested_loop"></a>Nested Loop</h5>
-<div class="paragraph">
-<p>2 verschachtelte Vorschleifen</p>
-</div>
-<div class="paragraph">
-<p>gut bei kleinen Datenmengen</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_star_joins"><a class="anchor" href="#_star_joins"></a>Star Joins</h5>
-<div class="paragraph">
-<p>Eine große Tabelle wird mit mindestens 2 kleineren Tabellen gejoint</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_sort_merge_join"><a class="anchor" href="#_sort_merge_join"></a>Sort Merge Join</h5>
+<p>Aufzeigen</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Tabellen werden beim Join sortiert</p>
-</li>
-<li>
-<p>Where Klauseln werden beim Full-Table-Scan evaluiert</p>
-</li>
-<li>
-<p>Die kleinere Tabelle soll zuerst gelesen werden</p>
-</li>
-<li>
-<p>Diese sind für große Datenmengen geeignet</p>
+<p>Prüfer kommt zum Platz</p>
 </li>
 </ul>
 </div>
-</div>
-<div class="sect4">
-<h5 id="_hash_join"><a class="anchor" href="#_hash_join"></a>Hash Join</h5>
+</li>
+<li>
+<p>Seiten beschriften</p>
+</li>
+<li>
+<p>Schreib eher wenig darauf, und leserlich darauf</p>
 <div class="ulist">
 <ul>
 <li>
-<p>große Datenmenge</p>
-</li>
-<li>
-<p>schneller als Sort-Merge Join</p>
-</li>
-<li>
-<p>mithilfe von Hashmaps</p>
+<p>Lehrer fragen gerne, was nicht auf dem Zettel steht</p>
 </li>
 </ul>
 </div>
+</li>
+<li>
+<p>Wenn Zeit übrig,</p>
+</li>
+</ul>
 </div>
+</li>
+<li>
+<p>Prüfung</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Es wird zur Prüfung aufgerufen</p>
+</li>
+<li>
+<p>Schüler sollte als Erstes reden</p>
+</li>
+<li>
+<p>Es müssen nicht alle Zettel hergezeigt werden</p>
+</li>
+<li>
+<p>"Ich kann mir ein Notenbild machen" &#8594; Einfach aufhören</p>
+</li>
+<li>
+<p>Angabezettel und Ausarbeitungen müssen abgegeben werden</p>
+</li>
+</ul>
 </div>
+</li>
+<li>
+<p>Konferenz</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Alle Hinaus</p>
+</li>
+<li>
+<p>ca. 10 min</p>
+</li>
+<li>
+<p>danach werd bekannt gegeben, ob personen durchgefallen werden</p>
+</li>
+</ul>
 </div>
-<div class="sect2">
-<h3 id="_hints"><a class="anchor" href="#_hints"></a>2.2. Hints</h3>
+</li>
+</ul>
+</div>
 <div class="paragraph">
-<p>Kommentare für den Optimizer, die in Queries eingebaut werden kann.
-Der Optimizer kann diese hints ignorieren, muss dies allerdings nicht</p>
+<p>Am Anfang wird alphabetisch aufgestellt, und gefragt, ob wir Prüfungsbereit sind</p>
 </div>
 <div class="paragraph">
-<p>Bei hints muss immer ein Explain Plan ausgeführt werden, um zu schauen ob der Hint berücksichtigt wird.</p>
-</div>
+<p>Am Ende wird verkündigt, ob eine Person negativ ist oder nicht.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_explain_plan"><a class="anchor" href="#_explain_plan"></a>3. Explain Plan</h2>
+<h2 id="_themenpools"><a class="anchor" href="#_themenpools"></a>2. Themenpools</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Dieser zeigt, was die Datenbank im hintergrund macht, um das gegebene Statement auszuführen.</p>
-</div>
-<div class="paragraph">
-<p>Es werden die Kosten auf der CPU angezeigt, für die einzelnen Schritte im Statement</p>
+<p>Themenpool 6: <strong>R kommt nicht</strong></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_tips"><a class="anchor" href="#_tips"></a>4. Tips:</h2>
+<h2 id="_apex"><a class="anchor" href="#_apex"></a>3. Apex</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Bei Subqueries:</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Minus verwenden</p>
+<p>application &gt; page &gt; region &gt; items (Formular, Buttons, &#8230;&#8203; )</p>
 </li>
 <li>
-<p>outer joins</p>
+<p>SQL, QUICKSQL, PLSQL, AJAX (dynamic actions),</p>
 </li>
 <li>
-<p>(not) exists</p>
+<p>vorgefertigte Regions:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>report</p>
+<div class="ulist">
+<ul>
+<li>
+<p>classical</p>
 </li>
 <li>
-<p>not in</p>
+<p>interactive</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>map</p>
+</li>
+<li>
+<p>calendar</p>
+</li>
+<li>
+<p>tree</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Access vs Apex</p>
+</li>
+<li>
+<p>Apex im Browser</p>
+</li>
+<li>
+<p>Access als eigenes Program</p>
+</li>
+<li>
+<p>Vorgefertigte Themes</p>
+<div class="ulist">
+<ul>
+<li>
+<p>CSS Wissen benötigt</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Auf Security und Version muss oft beachtet werden</p>
+</li>
+<li>
+<p>REST Service Schnittstellen</p>
+<div class="ulist">
+<ul>
+<li>
+<p>per klicki klick</p>
+</li>
+<li>
+<p>einfach</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Vorteile und Nachteile nennen</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>normale Queries:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Not vermeiden</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Aliases können hilfreich bei Performance sind</p>
+<p>Master and Detail</p>
 </div>
 </div>
 </div>
