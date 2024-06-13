@@ -363,23 +363,23 @@ Führt eine Prozess-Recovery durch, wenn ein Benutzerprozess fehlschlägt.
 
 Verwaltet den Result cache im shared pool
 
-=== CJQ0 (Job queue procecss)
+=== CJQ0 (Job queue process)
 
 Lasst Benutzerjobs durch den Scheduler laufen
 
-== ARCn (Archiver Process)
+=== ARCn (Archiver Process)
 
 Kopiert redo logs auf einen gegebenen Dateipfad, nachdem eine neue Logdatei angefangen wurde.
 
-== QMNn (Queue monitor process)
+=== QMNn (Queue monitor process)
 
 Monitors the Oracle Streams message queues
 
-== MMON (Manageabitity monitoring process)
+=== MMON (Manageability monitoring process)
 
 Führt management Hintergrundtasks aus.
 
 
-== WEW (Memory manager background process)
+=== WEW (Memory manager background process)
 
 Verwaltet SGA und PGA Arbeitsspeicher konfigurationen
