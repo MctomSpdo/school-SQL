@@ -1,0 +1,75 @@
+= General Matura Information
+
+
+* Aus dem Kübel gezogen, 2 Töpfe
+* 8 Töpfe Insgesamt
+* 6 - 8 Minuten Prüefungszeit
+* "Ich kann mir ein notenbild machen" -> aufhören
+** Mindestzeit die eingehalten muss
+* Frage wiederholen
+** etwas zeitschinden
+
+== Ablauf
+
+Keine sachen mitbringen, leere Zettlen, Stift und Wörterbuch vorhanden
+
+* Zum Erziehungsberechtigten
+** Gegenstand sagen
+** Karten ziehen
+** Auf den Tisch legen (muss eingetragen worden)
+** Entscheiden, welches Thema (zettel mit den Nummern liegt bei)
+* Vorbereitung
+** Zum Platz gehen
+** Lehrer bringt Zettel mit Fragen / Thema
+** Nicht auf den Zettel schreiben (wird für den nächsten Halbtag verwendet)
+** Aufzeigen
+*** Prüfer kommt zum Platz
+** Seiten beschriften
+** Schreib eher wenig darauf, und leserlich darauf
+*** Lehrer fragen gerne, was nicht auf dem Zettel steht
+** Wenn Zeit übrig,
+* Prüfung
+** Es wird zur Prüfung aufgerufen
+** Schüler sollte als Erstes reden
+** Es müssen nicht alle Zettel hergezeigt werden
+** "Ich kann mir ein Notenbild machen" -> Einfach aufhören
+** Angabezettel und Ausarbeitungen müssen abgegeben werden
+* Konferenz
+** Alle Hinaus
+** ca. 10 min
+** danach werd bekannt gegeben, ob personen durchgefallen werden
+
+Am Anfang wird alphabetisch aufgestellt, und gefragt, ob wir Prüfungsbereit sind
+
+Am Ende wird verkündigt, ob eine Person negativ ist oder nicht.
+
+
+== Themenpools
+
+Themenpool 6: **R kommt nicht**
+
+== Apex
+
+* application > page > region > items (Formular, Buttons, ... )
+* SQL, QUICKSQL, PLSQL, AJAX (dynamic actions),
+* vorgefertigte Regions:
+** report
+*** classical
+*** interactive
+** map
+** calendar
+** tree
+* Access vs Apex
+* Apex im Browser
+* Access als eigenes Program
+* Vorgefertigte Themes
+** CSS Wissen benötigt
+* Auf Security und Version muss oft beachtet werden
+* REST Service Schnittstellen
+** per klicki klick
+** einfach
+* Vorteile und Nachteile nennen
+
+Master and Detail
+
+
