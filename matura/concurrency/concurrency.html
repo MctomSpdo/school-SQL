@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="author" content="Mctom Spdo, Peter Klose">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>Concurrency</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+:root{
+--maincolor:#282c34;
+--primarycolor:#f39c12;
+--secondarycolor:#03a9f4;
+--tertiarycolor:#4db6ac;
+--sidebarbackground:#21252b;
+--linkcolor:#f44336;
+--linkcoloralternate:#ff9800;
+--white:#FFFFFF;
+}
+
+/* custom added styles */
+.listingblock > .content > pre{
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+/* Text styles */
+body{font-family: "Noto Sans",sans-serif;background-color: var(--maincolor);color:var(--white);}
+
+h1{color:var(--primarycolor) !important;font-family:"Noto Sans",sans-serif;}
+h2,h3,h4,h5,h6{color:var(--secondarycolor) !important;font-family:"Noto Sans",sans-serif;}
+.title{color:var(--white) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Noto Sans",sans-serif ! important}
+#toc.toc2 a:link{color:var(--linkcolor);}
+blockquote{color:var(--tertiarycolor) !important}
+.quoteblock{color:var(--white)}
+code{color:var(--linkcoloralternate);background-color: var(--sidebarbackground) !important}
+
+
+/* Table styles */
+th{background-color: var(--maincolor);color:var(--white) !important;}
+td{background-color: var(--maincolor);color: var(--linkcoloralternate) !important}
+
+
+#toc.toc2{background-color:var(--sidebarbackground);}
+#toctitle{color:var(--white);}
+
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  table {
+    width: 55vw!important;
+    font-size: 3vw;
+  }
+}
+
+.exampleblock > .content {
+  background-color: var(--maincolor);
+}
+
+a {
+  color: var(--secondarycolor);
+}
+
+.admonitionblock td.icon .icon-tip::before {
+  text-shadow: none;
+  color: var(--white);
+}
+.admonitionblock td.icon .icon-note::before {
+  color: var(--tertiarycolor);
+}
+.admonitionblock td.icon .icon-important::before {
+  color: var(--linkcolor);
+}
+/*.admonitionblock td.icon .icon-caution::before {
+  color: var(--linkcoloralternate);
+}*/
+.admonitionblock td.icon .icon-warning::before {
+  color: var(--primarycolor);
+}
+
+#preamble > .sectionbody > .paragraph:first-of-type p {
+  color: var(--white);
+}
+
+.quoteblock blockquote::before {
+  color: var(--primarycolor);
+}
+.quoteblock .attribution cite, .verseblock .attribution cite {
+  color: var(--white);
+}
+.verseblock pre {
+  color: var(--white);
+}
+.quoteblock blockquote, .quoteblock blockquote p {
+  color: var(--white);
+}
+
+.sidebarblock {
+  background: var(--sidebarbackground);
+}
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+#header .details {
+  color: var(--white);
+}
+#header .details span.email a {
+  color: var(--linkcoloralternate);
+}
+
+/* in code style fixes */
+
+.k {
+  color: #008800 !important;
+}
+
+.k:contains("select"), .k:contains("create"), .k:contains("update"), .k:contains("replace"), .k:contains("beginn"),
+.k:contains("delete"), .k:contains("alter"), .k:contains("drop") {
+  color: #BB0066 !important;
+}
+
+.k:contains("return"), .k:cotains("primary"), .k:contains("foreign"), .k:contains("cascade") {
+  color: #008888 !important;
+}
+
+.k:contains("key"), .k:contains("constraint"), .k:contains("table") {
+  color: #333399 !important;
+}
+
+.mi {
+  color: #0202D2 !important;
+}
+
+.nb {
+  color: #00AA88 !important;
+}
+
+.o {
+  color: var(--white) !important;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge, pre.rouge .w {
+  color: #24292f;
+  background-color: #f6f8fa;
+}
+pre.rouge .k, pre.rouge .kd, pre.rouge .kn, pre.rouge .kp, pre.rouge .kr, pre.rouge .kt, pre.rouge .kv {
+  color: #cf222e;
+}
+pre.rouge .gr {
+  color: #f6f8fa;
+}
+pre.rouge .gd {
+  color: #82071e;
+  background-color: #ffebe9;
+}
+pre.rouge .nb {
+  color: #953800;
+}
+pre.rouge .nc {
+  color: #953800;
+}
+pre.rouge .no {
+  color: #953800;
+}
+pre.rouge .nn {
+  color: #953800;
+}
+pre.rouge .sr {
+  color: #116329;
+}
+pre.rouge .na {
+  color: #116329;
+}
+pre.rouge .nt {
+  color: #116329;
+}
+pre.rouge .gi {
+  color: #116329;
+  background-color: #dafbe1;
+}
+pre.rouge .kc {
+  color: #0550ae;
+}
+pre.rouge .l, pre.rouge .ld, pre.rouge .m, pre.rouge .mb, pre.rouge .mf, pre.rouge .mh, pre.rouge .mi, pre.rouge .il, pre.rouge .mo, pre.rouge .mx {
+  color: #0550ae;
+}
+pre.rouge .sb {
+  color: #0550ae;
+}
+pre.rouge .bp {
+  color: #0550ae;
+}
+pre.rouge .ne {
+  color: #0550ae;
+}
+pre.rouge .nl {
+  color: #0550ae;
+}
+pre.rouge .py {
+  color: #0550ae;
+}
+pre.rouge .nv, pre.rouge .vc, pre.rouge .vg, pre.rouge .vi, pre.rouge .vm {
+  color: #0550ae;
+}
+pre.rouge .o, pre.rouge .ow {
+  color: #0550ae;
+}
+pre.rouge .gh {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .s, pre.rouge .sa, pre.rouge .sc, pre.rouge .dl, pre.rouge .sd, pre.rouge .s2, pre.rouge .se, pre.rouge .sh, pre.rouge .sx, pre.rouge .s1, pre.rouge .ss {
+  color: #0a3069;
+}
+pre.rouge .nd {
+  color: #8250df;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #8250df;
+}
+pre.rouge .err {
+  color: #f6f8fa;
+  background-color: #82071e;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cm, pre.rouge .cp, pre.rouge .cpf, pre.rouge .c1, pre.rouge .cs {
+  color: #6e7781;
+}
+pre.rouge .gl {
+  color: #6e7781;
+}
+pre.rouge .gt {
+  color: #6e7781;
+}
+pre.rouge .ni {
+  color: #24292f;
+}
+pre.rouge .si {
+  color: #24292f;
+}
+pre.rouge .ge {
+  color: #24292f;
+  font-style: italic;
+}
+pre.rouge .gs {
+  color: #24292f;
+  font-weight: bold;
+}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Concurrency</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo, Peter Klose</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2024-06-13</span>
+<br><span id="revremark">INSY</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_logical_unit_of_work">1. Logical Unit of Work</a></li>
+<li><a href="#_transaktionen">2. Transaktionen</a>
+<ul class="sectlevel2">
+<li><a href="#_acid_eigenschaften_einer_transaktion">2.1. ACID Eigenschaften einer Transaktion:</a></li>
+</ul>
+</li>
+<li><a href="#_concurrency_locking">3. Concurrency &amp; Locking</a>
+<ul class="sectlevel2">
+<li><a href="#_verlorenes_update">3.1. Verlorenes Update</a></li>
+<li><a href="#_schreib_lese_konflikt_dirty_read_write">3.2. Schreib-Lese-Konflikt (Dirty Read / Write)</a></li>
+<li><a href="#_nicht_wiederholbares_lesen_non_repeatable_read">3.3. Nicht wiederholbares Lesen (Non-Repeatable Read)</a></li>
+<li><a href="#_phantomproblem_inconsistent_read">3.4. Phantomproblem (Inconsistent Read)</a></li>
+</ul>
+</li>
+<li><a href="#_locking">4. Locking</a>
+<ul class="sectlevel2">
+<li><a href="#_locking_types">4.1. Locking types</a></li>
+<li><a href="#_exclusive_lock_x_lock">4.2. Exclusive Lock (X-Lock)</a></li>
+<li><a href="#_shared_lock">4.3. Shared Lock</a></li>
+<li><a href="#_deadlocks">4.4. Deadlocks</a></li>
+<li><a href="#_sperrtypen">4.5. Sperrtypen</a></li>
+<li><a href="#_setzen_von_locks">4.6. Setzen von Locks</a></li>
+<li><a href="#_automatisches_locken_bei_sql_statements">4.7. Automatisches Locken bei SQL Statements</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_logical_unit_of_work"><a class="anchor" href="#_logical_unit_of_work"></a>1. Logical Unit of Work</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Eine Logical Unit of Work is eine gruppe von Transaktionen, die gemeinsam, logisch gesehen, einen Block arbeit darstellen.<br>
+Ein Beispiel hierfür ist bei einer Banktransaktion: Person A überweist Person B 100€.
+In der Datenbank passiert nun folgendes:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Person A: 100€ werden abgebucht</p>
+</li>
+<li>
+<p>Person B: 100€ werden zum Kontostand hinzugefügt.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Dies ist eine logische Unit of work, da die beiden Transaktionen gemeinsam einen Arbeitsvorgang ausmachen</p>
+</div>
+<div class="paragraph">
+<p>Das Problem: was würde passieren, wenn nun zwischen Transaktion 1 und 2 die Datenbank abstützt?
+Person A hätte nun 100€ weniger, Person B erhält nichts.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_transaktionen"><a class="anchor" href="#_transaktionen"></a>2. Transaktionen</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Transaktionen sollten genau dieses Problem vermeiden.
+Beide diese Operationen werden nun in eine Transaktion verpackt.
+Erst wenn diese abgeschlossen ist, dann werden die Änderungen gespeichert.
+Im Falle eines Absturzes werden nur die fertigen Transaktionen wiederhergestellt.
+Alle nicht beendeten Transaktionen werden nicht gespeichert.</p>
+</div>
+<div class="paragraph">
+<p>Dies führt zu einem <strong>konsistenten</strong> Zustand in der Datenbank.</p>
+</div>
+<div class="paragraph">
+<p>"Entweder alles oder gar nichts"</p>
+</div>
+<div class="sect2">
+<h3 id="_acid_eigenschaften_einer_transaktion"><a class="anchor" href="#_acid_eigenschaften_einer_transaktion"></a>2.1. ACID Eigenschaften einer Transaktion:</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong><span class="underline">A</span></strong>tomicity: Alles oder nichts</p>
+</li>
+<li>
+<p><strong><span class="underline">C</span></strong>onsitency: Vor und nach Transaktion in konsistenten Zustand</p>
+</li>
+<li>
+<p><strong><span class="underline">I</span></strong>solation: Nutzer haben den Eindruck, alleine auf der DB zu sein</p>
+</li>
+<li>
+<p><strong><span class="underline">D</span></strong>urability: Nach erfolgreichen Abschluss: Transaktion dauerhaft in DB</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_concurrency_locking"><a class="anchor" href="#_concurrency_locking"></a>3. Concurrency &amp; Locking</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Es gibt viele Gründe, warum concurrency auf einer Datenbank auftreten.
+Meist liegt es aber daran, dass viele Anfragen auf einmal kommen.
+Hierbei kann es zu mehreren Problemen kommen:</p>
+</div>
+<div class="sect2">
+<h3 id="_verlorenes_update"><a class="anchor" href="#_verlorenes_update"></a>3.1. Verlorenes Update</h3>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/images/lost-update.png" alt="lost update">
+</div>
+<div class="title">Figure 1. Prozessvorgang bei verlorenem Update</div>
+</div>
+<div class="paragraph">
+<p>Bei einem verlorenen Update, wie schon im Titel erkennbar, geht es darum, dass eine Änderung eines Datensatzes verloren geht.</p>
+</div>
+<div class="paragraph">
+<p>Hierbei gibt es 2 Prozesse, die in unterschiedlicher Reihenfolge einen gewissen Datensatz updaten.
+Da dies allerdings parallel ausgeführt werden, kann es passieren, dass das Update des Prozesses 1 nicht in das Update des Prozesses 2 mit einfließt.
+Hierdurch geht das Update von Prozess 1 verloren</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_schreib_lese_konflikt_dirty_read_write"><a class="anchor" href="#_schreib_lese_konflikt_dirty_read_write"></a>3.2. Schreib-Lese-Konflikt (Dirty Read / Write)</h3>
+<div class="sect3">
+<h4 id="_dirty_read"><a class="anchor" href="#_dirty_read"></a>3.2.1. Dirty Read</h4>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/images/dirty-read.png" alt="dirty read">
+</div>
+<div class="title">Figure 2. Ablauf Dirty Read</div>
+</div>
+<div class="paragraph">
+<p>Bei einem Dirty read, wird ein Datensatz ausgelesen, während ein anderer Prozess diesen verändert.
+Dadurch kann ein zwischenstatus ausgelesen werden, welcher allerdings nicht hätte gelesen werden sollen.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_dirty_write"><a class="anchor" href="#_dirty_write"></a>3.2.2. Dirty Write</h4>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/images/dirt-write.png" alt="dirt write">
+</div>
+<div class="title">Figure 3. Ablauf Dirty Write</div>
+</div>
+<div class="paragraph">
+<p>Bei einem Dirty write wird ein Datensatz ausgelesen, während ein anderer Prozess diesen verändert, und diesen anschließend (nach dem Auslesen) zurücksetzt.
+Das Problem: Der alte noch nicht zurückgesetzte Datensatz wird nun wieder verändert, welches zu inconsistent Daten führen kann.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_nicht_wiederholbares_lesen_non_repeatable_read"><a class="anchor" href="#_nicht_wiederholbares_lesen_non_repeatable_read"></a>3.3. Nicht wiederholbares Lesen (Non-Repeatable Read)</h3>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/images/non-repeatable-read.png" alt="non repeatable read">
+</div>
+</div>
+<div class="paragraph">
+<p>Bei einem nicht wiederholbaren lesen wird ein Datensatz gelesen, welcher durch einen Prozess, der später fehlschlägt, auf den Stand vor dem Starten des Prozesses zurückgesetzt wird.<br>
+Die Folge davon ist, dass mit falschen Daten gearbeitet wird.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_phantomproblem_inconsistent_read"><a class="anchor" href="#_phantomproblem_inconsistent_read"></a>3.4. Phantomproblem (Inconsistent Read)</h3>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/images/phantom-problem.png" alt="phantom problem">
+</div>
+<div class="title">Figure 4. Ablauf Phantomproblem</div>
+</div>
+<div class="paragraph">
+<p>Beim Phantomproblem wird ein gewisser Datensatz gelöscht, während er von einem anderen Statement gerade soeben erst gelesen wurde.
+Das führt dazu, dass nicht mehr existierte Daten z.B. in einer Summe inkludiert worden sind.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_locking"><a class="anchor" href="#_locking"></a>4. Locking</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Wenn Prozess A eine Tabelle oder Datensatz benötigt, sperrt dieser diesen.
+Somit wird das falsche abändern durch andere Instanzen verhindert.
+Es gibt keinen Zugriff auf Objekte der DB, ohne ein Lock zu verwenden.</p>
+</div>
+<div class="sect2">
+<h3 id="_locking_types"><a class="anchor" href="#_locking_types"></a>4.1. Locking types</h3>
+<div class="paragraph">
+<p>Bei Locking gibt es zwei Ansätze:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Pessimistisch:</strong> Sperrt alle was gebraucht wird ("for update")</p>
+</li>
+<li>
+<p><strong>Optimistisch:</strong> Es wird schon nichts passieren, nur ein kurzer Vergleich auf Änderungen vor einem Update</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exclusive_lock_x_lock"><a class="anchor" href="#_exclusive_lock_x_lock"></a>4.2. Exclusive Lock (X-Lock)</h3>
+<div class="paragraph">
+<p>Bei dem XLock werden alle Anfragen auf denselben Datensatz blockiert.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_shared_lock"><a class="anchor" href="#_shared_lock"></a>4.3. Shared Lock</h3>
+<div class="paragraph">
+<p>Bei einem shared lock werden alle X Lock Anfragen blockiert, S Lock Anfragen allerdings erlaubt</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><strong>LOCKING</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>X-Lock</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>S-Lock</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Offen</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><strong>X-Lock</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Verboten</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Verboten</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Erlaubt</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><strong>S-Lock</strong></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Verboten</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Erlaubt</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Erlaubt</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_deadlocks"><a class="anchor" href="#_deadlocks"></a>4.4. Deadlocks</h3>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/images/deadlocks.png" alt="deadlocks">
+</div>
+</div>
+<div class="paragraph">
+<p>Bei einem Deadlock sperren sich 2 Transaktionen gegenseitig.
+Hierbei möchten 2 verschiedene Transaktionen auf dieselben Resources zugreifen.
+Dafür wartet eine Transaktion standardmäßig darauf, dass eine Ressource frei wird.
+Wenn nun allerdings 2 oder mehr Transaktionen gegenseitig aufeinander warten, dann warten diese unendlich lange.</p>
+</div>
+<div class="paragraph">
+<p>Dies nennt man einen Deadlock, da beide Transaktionen ewig aufeinander warten, und jeweils eine Resource haben, die sie nicht freigeben, bis die andere bereits belegte Resource frei ist.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sperrtypen"><a class="anchor" href="#_sperrtypen"></a>4.5. Sperrtypen</h3>
+<div class="paragraph">
+<p>Um Deadlocks zu verhindern, gibt es mehrere Sperrtypen in Oracle:</p>
+</div>
+<div class="sect3">
+<h4 id="_two_phase_locking"><a class="anchor" href="#_two_phase_locking"></a>4.5.1. Two Phase Locking</h4>
+<div class="paragraph">
+<p>Eine Transaktion sperrt gleich zu Beginn alle benötigten Ressourcen.
+Wenn dies allerdings nicht möglich ist, gibt diese alle Ressourcen wieder frei, und wartet ein bisschen, bis der Vorgang von vorne beginnt.
+Erst wenn alle benötigten Ressourcen gesperrt sind, darf die Transaktion ausgeführt werden.</p>
+</div>
+<div class="paragraph">
+<p>Hierbei gibt es mehrere Probleme:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Alle Objekte sind am Start bekannt (Performance) (manchmal nicht möglich)</p>
+</li>
+<li>
+<p>Bei großen Transaktionen werden über lange Zeit viele Datensätze gesperrt</p>
+</li>
+<li>
+<p>Unabhängig keine festgelegte Reihenfolge der Transaktion</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_transactions_scheduling"><a class="anchor" href="#_transactions_scheduling"></a>4.5.2. Transactions-Scheduling</h4>
+<div class="paragraph">
+<p>Hierbei werden nur die Transaktionen parallel ausgeführt, die nicht auf dieselben Ressourcen zugreifen.</p>
+</div>
+<div class="paragraph">
+<p>Probleme:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>beschränkt parallele Durchführung (performance)</p>
+</li>
+<li>
+<p>Nur unabhängige Transaktionen werden gleichzeitig ausgeführt</p>
+</li>
+<li>
+<p>Pessimistisches Locking</p>
+</li>
+<li>
+<p>Datenobjekte oft unbekannt &#8594; gesamte Tabelle wird gelockt.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_zeitmarkenverfahren"><a class="anchor" href="#_zeitmarkenverfahren"></a>4.5.3. Zeitmarkenverfahren</h4>
+<div class="paragraph">
+<p>Arbeiten mit Transaktionsstartpunkten.
+Abhängig vom alter der Transaktion wird gewartet (wait) oder neu gestartet (restart)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/images/wait-die.png" alt="wait die">
+</div>
+<div class="title">Figure 5. Beispiel für Zeitmarkenverfahren (Wait-Die)</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/images/wound-wait.png" alt="wound wait">
+</div>
+<div class="title">Figure 6. Beispiel für Zeitmarkenverfahren (Wound-Wait)</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_timeout"><a class="anchor" href="#_timeout"></a>4.5.4. Timeout</h4>
+<div class="paragraph">
+<p>Das Timeout ist eine sehr gebräuchliche Methode.
+Hierbei wird sich der Startzeitpunkt der Transaktion gemerkt.
+Wird hierbei die Transaktion in einer gewissen Zeit (konfigurierbar) nicht abgeschlossen, so wird diese zurückgenommen, da ein potenzielles Deadlock entsteht.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_setzen_von_locks"><a class="anchor" href="#_setzen_von_locks"></a>4.6. Setzen von Locks</h3>
+<div class="paragraph">
+<p>Locks können auch in Oracle händisch gesetzt werden.
+Dazu kann folgender SQL Code verwendet werden:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">LOCK</span> <span class="k">TABLE</span> <span class="o">&lt;</span><span class="n">TABLENAME</span><span class="o">&gt;</span> <span class="k">in</span> <span class="k">row</span> <span class="k">share</span> <span class="k">mode</span><span class="p">;</span>
+<span class="k">LOCK</span> <span class="k">TABLE</span> <span class="o">&lt;</span><span class="n">TABLENAME</span><span class="o">&gt;</span> <span class="k">in</span> <span class="k">share</span> <span class="k">mode</span><span class="p">;</span>
+<span class="k">LOCK</span> <span class="k">TABLE</span> <span class="o">&lt;</span><span class="n">TABLENAME</span><span class="o">&gt;</span> <span class="k">in</span> <span class="k">row</span> <span class="k">exclusive</span> <span class="k">mode</span><span class="p">;</span>
+<span class="k">LOCK</span> <span class="k">TABLE</span> <span class="o">&lt;</span><span class="n">TABLENAME</span><span class="o">&gt;</span> <span class="k">in</span> <span class="k">share</span> <span class="k">row</span> <span class="k">exclusive</span> <span class="k">mode</span><span class="p">;</span>
+<span class="k">LOCK</span> <span class="k">TABLE</span> <span class="o">&lt;</span><span class="n">TABLENAME</span><span class="o">&gt;</span> <span class="k">in</span> <span class="k">exclusive</span> <span class="k">mode</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_automatisches_locken_bei_sql_statements"><a class="anchor" href="#_automatisches_locken_bei_sql_statements"></a>4.7. Automatisches Locken bei SQL Statements</h3>
+<div class="paragraph">
+<p><strong>SELECT</strong><br>
+keine Sperre</p>
+</div>
+<div class="paragraph">
+<p><strong>INSERT/UPDATE/DELETE</strong><br>
+write lock / row exclusive</p>
+</div>
+<div class="paragraph">
+<p><strong>SELECT FOR UPDATE</strong><br>
+read lock / row share</p>
+</div>
+<div class="paragraph">
+<p><strong>COMMIT / ROLLBACK</strong>
+freigeben aller Sperren</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2024-06-13 21:02:00 UTC
+</div>
+</div>
+</body>
+</html>
