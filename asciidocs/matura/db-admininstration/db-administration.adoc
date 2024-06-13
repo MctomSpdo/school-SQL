@@ -1,0 +1,385 @@
+= DB Administration
+Mctom Spdo
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: images]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../../css/dark.css
+
+== Oracle Server Architecture
+
+[plantuml,server-architecture]
+----
+include::../../css/dark.puml[]
+
+skinparam ArrowColor black
+skinparam ArrowThickness 1
+
+rectangle "Instance" as instance {
+    rectangle "SGA (System global Area)" as sga
+
+    sga <--> [BGP1]
+    sga <--> [BGP2]
+    sga <--> [BGP3]
+    sga <--> [BGPn]
+}
+
+rectangle "Database" as db {
+    database db1
+    database db2
+    database db3
+
+    db1 -[hidden]right- db2
+    db2 -[hidden]right- db3
+}
+
+skinparam ArrowColor white
+
+instance <--> db
+----
+
+Eine Oracle DB besteht aus einem Datenbankserver, und einer oder mehreren Datenbankinstanzen.
+Eine Instanz besteht aus mehreren Hintergrundprozessen.
+Jedes Mal, wenn eine Instanz gestartet, ein geteilter Memory Space in der SGA (System Global Area) angelegt.
+Die SGA beinhaltet Daten- und Kontrollinformationen für die einzelnen Datenbankinstanzen. +
+Die Hintergrundprozesse beinhalten Funktionen zur synchronisationen und überwachungsprozesse für die einzelnen Datenbankinstanzen.
+Diese laufen viel parallel, um die Performance der Datenbank zu optimieren.
+
+Die Datenbank besteht aus physischen und logischen Dateien, hierauf wird noch später eingegangen.
+
+== Connection to Oracle DB
+
+Jeder Nutzer, der sich mit der Oracle DB verbindet, bekommt einen eigenen Benutzerprozess.
+Der Code des jeweiligen Benutzers wird über sogenannte "client foreground processes" gehandhabt.
+Um SQL Statements der jeweiligen Benutzer auszuführen, wird ein sogenannter "server process" erstellt.
+
+Eine Connection is das Verbindungsstück zwischen Benutzer und Datenbank.
+Diese Prozesse können auf eigenen Servern laufen, um die Performance auf großen Datenbanken zu verbessern.
+
+Die Verbindung repräsentiert auch einen validen Login für die Datenbank.
+Wenn sich ein User mit der Datenbank verbindet, muss er einen validen Account und ein valides Passwort vorweisen.
+
+== Oracle DB Memory Structures
+
+[plantuml, memory-strutures]
+----
+include::../../css/dark.puml[]
+
+skinparam ArrowThickness 2
+
+
+rectangle "SGA" as sga {
+    rectangle "Database buffer chahe"
+    rectangle "Redo log buffer"
+    rectangle "Shared pool"
+    rectangle "Large pool"
+    rectangle "Java pool"
+    rectangle "Streams pool"
+}
+
+rectangle " " as f {
+    rectangle "PGA" as pga
+    rectangle "Other system processes" as osp
+    rectangle "Database instances" as di
+
+    pga -[hidden]r- osp
+    osp -[hidden]r- di
+}
+
+storage "Server process" as sp1
+storage "Server process" as sp2
+storage "Background process" as bp
+
+sga <-d-> sp1
+sga <-d-> sp2
+sga <-d-> bp
+
+sp1 <-d-> f
+sp2 <-d-> f
+bp <-d-> f
+----
+
+Es gibt 2 grundlegende Prozesse, die mit einer Instanz verbunden werden:
+
+=== SGA
+
+SGA = System Global Area
+
+Die System Global Area wird von allen Server und Prozessen geteilt.
+Die SGA beinhaltet folgende Datenstrukturen:
+
+* Database buffer cache: speichert Blöcke als cache zwischen.
+* Redo log buffer: speichert wiederherstellungsinformationen, bevor diese in die DB gespeichert werden.
+* Shared pool: speichert verschiedenste Strukturen zwischen, die zwischen den Instanzen verwendet werden können
+* Large Pool: optionale Verwendung für spezielle operation, wie etwa backup oder I/O server prozesse
+* Java pool: Benutzt für session spezifischen Java code, oder Daten in der jvm
+* Streams pool: Benutzt von Oracle Streams
+
+=== PGA
+
+PGA = Programm global area
+
+Eine Speicherregion, welche Daten- und Kontrollinformationen für einen Server oder Hintergrundprozess.
+
+== Database Buffer Cache
+
+[plantuml, database-buffer-cache]
+----
+include::../../css/dark.puml[]
+
+skinparam ArrowThickness 2
+
+rectangle SGA as sga {
+    rectangle "Database Buffer cache" as dbc
+}
+
+storage "server process" as sp
+storage "database writer process" as dwp
+
+rectangle " " as df {
+    database "data files" as data1
+    database "data files" as data2
+}
+
+sp <-r-> sga
+sp <-down- df
+
+dwp <-u- sga
+dwp -l-> df
+----
+
+The Data Buffer Cache beinhaltet Blöcke, die gerade von der Datenbank gelesen wurden.
+Bevor also eine Abfragt von der Datenbank abgefragt wird, wird zuerst im Data Buffer cache nachgeschaut, ob diese Abfragte nicht bereits zwischengespeichert wurde. +
+Wenn die Daten nicht im Buffer cache gefunden wurden (cache miss),
+dann müssen diese zuerst in diesen kopiert werden, bevor der Prozess diese erhält. Dies führt dazu, dass alle Blöcke, die die Datenbank benötigt, immer im Buffer cache vorhanden sein müssen. (Bei größeren Abfragen werden die nicht mehr benötigten Blöcke aus dem Buffer cache gelöscht).
+
+Die Puffer werden von einem Prozess verwaltet.
+Die Puffer beinhalten eine Mischung aus zuletzt abgefragten Blöcken, wie auch Blöcke, die sehr oft verwendet werden.
+
+=== Database Writer Process
+
+DBW = Database writer (process)
+
+Die DBWn writer sind dafür zuständig, veränderte Blöcke (dirty blocks) aus dem Database Buffer cache in die einzelnen Dateien zu schreiben.
+Es gibt hier mehrere Prozesse, die namentlich nummeriert werden (DBW0, DBW1, ... DNWn)
+
+== Redo Log Buffer
+
+[plantuml, redo-log-buffer]
+----
+include::../../css/dark.puml[]
+
+skinparam ArrowThickness 2
+
+rectangle SGA as sga {
+    rectangle "Redo log buffer" as rlb
+}
+
+storage "server process" as sp
+storage "LGWR" as lgwr
+
+rectangle " " as df {
+    database "data files" as data1
+    database "data files" as data2
+}
+
+sp <-r-> sga
+sp <-down- df
+
+lgwr <-u- sga
+lgwr -l-> df
+----
+
+====
+LGWR = Log writer (process)
+====
+
+Im Redo log buffer stehen Informationen zu Änderungen in der Datenbank.
+Dieser beinhaltet Informationen, die Datenänderungen auf der Datenbank rekonstruieren können.
+Folgende Statements verursachen Einträge im redo log:
+
+* INSERT
+* UPDATE
+* DELETE
+* CREATE
+* ALTER
+* DROP
+
+Redo Einträge werden verwendet, um die Datenbank im Falle eines Absturzes wieder zu starten.
+Die Redo Log buffers haben immer eine fix festgelegte Größe im SGA.
+Wird der Redo Log voll, oder nach einem konfigurierbaren Zeitintervall werden Checkpoints erstellt.
+Diese leeren den Redo log.
+
+Der Redo Log Writer schreibt die Redo Logs in die dafür vorgesehenen Redo log files.
+Dies passiert mit nur wenig caching, um im Falle von z.B eines Stromausfalles nur so wenig Information wie möglich zu verlieren.
+Wie viele dieser Log Writer es gibt, hängt ab von der Größe der Datenbank.
+Die Anzahl wird automatisch von der Datenbank verwaltet.
+Es muss allerdings immer mindestendes ein Redo Log writer vorhanden sein.
+
+== Shared Pool
+
+[plantuml, shared-pool]
+----
+include::../../css/dark.puml[]
+
+rectangle "SGA" as sga {
+    rectangle "Shared pool" as sp {
+        rectangle "Library Cache"
+        rectangle "Data dictionary cache (row cache)"
+        rectangle "Result cache"
+        rectangle "Control structures"
+    }
+}
+----
+
+Der Shared Pool ist Teil des SGA.
+Dieser beinhaltet folgende Strukturen:
+
+=== Library Cache
+
+Der Library Cache beinhaltet Teile von SQL Statements, welche mit anderen SQL Statements geteilt werden können (Sub-queries, etc.).
+Weiters enthält dieser PL/SQL Prozeduren und Packages.
+Zuletzt ist dieser auch dafür zuständig, Locks und Kontrollstrukturen zwischenzuspeichern.
+
+=== Data Dictionary
+
+Das Data Dictionary ist eine Reihe von Tabellen, welche Referenzinformationen anderen Tabellen in der Datenbank halten.
+Das Data dictionary wird so oft von Oracle verwendet, dass es sogar 2 Teilbereiche des Arbeitsspeichers ihm zugeschrieben werden.
+
+Der erste dieser Teilbereiche heißt Data dictionary cache, oder auch row cache, der zweite ist der Library cache.
+Alle Prozesse in der Oracle Datenbank verwenden diese 2 Caches, um Data Dictionary Informationen zu erhalten.
+
+=== Result cache
+
+Der Result cache beinhaltet SQL und PL/SQL caches.
+Im SQL cache werden SQL queries mit Ergebnis gespeichert.
+Im PL/SQL cache werden ergebnisse von PL/SQL funktionen und deren Eingabewerte gespeichert.
+
+=== Control Structures
+
+Control Structures werden dazu verwendet, andere Strukturen zu sperren (locks).
+
+
+== Large Pool
+
+Der Large Pool erlaubt es, verschiedenste Daten, die nicht in die anderen Pool gehören, oder zu groß für die anderen Poll sind, zu speichern.
+
+Dieser beinhaltet:
+
+* Session speicher für shared server und Oracle XA interface
+* Parallele Ausführungspuffer
+* I/O Server Prozesse
+* Backup & Restore Prozesse
+
+Optionale Inhalte:
+
+* Parallele Ausführung
+* Recovery Manager
+* Shared server
+
+Der Pool wird aber großteils dafür verwendet, SQL & PL/SQL Statements zu cachen.
+
+== Java Pool und Streams Pool
+
+Der Java Pool wird verwendet, um spezifischen Java Code für die Sessions und die dazugehörige JVM.
+
+Der Streaming-Pool wird vor allem verwendet um:
+
+* Gepufferte Queue Nachrichten zu speichern
+* Arbeitsspeicher für Oracle Streaming Prozesse zu schaffen.
+
+Genauere Details zu diesen würden den Rahmen sprengen.
+
+== Verteilung der Hintergrundprozesse
+
+[plantuml,background-processes]
+----
+@startuml
+include::../../css/dark.puml[]
+
+skinparam ArrowThickness 1
+
+rectangle "SGA" as sga {
+    rectangle "Database buffer cache" as dbc
+    rectangle "Redo log buffer" as rlb
+    rectangle "Shared pool" as sp" as sp
+
+    dbc -r[hidden]- rlb
+    rlb -r[hidden]- sp
+}
+
+storage RCBG
+storage MMON
+storage JCQ0
+storage QMNn
+storage MMAN
+
+RCBG <-d-> sga
+MMON <-d-> sga
+JCQ0 <-d-> sga
+QMNn <-d-> sga
+MMAN <-d-> sga
+
+storage CKPT
+storage PMON
+storage SMON
+storage DBWn
+storage LGWR
+storage ARCn
+
+CKPT <-u-> sga
+PMON <-u-> sga
+SMON <-u-> sga
+DBWn <-u-> sga
+LGWR <-u-> sga
+ARCn <-u-> sga
+
+@enduml
+----
+
+=== DBWn (Database Writer process)
+
+Der Database Writer prozess schreibt abgeänderte (dirty) Blöcke vom Database buffer in die jeweiligen Database files.
+Dies passiert Asynchron
+
+=== LGWR (Log writer process)
+
+Schreibt recovery Informationen vom log buffer zum log file auf der Festplatte
+
+=== CKPT (Checkpoint process)
+
+Schreibt Checkpoint inforationen in die Control Dateien und in jeden data file header
+
+=== SMON (System Monitor process)
+
+Führt den Recovery Prozess bei Systemstart aus und löscht temporäre, unbenutze Segmente
+
+=== PMON (Process Monitor process)
+
+Führt eine Prozess-Recovery durch, wenn ein Benutzerprozess fehlschlägt.
+
+=== RCBG (Result cache recover background process)
+
+Verwaltet den Result cache im shared pool
+
+=== CJQ0 (Job queue procecss)
+
+Lasst Benutzerjobs durch den Scheduler laufen
+
+== ARCn (Archiver Process)
+
+Kopiert redo logs auf einen gegebenen Dateipfad, nachdem eine neue Logdatei angefangen wurde.
+
+== QMNn (Queue monitor process)
+
+Monitors the Oracle Streams message queues
+
+== MMON (Manageabitity monitoring process)
+
+Führt management Hintergrundtasks aus.
+
+
+== WEW (Memory manager background process)
+
+Verwaltet SGA und PGA Arbeitsspeicher konfigurationen

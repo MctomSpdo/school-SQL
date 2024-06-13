@@ -21,6 +21,8 @@ ifndef::imagesdir[:imagesdir: images]
 
 == Datenbankadministration und internes Modell
 
+* link:db-admininstration/db-administration.html[DB Administration]
+
 * link:backup-recovery/backup-recovery.html[Backup & Recovery]
 
 == Semistrukturierte Daten und prozedurale Erweiterungen
