@@ -1,0 +1,79 @@
+= Apex
+Mctom Spdo
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: ../../images/]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../../css/dark.css
+
+Apex erlaubt es, ohne großes IT Wissen, Applikationen zu erstellen.
+Hierbei sind diese Applikationen sehr Datenbank basierend, heißt es geht fast nur um Datenbank daten.
+
+Es erlaubt Anwendungen, Automatisierungen, Integrationen von Drittanbieter anwendungen und ein einfaches anlegen under Verwalten der Datenbankstruktur.
+
+== APP Builder
+
+Im App builder gibt es verschiedenste Blöcke, mit denen eine gesamte App zusammengestellt wird.
+Ein paar beispiele für Blöcke:
+
+* Classic Report
+* Report
+* Charts
+* Kalender
+* Buttons
+
+Mithilfe dieser Blöcke lassen sich einfach Applikationen bauen.
+Das Bauen der Applikationen ist oft sehr viel probieren, was es erschwert, Apex Applikationen in kurzer Zeitspanne zu erstellen.
+
+=== Sicherheit
+
+Den Zugriff auf verschiedenste Apps kann mithilfe von RBAC verwaltet werden.
+
+TIP: RBAC = **R**ole **B**ased **A**ccess **C**ontrol
+
+== Quick SQL
+
+Quick SQL erlaubt es, Tabellen mit kürzeren Statements zu erstellen.
+Quick SQL wird im hintergrund wieder in normales SQL transposed.
+
+Beispiele für Quick SQL:
+
+[source,quicksql]
+----
+departments /insert4
+    name (nn
+    location
+    country
+    emplyees / insert 14
+        name /nn vc50
+        email /lower
+        const center num
+        date hired
+        job vc255
+
+view emp_v depeartments empyees
+----
+
+Oracle SQL output:
+
+[source,sql]
+----
+create table departments (
+    id          number not null constraint departments_id_pk primary key,
+    name        varchar2(255) not null,
+    location    varchar2(4000),
+    country     varchar2(4000)
+);
+
+create table employees (
+    id              number not null constraint employees_id_pk primary key,
+    department_id   number
+                        constraint employees_department_id_fk references departments on delete cascade,
+    name            varchar2(50) not null,
+    email           varchar2(255),
+    cost_center     number,
+    date_hired      date,
+    job             varchar2(255)
+);
+----

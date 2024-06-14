@@ -28,6 +28,7 @@ ifndef::imagesdir[:imagesdir: images]
 == Semistrukturierte Daten und prozedurale Erweiterungen
 
 * link:xml/xml.html[XML]
+* link:apex/apex.html[APEX]
 
 == Spezielle DB Themen
 
