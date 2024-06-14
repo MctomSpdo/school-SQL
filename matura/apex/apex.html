@@ -7,7 +7,7 @@
 <meta name="generator" content="Asciidoctor 2.0.23">
 <meta name="author" content="Mctom Spdo">
 <link rel="icon" type="image/png" href="themes/favicon.png">
-<title>PLSQL Übung 6</title>
+<title>Apex</title>
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
 
@@ -272,20 +272,22 @@ pre.rouge .gs {
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>PLSQL Übung 6</h1>
+<h1>Apex</h1>
 <div class="details">
 <span id="author" class="author">Mctom Spdo</span><br>
 <span id="revnumber">version 1.0.0,</span>
 <span id="revdate">2024-06-14</span>
-<br><span id="revremark">ITP</span>
+<br><span id="revremark">INSY</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_artikel">1. Artikel</a></li>
-<li><a href="#_kunde">2. Kunde</a></li>
-<li><a href="#_preisliste">3. Preisliste</a></li>
-<li><a href="#_rechnung">4. Rechnung</a></li>
+<li><a href="#_app_builder">1. APP Builder</a>
+<ul class="sectlevel2">
+<li><a href="#_sicherheit">1.1. Sicherheit</a></li>
+</ul>
+</li>
+<li><a href="#_quick_sql">2. Quick SQL</a></li>
 </ul>
 </div>
 </div>
@@ -293,125 +295,113 @@ pre.rouge .gs {
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="PLSQL-Übung-07-wawi.pdf" class="bare">PLSQL-Übung-07-wawi.pdf</a></p>
+<p>Apex erlaubt es, ohne großes IT Wissen, Applikationen zu erstellen.
+Hierbei sind diese Applikationen sehr Datenbank basierend, heißt es geht fast nur um Datenbank daten.</p>
 </div>
 <div class="paragraph">
-<p>Es ist eine Warenwirtschaftssystemappliaktion zu erstellen.<br>
-Führe in SQL*Plus zunächst das Skript WAWI.SQL aus. Erstelle anschließend ein
-Package WAWI_PACK, welches vier Unterprogramme beinhaltet:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../../../images/erd.png" alt="erd">
-</div>
+<p>Es erlaubt Anwendungen, Automatisierungen, Integrationen von Drittanbieter anwendungen und ein einfaches anlegen under Verwalten der Datenbankstruktur.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_artikel"><a class="anchor" href="#_artikel"></a>1. Artikel</h2>
+<h2 id="_app_builder"><a class="anchor" href="#_app_builder"></a>1. APP Builder</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Ein neuer Artikel ist einzufügen bzw. zu ändern.<br>
-<strong>Parameter:</strong> Bezeichnung, Artikelgruppenbezeichnung, Preis.<br>
-<strong>Rückgabe:</strong> neu angelegte ArtikelID. (fortlaufend)<br>
-Existiert dieser Artikel bereits (Bezeichnung) ist dieser zu ändern.</p>
+<p>Im App builder gibt es verschiedenste Blöcke, mit denen eine gesamte App zusammengestellt wird.
+Ein paar beispiele für Blöcke:</p>
 </div>
-<div class="listingblock">
-<div class="title">Create Procedure for primary key</div>
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="n">sequence</span> <span class="n">PK_WAWI_ARTIKEL</span> <span class="k">start</span> <span class="k">with</span> <span class="mi">23</span><span class="p">;</span>
-
-<span class="k">drop</span> <span class="n">sequence</span> <span class="n">PK_WAWI_ARTIKEL</span><span class="p">;</span>
-
-<span class="k">select</span> <span class="n">PK_WAWI_ARTIKEL</span><span class="p">.</span><span class="n">nextval</span> <span class="k">from</span> <span class="n">DUAL</span><span class="p">;</span>
-
-
-
-<span class="k">commit</span><span class="p">;</span></code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">or</span> <span class="k">replace</span> <span class="k">function</span> <span class="n">wawiAddArticle</span> <span class="p">(</span>
-    <span class="n">p_bezeichnung</span> <span class="k">in</span> <span class="n">WAWI_ARTIKEL</span><span class="p">.</span><span class="n">BEZEICHNUNG</span><span class="o">%</span><span class="k">type</span><span class="p">,</span>
-    <span class="n">p_artikelGruppenBezeichnung</span> <span class="k">in</span> <span class="n">WAWI_ARTIKEL_GRUPPE</span><span class="p">.</span><span class="n">BEZEICHNUNG</span><span class="o">%</span><span class="k">type</span><span class="p">,</span>
-    <span class="n">p_preis</span> <span class="k">in</span> <span class="n">number</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">WAWI_ARTIKEL</span><span class="p">.</span><span class="n">ARTIKELID</span><span class="o">%</span><span class="k">type</span>
-<span class="k">as</span>
-    <span class="n">counter</span> <span class="nb">integer</span><span class="p">;</span>
-<span class="k">begin</span>
-    <span class="k">insert</span> <span class="k">into</span> <span class="n">WAWI_ARTIKEL</span>
-    <span class="p">(</span><span class="n">ARTIKELID</span><span class="p">,</span> <span class="n">ARTIKELGRUPPEID</span><span class="p">,</span> <span class="n">BEZEICHNUNG</span><span class="p">,</span> <span class="n">PREIS</span><span class="p">)</span>
-    <span class="k">values</span> <span class="p">(</span>
-        <span class="n">PK_WAWI_ARTIKEL</span><span class="p">.</span><span class="n">nextval</span><span class="p">,</span>
-        <span class="p">(</span><span class="k">select</span> <span class="n">ARTIKELGRUPPEID</span>
-         <span class="k">from</span> <span class="n">WAWI_ARTIKEL_GRUPPE</span>
-         <span class="k">where</span> <span class="k">upper</span><span class="p">(</span><span class="n">BEZEICHNUNG</span><span class="p">)</span> <span class="k">like</span> <span class="k">upper</span><span class="p">(</span><span class="n">p_artikelGruppenBezeichnung</span><span class="p">)),</span>
-        <span class="n">p_bezeichnung</span><span class="p">,</span>
-        <span class="n">p_preis</span>
-    <span class="p">);</span>
-
-    <span class="k">return</span> <span class="n">PK_WAWI_ARTIKEL</span><span class="p">.</span><span class="n">currval</span><span class="p">;</span>
-<span class="k">end</span> <span class="n">wawiAddArticle</span><span class="p">;</span>
-<span class="o">/</span></code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="n">wawiAddArticle</span><span class="p">(</span><span class="s1">'test'</span><span class="p">,</span> <span class="s1">'eisen'</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="k">from</span> <span class="n">DUAL</span><span class="p">;</span></code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_kunde"><a class="anchor" href="#_kunde"></a>2. Kunde</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Ein neuer Kunde ist einzufügen bzw. zu ändern.<br>
-<strong>Parameter:</strong> Kundengruppenbezeichnung, VName, NName, Adresse.<br>
-<strong>Rückgabe:</strong> neu angelegte KundenID. (fortlaufend)<br>
-Existiert dieser Kunde bereits (VName, NName) ist dieser zu ändern.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_preisliste"><a class="anchor" href="#_preisliste"></a>3. Preisliste</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Ein neuer Rabatt ist einzufügen bzw. zu ändern.<br>
-<strong>Parameter:</strong> Kundengruppenbezeichnung, Artikelgruppenbezeichnung.<br>
-<strong>Rückgabe:</strong> keiner<br>
-Existiert dieser Rabattsatz bereits ist dieser zu ändern.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_rechnung"><a class="anchor" href="#_rechnung"></a>4. Rechnung</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Gibt sämtliche Rechnungen eines Kunden aus.<br>
-<strong>Parameter:</strong> KundenID.<br>
-<strong>Rückgabe:</strong> keiner<br>
-Dabei wird zunächst eine Zeile mit den Daten des Rechnungskopfes (rechnungs-
-kopfID, VName, NName, Kundengruppenbezeichnung) ausgegeben und daran die
-einzelnen Positionen der Rechnung angefügt. (RechnungskopfID, Rechnungspositi-
-onsID, ArtikelID, Menge, Artikelgruppenbezeichnung, Rabatt, Preis je Artikel, Summe=(Menge * Preis)-Rabatt).
-Jede Rechnung erhält eine Summenzeile.</p>
-</div>
-<div class="olist loweralpha">
-<ol class="loweralpha">
+<div class="ulist">
+<ul>
 <li>
-<p>Entscheide, ob Funktionen oder Prozeduren zu erstellen sind.</p>
+<p>Classic Report</p>
 </li>
 <li>
-<p>Erstelle anschließend ein Skript, welches die Unterprogramme mit mehreren
-Testfällen testet (z.B. unnamed block).</p>
+<p>Report</p>
 </li>
 <li>
-<p>Fehler sollen abgefangen werden und sprechende Fehlermeldungen ausge-
-geben werden.</p>
+<p>Charts</p>
 </li>
-</ol>
+<li>
+<p>Kalender</p>
+</li>
+<li>
+<p>Buttons</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Mithilfe dieser Blöcke lassen sich einfach Applikationen bauen.
+Das Bauen der Applikationen ist oft sehr viel probieren, was es erschwert, Apex Applikationen in kurzer Zeitspanne zu erstellen.</p>
+</div>
+<div class="sect2">
+<h3 id="_sicherheit"><a class="anchor" href="#_sicherheit"></a>1.1. Sicherheit</h3>
+<div class="paragraph">
+<p>Den Zugriff auf verschiedenste Apps kann mithilfe von RBAC verwaltet werden.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+RBAC = <strong>R</strong>ole <strong>B</strong>ased <strong>A</strong>ccess <strong>C</strong>ontrol
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quick_sql"><a class="anchor" href="#_quick_sql"></a>2. Quick SQL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Quick SQL erlaubt es, Tabellen mit kürzeren Statements zu erstellen.
+Quick SQL wird im hintergrund wieder in normales SQL transposed.</p>
+</div>
+<div class="paragraph">
+<p>Beispiele für Quick SQL:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="quicksql">departments /insert4
+    name (nn
+    location
+    country
+    emplyees / insert 14
+        name /nn vc50
+        email /lower
+        const center num
+        date hired
+        job vc255
+
+view emp_v depeartments empyees</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Oracle SQL output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">create</span> <span class="k">table</span> <span class="n">departments</span> <span class="p">(</span>
+    <span class="n">id</span>          <span class="n">number</span> <span class="k">not</span> <span class="k">null</span> <span class="k">constraint</span> <span class="n">departments_id_pk</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+    <span class="n">name</span>        <span class="n">varchar2</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
+    <span class="k">location</span>    <span class="n">varchar2</span><span class="p">(</span><span class="mi">4000</span><span class="p">),</span>
+    <span class="n">country</span>     <span class="n">varchar2</span><span class="p">(</span><span class="mi">4000</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">create</span> <span class="k">table</span> <span class="n">employees</span> <span class="p">(</span>
+    <span class="n">id</span>              <span class="n">number</span> <span class="k">not</span> <span class="k">null</span> <span class="k">constraint</span> <span class="n">employees_id_pk</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+    <span class="n">department_id</span>   <span class="n">number</span>
+                        <span class="k">constraint</span> <span class="n">employees_department_id_fk</span> <span class="k">references</span> <span class="n">departments</span> <span class="k">on</span> <span class="k">delete</span> <span class="k">cascade</span><span class="p">,</span>
+    <span class="n">name</span>            <span class="n">varchar2</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
+    <span class="n">email</span>           <span class="n">varchar2</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="n">cost_center</span>     <span class="n">number</span><span class="p">,</span>
+    <span class="n">date_hired</span>      <span class="nb">date</span><span class="p">,</span>
+    <span class="n">job</span>             <span class="n">varchar2</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+<span class="p">);</span></code></pre>
+</div>
 </div>
 </div>
 </div>
