@@ -1,6 +1,7 @@
 = Concurrency
 Mctom Spdo, Peter Klose
 1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: ../../images/]
 :icons: font
 :sectnums:
 :toc: left
@@ -49,7 +50,7 @@ Hierbei kann es zu mehreren Problemen kommen:
 === Verlorenes Update
 
 .Prozessvorgang bei verlorenem Update
-image::images/lost-update.png[]
+image::lost-update.png[]
 
 Bei einem verlorenen Update, wie schon im Titel erkennbar, geht es darum, dass eine Änderung eines Datensatzes verloren geht.
 
@@ -62,7 +63,7 @@ Hierdurch geht das Update von Prozess 1 verloren
 ==== Dirty Read
 
 .Ablauf Dirty Read
-image::images/dirty-read.png[]
+image::dirty-read.png[]
 
 Bei einem Dirty read, wird ein Datensatz ausgelesen, während ein anderer Prozess diesen verändert.
 Dadurch kann ein zwischenstatus ausgelesen werden, welcher allerdings nicht hätte gelesen werden sollen.
@@ -70,7 +71,7 @@ Dadurch kann ein zwischenstatus ausgelesen werden, welcher allerdings nicht hät
 ==== Dirty Write
 
 .Ablauf Dirty Write
-image::images/dirt-write.png[]
+image::dirt-write.png[]
 
 Bei einem Dirty write wird ein Datensatz ausgelesen, während ein anderer Prozess diesen verändert, und diesen anschließend (nach dem Auslesen) zurücksetzt.
 Das Problem: Der alte noch nicht zurückgesetzte Datensatz wird nun wieder verändert, welches zu inconsistent Daten führen kann.
@@ -78,7 +79,7 @@ Das Problem: Der alte noch nicht zurückgesetzte Datensatz wird nun wieder verä
 
 === Nicht wiederholbares Lesen (Non-Repeatable Read)
 
-image::images/non-repeatable-read.png[]
+image::non-repeatable-read.png[]
 
 Bei einem nicht wiederholbaren lesen wird ein Datensatz gelesen, welcher durch einen Prozess, der später fehlschlägt, auf den Stand vor dem Starten des Prozesses zurückgesetzt wird. +
 Die Folge davon ist, dass mit falschen Daten gearbeitet wird.
@@ -86,7 +87,7 @@ Die Folge davon ist, dass mit falschen Daten gearbeitet wird.
 === Phantomproblem (Inconsistent Read)
 
 .Ablauf Phantomproblem
-image::images/phantom-problem.png[]
+image::phantom-problem.png[]
 
 Beim Phantomproblem wird ein gewisser Datensatz gelöscht, während er von einem anderen Statement gerade soeben erst gelesen wurde.
 Das führt dazu, dass nicht mehr existierte Daten z.B. in einer Summe inkludiert worden sind.
@@ -134,7 +135,7 @@ Bei einem shared lock werden alle X Lock Anfragen blockiert, S Lock Anfragen all
 
 === Deadlocks
 
-image::images/deadlocks.png[]
+image::deadlocks.png[]
 
 Bei einem Deadlock sperren sich 2 Transaktionen gegenseitig.
 Hierbei möchten 2 verschiedene Transaktionen auf dieselben Resources zugreifen.
@@ -176,10 +177,10 @@ Arbeiten mit Transaktionsstartpunkten.
 Abhängig vom alter der Transaktion wird gewartet (wait) oder neu gestartet (restart)
 
 .Beispiel für Zeitmarkenverfahren (Wait-Die)
-image::images/wait-die.png[]
+image::wait-die.png[]
 
 .Beispiel für Zeitmarkenverfahren (Wound-Wait)
-image::images/wound-wait.png[]
+image::wound-wait.png[]
 
 ==== Timeout
 
