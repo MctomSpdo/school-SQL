@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="author" content="Mctom Spdo">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>SQL DCL / DDL</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+:root{
+--maincolor:#282c34;
+--primarycolor:#f39c12;
+--secondarycolor:#03a9f4;
+--tertiarycolor:#4db6ac;
+--sidebarbackground:#21252b;
+--linkcolor:#f44336;
+--linkcoloralternate:#ff9800;
+--white:#FFFFFF;
+}
+
+/* custom added styles */
+.listingblock > .content > pre{
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+/* Text styles */
+body{font-family: "Noto Sans",sans-serif;background-color: var(--maincolor);color:var(--white);}
+
+h1{color:var(--primarycolor) !important;font-family:"Noto Sans",sans-serif;}
+h2,h3,h4,h5,h6{color:var(--secondarycolor) !important;font-family:"Noto Sans",sans-serif;}
+.title{color:var(--white) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Noto Sans",sans-serif ! important}
+#toc.toc2 a:link{color:var(--linkcolor);}
+blockquote{color:var(--tertiarycolor) !important}
+.quoteblock{color:var(--white)}
+code{color:var(--linkcoloralternate);background-color: var(--sidebarbackground) !important}
+
+
+/* Table styles */
+th{background-color: var(--maincolor);color:var(--white) !important;}
+td{background-color: var(--maincolor);color: var(--linkcoloralternate) !important}
+
+
+#toc.toc2{background-color:var(--sidebarbackground);}
+#toctitle{color:var(--white);}
+
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  table {
+    width: 55vw!important;
+    font-size: 3vw;
+  }
+}
+
+.exampleblock > .content {
+  background-color: var(--maincolor);
+}
+
+a {
+  color: var(--secondarycolor);
+}
+
+.admonitionblock td.icon .icon-tip::before {
+  text-shadow: none;
+  color: var(--white);
+}
+.admonitionblock td.icon .icon-note::before {
+  color: var(--tertiarycolor);
+}
+.admonitionblock td.icon .icon-important::before {
+  color: var(--linkcolor);
+}
+/*.admonitionblock td.icon .icon-caution::before {
+  color: var(--linkcoloralternate);
+}*/
+.admonitionblock td.icon .icon-warning::before {
+  color: var(--primarycolor);
+}
+
+#preamble > .sectionbody > .paragraph:first-of-type p {
+  color: var(--white);
+}
+
+.quoteblock blockquote::before {
+  color: var(--primarycolor);
+}
+.quoteblock .attribution cite, .verseblock .attribution cite {
+  color: var(--white);
+}
+.verseblock pre {
+  color: var(--white);
+}
+.quoteblock blockquote, .quoteblock blockquote p {
+  color: var(--white);
+}
+
+.sidebarblock {
+  background: var(--sidebarbackground);
+}
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+#header .details {
+  color: var(--white);
+}
+#header .details span.email a {
+  color: var(--linkcoloralternate);
+}
+
+/* in code style fixes */
+
+.k {
+  color: #008800 !important;
+}
+
+.k:contains("select"), .k:contains("create"), .k:contains("update"), .k:contains("replace"), .k:contains("beginn"),
+.k:contains("delete"), .k:contains("alter"), .k:contains("drop") {
+  color: #BB0066 !important;
+}
+
+.k:contains("return"), .k:cotains("primary"), .k:contains("foreign"), .k:contains("cascade") {
+  color: #008888 !important;
+}
+
+.k:contains("key"), .k:contains("constraint"), .k:contains("table") {
+  color: #333399 !important;
+}
+
+.mi {
+  color: #0202D2 !important;
+}
+
+.nb {
+  color: #00AA88 !important;
+}
+
+.o {
+  color: var(--white) !important;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge, pre.rouge .w {
+  color: #24292f;
+  background-color: #f6f8fa;
+}
+pre.rouge .k, pre.rouge .kd, pre.rouge .kn, pre.rouge .kp, pre.rouge .kr, pre.rouge .kt, pre.rouge .kv {
+  color: #cf222e;
+}
+pre.rouge .gr {
+  color: #f6f8fa;
+}
+pre.rouge .gd {
+  color: #82071e;
+  background-color: #ffebe9;
+}
+pre.rouge .nb {
+  color: #953800;
+}
+pre.rouge .nc {
+  color: #953800;
+}
+pre.rouge .no {
+  color: #953800;
+}
+pre.rouge .nn {
+  color: #953800;
+}
+pre.rouge .sr {
+  color: #116329;
+}
+pre.rouge .na {
+  color: #116329;
+}
+pre.rouge .nt {
+  color: #116329;
+}
+pre.rouge .gi {
+  color: #116329;
+  background-color: #dafbe1;
+}
+pre.rouge .kc {
+  color: #0550ae;
+}
+pre.rouge .l, pre.rouge .ld, pre.rouge .m, pre.rouge .mb, pre.rouge .mf, pre.rouge .mh, pre.rouge .mi, pre.rouge .il, pre.rouge .mo, pre.rouge .mx {
+  color: #0550ae;
+}
+pre.rouge .sb {
+  color: #0550ae;
+}
+pre.rouge .bp {
+  color: #0550ae;
+}
+pre.rouge .ne {
+  color: #0550ae;
+}
+pre.rouge .nl {
+  color: #0550ae;
+}
+pre.rouge .py {
+  color: #0550ae;
+}
+pre.rouge .nv, pre.rouge .vc, pre.rouge .vg, pre.rouge .vi, pre.rouge .vm {
+  color: #0550ae;
+}
+pre.rouge .o, pre.rouge .ow {
+  color: #0550ae;
+}
+pre.rouge .gh {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .s, pre.rouge .sa, pre.rouge .sc, pre.rouge .dl, pre.rouge .sd, pre.rouge .s2, pre.rouge .se, pre.rouge .sh, pre.rouge .sx, pre.rouge .s1, pre.rouge .ss {
+  color: #0a3069;
+}
+pre.rouge .nd {
+  color: #8250df;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #8250df;
+}
+pre.rouge .err {
+  color: #f6f8fa;
+  background-color: #82071e;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cm, pre.rouge .cp, pre.rouge .cpf, pre.rouge .c1, pre.rouge .cs {
+  color: #6e7781;
+}
+pre.rouge .gl {
+  color: #6e7781;
+}
+pre.rouge .gt {
+  color: #6e7781;
+}
+pre.rouge .ni {
+  color: #24292f;
+}
+pre.rouge .si {
+  color: #24292f;
+}
+pre.rouge .ge {
+  color: #24292f;
+  font-style: italic;
+}
+pre.rouge .gs {
+  color: #24292f;
+  font-weight: bold;
+}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>SQL DCL / DDL</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2024-06-16</span>
+<br><span id="revremark">INSY</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_datenbankobjekte">1. Datenbankobjekte</a>
+<ul class="sectlevel2">
+<li><a href="#_views">1.1. Views</a></li>
+<li><a href="#_indexe">1.2. Indexe</a></li>
+<li><a href="#_constraints">1.3. Constraints</a></li>
+</ul>
+</li>
+<li><a href="#_datenbankoptimierung">2. Datenbankoptimierung</a>
+<ul class="sectlevel2">
+<li><a href="#_indizierung">2.1. Indizierung</a></li>
+<li><a href="#_caching">2.2. Caching</a></li>
+<li><a href="#_anfragen_optimierung_query_optimization">2.3. Anfragen optimierung (Query Optimization)</a></li>
+<li><a href="#_daten_normalisierung">2.4. Daten-Normalisierung</a></li>
+<li><a href="#_partitionierung">2.5. Partitionierung</a></li>
+<li><a href="#_andere_optimierungsmöglichkeiten">2.6. Andere Optimierungsmöglichkeiten</a></li>
+</ul>
+</li>
+<li><a href="#_rollen_und_berechtigungen">3. Rollen und Berechtigungen</a></li>
+<li><a href="#_data_definition_language_ddl">4. Data Definition Language (DDL)</a></li>
+<li><a href="#_data_control_language">5. Data Control Language</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+DCL = <strong>D</strong>ata <strong>C</strong>ontrol <strong>Language</strong>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+DDL = <strong>D</strong>ata <strong>D</strong>efinition <strong>L</strong>anguage
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_datenbankobjekte"><a class="anchor" href="#_datenbankobjekte"></a>1. Datenbankobjekte</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_views"><a class="anchor" href="#_views"></a>1.1. Views</h3>
+<div class="paragraph">
+<p>Eine View ist eine virtuelle Tabelle, die auf den Ergebnissen einer Abfrage basiert.
+Views können dazu dienen, die Komplexität von Daten zu reduzieren, die Sicherheit zu erhöhen oder den Zugriff auf Daten zu erleichtern.</p>
+</div>
+<div class="listingblock">
+<div class="title">Erstellen einer View</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">CREATE</span> <span class="k">VIEW</span> <span class="o">&lt;</span><span class="n">VIEW_NAME</span><span class="o">&gt;</span> <span class="k">AS</span>
+    <span class="k">SELECT</span> <span class="o">&lt;</span><span class="n">COL_1</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">COL_2</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">COL_n</span><span class="o">&gt;</span>
+    <span class="k">FROM</span> <span class="o">&lt;</span><span class="k">TABLE_NAME</span><span class="o">&gt;</span>
+    <span class="k">WHERE</span> <span class="o">&lt;</span><span class="n">CONDITION</span><span class="o">&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_indexe"><a class="anchor" href="#_indexe"></a>1.2. Indexe</h3>
+<div class="paragraph">
+<p>Indexe können helfen, die Performance der Datenbank zu verbessern.
+Ein Index kann vor allem die Suche und das Sortieren nach bestimmten Feldern beschleunigen.</p>
+</div>
+<div class="listingblock">
+<div class="title">Erstellen eines Indexes</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">CREATE</span> <span class="k">INDEX</span> <span class="o">&lt;</span><span class="n">INDEX_NAME</span><span class="o">&gt;</span>
+<span class="k">ON</span> <span class="o">&lt;</span><span class="k">TABLE_NAME</span><span class="o">&gt;</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">COL_1</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">COL_2</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">COL_n</span><span class="p">)</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_constraints"><a class="anchor" href="#_constraints"></a>1.3. Constraints</h3>
+<div class="paragraph">
+<p>Constraints beschränken gewissen Datensätze, nur eingeschränkte Werte einzunehmen.
+Hierbei gibt es mehrere Arten von Constraints:</p>
+</div>
+<div class="sect3">
+<h4 id="_primary_key"><a class="anchor" href="#_primary_key"></a>1.3.1. Primary Key</h4>
+<div class="listingblock">
+<div class="title">Erstellen einer Tabelle mit Primary Key</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">&lt;</span><span class="k">TABLE_NAME</span><span class="o">&gt;</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="n">COL_1</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">DATATYPE</span><span class="o">&gt;</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+    <span class="o">&lt;</span><span class="n">COL_2</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">DATATYPE</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="o">&lt;</span><span class="p">..</span><span class="o">&gt;</span>
+<span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Bei diesem Beispiel wird eine Tabelle erstellt, in der <code>&lt;COL_1&gt;</code> als Primary Key definiert ist.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Der Primary Key wird normalerweise am Anfange eines create table statements angegeben.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_foreign_key"><a class="anchor" href="#_foreign_key"></a>1.3.2. FOREIGN KEY</h4>
+<div class="listingblock">
+<div class="title">Erstellen einer Tabelle mit Foreign Key</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">&lt;</span><span class="k">TABLE_NAME</span><span class="o">&gt;</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="n">COL_1</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">DATATYPE</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="o">&lt;</span><span class="n">COL_2</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">DATATYPE</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="o">&lt;</span><span class="p">..</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">COL_1</span><span class="o">&gt;</span><span class="p">)</span>
+    <span class="k">REFERENCES</span> <span class="o">&lt;</span><span class="n">OTHER_TABLE</span><span class="o">&gt;</span> <span class="p">(</span><span class="o">&lt;</span><span class="n">OTHER_COLUMN</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Bei diesem Beispiel wird eine Tabelle erstellt, in der <code>&lt;COL_1&gt;</code> als Foreign Key auf Tabelle <code>&lt;OTHER_TABLE&gt;</code> mit der Spalte <code>&lt;OTHER_COLUMN&gt;</code> definiert ist.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Foreign Key werden in einem create table statement normalerweise am Schluss angegeben.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_datenbankoptimierung"><a class="anchor" href="#_datenbankoptimierung"></a>2. Datenbankoptimierung</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_indizierung"><a class="anchor" href="#_indizierung"></a>2.1. Indizierung</h3>
+<div class="paragraph">
+<p>Bei großen Datenbanken kann die Suche nach speziellen Daten eine gewisse Zeit in Anspruch nehmen.
+Durch das Erstellen von Indizes für spezielle Attribute oder Gruppen von Attributen kann eine Suche erheblich verbessert werden.
+Hier muss der DB Server nicht mehr in der gesamten Tabelle suchen, sondern nur noch innerhalb des Indizes, welches die Suchzeit stark verringert.
+Ein Index is vergleichbar mit dem Inhaltsverzeichnis eines Buches.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_caching"><a class="anchor" href="#_caching"></a>2.2. Caching</h3>
+<div class="paragraph">
+<p>caching ist eine Methode, bei der häufiger genutzte Daten nahe am Ort ihrer Verwendung vorgehalten werden.
+Ein Datenbank-Cache ist so konfiguriert, dass er oft abgefragte Datenelemente speichert.
+Dadurch kann die Zeit reduziert werden, die notwendig wäre, um erneut auf den Datensatz zuzugreifen.
+Dieser Mechanismus verbessert sowohl die Geschwindigkeit als auch die Effizient des Gesamtsystems.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_anfragen_optimierung_query_optimization"><a class="anchor" href="#_anfragen_optimierung_query_optimization"></a>2.3. Anfragen optimierung (Query Optimization)</h3>
+<div class="paragraph">
+<p>Bei komplexen Datenstrukturen kann die Art und Weise, wie eine Query gestellt wird, einen erheblichen Einfluss auf die Zeit haben, die für die Bearbeitung benötigt wird.
+Bei der Anfragenoptimierung geht es darum, die besten Ausführungspläne für eine gegebene Anfrage zu finden.
+Dies könnte beispielsweise bedeuten, dass die Reihenfolge geändert wird, in der Tabellen in die Abfrage einbezogen werden, oder dass dafür gesorgt wird, dass Indizes optimal genutzt werden.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_daten_normalisierung"><a class="anchor" href="#_daten_normalisierung"></a>2.4. Daten-Normalisierung</h3>
+<div class="paragraph">
+<p>Durch die Durchführung der Daten-Normalisierung können redundante Daten entfernt werden, was dazu beitragen kann, die Integrität der Daten zu erhalten und zu verbessern</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_partitionierung"><a class="anchor" href="#_partitionierung"></a>2.5. Partitionierung</h3>
+<div class="paragraph">
+<p>Hierbei werden große Tabelle in kleinere, überschaubare Teile unterteilt.
+Diese werden separat verwaltet und abgefragt, was zu einer schnelleren Bearbeitungszeit auf der DB führt.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_andere_optimierungsmöglichkeiten"><a class="anchor" href="#_andere_optimierungsmöglichkeiten"></a>2.6. Andere Optimierungsmöglichkeiten</h3>
+<div class="paragraph">
+<p>Zusätzlich gibt es dann noch die Möglichkeit, die Konfigurationen optimal für die Datenbank anzupassen.
+Wenn sich hierdurch Bottlenecks verhindern lassen, erhöht dies die Geschwindigkeit.</p>
+</div>
+<div class="paragraph">
+<p>In echten Anwendungsfällen wird die Performance meist so optimiert: Der Chef wird nach einem bessern DB Server gefragt ;)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_rollen_und_berechtigungen"><a class="anchor" href="#_rollen_und_berechtigungen"></a>3. Rollen und Berechtigungen</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Rollen und Berechtigungen in einer DB definieren, was eine Gruppe von Benutzern tun darf, und was nicht.
+In der Oracle DB, wie auch in vielen anderen, wird hier nach dem RBAC Prinzip gehandelt.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+RBAC = <strong>R</strong>ole <strong>B</strong>ased <strong>A</strong>ccess <strong>C</strong>ontrol
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Hierbei gibt es mehrere Berechtigungen, die vergeben werden können:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Lesen</p>
+</li>
+<li>
+<p>Schreiben</p>
+</li>
+<li>
+<p>Ändern</p>
+</li>
+<li>
+<p>Löschen</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Diese Berechtigungen werden allerdings nicht dem Benutzer, sondern der Rolle zugeteilt.
+Eine Rolle wird dann dem User zugeteilt.
+Dies vereinfacht die Benutzerverwaltung.</p>
+</div>
+<div class="paragraph">
+<p>Ein Beispiel hierfür ist, dass alle Benutzer keine Löschrechte auf der Datenbank haben.
+Somit muss nun nur der Rolle <code>USER</code> das löschrecht weggenommen werden, und nicht jedem einzelnen Benutzer.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_data_definition_language_ddl"><a class="anchor" href="#_data_definition_language_ddl"></a>4. Data Definition Language (DDL)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>DDL ist eine Reihe von SQL-Befehlen, die zum Definieren und Verwalten von Datenstrukturen in einer Datenbank verwendet werden. Die wichtigsten DDL-Befehle sind:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create</p>
+</li>
+<li>
+<p>Alter</p>
+</li>
+<li>
+<p>Drop</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Bsp. Create</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">Clerks</span> <span class="p">(</span>
+    <span class="n">ID</span> <span class="n">NUMBER</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+    <span class="n">Name</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mi">59</span><span class="p">),</span>
+    <span class="k">Position</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span>
+    <span class="n">Department</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+<span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Bsp. Alter</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">Clerks</span>
+<span class="k">ADD</span> <span class="p">(</span><span class="n">Email</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mi">50</span><span class="p">));</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Bsp. Drop</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">DROP</span> <span class="k">TABLE</span> <span class="n">Clerks</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_data_control_language"><a class="anchor" href="#_data_control_language"></a>5. Data Control Language</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">CREATE</span> <span class="k">ROLE</span> <span class="n">read_write</span><span class="p">;</span> <i class="conum" data-value="1"></i><b>(1)</b>
+
+<span class="k">GRANT</span> <span class="k">SELECT</span><span class="p">,</span> <span class="k">INSERT</span><span class="p">,</span> <span class="k">UPDATE</span> <span class="k">on</span> <span class="n">Employees</span> <span class="k">TO</span> <span class="n">read_write</span><span class="p">;</span> <i class="conum" data-value="2"></i><b>(2)</b>
+
+<span class="k">GRANT</span> <span class="n">read_write</span> <span class="k">TO</span> <span class="n">user1</span><span class="p">;</span> <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Erstellen der Rolle <code>read_write</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Berechtigungen <code>SELECT, INSERT, UPDATE</code> der Rolle <code>read_write</code> zuteilen</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Rolle <code>read_write</code> dem Benutzer <code>user1</code> zuteilen.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Nach diesem Beispiel sollte <code>user1</code> Berechtigungen auf SELECT, INSERT &amp; UPDATE in der Tabelle Employees haben.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2024-06-16 20:07:53 UTC
+</div>
+</div>
+</body>
+</html>
