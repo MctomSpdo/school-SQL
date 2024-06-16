@@ -21,6 +21,8 @@ ifndef::imagesdir[:imagesdir: images]
 
 == SQL DCL und DDL
 
+* link:sql/sql-dcl-ddl.html[SQL DCL & DDL]
+
 == Datenbankadministration und internes Modell
 
 * link:db-admininstration/db-administration.html[DB Administration]

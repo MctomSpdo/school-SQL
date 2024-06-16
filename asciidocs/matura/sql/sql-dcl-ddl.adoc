@@ -1,0 +1,188 @@
+= SQL DCL / DDL
+Mctom Spdo
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: ../../images/]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../../css/dark.css
+
+TIP: DCL = **D**ata **C**ontrol **Language**
+
+TIP: DDL = **D**ata **D**efinition **L**anguage
+
+== Datenbankobjekte
+
+=== Views
+
+Eine View ist eine virtuelle Tabelle, die auf den Ergebnissen einer Abfrage basiert.
+Views können dazu dienen, die Komplexität von Daten zu reduzieren, die Sicherheit zu erhöhen oder den Zugriff auf Daten zu erleichtern.
+
+.Erstellen einer View
+[source,sql]
+----
+CREATE VIEW <VIEW_NAME> AS
+    SELECT <COL_1>, <COL_2>, <COL_n>
+    FROM <TABLE_NAME>
+    WHERE <CONDITION>
+----
+
+=== Indexe
+
+Indexe können helfen, die Performance der Datenbank zu verbessern.
+Ein Index kann vor allem die Suche und das Sortieren nach bestimmten Feldern beschleunigen.
+
+.Erstellen eines Indexes
+[source,sql]
+----
+CREATE INDEX <INDEX_NAME>
+ON <TABLE_NAME> (<COL_1>, <COL_2>, <COL_n)
+----
+
+=== Constraints
+
+Constraints beschränken gewissen Datensätze, nur eingeschränkte Werte einzunehmen.
+Hierbei gibt es mehrere Arten von Constraints:
+
+==== Primary Key
+
+.Erstellen einer Tabelle mit Primary Key
+[source,sql]
+----
+CREATE TABLE <TABLE_NAME> (
+    <COL_1> <DATATYPE> PRIMARY KEY,
+    <COL_2> <DATATYPE>,
+    <..>
+);
+----
+
+Bei diesem Beispiel wird eine Tabelle erstellt, in der ``<COL_1>`` als Primary Key definiert ist.
+
+TIP: Der Primary Key wird normalerweise am Anfange eines create table statements angegeben.
+
+==== FOREIGN KEY
+
+.Erstellen einer Tabelle mit Foreign Key
+[source,sql]
+----
+CREATE TABLE <TABLE_NAME> (
+    <COL_1> <DATATYPE>,
+    <COL_2> <DATATYPE>,
+    <..>,
+    FOREIGN KEY (<COL_1>)
+    REFERENCES <OTHER_TABLE> (<OTHER_COLUMN>)
+)
+----
+
+Bei diesem Beispiel wird eine Tabelle erstellt, in der ``<COL_1>`` als Foreign Key auf Tabelle ``<OTHER_TABLE>`` mit der Spalte ``<OTHER_COLUMN>`` definiert ist.
+
+TIP: Foreign Key werden in einem create table statement normalerweise am Schluss angegeben.
+
+== Datenbankoptimierung
+
+=== Indizierung
+
+Bei großen Datenbanken kann die Suche nach speziellen Daten eine gewisse Zeit in Anspruch nehmen.
+Durch das Erstellen von Indizes für spezielle Attribute oder Gruppen von Attributen kann eine Suche erheblich verbessert werden.
+Hier muss der DB Server nicht mehr in der gesamten Tabelle suchen, sondern nur noch innerhalb des Indizes, welches die Suchzeit stark verringert.
+Ein Index is vergleichbar mit dem Inhaltsverzeichnis eines Buches.
+
+
+=== Caching
+
+caching ist eine Methode, bei der häufiger genutzte Daten nahe am Ort ihrer Verwendung vorgehalten werden.
+Ein Datenbank-Cache ist so konfiguriert, dass er oft abgefragte Datenelemente speichert.
+Dadurch kann die Zeit reduziert werden, die notwendig wäre, um erneut auf den Datensatz zuzugreifen.
+Dieser Mechanismus verbessert sowohl die Geschwindigkeit als auch die Effizient des Gesamtsystems.
+
+=== Anfragen optimierung (Query Optimization)
+
+Bei komplexen Datenstrukturen kann die Art und Weise, wie eine Query gestellt wird, einen erheblichen Einfluss auf die Zeit haben, die für die Bearbeitung benötigt wird.
+Bei der Anfragenoptimierung geht es darum, die besten Ausführungspläne für eine gegebene Anfrage zu finden.
+Dies könnte beispielsweise bedeuten, dass die Reihenfolge geändert wird, in der Tabellen in die Abfrage einbezogen werden, oder dass dafür gesorgt wird, dass Indizes optimal genutzt werden.
+
+=== Daten-Normalisierung
+
+Durch die Durchführung der Daten-Normalisierung können redundante Daten entfernt werden, was dazu beitragen kann, die Integrität der Daten zu erhalten und zu verbessern
+
+=== Partitionierung
+
+Hierbei werden große Tabelle in kleinere, überschaubare Teile unterteilt.
+Diese werden separat verwaltet und abgefragt, was zu einer schnelleren Bearbeitungszeit auf der DB führt.
+
+=== Andere Optimierungsmöglichkeiten
+
+Zusätzlich gibt es dann noch die Möglichkeit, die Konfigurationen optimal für die Datenbank anzupassen.
+Wenn sich hierdurch Bottlenecks verhindern lassen, erhöht dies die Geschwindigkeit.
+
+In echten Anwendungsfällen wird die Performance meist so optimiert: Der Chef wird nach einem bessern DB Server gefragt ;)
+
+== Rollen und Berechtigungen
+
+Rollen und Berechtigungen in einer DB definieren, was eine Gruppe von Benutzern tun darf, und was nicht.
+In der Oracle DB, wie auch in vielen anderen, wird hier nach dem RBAC Prinzip gehandelt.
+
+TIP: RBAC = **R**ole **B**ased **A**ccess **C**ontrol
+
+Hierbei gibt es mehrere Berechtigungen, die vergeben werden können:
+
+* Lesen
+* Schreiben
+* Ändern
+* Löschen
+
+Diese Berechtigungen werden allerdings nicht dem Benutzer, sondern der Rolle zugeteilt.
+Eine Rolle wird dann dem User zugeteilt.
+Dies vereinfacht die Benutzerverwaltung.
+
+Ein Beispiel hierfür ist, dass alle Benutzer keine Löschrechte auf der Datenbank haben.
+Somit muss nun nur der Rolle ``USER`` das löschrecht weggenommen werden, und nicht jedem einzelnen Benutzer.
+
+== Data Definition Language (DDL)
+
+DDL ist eine Reihe von SQL-Befehlen, die zum Definieren und Verwalten von Datenstrukturen in einer Datenbank verwendet werden. Die wichtigsten DDL-Befehle sind:
+
+* Create
+* Alter
+* Drop
+
+.Bsp. Create
+[source,sql]
+----
+CREATE TABLE Clerks (
+    ID NUMBER(10) PRIMARY KEY,
+    Name VARCHAR2(59),
+    Position VARCHAR2(50),
+    Department VARCHAR2(50)
+);
+----
+
+.Bsp. Alter
+[source,sql]
+----
+ALTER TABLE Clerks
+ADD (Email VARCHAR2(50));
+----
+
+.Bsp. Drop
+[source,sql]
+----
+DROP TABLE Clerks;
+----
+
+== Data Control Language
+
+[source,sql]
+----
+CREATE ROLE read_write; <.>
+
+GRANT SELECT, INSERT, UPDATE on Employees TO read_write; <.>
+
+GRANT read_write TO user1; <.>
+----
+<.> Erstellen der Rolle ``read_write``
+<.> Berechtigungen ``SELECT, INSERT, UPDATE`` der Rolle ``read_write`` zuteilen
+<.> Rolle ``read_write`` dem Benutzer ``user1`` zuteilen.
+
+Nach diesem Beispiel sollte ``user1`` Berechtigungen auf SELECT, INSERT & UPDATE in der Tabelle Employees haben.
+
