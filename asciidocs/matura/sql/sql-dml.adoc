@@ -5,7 +5,7 @@ ifndef::imagesdir[:imagesdir: ../../images/]
 :icons: font
 :sectnums:
 :toc: left
-:stylesheet: ../css/dark.css
+:stylesheet: ../../css/dark.css
 
 == Select
 
