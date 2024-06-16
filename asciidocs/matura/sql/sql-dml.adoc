@@ -1,0 +1,124 @@
+= SQL DML
+Mctom Spdo
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: ../../images/]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../css/dark.css
+
+== Select
+
+Das Select statement ist das Grundstatement, um Daten aus der Datenbank zu erhalten.
+Mit select wird angegeben, dass nun etwas von der Datenbank gelesen wird.
+
+.Beispiel eines Select statements
+[source,sql]
+----
+SELECT * FROM DUAL;
+----
+
+Bei diesem Select Beispiel wird der gesamte Inhalt der dual Tabelle ausgelesen.
+
+TIP: Die "dual" Tabelle ist eine interne Systemtabelle von Oracle
+
+.Beispiel 2 Select
+[source,sql]
+----
+SELECT FIRSTNME, SALARY+BONUS+COMM AS TOTAL_PAY <.>
+     FROM EMPLOYEE <.>
+     ORDER BY TOTAL_PAY <.>
+----
+<.> Vorname und die gesamte Bezahlung (Gehalt + Bonus + Comm benannt als "TOTAL_PAY")
+<.> Aller Mitarbeiter
+<.> Sortiert bei "TOTAL_PAY" (siehe Pk. 1)
+
+Hier wird der Vorname, und die gesamte Bezahlung (Gehalt + Bonus + Comm benannt als "TOTAL_PAY") aller Mitarbeiter ausgegeben.
+
+== Joins
+
+Um mehrere Tabellen miteinander zu verbinden, werden Joins benötigt.
+Hierbei gibt es mehrere Arten von Joins, die angewandt werden können:
+
+image::joins.png[]
+
+=== Left Join
+
+[cols="a,a", frame=none, grid=none, role="center"]
+|===
+| .Left join 1
+[source,sql]
+----
+SELECT <FIELD_LIST>
+FROM TableA A LEFT JOIN TableB B
+    ON A.PKEY = B.FKEY;
+----
+| image::left-join-1.png[]
+|===
+
+[cols="a,a", frame=none, grid=none, role="center"]
+|===
+
+| .Left join 2 (right)
+[source,sql]
+----
+SELECT <FIELD_LIST>
+FROM TableA A LEFT JOIN TableB B
+    ON A.PKEY = B.FKEY
+WHERE B.FKEY IS NIULL
+----
+
+| image::left-join-2.png[]
+
+|===
+
+=== Right join
+
+.Right join 1 (left)
+[source,sql]
+----
+SELECT <FIELD_LIST>
+FROM TableA A RIGHT JOIN TableB B
+    On A.PKEY = B.FKEY
+----
+
+.Right join 2 (right)
+[source,sql]
+----
+SELECT <FIELD_LIST>
+FROM TableA A RIGHT JOIN TableB B
+ON A.PKey = B.FKey
+WHERE A.PKEY IS NULL
+----
+
+
+
+=== Outer join
+
+.Outer join 1 (left)
+[source,sql]
+----
+SELECT <FIELD_LIST>
+FROM TableA A FULL OUTER JOIN TableB B
+ON A.PKey = B.FKey
+----
+
+.Outer join 2 (right)
+[source,sql]
+----
+SELECT <FIELD_LIST>
+FROM TableA A FULL OUTER JOIN TableB B
+ON A.PKey + B.PKey
+WHERE A.PKey IS NULL
+AND B.PKey IS NULL
+----
+
+=== Self join
+
+.Self join
+[source,sql]
+----
+SELECT <FIELD_LIST>
+FROM TableA A INNER JION TableB B
+ON A.PKey = B.PKey
+----

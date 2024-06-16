@@ -17,6 +17,8 @@ ifndef::imagesdir[:imagesdir: images]
 
 == SQL Data Retrieval und DML
 
+* link:sql/sql-dml.html[SQL DML]
+
 == SQL DCL und DDL
 
 == Datenbankadministration und internes Modell
