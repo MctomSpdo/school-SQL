@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="author" content="Mctom Spdo">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>PLSQL</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+:root{
+--maincolor:#282c34;
+--primarycolor:#f39c12;
+--secondarycolor:#03a9f4;
+--tertiarycolor:#4db6ac;
+--sidebarbackground:#21252b;
+--linkcolor:#f44336;
+--linkcoloralternate:#ff9800;
+--white:#FFFFFF;
+}
+
+/* custom added styles */
+.listingblock > .content > pre{
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+/* Text styles */
+body{font-family: "Noto Sans",sans-serif;background-color: var(--maincolor);color:var(--white);}
+
+h1{color:var(--primarycolor) !important;font-family:"Noto Sans",sans-serif;}
+h2,h3,h4,h5,h6{color:var(--secondarycolor) !important;font-family:"Noto Sans",sans-serif;}
+.title{color:var(--white) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Noto Sans",sans-serif ! important}
+#toc.toc2 a:link{color:var(--linkcolor);}
+blockquote{color:var(--tertiarycolor) !important}
+.quoteblock{color:var(--white)}
+code{color:var(--linkcoloralternate);background-color: var(--sidebarbackground) !important}
+
+
+/* Table styles */
+th{background-color: var(--maincolor);color:var(--white) !important;}
+td{background-color: var(--maincolor);color: var(--linkcoloralternate) !important}
+
+
+#toc.toc2{background-color:var(--sidebarbackground);}
+#toctitle{color:var(--white);}
+
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  table {
+    width: 55vw!important;
+    font-size: 3vw;
+  }
+}
+
+.exampleblock > .content {
+  background-color: var(--maincolor);
+}
+
+a {
+  color: var(--secondarycolor);
+}
+
+.admonitionblock td.icon .icon-tip::before {
+  text-shadow: none;
+  color: var(--white);
+}
+.admonitionblock td.icon .icon-note::before {
+  color: var(--tertiarycolor);
+}
+.admonitionblock td.icon .icon-important::before {
+  color: var(--linkcolor);
+}
+/*.admonitionblock td.icon .icon-caution::before {
+  color: var(--linkcoloralternate);
+}*/
+.admonitionblock td.icon .icon-warning::before {
+  color: var(--primarycolor);
+}
+
+#preamble > .sectionbody > .paragraph:first-of-type p {
+  color: var(--white);
+}
+
+.quoteblock blockquote::before {
+  color: var(--primarycolor);
+}
+.quoteblock .attribution cite, .verseblock .attribution cite {
+  color: var(--white);
+}
+.verseblock pre {
+  color: var(--white);
+}
+.quoteblock blockquote, .quoteblock blockquote p {
+  color: var(--white);
+}
+
+.sidebarblock {
+  background: var(--sidebarbackground);
+}
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+#header .details {
+  color: var(--white);
+}
+#header .details span.email a {
+  color: var(--linkcoloralternate);
+}
+
+/* in code style fixes */
+
+.k {
+  color: #008800 !important;
+}
+
+.k:contains("select"), .k:contains("create"), .k:contains("update"), .k:contains("replace"), .k:contains("beginn"),
+.k:contains("delete"), .k:contains("alter"), .k:contains("drop") {
+  color: #BB0066 !important;
+}
+
+.k:contains("return"), .k:cotains("primary"), .k:contains("foreign"), .k:contains("cascade") {
+  color: #008888 !important;
+}
+
+.k:contains("key"), .k:contains("constraint"), .k:contains("table") {
+  color: #333399 !important;
+}
+
+.mi {
+  color: #0202D2 !important;
+}
+
+.nb {
+  color: #00AA88 !important;
+}
+
+.o {
+  color: var(--white) !important;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge, pre.rouge .w {
+  color: #24292f;
+  background-color: #f6f8fa;
+}
+pre.rouge .k, pre.rouge .kd, pre.rouge .kn, pre.rouge .kp, pre.rouge .kr, pre.rouge .kt, pre.rouge .kv {
+  color: #cf222e;
+}
+pre.rouge .gr {
+  color: #f6f8fa;
+}
+pre.rouge .gd {
+  color: #82071e;
+  background-color: #ffebe9;
+}
+pre.rouge .nb {
+  color: #953800;
+}
+pre.rouge .nc {
+  color: #953800;
+}
+pre.rouge .no {
+  color: #953800;
+}
+pre.rouge .nn {
+  color: #953800;
+}
+pre.rouge .sr {
+  color: #116329;
+}
+pre.rouge .na {
+  color: #116329;
+}
+pre.rouge .nt {
+  color: #116329;
+}
+pre.rouge .gi {
+  color: #116329;
+  background-color: #dafbe1;
+}
+pre.rouge .ges {
+  font-weight: bold;
+  font-style: italic;
+}
+pre.rouge .kc {
+  color: #0550ae;
+}
+pre.rouge .l, pre.rouge .ld, pre.rouge .m, pre.rouge .mb, pre.rouge .mf, pre.rouge .mh, pre.rouge .mi, pre.rouge .il, pre.rouge .mo, pre.rouge .mx {
+  color: #0550ae;
+}
+pre.rouge .sb {
+  color: #0550ae;
+}
+pre.rouge .bp {
+  color: #0550ae;
+}
+pre.rouge .ne {
+  color: #0550ae;
+}
+pre.rouge .nl {
+  color: #0550ae;
+}
+pre.rouge .py {
+  color: #0550ae;
+}
+pre.rouge .nv, pre.rouge .vc, pre.rouge .vg, pre.rouge .vi, pre.rouge .vm {
+  color: #0550ae;
+}
+pre.rouge .o, pre.rouge .ow {
+  color: #0550ae;
+}
+pre.rouge .gh {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .s, pre.rouge .sa, pre.rouge .sc, pre.rouge .dl, pre.rouge .sd, pre.rouge .s2, pre.rouge .se, pre.rouge .sh, pre.rouge .sx, pre.rouge .s1, pre.rouge .ss {
+  color: #0a3069;
+}
+pre.rouge .nd {
+  color: #8250df;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #8250df;
+}
+pre.rouge .err {
+  color: #f6f8fa;
+  background-color: #82071e;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cm, pre.rouge .cp, pre.rouge .cpf, pre.rouge .c1, pre.rouge .cs {
+  color: #6e7781;
+}
+pre.rouge .gl {
+  color: #6e7781;
+}
+pre.rouge .gt {
+  color: #6e7781;
+}
+pre.rouge .ni {
+  color: #24292f;
+}
+pre.rouge .si {
+  color: #24292f;
+}
+pre.rouge .ge {
+  color: #24292f;
+  font-style: italic;
+}
+pre.rouge .gs {
+  color: #24292f;
+  font-weight: bold;
+}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>PLSQL</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2024-06-17</span>
+<br><span id="revremark">INSY</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_arten_von_blöcken">1. Arten von Blöcken</a>
+<ul class="sectlevel2">
+<li><a href="#_anonymer_block_funktion">1.1. Anonymer Block / Funktion</a></li>
+<li><a href="#_lokale_procedure_function">1.2. Lokale Procedure / Function</a></li>
+<li><a href="#_stored_procedure_function">1.3. Stored Procedure / Function</a></li>
+</ul>
+</li>
+<li><a href="#_functions_procedures">2. Functions &amp; Procedures</a></li>
+<li><a href="#_packages">3. Packages</a></li>
+<li><a href="#_grundlegende_codefunktionen">4. Grundlegende Codefunktionen</a>
+<ul class="sectlevel2">
+<li><a href="#_verzweigungen">4.1. Verzweigungen</a></li>
+<li><a href="#_schleifen">4.2. Schleifen</a></li>
+<li><a href="#_cursor">4.3. Cursor</a></li>
+<li><a href="#_exceptions">4.4. Exceptions</a></li>
+<li><a href="#_trigger">4.5. Trigger</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>PL/SQL ist eine Erweiterung von SQL, die es erlaubt, SQL-Befehle zusammen mit programier-sprachlichen Elementen wie Schleifen, Bedingungen, etc. zu bündeln.
+Dieser Code wird dann direkt auf der Datenbank ausgeführt.
+Dies erhöht bei Operationen, die viele Daten von der DB Lesen oder Ändern müssen die Geschwindigkeit erheblich.</p>
+</div>
+<div class="paragraph">
+<p>Es gibt viele Vorteile von PL/SQL:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Kontrollstrukturen, Fehlerbehandlung und den Cursor</p>
+</li>
+<li>
+<p>Programme laufen direkt auf der Datenbank, wodurch Geschäftslogik und Trigger effizient implementiert werden können</p>
+</li>
+<li>
+<p>Der compilierte Code wird in der DB gecacht, welches eine schnellere Ausführung erlaubt.</p>
+</li>
+<li>
+<p>Die Prozeduren können von allen Nutzern mit den richtigen Rechten ausgeführt werden.</p>
+</li>
+<li>
+<p>Zusammenfassen in Packages</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_arten_von_blöcken"><a class="anchor" href="#_arten_von_blöcken"></a>1. Arten von Blöcken</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Um PL/SQL COde auszuführen, müssen sogenannte Blöcke definiert werden.
+Diese Blöcke erlauben es dann, diesen Code auszuführen.<br>
+Es gibt mehrere Arten von Blöcken:</p>
+</div>
+<div class="sect2">
+<h3 id="_anonymer_block_funktion"><a class="anchor" href="#_anonymer_block_funktion"></a>1.1. Anonymer Block / Funktion</h3>
+<div class="paragraph">
+<p>Ein anonymer Block wird nicht direkt auf der Datenbank gespeichert, daher ist dieser ja auch anonym.
+Dieser wird direkt ausgeführt, wenn er an die Datenbank übertragen wurde.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">DECLARE</span>
+    <span class="c1">-- declaring block</span>
+<span class="k">BEGIN</span>
+    <span class="c1">-- Code Block</span>
+<span class="k">END</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_lokale_procedure_function"><a class="anchor" href="#_lokale_procedure_function"></a>1.2. Lokale Procedure / Function</h3>
+<div class="paragraph">
+<p>Benannter Sub-Block, innerhalb einer Applikation deklariert, für wiederkehrende Aufgaben, fördert Modularität und Wiederverwendbarkeit.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">DECLARE</span>
+    <span class="k">FUNCTION</span> <span class="n">square</span><span class="p">(</span><span class="n">var_num</span> <span class="n">NUMBER</span><span class="p">)</span>
+        <span class="k">RETURN</span> <span class="n">NUMBER</span> <span class="k">IS</span>
+    <span class="k">BEGIN</span>
+        <span class="k">RETURN</span> <span class="n">var_num</span> <span class="o">*</span> <span class="n">var_num</span><span class="p">;</span>
+    <span class="k">END</span> <span class="n">square</span><span class="p">;</span>
+
+<span class="k">BEGIN</span>
+    <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="n">square</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span>
+<span class="k">END</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_stored_procedure_function"><a class="anchor" href="#_stored_procedure_function"></a>1.3. Stored Procedure / Function</h3>
+<div class="paragraph">
+<p>Eine Prozedur oder Funktion, die auf der Datenbank gespeichert wird.
+Diese kann von jedem Benutzer ausgeführt werden, der Zugriff darauf hat.
+Diese Objekte bleiben auf der Datenbank gespeichert, auch wenn sich der Benutzer ausloggt.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">PROCEDURE</span>
+    <span class="n">World</span><span class="p">(</span><span class="n">p_name</span> <span class="k">in</span> <span class="n">VARCHAR2</span><span class="p">)</span> <span class="k">IS</span>
+
+    <span class="k">BEGIN</span>
+        <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'Hallo, '</span> <span class="o">||</span> <span class="n">p_name</span><span class="p">);</span>
+    <span class="k">END</span><span class="p">;</span>
+
+<span class="k">BEGIN</span>
+    <span class="n">World</span><span class="p">(</span><span class="s1">'Tom'</span><span class="p">)</span>
+<span class="k">END</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_functions_procedures"><a class="anchor" href="#_functions_procedures"></a>2. Functions &amp; Procedures</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Funktionen müssen einen Rückgabewert haben, Procedures dürfen hingegen keinen haben.</p>
+</div>
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="title">Function</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">DECLARE</span>
+    <span class="k">FUNCTION</span> <span class="n">square</span><span class="p">(</span><span class="n">var_num</span> <span class="n">NUMBER</span><span class="p">)</span>
+        <span class="k">RETURN</span> <span class="n">NUMBER</span> <span class="k">IS</span>
+    <span class="k">BEGIN</span>
+        <span class="k">RETURN</span> <span class="n">var_num</span> <span class="o">*</span> <span class="n">var_num</span><span class="p">;</span>
+    <span class="k">END</span> <span class="n">square</span><span class="p">;</span></code></pre>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="title">Stored Procedure</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">PROCEDURE</span>
+<span class="n">World</span><span class="p">(</span><span class="n">p_name</span> <span class="k">in</span> <span class="n">VARCHAR2</span><span class="p">)</span> <span class="k">IS</span>
+
+    <span class="k">BEGIN</span>
+        <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'Hallo, '</span> <span class="o">||</span> <span class="n">p_name</span><span class="p">);</span>
+    <span class="k">END</span><span class="p">;</span></code></pre>
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_packages"><a class="anchor" href="#_packages"></a>3. Packages</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Packages erlauben es, mehrere Functions and Procedures in logische Ordner zu packen.
+Dieses Prinzip ist ein sehr weit verbreitetes in der Programmierung.
+Die Packages sind vergleichbar mit Packages in Java, C#, etc.</p>
+</div>
+<div class="paragraph">
+<p>Des Weiteren haben diese einen private und public bereich, welches eine bessere <strong>Datenkapselung</strong> ermöglicht.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_grundlegende_codefunktionen"><a class="anchor" href="#_grundlegende_codefunktionen"></a>4. Grundlegende Codefunktionen</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_verzweigungen"><a class="anchor" href="#_verzweigungen"></a>4.1. Verzweigungen</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="o">&lt;</span><span class="p">...</span><span class="o">&gt;</span>
+
+<span class="n">IF</span> <span class="n">monthly_value</span> <span class="o">&lt;=</span> <span class="mi">4000</span> <span class="k">THEN</span>
+    <span class="n">ILevel</span> <span class="p">:</span><span class="o">=</span> <span class="s1">'Low Income'</span><span class="p">;</span>
+<span class="n">ELSIF</span> <span class="n">monthly_value</span> <span class="o">&gt;</span> <span class="mi">4000</span> <span class="k">and</span> <span class="n">monthly_value</span> <span class="o">&lt;=</span> <span class="mi">7000</span> <span class="k">THEN</span>
+    <span class="n">ILevel</span> <span class="p">:</span><span class="o">=</span> <span class="s1">'Avg Income'</span><span class="p">;</span>
+<span class="k">ELSE</span>
+    <span class="n">ILevel</span> <span class="p">:</span><span class="o">=</span> <span class="s1">'High Income'</span><span class="p">;</span>
+<span class="k">END</span> <span class="n">IF</span><span class="p">;</span>
+
+<span class="o">&lt;</span><span class="p">...</span><span class="o">&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_schleifen"><a class="anchor" href="#_schleifen"></a>4.2. Schleifen</h3>
+<div class="sect3">
+<h4 id="_basic_loop"><a class="anchor" href="#_basic_loop"></a>4.2.1. Basic Loop</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">DECLARE</span>
+    <span class="n">x</span> <span class="n">number</span> <span class="p">:</span><span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+<span class="k">BEGIN</span>
+    <span class="n">LOOP</span>
+        <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+        <span class="n">x</span> <span class="p">:</span><span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">10</span><span class="p">;</span>
+        <span class="n">IF</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">50</span> <span class="k">THEN</span>
+            <span class="n">exit</span><span class="p">;</span>
+        <span class="k">END</span> <span class="n">IF</span><span class="p">;</span>
+    <span class="k">END</span> <span class="n">LOOP</span><span class="p">;</span>
+<span class="k">END</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_while_loop"><a class="anchor" href="#_while_loop"></a>4.2.2. While Loop</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">DECLARE</span>
+    <span class="n">a</span> <span class="n">number</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">:</span><span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="k">BEGIN</span>
+    <span class="n">WHILE</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">20</span> <span class="n">LOOP</span>
+        <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+        <span class="n">a</span> <span class="p">:</span><span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">END</span> <span class="n">LOOP</span>
+<span class="k">END</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_for_loop"><a class="anchor" href="#_for_loop"></a>4.2.3. For Loop</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">DECLARE</span>
+    <span class="n">a</span> <span class="n">NUMBER</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="k">BEGIN</span>
+    <span class="k">FOR</span> <span class="n">a</span> <span class="k">in</span> <span class="mi">10</span> <span class="p">..</span> <span class="mi">20</span> <span class="n">LOOP</span>
+        <span class="n">DBMS_OUTPUT</span><span class="p">.</span><span class="n">PUT_LINE</span><span class="p">(</span><span class="s1">'value of a: '</span> <span class="o">||</span> <span class="n">a</span><span class="p">);</span>
+    <span class="k">END</span> <span class="n">LOOP</span><span class="p">;</span>
+<span class="k">END</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cursor"><a class="anchor" href="#_cursor"></a>4.3. Cursor</h3>
+<div class="paragraph">
+<p>Ein Cursor wird dazu verwendet auf einen einzelnen Datensatz (eine einzelne Row), welcher mit einem Select Statement
+ausgewählt wird, zuzugreifen.</p>
+</div>
+<div class="listingblock">
+<div class="title">Einsatz eines simplen Cursors</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">DECLARE</span>
+    <span class="k">CURSOR</span> <span class="n">c1</span> <span class="k">IS</span> <span class="k">SELECT</span> <span class="n">ename</span><span class="p">,</span> <span class="n">job</span> <span class="k">FROM</span> <span class="n">emp</span> <span class="k">WHERE</span> <span class="n">sal</span> <span class="o">&lt;</span> <span class="mi">3000</span><span class="p">;</span>
+    <span class="o">&lt;</span><span class="p">..</span><span class="o">&gt;</span>
+<span class="k">BEGIN</span>
+    <span class="k">OPEN</span> <span class="n">c1</span><span class="p">;</span>
+    <span class="k">FETCH</span> <span class="n">c1</span> <span class="k">INTO</span> <span class="n">my_empno</span><span class="p">,</span> <span class="n">my_ename</span><span class="p">,</span> <span class="n">my_deptno</span><span class="p">;</span>
+    <span class="k">close</span> <span class="n">c2</span><span class="p">;</span>
+<span class="k">END</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Einsatz mit Cursor und For Loop</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">DECLARE</span>
+    <span class="k">CURSOR</span> <span class="n">play_curs</span> <span class="k">IS</span> <span class="k">SELECT</span> <span class="n">playerno</span> <span class="k">FROM</span> <span class="n">players</span> <span class="k">WHERE</span> <span class="n">year_of_birth</span> <span class="k">BETWEEN</span> <span class="mi">1950</span> <span class="k">and</span> <span class="mi">1960</span><span class="p">;</span>
+<span class="k">BEGIN</span>
+    <span class="k">FOR</span> <span class="n">play_rec</span> <span class="k">IN</span> <span class="n">play_curs</span> <span class="n">LOOP</span>
+        <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">help_table</span> <span class="k">VALUES</span> <span class="p">(</span><span class="n">play_rec</span><span class="p">.</span><span class="n">playerno</span><span class="p">);</span>
+    <span class="k">END</span> <span class="n">LOOP</span><span class="p">;</span>
+<span class="k">END</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exceptions"><a class="anchor" href="#_exceptions"></a>4.4. Exceptions</h3>
+<div class="paragraph">
+<p>Bei der Fehlerbehandlung in PL/SQL unterscheidet man zwischen systemdefinierten und benutzerdefinierten Ausnahmen, die jeweils benannt oder unbenannt sein können.</p>
+</div>
+<div class="sect3">
+<h4 id="_named_exceptions"><a class="anchor" href="#_named_exceptions"></a>4.4.1. Named Exceptions</h4>
+<div class="paragraph">
+<p>Vom System bereits bekannt Fehler, wie etwa DIVIDE_BY_ZERO oder NO_DATA_FOUND</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_trigger"><a class="anchor" href="#_trigger"></a>4.5. Trigger</h3>
+<div class="paragraph">
+<p>Reagieren auf verschiedenste Events in der Datenbank</p>
+</div>
+<div class="sect3">
+<h4 id="_nicht_datensatz_bezogene_trigger"><a class="anchor" href="#_nicht_datensatz_bezogene_trigger"></a>4.5.1. Nicht Datensatz bezogene Trigger</h4>
+<div class="paragraph">
+<p>Diese Art von Trigger reagiert auf ein SQL-STATEMENT (wie INSERT, UPDATE, DELETE) unabhängig von der Anzahl der betroffenen Datensätze.
+Diese sollten für Aktionen verwendet werden, die ein einziges mal pro SQL Befehl ausgeführt werden sollten.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_datensatz_bezogene_trigger"><a class="anchor" href="#_datensatz_bezogene_trigger"></a>4.5.2. Datensatz bezogene Trigger</h4>
+<div class="paragraph">
+<p>Datensatzbezogene Trigger (Row-Trigger, ForEachRow-Trigger) werden für jeden Datensatz, der von einem INSERT, UPDATE oder DELETE Statement betroffen ist, einzeln ausgelöst.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2024-06-17 20:16:26 UTC
+</div>
+</div>
+</body>
+</html>
