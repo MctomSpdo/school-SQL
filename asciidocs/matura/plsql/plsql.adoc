@@ -1,0 +1,233 @@
+= PLSQL
+Mctom Spdo
+1.0.0, {docdate}: INSY
+ifndef::imagesdir[:imagesdir: ../../images/]
+:icons: font
+:sectnums:
+:toc: left
+:stylesheet: ../../css/dark.css
+
+PL/SQL ist eine Erweiterung von SQL, die es erlaubt, SQL-Befehle zusammen mit programier-sprachlichen Elementen wie Schleifen, Bedingungen, etc. zu bündeln.
+Dieser Code wird dann direkt auf der Datenbank ausgeführt.
+Dies erhöht bei Operationen, die viele Daten von der DB Lesen oder Ändern müssen die Geschwindigkeit erheblich.
+
+Es gibt viele Vorteile von PL/SQL:
+
+* Kontrollstrukturen, Fehlerbehandlung und den Cursor
+* Programme laufen direkt auf der Datenbank, wodurch Geschäftslogik und Trigger effizient implementiert werden können
+* Der compilierte Code wird in der DB gecacht, welches eine schnellere Ausführung erlaubt.
+* Die Prozeduren können von allen Nutzern mit den richtigen Rechten ausgeführt werden.
+* Zusammenfassen in Packages
+
+== Arten von Blöcken
+
+Um PL/SQL COde auszuführen, müssen sogenannte Blöcke definiert werden.
+Diese Blöcke erlauben es dann, diesen Code auszuführen. +
+Es gibt mehrere Arten von Blöcken:
+
+=== Anonymer Block / Funktion
+
+Ein anonymer Block wird nicht direkt auf der Datenbank gespeichert, daher ist dieser ja auch anonym.
+Dieser wird direkt ausgeführt, wenn er an die Datenbank übertragen wurde.
+
+[source,sql]
+----
+DECLARE
+    -- declaring block
+BEGIN
+    -- Code Block
+END;
+----
+
+=== Lokale Procedure / Function
+
+Benannter Sub-Block, innerhalb einer Applikation deklariert, für wiederkehrende Aufgaben, fördert Modularität und Wiederverwendbarkeit.
+
+[source,sql]
+----
+DECLARE
+    FUNCTION square(var_num NUMBER)
+        RETURN NUMBER IS
+    BEGIN
+        RETURN var_num * var_num;
+    END square;
+
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(square(3));
+END;
+----
+
+=== Stored Procedure / Function
+
+Eine Prozedur oder Funktion, die auf der Datenbank gespeichert wird.
+Diese kann von jedem Benutzer ausgeführt werden, der Zugriff darauf hat.
+Diese Objekte bleiben auf der Datenbank gespeichert, auch wenn sich der Benutzer ausloggt.
+
+[source,sql]
+----
+CREATE OR REPLACE PROCEDURE
+    World(p_name in VARCHAR2) IS
+
+    BEGIN
+        DBMS_OUTPUT.PUT_LINE('Hallo, ' || p_name);
+    END;
+
+BEGIN
+    World('Tom')
+END;
+----
+
+== Functions & Procedures
+
+Funktionen müssen einen Rückgabewert haben, Procedures dürfen hingegen keinen haben.
+
+
+[cols="a,a", frame=none, grid=none]
+|===
+| .Function
+[source,sql]
+----
+DECLARE
+    FUNCTION square(var_num NUMBER)
+        RETURN NUMBER IS
+    BEGIN
+        RETURN var_num * var_num;
+    END square;
+----
+
+| .Stored Procedure
+[source,sql]
+----
+CREATE OR REPLACE PROCEDURE
+World(p_name in VARCHAR2) IS
+
+    BEGIN
+        DBMS_OUTPUT.PUT_LINE('Hallo, ' \|\| p_name);
+    END;
+----
+|===
+
+== Packages
+
+Packages erlauben es, mehrere Functions and Procedures in logische Ordner zu packen.
+Dieses Prinzip ist ein sehr weit verbreitetes in der Programmierung.
+Die Packages sind vergleichbar mit Packages in Java, C#, etc.
+
+Des Weiteren haben diese einen private und public bereich, welches eine bessere **Datenkapselung** ermöglicht.
+
+== Grundlegende Codefunktionen
+
+=== Verzweigungen
+
+[source,sql]
+----
+<...>
+
+IF monthly_value <= 4000 THEN
+    ILevel := 'Low Income';
+ELSIF monthly_value > 4000 and monthly_value <= 7000 THEN
+    ILevel := 'Avg Income';
+ELSE
+    ILevel := 'High Income';
+END IF;
+
+<...>
+----
+
+=== Schleifen
+
+==== Basic Loop
+
+[source,sql]
+----
+DECLARE
+    x number := 10;
+
+BEGIN
+    LOOP
+        DBMS_OUTPUT.PUT_LINE(x);
+        x := x + 10;
+        IF x > 50 THEN
+            exit;
+        END IF;
+    END LOOP;
+END;
+----
+
+==== While Loop
+
+[source,sql]
+----
+DECLARE
+    a number(2) := 10;
+BEGIN
+    WHILE a < 20 LOOP
+        DBMS_OUTPUT.PUT_LINE(a);
+        a := a + 1;
+    END LOOP
+END;
+----
+
+==== For Loop
+
+[source,sql]
+----
+DECLARE
+    a NUMBER(2);
+BEGIN
+    FOR a in 10 .. 20 LOOP
+        DBMS_OUTPUT.PUT_LINE('value of a: ' || a);
+    END LOOP;
+END;
+----
+
+=== Cursor
+
+Ein Cursor wird dazu verwendet auf einen einzelnen Datensatz (eine einzelne Row), welcher mit einem Select Statement
+ausgewählt wird, zuzugreifen.
+
+.Einsatz eines simplen Cursors
+[source,sql]
+----
+DECLARE
+    CURSOR c1 IS SELECT ename, job FROM emp WHERE sal < 3000;
+    <..>
+BEGIN
+    OPEN c1;
+    FETCH c1 INTO my_empno, my_ename, my_deptno;
+    close c2;
+END;
+----
+
+.Einsatz mit Cursor und For Loop
+[source,sql]
+----
+DECLARE
+    CURSOR play_curs IS SELECT playerno FROM players WHERE year_of_birth BETWEEN 1950 and 1960;
+BEGIN
+    FOR play_rec IN play_curs LOOP
+        INSERT INTO help_table VALUES (play_rec.playerno);
+    END LOOP;
+END;
+----
+
+=== Exceptions
+
+Bei der Fehlerbehandlung in PL/SQL unterscheidet man zwischen systemdefinierten und benutzerdefinierten Ausnahmen, die jeweils benannt oder unbenannt sein können.
+
+==== Named Exceptions
+
+Vom System bereits bekannt Fehler, wie etwa DIVIDE_BY_ZERO oder NO_DATA_FOUND
+
+=== Trigger
+
+Reagieren auf verschiedenste Events in der Datenbank
+
+==== Nicht Datensatz bezogene Trigger
+
+Diese Art von Trigger reagiert auf ein SQL-STATEMENT (wie INSERT, UPDATE, DELETE) unabhängig von der Anzahl der betroffenen Datensätze.
+Diese sollten für Aktionen verwendet werden, die ein einziges mal pro SQL Befehl ausgeführt werden sollten.
+
+==== Datensatz bezogene Trigger
+
+Datensatzbezogene Trigger (Row-Trigger, ForEachRow-Trigger) werden für jeden Datensatz, der von einem INSERT, UPDATE oder DELETE Statement betroffen ist, einzeln ausgelöst.

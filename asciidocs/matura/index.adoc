@@ -34,6 +34,7 @@ ifndef::imagesdir[:imagesdir: images]
 
 * link:xml/xml.html[XML]
 * link:apex/apex.html[APEX]
+* link:plsql/plsql.html[PLSQL]
 
 == Spezielle DB Themen
 
