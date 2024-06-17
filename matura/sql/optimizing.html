@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="author" content="Mctom Spdo">
+<link rel="icon" type="image/png" href="themes/favicon.png">
+<title>Datenbank / SQL - Optimierung</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+:root{
+--maincolor:#282c34;
+--primarycolor:#f39c12;
+--secondarycolor:#03a9f4;
+--tertiarycolor:#4db6ac;
+--sidebarbackground:#21252b;
+--linkcolor:#f44336;
+--linkcoloralternate:#ff9800;
+--white:#FFFFFF;
+}
+
+/* custom added styles */
+.listingblock > .content > pre{
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+/* Text styles */
+body{font-family: "Noto Sans",sans-serif;background-color: var(--maincolor);color:var(--white);}
+
+h1{color:var(--primarycolor) !important;font-family:"Noto Sans",sans-serif;}
+h2,h3,h4,h5,h6{color:var(--secondarycolor) !important;font-family:"Noto Sans",sans-serif;}
+.title{color:var(--white) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Noto Sans",sans-serif ! important}
+#toc.toc2 a:link{color:var(--linkcolor);}
+blockquote{color:var(--tertiarycolor) !important}
+.quoteblock{color:var(--white)}
+code{color:var(--linkcoloralternate);background-color: var(--sidebarbackground) !important}
+
+
+/* Table styles */
+th{background-color: var(--maincolor);color:var(--white) !important;}
+td{background-color: var(--maincolor);color: var(--linkcoloralternate) !important}
+
+
+#toc.toc2{background-color:var(--sidebarbackground);}
+#toctitle{color:var(--white);}
+
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+
+@media all and (max-width: 600px) {
+  table {
+    width: 55vw!important;
+    font-size: 3vw;
+  }
+}
+
+.exampleblock > .content {
+  background-color: var(--maincolor);
+}
+
+a {
+  color: var(--secondarycolor);
+}
+
+.admonitionblock td.icon .icon-tip::before {
+  text-shadow: none;
+  color: var(--white);
+}
+.admonitionblock td.icon .icon-note::before {
+  color: var(--tertiarycolor);
+}
+.admonitionblock td.icon .icon-important::before {
+  color: var(--linkcolor);
+}
+/*.admonitionblock td.icon .icon-caution::before {
+  color: var(--linkcoloralternate);
+}*/
+.admonitionblock td.icon .icon-warning::before {
+  color: var(--primarycolor);
+}
+
+#preamble > .sectionbody > .paragraph:first-of-type p {
+  color: var(--white);
+}
+
+.quoteblock blockquote::before {
+  color: var(--primarycolor);
+}
+.quoteblock .attribution cite, .verseblock .attribution cite {
+  color: var(--white);
+}
+.verseblock pre {
+  color: var(--white);
+}
+.quoteblock blockquote, .quoteblock blockquote p {
+  color: var(--white);
+}
+
+.sidebarblock {
+  background: var(--sidebarbackground);
+}
+.literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
+  background: var(--sidebarbackground);
+  color: var(--white);
+}
+
+#header .details {
+  color: var(--white);
+}
+#header .details span.email a {
+  color: var(--linkcoloralternate);
+}
+
+/* in code style fixes */
+
+.k {
+  color: #008800 !important;
+}
+
+.k:contains("select"), .k:contains("create"), .k:contains("update"), .k:contains("replace"), .k:contains("beginn"),
+.k:contains("delete"), .k:contains("alter"), .k:contains("drop") {
+  color: #BB0066 !important;
+}
+
+.k:contains("return"), .k:cotains("primary"), .k:contains("foreign"), .k:contains("cascade") {
+  color: #008888 !important;
+}
+
+.k:contains("key"), .k:contains("constraint"), .k:contains("table") {
+  color: #333399 !important;
+}
+
+.mi {
+  color: #0202D2 !important;
+}
+
+.nb {
+  color: #00AA88 !important;
+}
+
+.o {
+  color: var(--white) !important;
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge, pre.rouge .w {
+  color: #24292f;
+  background-color: #f6f8fa;
+}
+pre.rouge .k, pre.rouge .kd, pre.rouge .kn, pre.rouge .kp, pre.rouge .kr, pre.rouge .kt, pre.rouge .kv {
+  color: #cf222e;
+}
+pre.rouge .gr {
+  color: #f6f8fa;
+}
+pre.rouge .gd {
+  color: #82071e;
+  background-color: #ffebe9;
+}
+pre.rouge .nb {
+  color: #953800;
+}
+pre.rouge .nc {
+  color: #953800;
+}
+pre.rouge .no {
+  color: #953800;
+}
+pre.rouge .nn {
+  color: #953800;
+}
+pre.rouge .sr {
+  color: #116329;
+}
+pre.rouge .na {
+  color: #116329;
+}
+pre.rouge .nt {
+  color: #116329;
+}
+pre.rouge .gi {
+  color: #116329;
+  background-color: #dafbe1;
+}
+pre.rouge .ges {
+  font-weight: bold;
+  font-style: italic;
+}
+pre.rouge .kc {
+  color: #0550ae;
+}
+pre.rouge .l, pre.rouge .ld, pre.rouge .m, pre.rouge .mb, pre.rouge .mf, pre.rouge .mh, pre.rouge .mi, pre.rouge .il, pre.rouge .mo, pre.rouge .mx {
+  color: #0550ae;
+}
+pre.rouge .sb {
+  color: #0550ae;
+}
+pre.rouge .bp {
+  color: #0550ae;
+}
+pre.rouge .ne {
+  color: #0550ae;
+}
+pre.rouge .nl {
+  color: #0550ae;
+}
+pre.rouge .py {
+  color: #0550ae;
+}
+pre.rouge .nv, pre.rouge .vc, pre.rouge .vg, pre.rouge .vi, pre.rouge .vm {
+  color: #0550ae;
+}
+pre.rouge .o, pre.rouge .ow {
+  color: #0550ae;
+}
+pre.rouge .gh {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #0550ae;
+  font-weight: bold;
+}
+pre.rouge .s, pre.rouge .sa, pre.rouge .sc, pre.rouge .dl, pre.rouge .sd, pre.rouge .s2, pre.rouge .se, pre.rouge .sh, pre.rouge .sx, pre.rouge .s1, pre.rouge .ss {
+  color: #0a3069;
+}
+pre.rouge .nd {
+  color: #8250df;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #8250df;
+}
+pre.rouge .err {
+  color: #f6f8fa;
+  background-color: #82071e;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cm, pre.rouge .cp, pre.rouge .cpf, pre.rouge .c1, pre.rouge .cs {
+  color: #6e7781;
+}
+pre.rouge .gl {
+  color: #6e7781;
+}
+pre.rouge .gt {
+  color: #6e7781;
+}
+pre.rouge .ni {
+  color: #24292f;
+}
+pre.rouge .si {
+  color: #24292f;
+}
+pre.rouge .ge {
+  color: #24292f;
+  font-style: italic;
+}
+pre.rouge .gs {
+  color: #24292f;
+  font-weight: bold;
+}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Datenbank / SQL - Optimierung</h1>
+<div class="details">
+<span id="author" class="author">Mctom Spdo</span><br>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2024-06-17</span>
+<br><span id="revremark">INSY</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_indices">1. Indices</a>
+<ul class="sectlevel2">
+<li><a href="#_btree_index">1.1. BTREE Index</a></li>
+<li><a href="#_nicht_berücksichtige_indices">1.2. Nicht berücksichtige Indices</a></li>
+<li><a href="#_bitmap_index">1.3. Bitmap Index</a></li>
+</ul>
+</li>
+<li><a href="#_optimizers">2. Optimizers</a>
+<ul class="sectlevel2">
+<li><a href="#_zugriffsmethoden_von_optimizer">2.1. Zugriffsmethoden von Optimizer</a></li>
+<li><a href="#_rule_based_optimizer_rbo">2.2. Rule Based Optimizer (RBO)</a></li>
+<li><a href="#_cost_based_optimizer_cbo">2.3. Cost Based Optimizer (CBO)</a></li>
+<li><a href="#_analyze_befehl">2.4. Analyze Befehl</a></li>
+</ul>
+</li>
+<li><a href="#_optimizer_joins">3. Optimizer - Joins</a>
+<ul class="sectlevel2">
+<li><a href="#_nested_loop">3.1. Nested Loop</a></li>
+<li><a href="#_star_join">3.2. Star Join</a></li>
+<li><a href="#_sort_merge_join">3.3. SOrt-Merge-Join</a></li>
+<li><a href="#_hash_join">3.4. Hash Join</a></li>
+</ul>
+</li>
+<li><a href="#_optimizer_hints">4. Optimizer - Hints</a></li>
+<li><a href="#_explain_plan">5. Explain Plan</a></li>
+<li><a href="#_sonstiges">6. Sonstiges</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_indices"><a class="anchor" href="#_indices"></a>1. Indices</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Indices dienen schnelleren Abfragen.
+Hierbei können Spalten, die Unique sind, indexiert werden.
+Falls die Spalte aber nicht Unique ist, ist ein großer Wertebereich empfohlen.
+Es gibt 2 Arten für Indices:</p>
+</div>
+<div class="sect2">
+<h3 id="_btree_index"><a class="anchor" href="#_btree_index"></a>1.1. BTREE Index</h3>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/btree-indices.png" alt="btree indices">
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+BTREE = Balanced Tree
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>besonders gut, wenn es in einer Spalte viele UNIQUE Werte gibt.</p>
+</li>
+<li>
+<p>Nicht für NULL-Werte geeignet</p>
+</li>
+<li>
+<p>Verwendet Balanced Tree, daher O(log(n))</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_nicht_berücksichtige_indices"><a class="anchor" href="#_nicht_berücksichtige_indices"></a>1.2. Nicht berücksichtige Indices</h3>
+<div class="paragraph">
+<p>Die SQL Statements für einen BTREE müssen so geschrieben werden, dass der SQL Compiler den BTREE auch verwenden kann:</p>
+</div>
+<details>
+<summary class="title">Beispiele</summary>
+<div class="content">
+<div class="listingblock">
+<div class="title">Keine Berücksichtigung der BTREEs</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">WHERE</span> <span class="n">SAL</span> <span class="o">&lt;&gt;</span> <span class="mi">0</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Berücksichtigung des BTREEs</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">WHERE</span> <span class="n">SAL</span> <span class="o">&gt;</span> <span class="mi">0</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Keine Berücksichtigung der BTREEs</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">WHERE</span> <span class="k">UPPER</span><span class="p">(</span><span class="n">EName</span><span class="p">)</span> <span class="o">=</span> <span class="s1">'JEFF'</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Berücksichtigung des BTREEs</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">WHERE</span> <span class="n">EName</span> <span class="o">=</span> <span class="s1">'jeff'</span></code></pre>
+</div>
+</div>
+</div>
+</details>
+<div class="sect3">
+<h4 id="_keine_wildcards"><a class="anchor" href="#_keine_wildcards"></a>1.2.1. Keine Wildcards</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">WHERE</span> <span class="n">EName</span> <span class="k">LIKE</span> <span class="s1">'T%'</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_keine_konkatinierungen"><a class="anchor" href="#_keine_konkatinierungen"></a>1.2.2. Keine Konkatinierungen</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">WHERE</span> <span class="n">ROWID</span> <span class="o">||</span> <span class="s1">''</span> <span class="o">||</span> <span class="n">ENAME</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_kein_ungleich_operator"><a class="anchor" href="#_kein_ungleich_operator"></a>1.2.3. Kein Ungleich Operator</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">WHERE</span> <span class="n">ENAME</span> <span class="o">&lt;&gt;</span> <span class="s1">'Linus'</span>
+<span class="k">WHERE</span> <span class="n">ENAME</span> <span class="o">!=</span> <span class="s1">'Torvalds'</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bitmap_index"><a class="anchor" href="#_bitmap_index"></a>1.3. Bitmap Index</h3>
+<div class="paragraph">
+<p>Der Bitmap Index eignet sich besonders gut für Werte, welche nicht Unique sind.
+Ein Beispiel hierfür währe das Geschlecht.
+Der Bitmap Index <strong>berücksichtigt NULL Werte</strong>.
+Ebenfalls ist dieser besonders gut für Queries, die einen ungleich Operator beinhalten.
+Des Weiteren eignet er sich gut für COUNT(*).
+Allerdings gibt es immer wieder Probleme bei Locking.</p>
+</div>
+<div class="sect3">
+<h4 id="_erstellen_eines_bitmap_indexes"><a class="anchor" href="#_erstellen_eines_bitmap_indexes"></a>1.3.1. Erstellen eines Bitmap Indexes</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">CREATE</span> <span class="n">BITMAP</span> <span class="k">INDEX</span> <span class="n">sales_cust_gener_bjix</span>
+<span class="k">ON</span> <span class="n">sales</span><span class="p">(</span><span class="n">customers</span><span class="p">.</span><span class="n">cust_gender</span><span class="p">)</span>
+       <span class="k">FROM</span> <span class="n">sales</span><span class="p">,</span> <span class="n">customers</span>
+       <span class="k">WHERE</span> <span class="n">sales</span><span class="p">.</span><span class="n">cust_id</span> <span class="o">=</span> <span class="n">customers</span><span class="p">.</span><span class="n">cust_id</span>
+    <span class="k">LOCAL</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_optimizers"><a class="anchor" href="#_optimizers"></a>2. Optimizers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Die Hauptaufgabe bei Optimizer ist, Pläne zu erstellen, wie eine Query ausgeführt werden sollte.
+Hierbei ist vor allem wichtig, dass die Pläne so erstellt werden, dass diese möglichst effizient ausgeführt werden kann.
+Hierbei ist wichtig, dass die gesamte Ausführzeit minimiert wird.
+Die Zeit, um den ersten Treffer zu finden ist hierbei allerdings unwichtig.</p>
+</div>
+<div class="paragraph">
+<p>Es gibt 2 Arten von Optimizers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Rule Based Optimizer (RBO)</p>
+</li>
+<li>
+<p>Cost Based Optimizer (CBO)</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_zugriffsmethoden_von_optimizer"><a class="anchor" href="#_zugriffsmethoden_von_optimizer"></a>2.1. Zugriffsmethoden von Optimizer</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Full Table Scan: Jede Zeile wird angeschaut</p>
+</li>
+<li>
+<p>Index Scan: Ein Index wird verwendet</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Full Table Scans in Oracle sind besonders effizient, da die Datenbank viele optimierungen für das Auslesen von vollen Tabellen hat.
+Ein Beispiel hierfür ist, dass die Datenbank die Anzahl von etwas bereits beim Lesen der Blöcke bestimmen kann.
+Dies bedeutet, dass beim Zählen aller Einträge in einer Tabelle die Blöcke zwar gelesen werden, allerdings nicht im DB System weiter verwendet werden.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rule_based_optimizer_rbo"><a class="anchor" href="#_rule_based_optimizer_rbo"></a>2.2. Rule Based Optimizer (RBO)</h3>
+<div class="paragraph">
+<p>Der RBO versucht, Full Scans möglichst zu vermeiden.
+Hierbei schaut er sich eine gegebene Query an, und probiert diese zu beschleunigen.
+Falls dieses allerdings mit den festgelegten Regel nicht möglich ist, wird ein Full Table Scan verwendet.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cost_based_optimizer_cbo"><a class="anchor" href="#_cost_based_optimizer_cbo"></a>2.3. Cost Based Optimizer (CBO)</h3>
+<div class="paragraph">
+<p>Benutzt Analysen und Statistik, die im Data Dictionary gespeichert werden, um den Ausführungsplan zu erstellen.
+Dabei betrachtet dieser die Anzahl von Reihen und Spalten, die Selektivität der Werte, und auch ob ein Index die Performance einer Query beschleunigen kann.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Full Table Scans sind hierbei erlaubt</p>
+</li>
+<li>
+<p>CBO kann SQL Queries umschreiben</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Den Ausführungsplan kann man sich mithilfe folgendem SQL Statements anschauen:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">EXPLAIN</span> <span class="n">PLAN</span> <span class="k">FOR</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">EMP</span> <span class="k">WHERE</span> <span class="n">JOB</span> <span class="k">LIKE</span> <span class="s1">'CLERK'</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_analyze_befehl"><a class="anchor" href="#_analyze_befehl"></a>2.4. Analyze Befehl</h3>
+<div class="paragraph">
+<p>Mit dem Analyze Befehl können Statistiken für Tabellen, die Spalten der Tabellen, wie auch von Views und Indices analysiert werden.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">ALL_TAB_COL_STATISTICS</span> <span class="k">where</span> <span class="k">TABLE_NAME</span> <span class="o">=</span> <span class="s1">'EMP'</span> <span class="k">and</span> <span class="n">OWNDER</span> <span class="o">=</span> <span class="k">USER</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Die Statistiken werden hierbei von der Oracle DB selbst erstellt.
+Diese Statistiken lassen sich allerdings auch mit PLSQL erstellen:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="oraclesqlplus">DBMS_STATS.GATHER_FIXED_OBJECTS_STATS;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_optimizer_joins"><a class="anchor" href="#_optimizer_joins"></a>3. Optimizer - Joins</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hierbei handelt es sich <strong>NICHT</strong> um Joins, die in den klassischen SQL Statements verwendet werden.
+Es gibt hier mehrere Arten dieser Joins:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Sort-Merge Joins</p>
+</li>
+<li>
+<p>Hash Joins</p>
+</li>
+<li>
+<p>Nested Loops</p>
+</li>
+<li>
+<p>Star Joins</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_nested_loop"><a class="anchor" href="#_nested_loop"></a>3.1. Nested Loop</h3>
+<div class="paragraph">
+<p>Der Nested Loop besteht aus zwei verschachtelten For-Schleifen.
+Hierbei wird die innere Schleife nur einmal durchgeführt.
+Dieser ist besonders praktisch, wenn es um kleine Datenmengen geht.</p>
+</div>
+<div class="listingblock">
+<div class="title">SQL Plus Beispiel, wie sin solcher Nested Loop aussehen könnte</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">BEGIN</span>
+    <span class="k">FOR</span> <span class="n">outer_loop</span> <span class="k">IN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">deptno</span> <span class="k">FROM</span> <span class="n">dept</span><span class="p">)</span>
+    <span class="n">LOOP</span>
+        <span class="k">FOR</span> <span class="n">inner_loop</span> <span class="k">IN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">empno</span> <span class="k">FROM</span> <span class="n">emp</span> <span class="k">WHERE</span> <span class="n">deptno</span> <span class="o">=</span> <span class="n">outer_loop</span><span class="p">.</span><span class="n">deptno</span><span class="p">)</span>
+        <span class="n">LOOP</span>
+            <span class="o">&lt;</span><span class="p">..</span><span class="o">&gt;</span>
+            <span class="k">RETURN</span><span class="p">;</span>
+        <span class="k">END</span> <span class="n">LOOP</span> <span class="n">inner_loop</span><span class="p">;</span>
+    <span class="k">END</span> <span class="n">LOOP</span> <span class="n">outer_loop</span><span class="p">;</span>
+<span class="k">END</span><span class="p">;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_star_join"><a class="anchor" href="#_star_join"></a>3.2. Star Join</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Wird vor allem bei Data-warehouse verwendet</p>
+</li>
+<li>
+<p>Eine große, zentrale Tabelle (Fact Table) wird mit mindestens 2 weiteren kleinen Tabellen gejoint</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sort_merge_join"><a class="anchor" href="#_sort_merge_join"></a>3.3. SOrt-Merge-Join</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Tabellen werden bereits beim Joinen Sortiert</p>
+</li>
+<li>
+<p>Where Klausen werden beim Full-Table Scan evaluiert</p>
+</li>
+<li>
+<p>Die kleinere Tabelle soll zuerst gelesen werden</p>
+</li>
+<li>
+<p>Diese sind für große Datenmengen gut geeignet</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Ein Nachteil ist der Sortiervorgang während des Joins, welcher extra Zeit in Anspruch nehmen kann.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hash_join"><a class="anchor" href="#_hash_join"></a>3.4. Hash Join</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>gut für große Datenmengen geeignet</p>
+</li>
+<li>
+<p>schneller als Sort-Merge Joins</p>
+</li>
+<li>
+<p>wird nur von CBO unterstützt</p>
+</li>
+<li>
+<p>funktioniert nur auf Equi-Joins</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Aus kleineren Tabellen wird eine Hashtable (Hashmap, Dictionary, Key-Value-Pair, &#8230;&#8203;)
+in Memory gespeichert. Danach werden die Join-Columns mit den Werten der kleineren Tabelle verglichen.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_optimizer_hints"><a class="anchor" href="#_optimizer_hints"></a>4. Optimizer - Hints</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hints sind Kommentare, die in einer Query eingebaut werden können.
+Hiermit gibt man dem Optimizer vor, dass er sich an gewisse Regeln halten sollte, wie z.B. man möchte CBO oder RBO verwenden, welche Join-Strategie verwendet werden sollte, etc.
+Der Optimizer muss diese Hinters allerdings <strong>nicht</strong> einhalten.
+Diese dürfen auch einfach ignoriert werden.
+Aus diesem Grund muss nach dem Ausführen einer Query überprüft werden, ob der Optimizer diese Hints ignoriert hat.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/optimizer-hints.png" alt="optimizer hints">
+</div>
+<div class="title">Figure 1. Liste an Hints</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_explain_plan"><a class="anchor" href="#_explain_plan"></a>5. Explain Plan</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Der Optimizer erstellt für jede Query einen Ausführplan.
+Falls eine Query mehrere Male in kurzer Zeitabfolge ausgeführt wird, bleibt der Plan gleich.
+Diesen Plan kann man sich mit folgenden SQL Statement anschauen:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">EXPLAIN</span> <span class="n">PLAN</span> <span class="k">FOR</span> <span class="k">SELECT</span> <span class="o">/</span> <span class="k">UPDATE</span> <span class="o">/</span> <span class="k">DELETE</span> <span class="o">/</span> <span class="k">INSERT</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Alle Pläne werden in der View <code>V$ALL_SQL_PLAN</code> gespeichert.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_sonstiges"><a class="anchor" href="#_sonstiges"></a>6. Sonstiges</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>nur 3-5 % der Queries müssen optimiert werden</p>
+</li>
+<li>
+<p>In Oracle gibt es weitere Tools, die CPU Zeit und Memory Verbrauch analysieren</p>
+</li>
+<li>
+<p>SQL-Statements ohne Joins oder mit einer kleinen Anzahl von Joins können auch langsamer sein</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 1.0.0<br>
+Last updated 2024-06-17 12:43:22 UTC
+</div>
+</div>
+</body>
+</html>
